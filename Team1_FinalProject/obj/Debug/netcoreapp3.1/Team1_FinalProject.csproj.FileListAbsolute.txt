@@ -1,0 +1,7 @@
+/Users/aileenlu/Desktop/Classes Fall 2020/MIS333K/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Team1_FinalProject.csprojAssemblyReference.cache
+/Users/aileenlu/Desktop/Classes Fall 2020/MIS333K/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Team1_FinalProject.AssemblyInfoInputs.cache
+/Users/aileenlu/Desktop/Classes Fall 2020/MIS333K/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Team1_FinalProject.AssemblyInfo.cs
+/Users/aileenlu/Desktop/Classes Fall 2020/MIS333K/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Team1_FinalProject.csproj.CoreCompileInputs.cache
+/Users/aileenlu/Desktop/Classes Fall 2020/MIS333K/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Team1_FinalProject.MvcApplicationPartsAssemblyInfo.cache
+/Users/aileenlu/Desktop/Classes Fall 2020/MIS333K/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Team1_FinalProject.RazorAssemblyInfo.cache
+/Users/aileenlu/Desktop/Classes Fall 2020/MIS333K/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Team1_FinalProject.RazorAssemblyInfo.cs

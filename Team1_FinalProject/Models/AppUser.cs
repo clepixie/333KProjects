@@ -9,9 +9,6 @@ namespace Team1_FinalProject.Models
 {
     public class AppUser : IdentityUser
     {
-        public AppUser() 
-        {
-        }
 
         [Display(Name = "First Name")]
         public String FirstName { get; set; }

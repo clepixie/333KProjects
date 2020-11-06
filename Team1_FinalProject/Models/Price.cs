@@ -7,8 +7,6 @@ namespace Team1_FinalProject.Models
 {
     public class Price
     {
-        public Price()
-        { }
 
         [Display(Name ="Matinee Price")]
         [DisplayFormat(DataFormatString ="{0:c}")]

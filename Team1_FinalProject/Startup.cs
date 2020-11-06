@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 //TODO: Make this namespace match your project - be sure to remove the []
-namespace [Your_Project_Name]
+namespace Team1_FinalProject
 {
     public class Startup
     {

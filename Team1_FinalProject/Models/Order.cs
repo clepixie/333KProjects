@@ -8,8 +8,6 @@ namespace Team1_FinalProject.Models
 {
     public class Order
     {
-        public Order()
-        { }
 	
 	    [Display(Name = "OrderID")]
 	    public Int32 OrderID {get; set;}
@@ -24,13 +22,13 @@ namespace Team1_FinalProject.Models
 
 	    public List<OrderDetail> OrderDetails { get; set; }
 
-	    /*public Order()
-            {
-                if (OrderDetails == null)
-                {
-                    OrderDetails = new List<OrderDetails>();
-                }
-        }*/
+	    public Order()
+        {
+			if (OrderDetails == null)
+			{
+				OrderDetails = new List<OrderDetail>();
+            }
+        }
 
         
     }
