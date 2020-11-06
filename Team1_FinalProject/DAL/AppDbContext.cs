@@ -20,7 +20,7 @@ namespace Team1_FinalProject.DAL
         public DbSet<Movie> Movies { get; set; }
         public DbSet<MovieReview> MovieReviews { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Price> Prices { get; set; }
         public DbSet<Showing> Showings { get; set; }
     }

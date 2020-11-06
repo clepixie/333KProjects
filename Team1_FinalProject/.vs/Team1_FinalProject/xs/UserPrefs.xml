@@ -1,22 +1,22 @@
 ﻿<Properties StartupConfiguration="{5BEA845B-2AA8-4BCB-A0C3-D8FEF9946679}|Default">
   <MonoDevelop.Ide.ItemProperties.Team1__FinalProject PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Models/ViewModels/LoginViewModel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Models/OrderDetail.cs">
     <Files>
       <File FileName="Controllers/HomeController.cs" Line="9" Column="29" />
       <File FileName="Views/_ViewImports.cshtml" />
       <File FileName="Views/_ViewStart.cshtml" />
       <File FileName="Views/Shared/_Layout.cshtml" />
-      <File FileName="DAL/AppDbContext.cs" />
-      <File FileName="Models/Genre.cs" Line="25" Column="2" />
+      <File FileName="DAL/AppDbContext.cs" Line="25" Column="38" />
+      <File FileName="Models/Genre.cs" />
       <File FileName="Models/MovieReview.cs" />
-      <File FileName="Models/AppUser.cs" Line="11" Column="6" />
-      <File FileName="Models/Movie.cs" Line="20" Column="1" />
-      <File FileName="Models/Order.cs" Line="33" Column="9" />
+      <File FileName="Models/AppUser.cs" />
+      <File FileName="Models/Movie.cs" />
+      <File FileName="Models/Order.cs" />
       <File FileName="Models/OrderDetail.cs" Line="23" Column="1" />
-      <File FileName="Models/Price.cs" Line="9" Column="6" />
-      <File FileName="Models/Showing.cs" Line="27" Column="1" />
-      <File FileName="Startup.cs" Line="5" Column="29" />
-      <File FileName="Models/ViewModels/LoginViewModel.cs" Line="1" Column="1" />
+      <File FileName="Models/Price.cs" />
+      <File FileName="Models/Showing.cs" />
+      <File FileName="Startup.cs" />
+      <File FileName="Models/ViewModels/LoginViewModel.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -26,9 +26,8 @@
               <Node name="Controllers" expanded="True" />
               <Node name="DAL" expanded="True" />
               <Node name="Models" expanded="True">
-                <Node name="ViewModels" expanded="True">
-                  <Node name="LoginViewModel.cs" selected="True" />
-                </Node>
+                <Node name="ViewModels" expanded="True" />
+                <Node name="OrderDetail.cs" selected="True" />
               </Node>
               <Node name="Properties" expanded="True" />
               <Node name="Views" expanded="True">

@@ -21,13 +21,13 @@ namespace Team1_FinalProject.Models
 		[Display(Name = "Date:")]
 	    public DateTime Date { get; set; }
 
-	    public List<OrderDetail> OrderDetails { get; set; }
+	    public List<Ticket> Tickets { get; set; }
 
 	    public Order()
         {
-			if (OrderDetails == null)
+			if (Tickets == null)
 			{
-				OrderDetails = new List<OrderDetail>();
+				Tickets = new List<Ticket>();
             }
         }
 
