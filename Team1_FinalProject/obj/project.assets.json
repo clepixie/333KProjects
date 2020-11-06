@@ -8,19 +8,19 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "/Users/ericlin/.nuget/packages/": {}
+    "/Users/nadiabaig/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/Team1_FinalProject.csproj",
+      "projectUniqueName": "/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/Team1_FinalProject.csproj",
       "projectName": "Team1_FinalProject",
-      "projectPath": "/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/Team1_FinalProject.csproj",
-      "packagesPath": "/Users/ericlin/.nuget/packages/",
-      "outputPath": "/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/",
+      "projectPath": "/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/Team1_FinalProject.csproj",
+      "packagesPath": "/Users/nadiabaig/.nuget/packages/",
+      "outputPath": "/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/ericlin/.config/NuGet/NuGet.Config"
+        "/Users/nadiabaig/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
@@ -59,7 +59,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.403/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.402/RuntimeIdentifierGraph.json"
       }
     }
   }
