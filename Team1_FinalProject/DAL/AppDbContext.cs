@@ -16,6 +16,12 @@ namespace Team1_FinalProject.DAL
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options){ }
 
         //TODO: Add Dbsets here.  Products is included as an example.  
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Genre> Genres { get; set; }
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<MovieReview> MovieReviews { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<Price> Prices { get; set; }
+        public DbSet<Showing> Showings { get; set; }
     }
 }

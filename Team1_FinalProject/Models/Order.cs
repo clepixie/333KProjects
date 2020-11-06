@@ -9,7 +9,7 @@ namespace Team1_FinalProject.Models
     public class Order
     {
 	
-	    [Display(Name = "OrderID")]
+	    [Display(Name = "OrderID:")]
 	    public Int32 OrderID {get; set;}
 
 	    [Display(Name = "Is this a gift order?")]	
@@ -17,7 +17,8 @@ namespace Team1_FinalProject.Models
 	
 	    [Display(Name = "Do you want to use Popcorn Points?")]
 	    public Boolean PopcornPoints {get; set;}
-	
+
+		[Display(Name = "Date:")]
 	    public DateTime Date { get; set; }
 
 	    public List<OrderDetail> OrderDetails { get; set; }
