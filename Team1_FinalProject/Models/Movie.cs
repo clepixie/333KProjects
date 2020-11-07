@@ -16,6 +16,8 @@ namespace Team1_FinalProject.Models
 
 		public string MovieDescription { get; set; }
 
+		public string MovieMPAA { get; set; }
+		
 		public Genre Genre { get; set; }
 
 		public List<Showing> Showings { get; set; }
