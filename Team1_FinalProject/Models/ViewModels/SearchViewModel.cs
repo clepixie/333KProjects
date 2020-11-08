@@ -1,4 +1,6 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+
 namespace Team1_FinalProject.Models.ViewModels
 {
     public class SearchViewModel
@@ -20,7 +22,7 @@ namespace Team1_FinalProject.Models.ViewModels
 			[Display(Name = "Date:")]
 			public DateTime? SearchDate { get; set; }
 			[Display(Name = "MPAA Rating:")]
-			public string SelectMPAA { get; set; }
+			public string SearchMPAA { get; set; }
 			[Display(Name = "Actor:")]
 			public SearchActor SearchActor { get; set; }
 			[Display(Name = "Customer Rating:")]
