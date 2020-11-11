@@ -21,7 +21,7 @@ namespace Team1_FinalProject.Models
 		[Display(Name = "Date:")]
 		public DateTime? SearchDate { get; set; }
 		[Display(Name = "MPAA Rating:")]
-		public string SelectMPAA { get; set; } //enum
+		public MPAA SelectMPAA { get; set; } 
 		[Display(Name = "Actor:")]
 		public String SearchActor { get; set; }
 		[Display(Name = "Customer Rating:")]

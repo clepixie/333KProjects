@@ -5,7 +5,17 @@ using System.Collections.Generic;
 
 namespace Team1_FinalProject.Models
 {
-    //define enum
+    public enum Rooms
+    {
+        1,
+        2
+    }
+    // in the controller, we will need to add spaces like below:
+    // switch (employee):
+    // {
+    //   case 1: return "Theater 1";
+    //   // same for the rest
+    // }
     public class Showing
     {
         public Int32 ShowingID { get; set; }
@@ -19,7 +29,7 @@ namespace Team1_FinalProject.Models
         public DateTime EndDateTime { get; set; }
 
         [Display(Name = "Theater Room")]
-        public String Room { get; set; }
+        public Rooms Room { get; set; }
         //enum
 
         [Display(Name = "Is This a Special Event?")]
