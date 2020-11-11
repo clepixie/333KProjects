@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Team1_FinalProject.Models
 {
+	// define enum for MPAA
+
     public class Movie
     {
 
@@ -17,7 +19,11 @@ namespace Team1_FinalProject.Models
 		public string MovieDescription { get; set; }
 
 		public string MovieMPAA { get; set; }
-		
+		// change to enum
+		public string Actor { get; set; }
+
+		public Int32 Runtime { get; set; }
+
 		public Genre Genre { get; set; }
 
 		public List<Showing> Showings { get; set; }

@@ -11,13 +11,13 @@ namespace Team1_FinalProject.Models
 
         public String GenreName { get; set; }
 
-        public List<Showing> Showings { get; set; }
+        public List<Movie> Movies { get; set; }
 
         public Genre()
         {
-            if (Showings == null)
+            if (Movies == null)
             {
-                Showings = new List<Showing>();
+                Movies = new List<Movie>();
             }
         }
 

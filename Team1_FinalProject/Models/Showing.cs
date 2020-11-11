@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace Team1_FinalProject.Models
 {
+    //define enum
     public class Showing
     {
         public Int32 ShowingID { get; set; }
@@ -19,8 +20,12 @@ namespace Team1_FinalProject.Models
 
         [Display(Name = "Theater Room")]
         public String Room { get; set; }
+        //enum
 
+        [Display(Name = "Is This a Special Event?")]
+        public Boolean SpecialEvent { get; set; }
         public Movie Movie { get; set; }
-        public OrderDetail OrderDetail { get; set; }
+
+        public List<Ticket> Tickets { get; set; }
     }
 }

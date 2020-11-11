@@ -1,9 +1,17 @@
 ﻿<Properties StartupConfiguration="{5BEA845B-2AA8-4BCB-A0C3-D8FEF9946679}|Default">
   <MonoDevelop.Ide.ItemProperties.Team1__FinalProject PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Models/ViewModels/PaymentViewModel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Models/ViewModels/SearchViewModel.cs">
     <Files>
-      <File FileName="Models/ViewModels/PaymentViewModel.cs" Line="6" Column="1" />
-      <File FileName="Models/Ticket.cs" Line="1" Column="1" />
+      <File FileName="Models/Ticket.cs" Line="17" Column="1" />
+      <File FileName="Models/AppUser.cs" Line="26" Column="1" />
+      <File FileName="Models/Genre.cs" Line="25" Column="2" />
+      <File FileName="Models/Movie.cs" Line="23" Column="3" />
+      <File FileName="Models/MovieReview.cs" Line="1" Column="1" />
+      <File FileName="Models/Order.cs" Line="24" Column="40" />
+      <File FileName="Models/Price.cs" Line="1" Column="1" />
+      <File FileName="Models/Showing.cs" Line="24" Column="1" />
+      <File FileName="Models/ViewModels/LoginViewModel.cs" Line="1" Column="1" />
+      <File FileName="Models/ViewModels/SearchViewModel.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -14,7 +22,7 @@
               <Node name="DAL" expanded="True" />
               <Node name="Models" expanded="True">
                 <Node name="ViewModels" expanded="True">
-                  <Node name="PaymentViewModel.cs" selected="True" />
+                  <Node name="SearchViewModel.cs" selected="True" />
                 </Node>
               </Node>
               <Node name="Properties" expanded="True" />

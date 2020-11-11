@@ -22,5 +22,8 @@ namespace Team1_FinalProject.Models
 
         public String Address { get; set; }
 
+        public List<Order> Orders { get; set; }
+
+        public List<MovieReview> MovieReviews { get; set; }
     }
 }

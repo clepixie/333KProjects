@@ -21,6 +21,8 @@ namespace Team1_FinalProject.Models
 		[Display(Name = "Date:")]
 	    public DateTime Date { get; set; }
 
+		public AppUser Customer { get; set; }
+
 	    public List<Ticket> Tickets { get; set; }
 
 	    public Order()
