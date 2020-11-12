@@ -8,7 +8,7 @@ TODO:
 - [x] Make view model classes (Login, Search)
 - [x] Meet with Dr. Gray to check out model classes are all good.
 - [x] Database migrations (pick who to host on Azure)
-- [ ] Scaffold controllers (Every model class with a payload and not AppUser) (Copy paste the controllers in IdentityTemplate)
+- [x] Scaffold controllers (Every model class with a payload and not AppUser) (Copy paste the controllers in IdentityTemplate)
 - [ ] Assign each team member to a section (as recommended by Dr. Gray):
   - [ ] Checkout process
   - [ ] Scheduling movies
