@@ -7,8 +7,7 @@ namespace Team1_FinalProject.Models
 {
     public enum Rooms
     {
-        1,
-        2
+        
     }
     // in the controller, we will need to add spaces like below:
     // switch (employee):

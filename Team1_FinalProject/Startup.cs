@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Team1_FinalProject.DAL;
 
 //TODO: Make this namespace match your project - be sure to remove the []
 namespace Team1_FinalProject
@@ -11,11 +13,13 @@ namespace Team1_FinalProject
             //This adds the MVC engine and Razor code
             services.AddControllersWithViews();
 
-             //TODO: (For HW4 and beyond) Add a connection string here once you have created it on Azure
-            //String connectionString = "";
+            //TODO: (For HW4 and beyond) Add a connection string here once you have created it on Azure
+            var connectionString = "Server=tcp:fa20team1finalproject.database.windows.net,1433;" +
+                "Initial Catalog=fa20team1finalproject;Persist Security Info=False;User ID=misadmin;Password=mishw123!;" +
+                "MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"; 
 
             //TODO: Uncomment this line once you have your connection string
-            //services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
             //TODO: Uncomment these lines once you have added Identity to your project
             ////NOTE: This is where you would change your password requirements
