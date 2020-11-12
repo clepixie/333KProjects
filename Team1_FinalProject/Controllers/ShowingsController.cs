@@ -1,0 +1,153 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Team1_FinalProject.DAL;
+using Team1_FinalProject.Models;
+
+namespace Team1_FinalProject.Controllers
+{
+    public class ShowingsController : Controller
+    {
+        private readonly AppDbContext _context;
+
+        public ShowingsController(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        // GET: Showings
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Showings.ToListAsync());
+        }
+
+        // GET: Showings/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var showing = await _context.Showings
+                .FirstOrDefaultAsync(m => m.ShowingID == id);
+            if (showing == null)
+            {
+                return NotFound();
+            }
+
+            return View(showing);
+        }
+
+        // GET: Showings/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Showings/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("ShowingID,StartDateTime,EndDateTime,Room,SpecialEvent")] Showing showing)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(showing);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(showing);
+        }
+
+        // GET: Showings/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var showing = await _context.Showings.FindAsync(id);
+            if (showing == null)
+            {
+                return NotFound();
+            }
+            return View(showing);
+        }
+
+        // POST: Showings/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("ShowingID,StartDateTime,EndDateTime,Room,SpecialEvent")] Showing showing)
+        {
+            if (id != showing.ShowingID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(showing);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ShowingExists(showing.ShowingID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(showing);
+        }
+
+        // GET: Showings/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var showing = await _context.Showings
+                .FirstOrDefaultAsync(m => m.ShowingID == id);
+            if (showing == null)
+            {
+                return NotFound();
+            }
+
+            return View(showing);
+        }
+
+        // POST: Showings/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var showing = await _context.Showings.FindAsync(id);
+            _context.Showings.Remove(showing);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool ShowingExists(int id)
+        {
+            return _context.Showings.Any(e => e.ShowingID == id);
+        }
+    }
+}
