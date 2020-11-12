@@ -9,6 +9,10 @@ TODO:
 - [x] Meet with Dr. Gray to check out model classes are all good.
 - [ ] Database migrations (pick who to host on Azure)
 - [ ] Scaffold controllers (Every model class with a payload and not AppUser) (Copy paste the controllers in IdentityTemplate)
-- [ ] Figure out form control shenanigans (RelationalDatabases template)
+- [ ] Assign each team member to a section (as recommended by Dr. Gray):
+  - [ ] Checkout process
+  - [ ] Scheduling movies
+  - [ ] Picking out seats
+  - [ ] Reporting 
 - [ ] Assign functionalities to different roles in Identity 
 - [ ] Make sure all the shit works
