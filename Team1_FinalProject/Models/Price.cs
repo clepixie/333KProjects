@@ -7,6 +7,7 @@ namespace Team1_FinalProject.Models
 {
     public class Price
     {
+        public Int32 PriceID { get; set; }
 
         [Display(Name ="Matinee Price")]
         [DisplayFormat(DataFormatString ="{0:c}")]

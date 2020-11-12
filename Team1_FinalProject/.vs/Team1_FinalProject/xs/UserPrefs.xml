@@ -1,28 +1,31 @@
 ﻿<Properties StartupConfiguration="{5BEA845B-2AA8-4BCB-A0C3-D8FEF9946679}|Default">
   <MonoDevelop.Ide.ItemProperties.Team1__FinalProject PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Models/Price.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Models/Showing.cs">
     <Files>
       <File FileName="Models/ViewModels/SearchViewModel.cs" Line="35" Column="1" />
-      <File FileName="Startup.cs" Line="32" Column="40" />
-      <File FileName="DAL/AppDbContext.cs" Line="28" Column="1" />
-      <File FileName="Models/Showing.cs" Line="12" Column="5" />
-      <File FileName="Models/Price.cs" Line="1" Column="1" />
+      <File FileName="Startup.cs" />
+      <File FileName="DAL/AppDbContext.cs" />
+      <File FileName="Models/Showing.cs" Line="1" Column="1" />
+      <File FileName="Models/Price.cs" Line="10" Column="41" />
+      <File FileName="Program.cs" />
+      <File FileName="appsettings.json" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Team1_FinalProject" expanded="True">
+          <Node name="Team1_FinalProject" expanded="True" selected="True">
             <Node name="Team1_FinalProject" expanded="True">
               <Node name="Controllers" expanded="True" />
               <Node name="DAL" expanded="True" />
+              <Node name="Migrations" expanded="True" />
               <Node name="Models" expanded="True">
                 <Node name="ViewModels" expanded="True" />
-                <Node name="Price.cs" selected="True" />
               </Node>
               <Node name="Properties" expanded="True" />
               <Node name="Views" expanded="True">
                 <Node name="Shared" expanded="True" />
               </Node>
+              <Node name="appsettings.json" expanded="True" />
             </Node>
           </Node>
         </State>
