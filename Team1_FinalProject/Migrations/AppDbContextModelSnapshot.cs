@@ -261,14 +261,14 @@ namespace Team1_FinalProject.Migrations
                     b.Property<string>("MovieDescription")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("MovieLength")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("MovieMPAA")
                         .HasColumnType("int");
 
                     b.Property<string>("MovieName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Revenue")
+                        .HasColumnType("int");
 
                     b.Property<int>("Runtime")
                         .HasColumnType("int");
@@ -327,6 +327,9 @@ namespace Team1_FinalProject.Migrations
 
                     b.Property<bool>("PopcornPoints")
                         .HasColumnType("bit");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("OrderID");
 

@@ -21,6 +21,9 @@ namespace Team1_FinalProject.Models
 		[Display(Name = "Date:")]
 	    public DateTime Date { get; set; }
 
+		public Decimal Total { get; set; }
+		// the total price of all tickets purchased on this order
+
 		public AppUser Customer { get; set; }
 
 	    public List<Ticket> Tickets { get; set; }

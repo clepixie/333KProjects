@@ -1,7 +1,14 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using System.Globalization;
+
+//TODO: Make these using statements match your project
 using Team1_FinalProject.DAL;
+using Team1_FinalProject.Models;
+
 
 //TODO: Make this namespace match your project - be sure to remove the []
 namespace Team1_FinalProject
@@ -16,14 +23,12 @@ namespace Team1_FinalProject
             //TODO: (For HW4 and beyond) Add a connection string here once you have created it on Azure
             var connectionString = "Server=tcp:fa20team1finalproject.database.windows.net,1433;" +
                 "Initial Catalog=fa20team1finalproject;Persist Security Info=False;User ID=misadmin;Password=mishw123!;" +
-                "MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"; 
-
-            //TODO: Uncomment this line once you have your connection string
+                "MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";             //TODO: Uncomment this line once you have your connection string
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
             //TODO: Uncomment these lines once you have added Identity to your project
             ////NOTE: This is where you would change your password requirements
-            /*services.AddIdentity<AppUser, IdentityRole>(opts => {
+            services.AddIdentity<AppUser, IdentityRole>(opts => {
                 opts.User.RequireUniqueEmail = true;
                 opts.Password.RequiredLength = 6;
                 opts.Password.RequireNonAlphanumeric = false;
@@ -32,17 +37,14 @@ namespace Team1_FinalProject
                 opts.Password.RequireDigit = false;
             })
             .AddEntityFrameworkStores<AppDbContext>()
-            .AddDefaultTokenProviders();*/
+            .AddDefaultTokenProviders();
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IServiceProvider service)
         {
             //These lines allow you to see more detailed error messages
             app.UseDeveloperExceptionPage();
-            app.UseStatusCodePages();
-
-            //TODO: Once you have added Identity into your project, you will need to uncomment this line
-            //app.UseAuthentication();
+            app.UseStatusCodePages();      
 
             //This line allows you to use static pages like style sheets and images
             app.UseStaticFiles();
@@ -50,6 +52,19 @@ namespace Team1_FinalProject
             //This marks the position in the middleware pipeline where a routing decision
             //is made for a URL.
             app.UseRouting();
+
+            //This allows the data annotations for currency to work on a mac
+            app.Use(async (context, next) =>
+            {
+                CultureInfo.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
+                CultureInfo.CurrentUICulture = CultureInfo.CurrentCulture;
+
+                await next.Invoke();
+            });
+
+            //TODO: Once you have added Identity into your project, you will need to uncomment these lines
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             //This method maps the controllers and their actions to a patter for
             //requests that's known as the default route. This route identifies
@@ -62,8 +77,10 @@ namespace Team1_FinalProject
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-        }
-    }
-   
 
+            //TODO: Uncomment this after admin is seeded
+            //This seeds the admin user
+            //Seeding.SeedIdentity.AddAdmin(service).Wait();
+        }
+    }   
 }

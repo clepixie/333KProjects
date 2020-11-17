@@ -6,9 +6,8 @@ using System.Collections.Generic;
 namespace Team1_FinalProject.Models
 {
     public enum Rooms
-    {
+    { A, B, C, D, }
         
-    }
     // in the controller, we will need to add spaces like below:
     // switch (employee):
     // {
@@ -29,7 +28,6 @@ namespace Team1_FinalProject.Models
 
         [Display(Name = "Theater Room")]
         public Rooms Room { get; set; }
-        //enum
 
         [Display(Name = "Is This a Special Event?")]
         public Boolean SpecialEvent { get; set; }
