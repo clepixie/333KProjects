@@ -8,7 +8,8 @@ namespace Team1_FinalProject.Models
 {
     public class Order
     {
-	
+		public const Decimal TAX_RATE = .0825m;
+
 	    [Display(Name = "OrderID:")]
 	    public Int32 OrderID {get; set;}
 
@@ -21,8 +22,25 @@ namespace Team1_FinalProject.Models
 		[Display(Name = "Date:")]
 	    public DateTime Date { get; set; }
 
-		public Decimal Total { get; set; }
-		// the total price of all tickets purchased on this order
+		[Display(Name = "Order Subtotal:")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+		public Decimal OrderSubtotal
+        {
+            get { return Tickets.Sum(t => t.Price); }
+        }
+
+		[Display(Name = "Tax (8.25%):")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public Decimal Tax
+        {
+            get { return OrderSubtotal * TAX_RATE; }
+        }
+        [Display(Name = "Order Total:")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public Decimal OrderTotal
+        {
+            get { return OrderSubtotal + Tax; }
+        }
 
 		public AppUser Customer { get; set; }
 

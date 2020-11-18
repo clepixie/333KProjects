@@ -1,7 +1,7 @@
 @model IEnumerable<Team1_FinalProject.Models.Ticket>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Summary Screen";
 }
 
 <h1>Index</h1>
@@ -12,6 +12,8 @@
 <table class="table">
     <thead>
         <tr>
+            // movie title
+            // show time
             <th>
                 @Html.DisplayNameFor(model => model.SeatNumber)
             </th>
@@ -39,3 +41,5 @@
 }
     </tbody>
 </table>
+// add Checkout button that maps to Orders/Create
+// make a table from Price; refer to HW5 Orders (remember Ticket is like OrderDetails)

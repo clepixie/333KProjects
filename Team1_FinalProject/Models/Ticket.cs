@@ -14,6 +14,8 @@ namespace Team1_FinalProject.Models
 		public String SeatNumber { get; set; }
 
 		public Decimal Price { get; set; }
+		
+		public Booleon SeatClaim { get; set; }
 
 		public Order Order { get; set; }
 

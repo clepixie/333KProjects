@@ -6,6 +6,9 @@
 
 <h1>Index</h1>
 
+// add role stuff
+// Search results should include movie title, genre(s), release date, MPAA rating, customer rating, run time, and upcoming show times. 
+// Date-based search results should include title, MPAA rating, customer rating, number of seats available for the showing, and a link to view full details of the movie.
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -49,6 +52,7 @@
                 @Html.DisplayFor(modelItem => item.Runtime)
             </td>
             <td>
+                // add role stuff for who can edit movies
                 <a asp-action="Edit" asp-route-id="@item.MovieID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.MovieID">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.MovieID">Delete</a>
