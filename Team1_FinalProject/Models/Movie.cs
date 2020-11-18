@@ -26,8 +26,11 @@ namespace Team1_FinalProject.Models
 		public string MovieDescription { get; set; }
 
 		public MPAA MovieMPAA { get; set; }
+		public DateTime ReleaseDate { get; set; }
 		
-		public string Actor { get; set; }
+		public string Actors { get; set; }
+
+		public string Tagline { get; set; }
 
 		public Int32 Revenue { get; set; }
 		//apparently on the seeded data there is a column for this so i think
