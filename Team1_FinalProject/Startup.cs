@@ -44,7 +44,9 @@ namespace Team1_FinalProject
         {
             //These lines allow you to see more detailed error messages
             app.UseDeveloperExceptionPage();
-            app.UseStatusCodePages();      
+            app.UseStatusCodePages();
+
+            app.UseAuthentication();
 
             //This line allows you to use static pages like style sheets and images
             app.UseStaticFiles();
@@ -63,7 +65,6 @@ namespace Team1_FinalProject
             });
 
             //TODO: Once you have added Identity into your project, you will need to uncomment these lines
-            app.UseAuthentication();
             app.UseAuthorization();
 
             //This method maps the controllers and their actions to a patter for

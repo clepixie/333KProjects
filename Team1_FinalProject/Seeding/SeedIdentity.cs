@@ -54,6 +54,7 @@ namespace Team1_FinalProject.Seeding
                 //TODO: Add additional fields that you created on the AppUser class
                 //FirstName is included as an example
                 newUser.FirstName = "Admin";
+                newUser.LastName = "Admin";
 
                 //create a variable for result
                 IdentityResult result = new IdentityResult();

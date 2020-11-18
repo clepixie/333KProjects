@@ -55,6 +55,7 @@ namespace Team1_FinalProject.Controllers
                     //TODO: Add the rest of the custom user fields here
                     //FirstName is included as an example
                     FirstName = rvm.FirstName,
+                    LastName = rvm.LastName,
                 };
 
                 //This code uses the UserManager object to create a new user with the specified password

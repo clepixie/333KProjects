@@ -265,3 +265,14 @@
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Tickets/Details.cshtml.g.cs
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Tickets/Edit.cshtml.g.cs
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Tickets/Index.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/ChangePassword.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/Index.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/Login.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/Register.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Home/Index.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/RoleAdmin/Create.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/RoleAdmin/Edit.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/RoleAdmin/Index.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Shared/Error.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Shared/_LoginPartial.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Shared/_ValidationScriptsPartial.cshtml.g.cs
