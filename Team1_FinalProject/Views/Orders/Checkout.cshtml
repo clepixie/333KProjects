@@ -4,3 +4,38 @@
     ViewData["Title"] = "Checkout";
 }
 
+@* need to show movie title, show time, selected seat, price, subtotal, tax, grand total
+    purchase with popcorn points option
+    purchase as gift option (insert friend's email)*@
+
+<h1>Checkout</h1>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.GiftOrder)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.GiftOrder)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PopcornPoints)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PopcornPoints)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.OrderID">Edit</a> |
+    // add button that says confirm to map to Orders/Confirmation
+    <a asp-action="Index">Back to List</a>
+</div>

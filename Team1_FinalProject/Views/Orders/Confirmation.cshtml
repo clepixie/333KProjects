@@ -1,2 +1,17 @@
-// have thank you and transaction number; say something about sending an email
-// add Back to List for Home/Index
+@model Team1_FinalProject.Models.Order
+
+@{
+    ViewData["Title"] = "Thank You!";
+}
+
+<h1>Order #</h1>
+@Html.DisplayFor(model => model.OrderID)
+@*see if order number is okay*@
+<h1>Thank you for visiting Main Street Movies!</h1>
+<h2>A confirmation message was sent to the email on file:</h2>
+@Html.DisplayFor(model => model.Customer.Email)
+@*see if email is okay*@
+
+
+<a asp-action="Index" asp-controller="Movies" class="btn btn-success">Back to List</a>
+
