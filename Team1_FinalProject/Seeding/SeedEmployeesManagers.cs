@@ -14,7 +14,7 @@ using Team1_FinalProject.Models;
 namespace Team1_FinalProject.Seeding
 {
     //add identity data
-    public static class SeedIdentity
+    public static class SeedEmployeesManagers
     {
         public static async Task AddEmployee(IServiceProvider serviceProvider)
         {
@@ -515,16 +515,7 @@ namespace Team1_FinalProject.Seeding
 				await _userManager.AddToRoleAsync(newUser, "Employee");
 			}
 			
-			_context.SaveChanges();
-			
-
-			
-			
-        }
-
-        internal static object AddCustomer(IServiceProvider service)
-        {
-            throw new NotImplementedException();
+			_context.SaveChanges();	
         }
     }
 }
