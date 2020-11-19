@@ -34,6 +34,8 @@ namespace Team1_FinalProject.Models
         public Int16 SeniorDiscount
         { get; set; }
 
+        public List<Showing> Showings { get; set; }
+
         
     }
 }

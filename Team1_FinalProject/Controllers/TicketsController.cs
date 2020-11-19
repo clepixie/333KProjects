@@ -44,6 +44,7 @@ namespace Team1_FinalProject.Controllers
         }
 
         // GET: Tickets/Create
+        // take movieID
         public IActionResult Create()
         {
             return View();

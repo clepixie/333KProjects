@@ -18,7 +18,88 @@ namespace Team1_FinalProject.Controllers
         {
             _context = context;
         }
+        // GET: Movies/Index
+        public IActionResult DisplaySearchResults(SearchViewModel svm)
+        {
+            TryValidateModel(svm);
 
+            if (ModelState.IsValid == false) //something is wrong
+            {
+                return View("SearchMoviesShowings");//send user back to inputs page
+            }
+
+            if (svm.MovieShowing == Select.Movie)
+            {
+                var query = from m in _context.Movies
+                            select m;
+                if (svm.SearchTitle != null && svm.SearchTitle != "")
+                {
+                    query = query.Where(m => m.Title.Contains(svm.SearchTitle));
+                }
+
+                if (svm.SearchTagline != null && svm.SearchTagline != "")
+                {
+                    query = query.Where(m => m.Tagline.Contains(svm.SearchTagline));
+                }
+
+                if (svm.SearchReleaseDate != null)
+                {
+                    query = query.Where(m => m.ReleaseDate == svm.SearchReleaseDate);
+                }
+
+                if (svm.SelectGenreID != 0)
+                {
+                    query = query.Where(m => m.Genre.GenreID == svm.SelectGenreID);
+                }
+
+                if (svm.SelectMPAA != MPAA.Select)
+                {
+                    query = query.Where(m => m.MPAA == svm.SelectMPAA);
+                }
+
+                if (svm.SearchRating != null && svm.RatingsRange == null)
+                {
+                    query = query.Where(m => m.AverageRating() == svm.SearchRating);
+                }
+
+                switch (svm.RatingsRange)
+                {
+                    case RatingsRange.Greater:
+                        query = query.Where(m => m.AverageRating() >= svm.SearchRating);
+                        break;
+                    case RatingsRange.Lesser:
+                        query = query.Where(m => m.AverageRating() <= svm.SearchRating);
+                        break;
+                    default:
+                        break;
+                }
+
+                if (svm.SearchActor != null && svm.SearchActor != "")
+                {
+                    query = query.Where(m => m.Tagline.Contains(svm.SearchActor));
+                }
+
+                List<Movie> SelectedMovies = query.Include(m => m.Genre).ToList();
+                ViewBag.AllJobs = _context.Movies.Count();
+                ViewBag.SelectedJobs = SelectedMovies.Count();
+                return View("Index", SelectedMovies.OrderByDescending(m => m.MovieID));
+            }
+
+            else
+            {
+                var query = from s in _context.Showings
+                           select s;
+                if (svm.SearchShowingDate != null)
+                {
+                    query = query.Where(m => m.StartDateTime == svm.SearchShowingDate);
+                }
+
+                List<Showing> SelectedShowings = query.Include(s => s.Movie).Include(s => s.TicketCount()).ToList();
+                ViewBag.AllShowings = _context.Showings.Count();
+                ViewBag.SelectedShowings = SelectedShowings.Count();
+                return View("Index", SelectedShowings.OrderByDescending(s => s.StartDateTime));
+            }
+        }
         // GET: Movies
         public async Task<IActionResult> Index()
         {

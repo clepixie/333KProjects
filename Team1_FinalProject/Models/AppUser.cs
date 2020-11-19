@@ -34,11 +34,6 @@ namespace Team1_FinalProject.Models
             {
                 Orders = new List<Order>();
             }
-			
-			if (PopcornPoints == null)
-			{
-				PopcornPoints = 0;
-			}
         }
     }
 }

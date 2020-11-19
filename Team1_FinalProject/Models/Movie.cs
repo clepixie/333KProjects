@@ -7,6 +7,7 @@ namespace Team1_FinalProject.Models
 {
 	public enum MPAA
 	{
+		Select,
 		G,
 		PG,
 		PG13,
@@ -19,15 +20,16 @@ namespace Team1_FinalProject.Models
 
 		public Int32 MovieID { get; set; }
 
-		public string MovieName { get; set; }
+		public string Title { get; set; }
 
 		public Int32 Runtime { get; set; }
 
-		public string MovieDescription { get; set; }
+		public string Description { get; set; }
 
-		public MPAA MovieMPAA { get; set; }
+		public MPAA MPAA { get; set; }
+
 		public DateTime ReleaseDate { get; set; }
-		
+
 		public string Actors { get; set; }
 
 		public string Tagline { get; set; }
@@ -40,6 +42,22 @@ namespace Team1_FinalProject.Models
 		public Genre Genre { get; set; }
 
 		public List<Showing> Showings { get; set; }
-       
-    }
+		public List<MovieReview> Reviews { get; set; }
+
+		public decimal AverageRating()
+		{
+			decimal avg = 0;
+			int count = 0;
+			int sum = 0;
+
+			foreach (MovieReview review in Reviews)
+			{
+				sum += review.MovieRating;
+				count += 1;
+				avg = sum / count;
+			}
+
+			return avg;
+		}
+	}
 }

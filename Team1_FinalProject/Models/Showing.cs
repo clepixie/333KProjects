@@ -38,5 +38,17 @@ namespace Team1_FinalProject.Models
 
         public Price Price { get; set; }
 
+        public int TicketCount()
+        {
+            int count = 0;
+
+            foreach (Ticket ticket in Tickets)
+            {
+                count += 1;
+            }
+
+            return count;
+        }
+
     }
 }

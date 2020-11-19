@@ -14,6 +14,7 @@ namespace Team1_FinalProject.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly AppDbContext _context;
         // GET: /<controller>/
         public IActionResult Index()
         {
