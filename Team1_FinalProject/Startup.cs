@@ -81,7 +81,8 @@ namespace Team1_FinalProject
 
             //TODO: Uncomment this after admin is seeded
             //This seeds the admin user
-            //Seeding.SeedIdentity.AddAdmin(service).Wait();
+            Seeding.SeedCustomer.AddCustomer(service).Wait();
+            Seeding.SeedEmployeesManagers.AddEmployee(service).Wait();
         }
     }   
 }

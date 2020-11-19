@@ -9,756 +9,749 @@ namespace Team1_FinalProject.Seeding
 {
 	public static class SeedShowings
 	{
-		public static void SeedShowings(AppDbContext db)
+		public static void AddShowing(AppDbContext db)
 		{
 		    //Create a new list for all of the Showings
 		List<Showing> AllShowings = new List<Showing>();
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,15,9,5),
-			EndDateTime = new DateTime(2020,11,15,10,52),
+			StartDateTime = new DateTime(2020,12,4,9,5,0),
+			EndDateTime = new DateTime(2020,12,4,10,52,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Footloose"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,15,9,5),
-			EndDateTime = new DateTime(2020,11,15,10,52),
+			StartDateTime = new DateTime(2020,12,4,11,30,0),
+			EndDateTime = new DateTime(2020,12,4,13,24,0),
 			Room = 1,
-			SpecialEvent = False,
-			Movie = db.Movies.FirstOrDefault(c => c.Title == "Footloose"),
-		});
-		AllShowings.Add(new Showing
-		{
-			StartDateTime = new DateTime(2020,11,15,11,30),
-			EndDateTime = new DateTime(2020,11,15,13,24),
-			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "WarGames"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,15,14,0),
-			EndDateTime = new DateTime(2020,11,15,15,29),
+			StartDateTime = new DateTime(2020,12,4,14,0,0),
+			EndDateTime = new DateTime(2020,12,4,15,29,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Office Space"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,15,15,55),
-			EndDateTime = new DateTime(2020,11,15,17,55),
+			StartDateTime = new DateTime(2020,12,4,15,55,0),
+			EndDateTime = new DateTime(2020,12,4,17,55,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Diamonds are Forever"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,15,18,40),
-			EndDateTime = new DateTime(2020,11,15,21,12),
+			StartDateTime = new DateTime(2020,12,4,18,40,0),
+			EndDateTime = new DateTime(2020,12,4,21,12,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "West Side Story"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,15,21,37),
-			EndDateTime = new DateTime(2020,11,15,23,59),
+			StartDateTime = new DateTime(2020,12,4,21,37,0),
+			EndDateTime = new DateTime(2020,12,4,23,59,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Forrest Gump"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,16,9,5),
-			EndDateTime = new DateTime(2020,11,16,10,52),
+			StartDateTime = new DateTime(2020,12,5,9,5,0),
+			EndDateTime = new DateTime(2020,12,5,10,52,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Footloose"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,16,11,30),
-			EndDateTime = new DateTime(2020,11,16,13,24),
+			StartDateTime = new DateTime(2020,12,5,11,30,0),
+			EndDateTime = new DateTime(2020,12,5,13,24,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "WarGames"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,16,14,0),
-			EndDateTime = new DateTime(2020,11,16,15,29),
+			StartDateTime = new DateTime(2020,12,5,14,0,0),
+			EndDateTime = new DateTime(2020,12,5,15,29,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Office Space"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,16,15,55),
-			EndDateTime = new DateTime(2020,11,16,17,55),
+			StartDateTime = new DateTime(2020,12,5,15,55,0),
+			EndDateTime = new DateTime(2020,12,5,17,55,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Diamonds are Forever"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,16,18,40),
-			EndDateTime = new DateTime(2020,11,16,21,12),
+			StartDateTime = new DateTime(2020,12,5,18,40,0),
+			EndDateTime = new DateTime(2020,12,5,21,12,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "West Side Story"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,16,21,37),
-			EndDateTime = new DateTime(2020,11,16,23,59),
+			StartDateTime = new DateTime(2020,12,5,21,37,0),
+			EndDateTime = new DateTime(2020,12,5,23,59,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Forrest Gump"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,17,9,5),
-			EndDateTime = new DateTime(2020,11,17,10,52),
+			StartDateTime = new DateTime(2020,12,6,9,5,0),
+			EndDateTime = new DateTime(2020,12,6,10,52,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Footloose"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,17,11,30),
-			EndDateTime = new DateTime(2020,11,17,13,24),
+			StartDateTime = new DateTime(2020,12,6,11,30,0),
+			EndDateTime = new DateTime(2020,12,6,13,24,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "WarGames"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,17,14,0),
-			EndDateTime = new DateTime(2020,11,17,15,29),
+			StartDateTime = new DateTime(2020,12,6,14,0,0),
+			EndDateTime = new DateTime(2020,12,6,15,29,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Office Space"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,17,15,55),
-			EndDateTime = new DateTime(2020,11,17,17,55),
+			StartDateTime = new DateTime(2020,12,6,15,55,0),
+			EndDateTime = new DateTime(2020,12,6,17,55,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Diamonds are Forever"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,17,18,40),
-			EndDateTime = new DateTime(2020,11,17,21,12),
+			StartDateTime = new DateTime(2020,12,6,18,40,0),
+			EndDateTime = new DateTime(2020,12,6,21,12,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "West Side Story"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,17,21,37),
-			EndDateTime = new DateTime(2020,11,17,23,59),
+			StartDateTime = new DateTime(2020,12,6,21,37,0),
+			EndDateTime = new DateTime(2020,12,6,23,59,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Forrest Gump"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,18,9,5),
-			EndDateTime = new DateTime(2020,11,18,10,52),
+			StartDateTime = new DateTime(2020,12,7,9,5,0),
+			EndDateTime = new DateTime(2020,12,7,10,52,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Footloose"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,18,11,30),
-			EndDateTime = new DateTime(2020,11,18,13,24),
+			StartDateTime = new DateTime(2020,12,7,11,30,0),
+			EndDateTime = new DateTime(2020,12,7,13,24,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "WarGames"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,18,14,0),
-			EndDateTime = new DateTime(2020,11,18,15,29),
+			StartDateTime = new DateTime(2020,12,7,14,0,0),
+			EndDateTime = new DateTime(2020,12,7,15,29,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Office Space"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,18,15,55),
-			EndDateTime = new DateTime(2020,11,18,17,55),
+			StartDateTime = new DateTime(2020,12,7,15,55,0),
+			EndDateTime = new DateTime(2020,12,7,17,55,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Diamonds are Forever"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,18,18,40),
-			EndDateTime = new DateTime(2020,11,18,21,12),
+			StartDateTime = new DateTime(2020,12,7,18,40,0),
+			EndDateTime = new DateTime(2020,12,7,21,12,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "West Side Story"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,18,21,37),
-			EndDateTime = new DateTime(2020,11,18,23,59),
+			StartDateTime = new DateTime(2020,12,7,21,37,0),
+			EndDateTime = new DateTime(2020,12,7,23,59,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Forrest Gump"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,19,9,5),
-			EndDateTime = new DateTime(2020,11,19,10,52),
+			StartDateTime = new DateTime(2020,12,8,9,5,0),
+			EndDateTime = new DateTime(2020,12,8,10,52,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Footloose"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,19,11,30),
-			EndDateTime = new DateTime(2020,11,19,13,24),
+			StartDateTime = new DateTime(2020,12,8,11,30,0),
+			EndDateTime = new DateTime(2020,12,8,13,24,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "WarGames"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,19,14,0),
-			EndDateTime = new DateTime(2020,11,19,15,29),
+			StartDateTime = new DateTime(2020,12,8,14,0,0),
+			EndDateTime = new DateTime(2020,12,8,15,29,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Office Space"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,19,15,55),
-			EndDateTime = new DateTime(2020,11,19,17,55),
+			StartDateTime = new DateTime(2020,12,8,15,55,0),
+			EndDateTime = new DateTime(2020,12,8,17,55,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Diamonds are Forever"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,19,18,40),
-			EndDateTime = new DateTime(2020,11,19,21,12),
+			StartDateTime = new DateTime(2020,12,8,18,40,0),
+			EndDateTime = new DateTime(2020,12,8,21,12,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "West Side Story"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,19,21,37),
-			EndDateTime = new DateTime(2020,11,19,23,59),
+			StartDateTime = new DateTime(2020,12,8,21,37,0),
+			EndDateTime = new DateTime(2020,12,8,23,59,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Forrest Gump"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,20,9,5),
-			EndDateTime = new DateTime(2020,11,20,10,52),
+			StartDateTime = new DateTime(2020,12,9,9,5,0),
+			EndDateTime = new DateTime(2020,12,9,10,52,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Footloose"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,20,11,30),
-			EndDateTime = new DateTime(2020,11,20,13,24),
+			StartDateTime = new DateTime(2020,12,9,11,30,0),
+			EndDateTime = new DateTime(2020,12,9,13,24,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "WarGames"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,20,14,0),
-			EndDateTime = new DateTime(2020,11,20,15,29),
+			StartDateTime = new DateTime(2020,12,9,14,0,0),
+			EndDateTime = new DateTime(2020,12,9,15,29,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Office Space"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,20,15,55),
-			EndDateTime = new DateTime(2020,11,20,17,55),
+			StartDateTime = new DateTime(2020,12,9,15,55,0),
+			EndDateTime = new DateTime(2020,12,9,17,55,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Diamonds are Forever"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,20,18,40),
-			EndDateTime = new DateTime(2020,11,20,21,12),
+			StartDateTime = new DateTime(2020,12,9,18,40,0),
+			EndDateTime = new DateTime(2020,12,9,21,12,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "West Side Story"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,20,21,37),
-			EndDateTime = new DateTime(2020,11,20,23,59),
+			StartDateTime = new DateTime(2020,12,9,21,37,0),
+			EndDateTime = new DateTime(2020,12,9,23,59,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Forrest Gump"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,21,9,5),
-			EndDateTime = new DateTime(2020,11,21,10,52),
+			StartDateTime = new DateTime(2020,12,10,9,5,0),
+			EndDateTime = new DateTime(2020,12,10,10,52,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Footloose"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,21,11,30),
-			EndDateTime = new DateTime(2020,11,21,13,24),
+			StartDateTime = new DateTime(2020,12,10,11,30,0),
+			EndDateTime = new DateTime(2020,12,10,13,24,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "WarGames"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,21,14,0),
-			EndDateTime = new DateTime(2020,11,21,15,29),
+			StartDateTime = new DateTime(2020,12,10,14,0,0),
+			EndDateTime = new DateTime(2020,12,10,15,29,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Office Space"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,21,15,55),
-			EndDateTime = new DateTime(2020,11,21,17,55),
+			StartDateTime = new DateTime(2020,12,10,15,55,0),
+			EndDateTime = new DateTime(2020,12,10,17,55,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Diamonds are Forever"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,21,18,40),
-			EndDateTime = new DateTime(2020,11,21,21,12),
+			StartDateTime = new DateTime(2020,12,10,18,40,0),
+			EndDateTime = new DateTime(2020,12,10,21,12,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "West Side Story"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,21,21,37),
-			EndDateTime = new DateTime(2020,11,21,23,59),
+			StartDateTime = new DateTime(2020,12,10,21,37,0),
+			EndDateTime = new DateTime(2020,12,10,23,59,0),
 			Room = 1,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Forrest Gump"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,15,9,0),
-			EndDateTime = new DateTime(2020,11,15,10,21),
+			StartDateTime = new DateTime(2020,12,4,9,0,0),
+			EndDateTime = new DateTime(2020,12,4,10,21,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Toy Story"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,15,10,50),
-			EndDateTime = new DateTime(2020,11,15,12,32),
+			StartDateTime = new DateTime(2020,12,4,10,50,0),
+			EndDateTime = new DateTime(2020,12,4,12,32,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Dazed and Confused"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,15,13,0),
-			EndDateTime = new DateTime(2020,11,15,14,40),
+			StartDateTime = new DateTime(2020,12,4,13,0,0),
+			EndDateTime = new DateTime(2020,12,4,14,40,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "The Lego Movie"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,15,15,20),
-			EndDateTime = new DateTime(2020,11,15,16,58),
+			StartDateTime = new DateTime(2020,12,4,15,20,0),
+			EndDateTime = new DateTime(2020,12,4,16,58,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "The Princess Bride"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,15,17,25),
-			EndDateTime = new DateTime(2020,11,15,19,5),
+			StartDateTime = new DateTime(2020,12,4,17,25,0),
+			EndDateTime = new DateTime(2020,12,4,19,5,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Finding Nemo"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,15,19,30),
-			EndDateTime = new DateTime(2020,11,15,22,11),
+			StartDateTime = new DateTime(2020,12,4,19,30,0),
+			EndDateTime = new DateTime(2020,12,4,22,11,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Harry Potter and the Chamber of Secrets"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,15,22,40),
-			EndDateTime = new DateTime(2020,11,15,23,49),
+			StartDateTime = new DateTime(2020,12,4,22,40,0),
+			EndDateTime = new DateTime(2020,12,4,23,49,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "The Land Before Time"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,16,9,0),
-			EndDateTime = new DateTime(2020,11,16,10,21),
+			StartDateTime = new DateTime(2020,12,5,9,0,0),
+			EndDateTime = new DateTime(2020,12,5,10,21,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Toy Story"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,16,10,50),
-			EndDateTime = new DateTime(2020,11,16,12,32),
+			StartDateTime = new DateTime(2020,12,5,10,50,0),
+			EndDateTime = new DateTime(2020,12,5,12,32,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Dazed and Confused"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,16,13,0),
-			EndDateTime = new DateTime(2020,11,16,14,40),
+			StartDateTime = new DateTime(2020,12,5,13,0,0),
+			EndDateTime = new DateTime(2020,12,5,14,40,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "The Lego Movie"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,16,15,20),
-			EndDateTime = new DateTime(2020,11,16,16,58),
+			StartDateTime = new DateTime(2020,12,5,15,20,0),
+			EndDateTime = new DateTime(2020,12,5,16,58,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "The Princess Bride"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,16,17,25),
-			EndDateTime = new DateTime(2020,11,16,19,5),
+			StartDateTime = new DateTime(2020,12,5,17,25,0),
+			EndDateTime = new DateTime(2020,12,5,19,5,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Finding Nemo"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,16,19,30),
-			EndDateTime = new DateTime(2020,11,16,22,11),
+			StartDateTime = new DateTime(2020,12,5,19,30,0),
+			EndDateTime = new DateTime(2020,12,5,22,11,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Harry Potter and the Chamber of Secrets"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,16,22,40),
-			EndDateTime = new DateTime(2020,11,16,23,49),
+			StartDateTime = new DateTime(2020,12,5,22,40,0),
+			EndDateTime = new DateTime(2020,12,5,23,49,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "The Land Before Time"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,17,9,0),
-			EndDateTime = new DateTime(2020,11,17,10,21),
+			StartDateTime = new DateTime(2020,12,6,9,0,0),
+			EndDateTime = new DateTime(2020,12,6,10,21,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Toy Story"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,17,10,50),
-			EndDateTime = new DateTime(2020,11,17,12,32),
+			StartDateTime = new DateTime(2020,12,6,10,50,0),
+			EndDateTime = new DateTime(2020,12,6,12,32,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Dazed and Confused"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,17,13,0),
-			EndDateTime = new DateTime(2020,11,17,14,40),
+			StartDateTime = new DateTime(2020,12,6,13,0,0),
+			EndDateTime = new DateTime(2020,12,6,14,40,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "The Lego Movie"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,17,15,20),
-			EndDateTime = new DateTime(2020,11,17,16,58),
+			StartDateTime = new DateTime(2020,12,6,15,20,0),
+			EndDateTime = new DateTime(2020,12,6,16,58,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "The Princess Bride"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,17,17,25),
-			EndDateTime = new DateTime(2020,11,17,19,5),
+			StartDateTime = new DateTime(2020,12,6,17,25,0),
+			EndDateTime = new DateTime(2020,12,6,19,5,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Finding Nemo"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,17,19,30),
-			EndDateTime = new DateTime(2020,11,17,22,11),
+			StartDateTime = new DateTime(2020,12,6,19,30,0),
+			EndDateTime = new DateTime(2020,12,6,22,11,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Harry Potter and the Chamber of Secrets"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,17,22,40),
-			EndDateTime = new DateTime(2020,11,17,23,49),
+			StartDateTime = new DateTime(2020,12,6,22,40,0),
+			EndDateTime = new DateTime(2020,12,6,23,49,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "The Land Before Time"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,18,9,0),
-			EndDateTime = new DateTime(2020,11,18,10,21),
+			StartDateTime = new DateTime(2020,12,7,9,0,0),
+			EndDateTime = new DateTime(2020,12,7,10,21,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Toy Story"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,18,10,50),
-			EndDateTime = new DateTime(2020,11,18,12,32),
+			StartDateTime = new DateTime(2020,12,7,10,50,0),
+			EndDateTime = new DateTime(2020,12,7,12,32,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Dazed and Confused"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,18,13,0),
-			EndDateTime = new DateTime(2020,11,18,14,40),
+			StartDateTime = new DateTime(2020,12,7,13,0,0),
+			EndDateTime = new DateTime(2020,12,7,14,40,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "The Lego Movie"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,18,15,20),
-			EndDateTime = new DateTime(2020,11,18,16,58),
+			StartDateTime = new DateTime(2020,12,7,15,20,0),
+			EndDateTime = new DateTime(2020,12,7,16,58,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "The Princess Bride"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,18,17,25),
-			EndDateTime = new DateTime(2020,11,18,19,5),
+			StartDateTime = new DateTime(2020,12,7,17,25,0),
+			EndDateTime = new DateTime(2020,12,7,19,5,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Finding Nemo"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,18,19,30),
-			EndDateTime = new DateTime(2020,11,18,22,11),
+			StartDateTime = new DateTime(2020,12,7,19,30,0),
+			EndDateTime = new DateTime(2020,12,7,22,11,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Harry Potter and the Chamber of Secrets"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,18,22,40),
-			EndDateTime = new DateTime(2020,11,18,23,49),
+			StartDateTime = new DateTime(2020,12,7,22,40,0),
+			EndDateTime = new DateTime(2020,12,7,23,49,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "The Land Before Time"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,19,9,0),
-			EndDateTime = new DateTime(2020,11,19,10,21),
+			StartDateTime = new DateTime(2020,12,8,9,0,0),
+			EndDateTime = new DateTime(2020,12,8,10,21,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Toy Story"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,19,10,50),
-			EndDateTime = new DateTime(2020,11,19,12,32),
+			StartDateTime = new DateTime(2020,12,8,10,50,0),
+			EndDateTime = new DateTime(2020,12,8,12,32,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Dazed and Confused"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,19,13,0),
-			EndDateTime = new DateTime(2020,11,19,14,40),
+			StartDateTime = new DateTime(2020,12,8,13,0,0),
+			EndDateTime = new DateTime(2020,12,8,14,40,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "The Lego Movie"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,19,15,20),
-			EndDateTime = new DateTime(2020,11,19,16,58),
+			StartDateTime = new DateTime(2020,12,8,15,20,0),
+			EndDateTime = new DateTime(2020,12,8,16,58,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "The Princess Bride"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,19,17,25),
-			EndDateTime = new DateTime(2020,11,19,19,5),
+			StartDateTime = new DateTime(2020,12,8,17,25,0),
+			EndDateTime = new DateTime(2020,12,8,19,5,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Finding Nemo"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,19,19,30),
-			EndDateTime = new DateTime(2020,11,19,22,11),
+			StartDateTime = new DateTime(2020,12,8,19,30,0),
+			EndDateTime = new DateTime(2020,12,8,22,11,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Harry Potter and the Chamber of Secrets"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,19,22,40),
-			EndDateTime = new DateTime(2020,11,19,23,49),
+			StartDateTime = new DateTime(2020,12,8,22,40,0),
+			EndDateTime = new DateTime(2020,12,8,23,49,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "The Land Before Time"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,20,9,0),
-			EndDateTime = new DateTime(2020,11,20,10,21),
+			StartDateTime = new DateTime(2020,12,9,9,0,0),
+			EndDateTime = new DateTime(2020,12,9,10,21,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Toy Story"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,20,10,50),
-			EndDateTime = new DateTime(2020,11,20,12,32),
+			StartDateTime = new DateTime(2020,12,9,10,50,0),
+			EndDateTime = new DateTime(2020,12,9,12,32,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Dazed and Confused"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,20,13,0),
-			EndDateTime = new DateTime(2020,11,20,14,40),
+			StartDateTime = new DateTime(2020,12,9,13,0,0),
+			EndDateTime = new DateTime(2020,12,9,14,40,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "The Lego Movie"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,20,15,20),
-			EndDateTime = new DateTime(2020,11,20,16,58),
+			StartDateTime = new DateTime(2020,12,9,15,20,0),
+			EndDateTime = new DateTime(2020,12,9,16,58,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "The Princess Bride"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,20,17,25),
-			EndDateTime = new DateTime(2020,11,20,19,5),
+			StartDateTime = new DateTime(2020,12,9,17,25,0),
+			EndDateTime = new DateTime(2020,12,9,19,5,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Finding Nemo"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,20,19,30),
-			EndDateTime = new DateTime(2020,11,20,22,11),
+			StartDateTime = new DateTime(2020,12,9,19,30,0),
+			EndDateTime = new DateTime(2020,12,9,22,11,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Harry Potter and the Chamber of Secrets"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,20,22,40),
-			EndDateTime = new DateTime(2020,11,20,23,49),
+			StartDateTime = new DateTime(2020,12,9,22,40,0),
+			EndDateTime = new DateTime(2020,12,9,23,49,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "The Land Before Time"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,21,9,0),
-			EndDateTime = new DateTime(2020,11,21,10,21),
+			StartDateTime = new DateTime(2020,12,10,9,0,0),
+			EndDateTime = new DateTime(2020,12,10,10,21,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Toy Story"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,21,10,50),
-			EndDateTime = new DateTime(2020,11,21,12,32),
+			StartDateTime = new DateTime(2020,12,10,10,50,0),
+			EndDateTime = new DateTime(2020,12,10,12,32,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Dazed and Confused"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,21,13,0),
-			EndDateTime = new DateTime(2020,11,21,14,40),
+			StartDateTime = new DateTime(2020,12,10,13,0,0),
+			EndDateTime = new DateTime(2020,12,10,14,40,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "The Lego Movie"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,21,15,20),
-			EndDateTime = new DateTime(2020,11,21,16,58),
+			StartDateTime = new DateTime(2020,12,10,15,20,0),
+			EndDateTime = new DateTime(2020,12,10,16,58,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "The Princess Bride"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,21,17,25),
-			EndDateTime = new DateTime(2020,11,21,19,5),
+			StartDateTime = new DateTime(2020,12,10,17,25,0),
+			EndDateTime = new DateTime(2020,12,10,19,5,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Finding Nemo"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,21,19,30),
-			EndDateTime = new DateTime(2020,11,21,22,11),
+			StartDateTime = new DateTime(2020,12,10,19,30,0),
+			EndDateTime = new DateTime(2020,12,10,22,11,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "Harry Potter and the Chamber of Secrets"),
 		});
 		AllShowings.Add(new Showing
 		{
-			StartDateTime = new DateTime(2020,11,21,22,40),
-			EndDateTime = new DateTime(2020,11,21,23,49),
+			StartDateTime = new DateTime(2020,12,10,22,40,0),
+			EndDateTime = new DateTime(2020,12,10,23,49,0),
 			Room = 2,
-			SpecialEvent = False,
+			SpecialEvent = false,
 			Movie = db.Movies.FirstOrDefault(c => c.Title == "The Land Before Time"),
 		});
-		//loop through the list to add or update the showing
+
+		Int32 intShowingID = 0;
+			//loop through the list to add or update the showing
 		try
 		{
 			foreach (Showing seedShowing in AllShowings)
 			{
 				//update the counters
 				intShowingID = seedShowing.ShowingID;
-				strShowingTitle = seedShowing.Title;
 				//see if the showing is already in the database using the UniqueIdentifier
-				Showing dbShowing = db.Showings.FirstOrDefault(m => m.UniqueIdentifier == seedShowing.UniqueIdentifier);
+				Showing dbShowing = db.Showings.FirstOrDefault(m => m.ShowingID == seedShowing.ShowingID);
 
 					//if showing is null, showing is not in database
 					if (dbShowing == null)
@@ -781,8 +774,7 @@ namespace Team1_FinalProject.Seeding
 			catch (Exception ex) //throw error if there is a problem in the database
 			{
 				StringBuilder msg = new StringBuilder();
-				msg.Append("There was a problem adding the showing with the title: ");
-				msg.Append(strShowingTitle);
+				msg.Append("There was a problem adding the showing.");
 				msg.Append(" (ShowingID: ");
 				msg.Append(intShowingID);
 				msg.Append(")");

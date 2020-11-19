@@ -6,51 +6,65 @@
 
 <h1>Index</h1>
 
-// add role stuff
-// Search results should include movie title, genre(s), release date, MPAA rating, customer rating, run time, and upcoming show times. 
-// Date-based search results should include title, MPAA rating, customer rating, number of seats available for the showing, and a link to view full details of the movie.
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+M
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.MovieName)
+                @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MovieDescription)
+                @Html.DisplayNameFor(model => model.Genre.GenreName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MovieMPAA)
+                @Html.DisplayNameFor(model => model.ReleaseDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Actor)
+                @Html.DisplayNameFor(model => model.MPAA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AverageRating)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Runtime)
             </th>
-            <th></th>
+            <th>
+                Showtimes:
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model) 
+{
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.MovieName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MovieDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MovieMPAA)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Actor)
-            </td>
-            <td>
+            <th>
+                @Html.DisplayFor(modelItem => item.Title)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Genre.GenreName)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.MPAA)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.AverageRating)
+            </th>
+            <th>
                 @Html.DisplayFor(modelItem => item.Runtime)
-            </td>
+            </th>
+            // how to go through each list of showings in the Showings property of the movie
+            <th>
+                @foreach (Showing showing in item.Showings)
+                {
+                    showing.StartDateTime.ToString("H:mm");
+                }
+            </th>
             <td>
                 // add role stuff for who can edit movies
                 <a asp-action="Edit" asp-route-id="@item.MovieID">Edit</a> |

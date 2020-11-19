@@ -215,11 +215,11 @@ namespace Team1_FinalProject.Migrations
                 {
                     MovieID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MovieName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MovieLength = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    MovieDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MovieMPAA = table.Column<int>(type: "int", nullable: false),
-                    Actor = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MPAA = table.Column<int>(type: "int", nullable: false),
+                    Actors = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Runtime = table.Column<int>(type: "int", nullable: false),
                     GenreID = table.Column<int>(type: "int", nullable: true)
                 },

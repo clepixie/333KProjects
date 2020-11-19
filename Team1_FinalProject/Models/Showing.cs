@@ -5,8 +5,6 @@ using System.Collections.Generic;
 
 namespace Team1_FinalProject.Models
 {
-    public enum Rooms
-    { A, B, C, D, }
         
     // in the controller, we will need to add spaces like below:
     // switch (employee):
@@ -27,7 +25,7 @@ namespace Team1_FinalProject.Models
         public DateTime EndDateTime { get; set; }
 
         [Display(Name = "Theater Room")]
-        public Rooms Room { get; set; }
+        public int Room { get; set; }
 
         [Display(Name = "Is This a Special Event?")]
         public Boolean SpecialEvent { get; set; }
@@ -38,16 +36,19 @@ namespace Team1_FinalProject.Models
 
         public Price Price { get; set; }
 
-        public int TicketCount()
+        public int TicketCount
         {
-            int count = 0;
-
-            foreach (Ticket ticket in Tickets)
+            get
             {
-                count += 1;
-            }
+                int count = 0;
 
-            return count;
+                foreach (Ticket ticket in Tickets)
+                {
+                    count += 1;
+                }
+
+                return count;
+            }
         }
 
     }

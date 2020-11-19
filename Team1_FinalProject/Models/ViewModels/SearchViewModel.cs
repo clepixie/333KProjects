@@ -31,7 +31,7 @@ namespace Team1_FinalProject.Models
 		public DateTime? SearchReleaseDate { get; set; }
 		[Display(Name = "MPAA Rating:")]
 		public MPAA SelectMPAA { get; set; } 
-		[Display(Name = "Actor:")]
+		[Display(Name = "Actors:")]
 		public String SearchActor { get; set; }
 		[Display(Name = "Customer Rating:")]
 		[Range(1, 5, ErrorMessage = "Rating must be between 1-5.")]

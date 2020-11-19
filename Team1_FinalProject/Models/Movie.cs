@@ -44,20 +44,23 @@ namespace Team1_FinalProject.Models
 		public List<Showing> Showings { get; set; }
 		public List<MovieReview> Reviews { get; set; }
 
-		public decimal AverageRating()
+		public decimal AverageRating
 		{
-			decimal avg = 0;
-			int count = 0;
-			int sum = 0;
-
-			foreach (MovieReview review in Reviews)
+			get
 			{
-				sum += review.MovieRating;
-				count += 1;
-				avg = sum / count;
-			}
+				decimal avg = 0;
+				int count = 0;
+				int sum = 0;
 
-			return avg;
+				foreach (MovieReview review in Reviews)
+				{
+					sum += review.MovieRating;
+					count += 1;
+					avg = sum / count;
+				}
+
+				return avg;
+			}
 		}
 	}
 }

@@ -254,22 +254,22 @@ namespace Team1_FinalProject.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("Actor")
+                    b.Property<string>("Actors")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("GenreID")
                         .HasColumnType("int");
 
-                    b.Property<string>("MovieDescription")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("MovieLength")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("MovieMPAA")
+                    b.Property<int>("MPAA")
                         .HasColumnType("int");
 
-                    b.Property<string>("MovieName")
+                    b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Runtime")

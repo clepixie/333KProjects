@@ -59,16 +59,16 @@ namespace Team1_FinalProject.Controllers
 
                 if (svm.SearchRating != null && svm.RatingsRange == null)
                 {
-                    query = query.Where(m => m.AverageRating() == svm.SearchRating);
+                    query = query.Where(m => m.AverageRating == svm.SearchRating);
                 }
 
                 switch (svm.RatingsRange)
                 {
                     case RatingsRange.Greater:
-                        query = query.Where(m => m.AverageRating() >= svm.SearchRating);
+                        query = query.Where(m => m.AverageRating >= svm.SearchRating);
                         break;
                     case RatingsRange.Lesser:
-                        query = query.Where(m => m.AverageRating() <= svm.SearchRating);
+                        query = query.Where(m => m.AverageRating <= svm.SearchRating);
                         break;
                     default:
                         break;
@@ -94,7 +94,7 @@ namespace Team1_FinalProject.Controllers
                     query = query.Where(m => m.StartDateTime == svm.SearchShowingDate);
                 }
 
-                List<Showing> SelectedShowings = query.Include(s => s.Movie).Include(s => s.TicketCount()).ToList();
+                List<Showing> SelectedShowings = query.Include(s => s.Movie).Include(s => s.TicketCount).ToList();
                 ViewBag.AllShowings = _context.Showings.Count();
                 ViewBag.SelectedShowings = SelectedShowings.Count();
                 return View("Index", SelectedShowings.OrderByDescending(s => s.StartDateTime));
@@ -135,7 +135,7 @@ namespace Team1_FinalProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MovieID,MovieName,MovieLength,MovieDescription,MovieMPAA,Actor,Runtime")] Movie movie)
+        public async Task<IActionResult> Create([Bind("MovieID,Title,MovieLength,Description,MPAA,Actors,Runtime,AverageRating")] Movie movie)
         {
             if (ModelState.IsValid)
             {
@@ -167,7 +167,7 @@ namespace Team1_FinalProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MovieID,MovieName,MovieLength,MovieDescription,MovieMPAA,Actor,Runtime")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("MovieID,Title,MovieLength,Description,MPAA,Actors,Runtime")] Movie movie)
         {
             if (id != movie.MovieID)
             {

@@ -28,34 +28,34 @@ Public Sub GenerateShowingSeed()
     
     'create output file
     Set outputfile = fs.CreateTextFile(Filename, True)
-    For j = 15 To 21
+    For j = 4 To 10
         For i = 3 To 8
                 
                 outputfile.WriteLine (vbTab & vbTab & "AllShowings.Add(new Showing")
                 outputfile.WriteLine (vbTab & vbTab & "{")
                 
                 'parse in the values from the spreadsheet - Chr(34) prints a double quote (") to the file
-                outputfile.WriteLine (vbTab & vbTab & vbTab & "StartDateTime = new DateTime(" & "2020" & "," & "11" & "," & j & "," & wksht.UsedRange(i, 2) & "," & wksht.UsedRange(i, 3) & "),")
-                outputfile.WriteLine (vbTab & vbTab & vbTab & "EndDateTime = new DateTime(" & "2020" & "," & "11" & "," & j & "," & wksht.UsedRange(i, 5) & "," & wksht.UsedRange(i, 6) & "),")
+                outputfile.WriteLine (vbTab & vbTab & vbTab & "StartDateTime = new DateTime(" & "2020" & "," & "12" & "," & j & "," & wksht.UsedRange(i, 2) & "," & wksht.UsedRange(i, 3) & ",0),")
+                outputfile.WriteLine (vbTab & vbTab & vbTab & "EndDateTime = new DateTime(" & "2020" & "," & "12" & "," & j & "," & wksht.UsedRange(i, 5) & "," & wksht.UsedRange(i, 6) & ",0),")
                 outputfile.WriteLine (vbTab & vbTab & vbTab & "Room = 1,")
-                outputfile.WriteLine (vbTab & vbTab & vbTab & "SpecialEvent = False,")
+                outputfile.WriteLine (vbTab & vbTab & vbTab & "SpecialEvent = false,")
                 outputfile.WriteLine (vbTab & vbTab & vbTab & "Movie = db.Movies.FirstOrDefault(c => c.Title == " & Chr(34) & wksht.UsedRange(i, 7) & Chr(34) & "),")
                 outputfile.WriteLine (vbTab & vbTab & "});")
             Next i
         Next j
     
     
-    For j = 15 To 21
+    For j = 4 To 10
         For i = 3 To 9
                 
                 outputfile.WriteLine (vbTab & vbTab & "AllShowings.Add(new Showing")
                 outputfile.WriteLine (vbTab & vbTab & "{")
                 
                 'parse in the values from the spreadsheet - Chr(34) prints a double quote (") to the file
-                outputfile.WriteLine (vbTab & vbTab & vbTab & "StartDateTime = new DateTime(" & "2020" & "," & "11" & "," & j & "," & wksht.UsedRange(i, 11) & "," & wksht.UsedRange(i, 12) & "),")
-                outputfile.WriteLine (vbTab & vbTab & vbTab & "EndDateTime = new DateTime(" & "2020" & "," & "11" & "," & j & "," & wksht.UsedRange(i, 14) & "," & wksht.UsedRange(i, 15) & "),")
+                outputfile.WriteLine (vbTab & vbTab & vbTab & "StartDateTime = new DateTime(" & "2020" & "," & "12" & "," & j & "," & wksht.UsedRange(i, 11) & "," & wksht.UsedRange(i, 12) & ",0),")
+                outputfile.WriteLine (vbTab & vbTab & vbTab & "EndDateTime = new DateTime(" & "2020" & "," & "12" & "," & j & "," & wksht.UsedRange(i, 14) & "," & wksht.UsedRange(i, 15) & ",0),")
                 outputfile.WriteLine (vbTab & vbTab & vbTab & "Room = 2,")
-                outputfile.WriteLine (vbTab & vbTab & vbTab & "SpecialEvent = False,")
+                outputfile.WriteLine (vbTab & vbTab & vbTab & "SpecialEvent = false,")
                 outputfile.WriteLine (vbTab & vbTab & vbTab & "Movie = db.Movies.FirstOrDefault(c => c.Title == " & Chr(34) & wksht.UsedRange(i, 16) & Chr(34) & "),")
                 outputfile.WriteLine (vbTab & vbTab & "});")
             Next i
