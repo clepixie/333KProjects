@@ -33,7 +33,7 @@ Public Sub GenerateCustomersSeed()
             'parse in the values from the spreadsheet - Chr(34) prints a double quote (") to the file
             outputfile.WriteLine (vbTab & vbTab & vbTab & "newUser = new AppUser();")
             outputfile.WriteLine (vbTab & vbTab & vbTab)
-            outputfile.WriteLine (vbTab & vbTab & vbTab & "newUser = " & wksht.UsedRange(i, 1) & ";")
+            outputfile.WriteLine (vbTab & vbTab & vbTab & "newUser.Id = " & wksht.UsedRange(i, 1) & ";")
             outputfile.WriteLine (vbTab & vbTab & vbTab & "newUser.UserName = " & Chr(34) & wksht.UsedRange(i, 16) & Chr(34) & ";")
             outputfile.WriteLine (vbTab & vbTab & vbTab & "newUser.Password = " & Chr(34) & wksht.UsedRange(i, 2) & Chr(34) & ";")
             outputfile.WriteLine (vbTab & vbTab & vbTab & "newUser.Email = " & Chr(34) & wksht.UsedRange(i, 16) & Chr(34) & ";")

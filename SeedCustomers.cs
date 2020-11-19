@@ -6,15 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 //TODO: Change these using statements to match your project
-using fa20IdentityTemplate.DAL;
-using fa20IdentityTemplate.Models;
+using Team1_FinalProject.DAL;
+using Team1_FinalProject.Models;
 
 
 //TODO: Change this namespace to match your project
-namespace fa20IdentityTemplate.Seeding
+namespace Team1_FinalProject.Seeding
 {
     //add identity data
-    public static class SeedIdentity
+    public static class SeedCustomers
     {
         public static async Task AddCustomer(IServiceProvider serviceProvider)
         {
@@ -66,7 +66,9 @@ namespace fa20IdentityTemplate.Seeding
             _context.SaveChanges();
 						newUser = new AppUser();
 			
-			newUser = 5002;
+						newUser = new AppUser();
+			
+			newUser.Id = 5002;
 			newUser.UserName = "banker@longhorn.net";
 			newUser.Password = "snowing";
 			newUser.Email = "banker@longhorn.net";
@@ -92,7 +94,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5003;
+			newUser.Id = 5003;
 			newUser.UserName = "franco@puppy.com";
 			newUser.Password = "skating";
 			newUser.Email = "franco@puppy.com";
@@ -118,7 +120,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5004;
+			newUser.Id = 5004;
 			newUser.UserName = "wchang@puppy.com";
 			newUser.Password = "Fighter";
 			newUser.Email = "wchang@puppy.com";
@@ -144,7 +146,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5005;
+			newUser.Id = 5005;
 			newUser.UserName = "limchou@gogle.com";
 			newUser.Password = "Dallas63";
 			newUser.Email = "limchou@gogle.com";
@@ -170,7 +172,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5006;
+			newUser.Id = 5006;
 			newUser.UserName = "shdixon@aoll.com";
 			newUser.Password = "peppero";
 			newUser.Email = "shdixon@aoll.com";
@@ -196,7 +198,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5007;
+			newUser.Id = 5007;
 			newUser.UserName = "j.b.evans@aheca.org";
 			newUser.Password = "longhorn";
 			newUser.Email = "j.b.evans@aheca.org";
@@ -222,7 +224,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5008;
+			newUser.Id = 5008;
 			newUser.UserName = "feeley@penguin.org";
 			newUser.Password = "aggiesuck";
 			newUser.Email = "feeley@penguin.org";
@@ -248,7 +250,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5009;
+			newUser.Id = 5009;
 			newUser.UserName = "tfreeley@minnetonka.ci.us";
 			newUser.Password = "raiders75";
 			newUser.Email = "tfreeley@minnetonka.ci.us";
@@ -274,7 +276,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5010;
+			newUser.Id = 5010;
 			newUser.UserName = "mgarcia@gogle.com";
 			newUser.Password = "mustang54";
 			newUser.Email = "mgarcia@gogle.com";
@@ -300,7 +302,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5011;
+			newUser.Id = 5011;
 			newUser.UserName = "chaley@mug.com";
 			newUser.Password = "onetime76";
 			newUser.Email = "chaley@mug.com";
@@ -326,7 +328,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5012;
+			newUser.Id = 5012;
 			newUser.UserName = "jeffh@mario.com";
 			newUser.Password = "hampton98";
 			newUser.Email = "jeffh@mario.com";
@@ -352,7 +354,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5013;
+			newUser.Id = 5013;
 			newUser.UserName = "wjhearniii@umich.org";
 			newUser.Password = "jhearn99";
 			newUser.Email = "wjhearniii@umich.org";
@@ -378,7 +380,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5014;
+			newUser.Id = 5014;
 			newUser.UserName = "ahick@yaho.com";
 			newUser.Password = "hickemon";
 			newUser.Email = "ahick@yaho.com";
@@ -404,7 +406,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5015;
+			newUser.Id = 5015;
 			newUser.UserName = "ingram@jack.com";
 			newUser.Password = "ingram2098";
 			newUser.Email = "ingram@jack.com";
@@ -430,7 +432,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5016;
+			newUser.Id = 5016;
 			newUser.UserName = "toddj@yourmom.com";
 			newUser.Password = "toddy53";
 			newUser.Email = "toddj@yourmom.com";
@@ -456,7 +458,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5017;
+			newUser.Id = 5017;
 			newUser.UserName = "thequeen@aska.net";
 			newUser.Password = "nothing34";
 			newUser.Email = "thequeen@aska.net";
@@ -482,7 +484,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5018;
+			newUser.Id = 5018;
 			newUser.UserName = "linebacker@gogle.com";
 			newUser.Password = "Password5";
 			newUser.Email = "linebacker@gogle.com";
@@ -508,7 +510,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5019;
+			newUser.Id = 5019;
 			newUser.UserName = "elowe@scare.net";
 			newUser.Password = "aclfest2076";
 			newUser.Email = "elowe@scare.net";
@@ -534,7 +536,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5020;
+			newUser.Id = 5020;
 			newUser.UserName = "cluce@gogle.com";
 			newUser.Password = "nothinggreat";
 			newUser.Email = "cluce@gogle.com";
@@ -560,7 +562,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5021;
+			newUser.Id = 5021;
 			newUser.UserName = "mackcloud@george.com";
 			newUser.Password = "However";
 			newUser.Email = "mackcloud@george.com";
@@ -586,7 +588,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5022;
+			newUser.Id = 5022;
 			newUser.UserName = "cmartin@beets.com";
 			newUser.Password = "nobodycares";
 			newUser.Email = "cmartin@beets.com";
@@ -612,7 +614,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5023;
+			newUser.Id = 5023;
 			newUser.UserName = "clarence@yoho.com";
 			newUser.Password = "eggsellent";
 			newUser.Email = "clarence@yoho.com";
@@ -638,7 +640,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5024;
+			newUser.Id = 5024;
 			newUser.UserName = "gregmartinez@drdre.com";
 			newUser.Password = "rainrain";
 			newUser.Email = "gregmartinez@drdre.com";
@@ -664,7 +666,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5025;
+			newUser.Id = 5025;
 			newUser.UserName = "cmiller@bob.com";
 			newUser.Password = "mypuppyspot";
 			newUser.Email = "cmiller@bob.com";
@@ -690,7 +692,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5026;
+			newUser.Id = 5026;
 			newUser.UserName = "knelson@aoll.com";
 			newUser.Password = "spotmycat";
 			newUser.Email = "knelson@aoll.com";
@@ -716,7 +718,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5027;
+			newUser.Id = 5027;
 			newUser.UserName = "joewin@xfactor.com";
 			newUser.Password = "joejoebob";
 			newUser.Email = "joewin@xfactor.com";
@@ -742,7 +744,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5028;
+			newUser.Id = 5028;
 			newUser.UserName = "orielly@foxnews.cnn";
 			newUser.Password = "bobbyboy";
 			newUser.Email = "orielly@foxnews.cnn";
@@ -768,7 +770,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5029;
+			newUser.Id = 5029;
 			newUser.UserName = "ankaisrad@gogle.com";
 			newUser.Password = "chadgirl";
 			newUser.Email = "ankaisrad@gogle.com";
@@ -794,7 +796,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5030;
+			newUser.Id = 5030;
 			newUser.UserName = "megrhodes@freserve.co.uk";
 			newUser.Password = "megan55";
 			newUser.Email = "megrhodes@freserve.co.uk";
@@ -820,7 +822,7 @@ namespace fa20IdentityTemplate.Seeding
 			
 			newUser = new AppUser();
 			
-			newUser = 5031;
+			newUser.Id = 5031;
 			newUser.UserName = "erynrice@aoll.com";
 			newUser.Password = "ricearoni";
 			newUser.Email = "erynrice@aoll.com";
