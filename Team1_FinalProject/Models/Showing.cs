@@ -47,7 +47,7 @@ namespace Team1_FinalProject.Models
                     count += 1;
                 }
 
-                return count;
+                return (25-count);
             }
         }
 

@@ -18,7 +18,7 @@ namespace Team1_FinalProject.Models
     {
 
 		public Int32 MovieID { get; set; }
-
+		public Int32 MovieNumber { get; set; }
 		public string Title { get; set; }
 
 		public Int32 Runtime { get; set; }
@@ -43,22 +43,29 @@ namespace Team1_FinalProject.Models
 		public List<Showing> Showings { get; set; }
 		public List<MovieReview> Reviews { get; set; }
 
-		public decimal AverageRating
+		public decimal? AverageRating
 		{
 			get
 			{
 				decimal avg = 0;
 				int count = 0;
 				int sum = 0;
-
-				foreach (MovieReview review in Reviews)
+				if (Reviews is null)
 				{
-					sum += review.MovieRating;
-					count += 1;
-					avg = sum / count;
+					return null;
 				}
 
-				return avg;
+				else
+				{
+					foreach (MovieReview review in Reviews)
+					{
+						sum += review.MovieRating;
+						count += 1;
+						avg = sum / count;
+					}
+
+					return avg;
+				}
 			}
 		}
 	}
