@@ -1,70 +1,43 @@
 ﻿<Properties StartupConfiguration="{5BEA845B-2AA8-4BCB-A0C3-D8FEF9946679}|Default">
   <MonoDevelop.Ide.ItemProperties.Team1__FinalProject PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/OrdersController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Models/Movie.cs">
     <Files>
-      <File FileName="Models/ViewModels/SearchViewModel.cs" Line="35" Column="1" />
       <File FileName="Startup.cs" Line="49" Column="37" />
-      <File FileName="DAL/AppDbContext.cs" />
-      <File FileName="Models/Showing.cs" />
-      <File FileName="Models/Price.cs" />
-      <File FileName="Program.cs" />
-      <File FileName="appsettings.json" />
-      <File FileName="Controllers/PricesController.cs" Line="1" Column="1" />
-      <File FileName="Controllers/OrdersController.cs" Line="13" Column="2" />
-      <File FileName="Controllers/ShowingsController.cs" />
-      <File FileName="Models/Movie.cs" />
-      <File FileName="Models/MovieReview.cs" />
-      <File FileName="Models/AppUser.cs" Line="1" Column="1" />
-      <File FileName="Models/Genre.cs" />
-      <File FileName="Models/Order.cs" />
-      <File FileName="Models/Ticket.cs" />
-      <File FileName="Views/Movies/Index.cshtml" />
-      <File FileName="Views/Movies/Delete.cshtml" />
-      <File FileName="Views/Movies/Details.cshtml" />
-      <File FileName="Views/Movies/Create.cshtml" />
-      <File FileName="Views/Movies/Edit.cshtml" />
-      <File FileName="Views/MovieReviews/Create.cshtml" />
-      <File FileName="Views/MovieReviews/Delete.cshtml" />
-      <File FileName="Views/MovieReviews/Details.cshtml" />
-      <File FileName="Controllers/HomeController.cs" />
-      <File FileName="Controllers/AccountController.cs" Line="58" Column="45" />
-      <File FileName="Views/Home/Index.cshtml" />
-      <File FileName="Views/RoleAdmin/Create.cshtml" />
-      <File FileName="Views/RoleAdmin/Edit.cshtml" />
-      <File FileName="Views/RoleAdmin/Index.cshtml" />
-      <File FileName="Views/Shared/_Layout.cshtml" />
-      <File FileName="Seeding/SeedIdentity.cs" />
-      <File FileName="Models/ViewModels/AccountViewModels.cs" Line="53" Column="1" />
-      <File FileName="Controllers/RoleAdminController.cs" />
-      <File FileName="Models/ViewModels/RoleViewModels.cs" />
-      <File FileName="Views/_ViewImports.cshtml" />
-      <File FileName="Models/ViewModels/LoginViewModel.cs" />
-      <File FileName="Controllers/GenresController.cs" />
-      <File FileName="Controllers/MovieReviewsController.cs" />
+      <File FileName="Views/Orders/Confirmation.cshtml" Line="1" Column="1" />
       <File FileName="Views/Orders/Create.cshtml" Line="1" Column="1" />
-      <File FileName="Views/Orders/Delete.cshtml" Line="1" Column="1" />
-      <File FileName="Views/Orders/Details.cshtml" Line="1" Column="1" />
-      <File FileName="Views/Orders/Edit.cshtml" Line="1" Column="1" />
-      <File FileName="Views/Orders/Index.cshtml" Line="1" Column="1" />
+      <File FileName="Controllers/ShowingsController.cs" Line="1" Column="1" />
+      <File FileName="Controllers/TicketsController.cs" Line="1" Column="1" />
+      <File FileName="Controllers/PricesController.cs" Line="1" Column="1" />
+      <File FileName="Controllers/OrdersController.cs" Line="1" Column="1" />
+      <File FileName="Controllers/MoviesController.cs" Line="1" Column="1" />
+      <File FileName="Controllers/MovieReviewsController.cs" Line="1" Column="1" />
+      <File FileName="Models/ViewModels/ReportViewModel.cs" Line="19" Column="9" />
+      <File FileName="Models/ViewModels/SearchViewModel.cs" Line="1" Column="1" />
+      <File FileName="Models/Showing.cs" Line="1" Column="1" />
+      <File FileName="Models/Ticket.cs" Line="18" Column="17" />
+      <File FileName="Models/Order.cs" Line="1" Column="1" />
+      <File FileName="Models/Movie.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Team1_FinalProject" expanded="True">
             <Node name="Team1_FinalProject" expanded="True">
-              <Node name="Controllers" expanded="True">
-                <Node name="OrdersController.cs" selected="True" />
-              </Node>
+              <Node name="Controllers" expanded="True" />
               <Node name="DAL" expanded="True" />
               <Node name="Migrations" expanded="True" />
               <Node name="Models" expanded="True">
                 <Node name="ViewModels" expanded="True" />
+                <Node name="Movie.cs" selected="True" />
               </Node>
               <Node name="Properties" expanded="True" />
               <Node name="Seeding" expanded="True" />
               <Node name="Views" expanded="True">
+                <Node name="Account" expanded="True" />
+                <Node name="Genres" expanded="True" />
                 <Node name="Home" expanded="True" />
                 <Node name="MovieReviews" expanded="True" />
+                <Node name="Movies" expanded="True" />
                 <Node name="Orders" expanded="True" />
                 <Node name="Prices" expanded="True" />
                 <Node name="RoleAdmin" expanded="True" />
