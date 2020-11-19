@@ -21,9 +21,7 @@ namespace Team1_FinalProject
             services.AddControllersWithViews();
 
             //TODO: (For HW4 and beyond) Add a connection string here once you have created it on Azure
-            var connectionString = "Server=tcp:fa20team1finalproject.database.windows.net,1433;" +
-                "Initial Catalog=fa20team1finalproject;Persist Security Info=False;User ID=misadmin;Password=mishw123!;" +
-                "MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";             //TODO: Uncomment this line once you have your connection string
+            var connectionString = "Server=tcp:team1test.database.windows.net,1433;Initial Catalog=Team1_FinalProjectTest;Persist Security Info=False;User ID=admin@example.com@team1test;Password=Abc123!!;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";             //TODO: Uncomment this line once you have your connection string
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
             //TODO: Uncomment these lines once you have added Identity to your project
@@ -81,8 +79,8 @@ namespace Team1_FinalProject
 
             //TODO: Uncomment this after admin is seeded
             //This seeds the admin user
-            Seeding.SeedCustomers.AddCustomer(service).Wait();
-            Seeding.SeedEmployeesManagers.AddEmployee(service).Wait();
+            //Seeding.SeedCustomers.AddCustomer(service).Wait();
+            //Seeding.SeedEmployeesManagers.AddEmployee(service).Wait();
         }
     }   
 }

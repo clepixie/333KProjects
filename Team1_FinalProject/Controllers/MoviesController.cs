@@ -18,6 +18,14 @@ namespace Team1_FinalProject.Controllers
         {
             _context = context;
         }
+        public IActionResult Index()
+        {
+            var query = from m in _context.Movies
+                        select m;
+            ViewBag.AllMovies = _context.Movies.Count();
+            ViewBag.SelectedMovies = _context.Movies.Count();
+            return View("Index", query.Include(m => m.Genre).ToList());
+        }
         // GET: Movies/Index
         public IActionResult DisplaySearchResults(SearchViewModel svm)
         {
@@ -101,12 +109,6 @@ namespace Team1_FinalProject.Controllers
             }
         }
         // GET: Movies
-        public async Task<IActionResult> Index()
-        {
-            ViewBag.AllMovies = _context.Movies.Count();
-            ViewBag.SelectedMovies = _context.Movies.Count();
-            return View(await _context.Movies.ToListAsync());
-        }
 
         // GET: Movies/Details/5
         public async Task<IActionResult> Details(int? id)
