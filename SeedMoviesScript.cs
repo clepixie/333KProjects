@@ -27,7 +27,7 @@ Public Sub GenerateMovieSeed()
     
     'create output file
     Set outputfile = fs.CreateTextFile(Filename, True)
-    For i = 3 To wksht.UsedRange.Rows.Count
+    For i = 3 To 101
             
             outputfile.WriteLine (vbTab & vbTab & "AllMovies.Add(new Movie")
             outputfile.WriteLine (vbTab & vbTab & "{")
@@ -38,11 +38,11 @@ Public Sub GenerateMovieSeed()
             outputfile.WriteLine (vbTab & vbTab & vbTab & "Description = " & Chr(34) & wksht.UsedRange(i, 4) & Chr(34) & ",")
             outputfile.WriteLine (vbTab & vbTab & vbTab & "ReleaseDate = new DateTime(" & wksht.UsedRange(i, 6) & "," & wksht.UsedRange(i, 7) & "," & wksht.UsedRange(i, 8) & "),")
             outputfile.WriteLine (vbTab & vbTab & vbTab & "Revenue = " & wksht.UsedRange(i, 9) & ",")
-            outputfile.WriteLine (vbTab & vbTab & vbTab & "Runtime = " & wksht.UsedRange(i, 10))
+            outputfile.WriteLine (vbTab & vbTab & vbTab & "Runtime = " & wksht.UsedRange(i, 10) & ",")
             outputfile.WriteLine (vbTab & vbTab & vbTab & "MPAA = " & Chr(34) & wksht.UsedRange(i, 12) & Chr(34) & ",")
             outputfile.WriteLine (vbTab & vbTab & vbTab & "Tagline = " & Chr(34) & wksht.UsedRange(i, 11) & Chr(34) & ",")
             outputfile.WriteLine (vbTab & vbTab & vbTab & "Actors = " & Chr(34) & wksht.UsedRange(i, 13) & Chr(34) & ",")
-            outputfile.WriteLine (vbTab & vbTab & vbTab & "Genre = db.Categories.FirstOrDefault(c => c.GenreName == " & Chr(34) & wksht.UsedRange(i, 3) & Chr(34) & "),")
+            outputfile.WriteLine (vbTab & vbTab & vbTab & "Genre = db.Genres.FirstOrDefault(c => c.GenreName == " & Chr(34) & wksht.UsedRange(i, 3) & Chr(34) & "),")
             outputfile.WriteLine (vbTab & vbTab & "});")
         Next i
 '

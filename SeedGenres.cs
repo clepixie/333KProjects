@@ -15,72 +15,72 @@ namespace Team1_FinalProject.Seeding
 		List<Genre> AllGenres = new List<Genre>();
 		AllGenres.Add(new Genre
 		{
-			GenreName = "Action"
+			GenreName = "Action",
 		});
 		
 		AllGenres.Add(new Genre
 		{
-			GenreName = "Adventure"
+			GenreName = "Adventure",
 		});
 		
 		AllGenres.Add(new Genre
 		{
-			GenreName = "Animation"
+			GenreName = "Animation",
 		});
 				
 		AllGenres.Add(new Genre
 		{
-			GenreName = "Comedy"
+			GenreName = "Comedy",
 		});
 		
 		AllGenres.Add(new Genre
 		{
-			GenreName = "Crime"
+			GenreName = "Crime",
 		});	
 				
 		AllGenres.Add(new Genre
 		{
-			GenreName = "Drama"
+			GenreName = "Drama",
 		});
 				
 		AllGenres.Add(new Genre
 		{
-			GenreName = "Family"
+			GenreName = "Family",
 		});
 				
 		AllGenres.Add(new Genre
 		{
-			GenreName = "Fantasy"
+			GenreName = "Fantasy",
 		});
 				
 		AllGenres.Add(new Genre
 		{
-			GenreName = "Horror"
+			GenreName = "Horror",
 		});
 				
 		AllGenres.Add(new Genre
 		{
-			GenreName = "Musical"
+			GenreName = "Musical",
 		});
 				
 		AllGenres.Add(new Genre
 		{
-			GenreName = "Romance"
+			GenreName = "Romance",
 		});
 				
 		AllGenres.Add(new Genre
 		{
-			GenreName = "Science Fiction"
+			GenreName = "Science Fiction",
 		});
 				
 		AllGenres.Add(new Genre
 		{
-			GenreName = "Thriller"
+			GenreName = "Thriller",
 		});
 				
 		AllGenres.Add(new Genre
 		{
-			GenreName = "War"
+			GenreName = "War",
 		});
 				//create some counters to help debug problems
 		Int32 intGenreID = 0;
