@@ -46,5 +46,20 @@ namespace Team1_FinalProject.Controllers
 
             return genreSelectList;
         }
+
+        private SelectList GetAllMovies()
+        {
+            List<Movie> movieList = _context.Movies.ToList();
+
+            Movie SelectNone = new Movie() { MovieID = 0, Title = "All Movies" };
+            movieList.Add(SelectNone);
+
+            SelectList movieSelectList = new SelectList(movieList.OrderBy(m => m.MovieID), "MovieID", "Title");
+
+            return movieSelectList;
+        }
+
+        [HttpPost]
+        public ActionResult DisplayReportsResults(ReportViewModel rvm) { }
     }
 }
