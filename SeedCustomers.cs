@@ -64,9 +64,8 @@ namespace Team1_FinalProject.Seeding
 
             //save changes
             _context.SaveChanges();
-						newUser = new AppUser();
 			
-						newUser = new AppUser();
+			newUser = new AppUser();
 			
 			newUser.Id = 5002;
 			newUser.UserName = "banker@longhorn.net";
