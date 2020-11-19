@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Team1_FinalProject.Models
 {
-    public class MovieReview
-    {
+	public class MovieReview
+	{
 
 		public Int32 MovieReviewID { get; set; }
 
@@ -18,6 +18,7 @@ namespace Team1_FinalProject.Models
 		public AppUser User { get; set; }
 
 		public Movie Movie { get; set; }
+
        
     }
 }

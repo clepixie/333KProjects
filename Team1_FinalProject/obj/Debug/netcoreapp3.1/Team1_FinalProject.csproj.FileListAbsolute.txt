@@ -276,3 +276,12 @@
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Shared/Error.cshtml.g.cs
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Shared/_LoginPartial.cshtml.g.cs
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Shared/_ValidationScriptsPartial.cshtml.g.cs
+C:\Users\alice\Documents\UT\333K\333KProjects\Team1_FinalProject\obj\Debug\netcoreapp3.1\Team1_FinalProject.csprojAssemblyReference.cache
+C:\Users\alice\Documents\UT\333K\333KProjects\Team1_FinalProject\obj\Debug\netcoreapp3.1\Team1_FinalProject.AssemblyInfoInputs.cache
+C:\Users\alice\Documents\UT\333K\333KProjects\Team1_FinalProject\obj\Debug\netcoreapp3.1\Team1_FinalProject.AssemblyInfo.cs
+C:\Users\alice\Documents\UT\333K\333KProjects\Team1_FinalProject\obj\Debug\netcoreapp3.1\Team1_FinalProject.csproj.CoreCompileInputs.cache
+C:\Users\alice\Documents\UT\333K\333KProjects\Team1_FinalProject\obj\Debug\netcoreapp3.1\Team1_FinalProject.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\alice\Documents\UT\333K\333KProjects\Team1_FinalProject\obj\Debug\netcoreapp3.1\Team1_FinalProject.RazorAssemblyInfo.cache
+C:\Users\alice\Documents\UT\333K\333KProjects\Team1_FinalProject\obj\Debug\netcoreapp3.1\Team1_FinalProject.RazorAssemblyInfo.cs
+C:\Users\alice\Documents\UT\333K\333KProjects\Team1_FinalProject\obj\Debug\netcoreapp3.1\Team1_FinalProject.dll
+C:\Users\alice\Documents\UT\333K\333KProjects\Team1_FinalProject\obj\Debug\netcoreapp3.1\Team1_FinalProject.pdb

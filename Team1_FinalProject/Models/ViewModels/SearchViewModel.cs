@@ -10,6 +10,12 @@ namespace Team1_FinalProject.Models
 		Lesser
 	}
 
+	public enum Select
+    {
+		Movie,
+		Showing
+    }
+
 	public class SearchViewModel
 	{
 		[Display(Name = "Title:")]
@@ -32,7 +38,7 @@ namespace Team1_FinalProject.Models
 		public Decimal? SearchRating { get; set; }
 		[Display(Name = "")]
 		public RatingsRange? RatingsRange { get; set; }
-		public Boolean MovieSearch { get; set; }
+		public Select MovieShowing { get; set; }
 
 	}
 }

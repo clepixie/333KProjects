@@ -39,7 +39,7 @@ Public Sub GenerateMovieSeed()
             outputfile.WriteLine (vbTab & vbTab & vbTab & "ReleaseDate = new DateTime(" & wksht.UsedRange(i, 6) & "," & wksht.UsedRange(i, 7) & "," & wksht.UsedRange(i, 8) & "),")
             outputfile.WriteLine (vbTab & vbTab & vbTab & "Revenue = " & wksht.UsedRange(i, 9) & ",")
             outputfile.WriteLine (vbTab & vbTab & vbTab & "Runtime = " & wksht.UsedRange(i, 10) & ",")
-            outputfile.WriteLine (vbTab & vbTab & vbTab & "MPAA = " & Chr(34) & wksht.UsedRange(i, 12) & Chr(34) & ",")
+            outputfile.WriteLine (vbTab & vbTab & vbTab & "MPAA = " & "MPAA." & wksht.UsedRange(i, 12) & ",")
             outputfile.WriteLine (vbTab & vbTab & vbTab & "Tagline = " & Chr(34) & wksht.UsedRange(i, 11) & Chr(34) & ",")
             outputfile.WriteLine (vbTab & vbTab & vbTab & "Actors = " & Chr(34) & wksht.UsedRange(i, 13) & Chr(34) & ",")
             outputfile.WriteLine (vbTab & vbTab & vbTab & "Genre = db.Genres.FirstOrDefault(c => c.GenreName == " & Chr(34) & wksht.UsedRange(i, 3) & Chr(34) & "),")
@@ -55,5 +55,6 @@ Public Sub GenerateMovieSeed()
     MsgBox ("File Created Successfully!")
 '
 End Sub
+
 
 

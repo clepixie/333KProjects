@@ -6,12 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 //TODO: Change these using statements to match your project
-using fa20IdentityTemplate.DAL;
-using fa20IdentityTemplate.Models;
+using Team1_FinalProject.DAL;
+using Team1_FinalProject.Models;
 
 
 //TODO: Change this namespace to match your project
-namespace fa20IdentityTemplate.Seeding
+namespace Team1_FinalProject.Seeding
 {
     //add identity data
     public static class SeedIdentity
@@ -36,7 +36,7 @@ namespace fa20IdentityTemplate.Seeding
                 await _roleManager.CreateAsync(new IdentityRole("Manager"));
             }
 
-            newUser = new AppUser();
+			AppUser newUser = new AppUser();
 			
 			newUser.UserName = "t.jacobs@mainstreetmovies.com";
 			newUser.Password = "toddyboy";
@@ -72,7 +72,7 @@ namespace fa20IdentityTemplate.Seeding
 			newUser.Birthdate = new DateTime(1959,7,2);
 			newUser.Address = "3405 Rio Grande Austin, TX78746";
 			
-			IdentityResult result = new IdentityResult();
+			result = new IdentityResult();
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "e.rice@mainstreetmovies.com");
@@ -96,7 +96,7 @@ namespace fa20IdentityTemplate.Seeding
 			newUser.Birthdate = new DateTime(1964,9,2);
 			newUser.Address = "467 Nueces St. Austin, TX78727";
 			
-			IdentityResult result = new IdentityResult();
+			result = new IdentityResult();
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "a.taylor@mainstreetmovies.com");
@@ -120,7 +120,7 @@ namespace fa20IdentityTemplate.Seeding
 			newUser.Birthdate = new DateTime(1992,3,30);
 			newUser.Address = "8295 Sunset Blvd. Austin, TX78712";
 			
-			IdentityResult result = new IdentityResult();
+			result = new IdentityResult();
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "g.martinez@mainstreetmovies.com");
@@ -144,7 +144,7 @@ namespace fa20IdentityTemplate.Seeding
 			newUser.Birthdate = new DateTime(1996,12,29);
 			newUser.Address = "3886 Avenue A San Marcos, TX78666";
 			
-			IdentityResult result = new IdentityResult();
+			result = new IdentityResult();
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "m.sheffield@mainstreetmovies.com");
@@ -168,7 +168,7 @@ namespace fa20IdentityTemplate.Seeding
 			newUser.Birthdate = new DateTime(1970,8,12);
 			newUser.Address = "4347 Almstead Austin, TX78712";
 			
-			IdentityResult result = new IdentityResult();
+			result = new IdentityResult();
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "j.tanner@mainstreetmovies.com");
@@ -192,7 +192,7 @@ namespace fa20IdentityTemplate.Seeding
 			newUser.Birthdate = new DateTime(1970,12,18);
 			newUser.Address = "4587 Enfield Rd. Austin, TX78729";
 			
-			IdentityResult result = new IdentityResult();
+			result = new IdentityResult();
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "m.rhodes@mainstreetmovies.com");
@@ -216,7 +216,7 @@ namespace fa20IdentityTemplate.Seeding
 			newUser.Birthdate = new DateTime(1971,3,11);
 			newUser.Address = "5576 Toro Ring San Antonio, TX78758";
 			
-			IdentityResult result = new IdentityResult();
+			result = new IdentityResult();
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "e.stuart@mainstreetmovies.com");
@@ -240,7 +240,7 @@ namespace fa20IdentityTemplate.Seeding
 			newUser.Birthdate = new DateTime(1972,12,20);
 			newUser.Address = "345 Longview Dr. Austin, TX78746";
 			
-			IdentityResult result = new IdentityResult();
+			result = new IdentityResult();
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "r.taylor@mainstreetmovies.com");
@@ -264,7 +264,7 @@ namespace fa20IdentityTemplate.Seeding
 			newUser.Birthdate = new DateTime(1973,4,28);
 			newUser.Address = "6639 Butterfly Ln. Austin, TX78712";
 			
-			IdentityResult result = new IdentityResult();
+			result = new IdentityResult();
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "v.lawrence@mainstreetmovies.com");
@@ -288,7 +288,7 @@ namespace fa20IdentityTemplate.Seeding
 			newUser.Birthdate = new DateTime(1978,6,21);
 			newUser.Address = "4965 Oak Hill Austin, TX78705";
 			
-			IdentityResult result = new IdentityResult();
+			result = new IdentityResult();
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "a.rogers@mainstreetmovies.com");
@@ -312,7 +312,7 @@ namespace fa20IdentityTemplate.Seeding
 			newUser.Birthdate = new DateTime(1993,3,16);
 			newUser.Address = "1245 Lake Anchorage Blvd. Cedar Park, TX78613";
 			
-			IdentityResult result = new IdentityResult();
+			result = new IdentityResult();
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "c.baker@mainstreetmovies.com");
@@ -336,7 +336,7 @@ namespace fa20IdentityTemplate.Seeding
 			newUser.Birthdate = new DateTime(1986,5,25);
 			newUser.Address = "2365 51st St. Austin, TX78755";
 			
-			IdentityResult result = new IdentityResult();
+			result = new IdentityResult();
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "w.sewell@mainstreetmovies.com");
@@ -360,7 +360,7 @@ namespace fa20IdentityTemplate.Seeding
 			newUser.Birthdate = new DateTime(1986,6,6);
 			newUser.Address = "444 45th St Austin, TX78701";
 			
-			IdentityResult result = new IdentityResult();
+			result = new IdentityResult();
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "j.mason@mainstreetmovies.com");
@@ -384,7 +384,7 @@ namespace fa20IdentityTemplate.Seeding
 			newUser.Birthdate = new DateTime(1989,10,16);
 			newUser.Address = "222 Main Austin, TX78760";
 			
-			IdentityResult result = new IdentityResult();
+			result = new IdentityResult();
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "j.jackson@mainstreetmovies.com");
@@ -408,7 +408,7 @@ namespace fa20IdentityTemplate.Seeding
 			newUser.Birthdate = new DateTime(1988,4,5);
 			newUser.Address = "465 N. Bear Cub Austin, TX78734";
 			
-			IdentityResult result = new IdentityResult();
+			result = new IdentityResult();
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "m.nguyen@mainstreetmovies.com");
@@ -432,7 +432,7 @@ namespace fa20IdentityTemplate.Seeding
 			newUser.Birthdate = new DateTime(1993,2,22);
 			newUser.Address = "888 S. Main Kyle, TX78640";
 			
-			IdentityResult result = new IdentityResult();
+			result = new IdentityResult();
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "s.barnes@mainstreetmovies.com");
@@ -456,7 +456,7 @@ namespace fa20IdentityTemplate.Seeding
 			newUser.Birthdate = new DateTime(1996,6,29);
 			newUser.Address = "999 LeBlat Austin, TX78747";
 			
-			IdentityResult result = new IdentityResult();
+			result = new IdentityResult();
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "l.jones@mainstreetmovies.com");
@@ -480,7 +480,7 @@ namespace fa20IdentityTemplate.Seeding
 			newUser.Birthdate = new DateTime(1997,12,29);
 			newUser.Address = "900 4th St Austin, TX78758";
 			
-			IdentityResult result = new IdentityResult();
+			result = new IdentityResult();
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "c.silva@mainstreetmovies.com");
@@ -504,7 +504,7 @@ namespace fa20IdentityTemplate.Seeding
 			newUser.Birthdate = new DateTime(1999,12,17);
 			newUser.Address = "23 Polar Bear Road Buda, TX78712";
 			
-			IdentityResult result = new IdentityResult();
+			result = new IdentityResult();
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "s.rankin@mainstreetmovies.com");
@@ -515,6 +515,7 @@ namespace fa20IdentityTemplate.Seeding
 			}
 			
 			_context.SaveChanges();
+			
 			
         }
 
