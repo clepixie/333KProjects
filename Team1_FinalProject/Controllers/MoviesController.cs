@@ -52,7 +52,7 @@ namespace Team1_FinalProject.Controllers
                     query = query.Where(m => m.Genre.GenreID == svm.SelectGenreID);
                 }
 
-                if (svm.SelectMPAA != MPAA.Select)
+                if (svm.SelectMPAA != null)
                 {
                     query = query.Where(m => m.MPAA == svm.SelectMPAA);
                 }
@@ -80,8 +80,8 @@ namespace Team1_FinalProject.Controllers
                 }
 
                 List<Movie> SelectedMovies = query.Include(m => m.Genre).ToList();
-                ViewBag.AllJobs = _context.Movies.Count();
-                ViewBag.SelectedJobs = SelectedMovies.Count();
+                ViewBag.AllMovies = _context.Movies.Count();
+                ViewBag.SelectedMovies = SelectedMovies.Count();
                 return View("Index", SelectedMovies.OrderByDescending(m => m.MovieID));
             }
 
@@ -97,12 +97,14 @@ namespace Team1_FinalProject.Controllers
                 List<Showing> SelectedShowings = query.Include(s => s.Movie).Include(s => s.TicketCount).ToList();
                 ViewBag.AllShowings = _context.Showings.Count();
                 ViewBag.SelectedShowings = SelectedShowings.Count();
-                return View("Index", SelectedShowings.OrderByDescending(s => s.StartDateTime));
+                return View("ShowingsIndex", SelectedShowings.OrderByDescending(s => s.StartDateTime));
             }
         }
         // GET: Movies
         public async Task<IActionResult> Index()
         {
+            ViewBag.AllMovies = _context.Movies.Count();
+            ViewBag.SelectedMovies = _context.Movies.Count();
             return View(await _context.Movies.ToListAsync());
         }
 

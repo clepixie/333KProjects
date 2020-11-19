@@ -7,7 +7,6 @@ namespace Team1_FinalProject.Models
 {
 	public enum MPAA
 	{
-		Select,
 		G,
 		PG,
 		PG13,

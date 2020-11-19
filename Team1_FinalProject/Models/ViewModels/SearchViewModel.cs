@@ -30,7 +30,7 @@ namespace Team1_FinalProject.Models
 		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{yyyy}")]
 		public DateTime? SearchReleaseDate { get; set; }
 		[Display(Name = "MPAA Rating:")]
-		public MPAA SelectMPAA { get; set; } 
+		public MPAA? SelectMPAA { get; set; } 
 		[Display(Name = "Actors:")]
 		public String SearchActor { get; set; }
 		[Display(Name = "Customer Rating:")]
