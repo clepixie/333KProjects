@@ -15,6 +15,8 @@ namespace Team1_FinalProject.Models
 
         [Display(Name = "Last Name")]
         public String LastName { get; set; }
+        
+        public String MiddleInitial { get; set; }
 
         public DateTime Birthdate { get; set; }
 
@@ -25,5 +27,18 @@ namespace Team1_FinalProject.Models
         public List<Order> Orders { get; set; }
 
         public List<MovieReview> MovieReviews { get; set; }
+
+        public AppUser()
+        {
+            if (Orders == null)
+            {
+                Orders = new List<Order>();
+            }
+			
+			if (PopcornPoints == null)
+			{
+				PopcornPoints = 0;
+			}
+        }
     }
 }

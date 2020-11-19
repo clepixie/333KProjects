@@ -31,8 +31,12 @@ namespace Team1_FinalProject.Models
 
         [Display(Name = "Is This a Special Event?")]
         public Boolean SpecialEvent { get; set; }
+
         public Movie Movie { get; set; }
 
         public List<Ticket> Tickets { get; set; }
+
+        public Price Price { get; set; }
+
     }
 }
