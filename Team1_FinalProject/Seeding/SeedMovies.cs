@@ -9,7 +9,7 @@ namespace Team1_FinalProject.Seeding
 {
 	public static class SeedMovies
 	{
-		public static void AddMovies(AppDbContext db)
+		public static void AddMovie(AppDbContext db)
 		{
             //Create a new list for all of the movies
 		List<Movie> AllMovies = new List<Movie>();

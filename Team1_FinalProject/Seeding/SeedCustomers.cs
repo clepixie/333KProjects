@@ -33,41 +33,33 @@ namespace Team1_FinalProject.Seeding
 
 			//create a new instance of the app user class
 			AppUser newUser = new AppUser();
-
-			//populate the user properties that are from the 
-			//IdentityUser base class
+			
 			newUser.UserName = "cbaker@puppy.com";
-			newUser.Password = "hello1";
 			newUser.Email = "cbaker@puppy.com";
 			newUser.PhoneNumber = "5125551132";
-
-			//TODO: Add additional fields that you created on the AppUser class
-			//FirstName is included as an example
 			newUser.FirstName = "Christopher";
 			newUser.MiddleInitial = "L";
 			newUser.LastName = "Baker";
 			newUser.Birthdate = new DateTime(1949,11,23);
-			newUser.Address = "1245 Lake Anchorage Blvd. Austin, TX 37705";
+			newUser.Address = "1245 Lake Anchorage Blvd. Austin, TX37705";
 			newUser.PopcornPoints = 90;
-
-			//create a variable for result
+			
 			IdentityResult result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"hello1");
+			
 			_context.SaveChanges();
-            newUser = _context.Users.FirstOrDefault(u => u.UserName == "cbaker@puppy.com");
-
-            //Add the new user we just created to the Customer role
-            if (await _userManager.IsInRoleAsync(newUser, "Customer") == false)
-            {
-                await _userManager.AddToRoleAsync(newUser, "Customer");
-            }
-
-            //save changes
-            _context.SaveChanges();
+			newUser = _context.Users.FirstOrDefault(u => u.UserName == "cbaker@puppy.com");
+			
+			if (await _userManager.IsInRoleAsync(newUser, "Customer") == false)
+			{
+				await _userManager.AddToRoleAsync(newUser, "Customer");
+			}
+			
+			_context.SaveChanges();
 			
 			newUser = new AppUser();
 			
 			newUser.UserName = "banker@longhorn.net";
-			newUser.Password = "snowing";
 			newUser.Email = "banker@longhorn.net";
 			newUser.PhoneNumber = "5125552243";
 			newUser.FirstName = "Martin";
@@ -78,6 +70,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 80;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"snowing");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "banker@longhorn.net");
@@ -92,7 +85,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "franco@puppy.com";
-			newUser.Password = "skating";
 			newUser.Email = "franco@puppy.com";
 			newUser.PhoneNumber = "5125555546";
 			newUser.FirstName = "Franco";
@@ -103,6 +95,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 10;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"skating");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "franco@puppy.com");
@@ -117,7 +110,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "wchang@puppy.com";
-			newUser.Password = "Fighter";
 			newUser.Email = "wchang@puppy.com";
 			newUser.PhoneNumber = "5125553376";
 			newUser.FirstName = "Wiseman";
@@ -128,6 +120,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 20;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"Fighter");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "wchang@puppy.com");
@@ -142,7 +135,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "limchou@gogle.com";
-			newUser.Password = "Dallas63";
 			newUser.Email = "limchou@gogle.com";
 			newUser.PhoneNumber = "5125555379";
 			newUser.FirstName = "Lim";
@@ -153,6 +145,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 70;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"Dallas63");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "limchou@gogle.com");
@@ -167,7 +160,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "shdixon@aoll.com";
-			newUser.Password = "peppero";
 			newUser.Email = "shdixon@aoll.com";
 			newUser.PhoneNumber = "5125556607";
 			newUser.FirstName = "Shaman";
@@ -178,6 +170,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 10;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"peppero");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "shdixon@aoll.com");
@@ -192,7 +185,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "j.b.evans@aheca.org";
-			newUser.Password = "longhorn";
 			newUser.Email = "j.b.evans@aheca.org";
 			newUser.PhoneNumber = "5125552289";
 			newUser.FirstName = "Jim Bob";
@@ -203,6 +195,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 0;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"longhorn");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "j.b.evans@aheca.org");
@@ -217,7 +210,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "feeley@penguin.org";
-			newUser.Password = "aggiesuck";
 			newUser.Email = "feeley@penguin.org";
 			newUser.PhoneNumber = "5125559999";
 			newUser.FirstName = "Lou Ann";
@@ -228,6 +220,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 200;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"aggiesuck");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "feeley@penguin.org");
@@ -242,7 +235,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "tfreeley@minnetonka.ci.us";
-			newUser.Password = "raiders75";
 			newUser.Email = "tfreeley@minnetonka.ci.us";
 			newUser.PhoneNumber = "5125558827";
 			newUser.FirstName = "Teresa";
@@ -253,6 +245,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 250;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"raiders75");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "tfreeley@minnetonka.ci.us");
@@ -267,7 +260,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "mgarcia@gogle.com";
-			newUser.Password = "mustang54";
 			newUser.Email = "mgarcia@gogle.com";
 			newUser.PhoneNumber = "5125550002";
 			newUser.FirstName = "Mikaela";
@@ -278,6 +270,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 40;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"mustang54");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "mgarcia@gogle.com");
@@ -292,7 +285,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "chaley@mug.com";
-			newUser.Password = "onetime76";
 			newUser.Email = "chaley@mug.com";
 			newUser.PhoneNumber = "5125550198";
 			newUser.FirstName = "Charmander";
@@ -303,6 +295,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 30;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"onetime76");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "chaley@mug.com");
@@ -317,7 +310,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "jeffh@mario.com";
-			newUser.Password = "hampton98";
 			newUser.Email = "jeffh@mario.com";
 			newUser.PhoneNumber = "5125552134";
 			newUser.FirstName = "Jeff";
@@ -328,6 +320,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 50;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"hampton98");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "jeffh@mario.com");
@@ -342,7 +335,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "wjhearniii@umich.org";
-			newUser.Password = "jhearn99";
 			newUser.Email = "wjhearniii@umich.org";
 			newUser.PhoneNumber = "5125559729";
 			newUser.FirstName = "John";
@@ -353,6 +345,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 60;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"jhearn99");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "wjhearniii@umich.org");
@@ -367,7 +360,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "ahick@yaho.com";
-			newUser.Password = "hickemon";
 			newUser.Email = "ahick@yaho.com";
 			newUser.PhoneNumber = "5125553967";
 			newUser.FirstName = "Abadon";
@@ -378,6 +370,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 60;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"hickemon");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "ahick@yaho.com");
@@ -392,7 +385,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "ingram@jack.com";
-			newUser.Password = "ingram2098";
 			newUser.Email = "ingram@jack.com";
 			newUser.PhoneNumber = "5125552142";
 			newUser.FirstName = "Brock";
@@ -403,6 +395,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 90;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"ingram2098");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "ingram@jack.com");
@@ -417,7 +410,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "toddj@yourmom.com";
-			newUser.Password = "toddy53";
 			newUser.Email = "toddj@yourmom.com";
 			newUser.PhoneNumber = "5125555557";
 			newUser.FirstName = "Todd";
@@ -428,6 +420,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 140;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"toddy53");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "toddj@yourmom.com");
@@ -442,7 +435,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "thequeen@aska.net";
-			newUser.Password = "nothing34";
 			newUser.Email = "thequeen@aska.net";
 			newUser.PhoneNumber = "5125550156";
 			newUser.FirstName = "Vic";
@@ -453,6 +445,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 110;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"nothing34");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "thequeen@aska.net");
@@ -467,7 +460,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "linebacker@gogle.com";
-			newUser.Password = "Password5";
 			newUser.Email = "linebacker@gogle.com";
 			newUser.PhoneNumber = "5125550168";
 			newUser.FirstName = "Sweeney";
@@ -478,6 +470,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 50;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"Password5");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "linebacker@gogle.com");
@@ -492,7 +485,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "elowe@scare.net";
-			newUser.Password = "aclfest2076";
 			newUser.Email = "elowe@scare.net";
 			newUser.PhoneNumber = "5125556959";
 			newUser.FirstName = "Ernesto";
@@ -503,6 +495,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 40;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"aclfest2076");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "elowe@scare.net");
@@ -517,7 +510,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "cluce@gogle.com";
-			newUser.Password = "nothinggreat";
 			newUser.Email = "cluce@gogle.com";
 			newUser.PhoneNumber = "5125556919";
 			newUser.FirstName = "Charles";
@@ -528,6 +520,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 160;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"nothinggreat");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "cluce@gogle.com");
@@ -542,7 +535,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "mackcloud@george.com";
-			newUser.Password = "However";
 			newUser.Email = "mackcloud@george.com";
 			newUser.PhoneNumber = "5125553223";
 			newUser.FirstName = "Jackson";
@@ -553,6 +545,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 130;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"However");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "mackcloud@george.com");
@@ -567,7 +560,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "cmartin@beets.com";
-			newUser.Password = "nobodycares";
 			newUser.Email = "cmartin@beets.com";
 			newUser.PhoneNumber = "5125554445";
 			newUser.FirstName = "Candice";
@@ -578,6 +570,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 200;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"nobodycares");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "cmartin@beets.com");
@@ -592,7 +585,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "clarence@yoho.com";
-			newUser.Password = "eggsellent";
 			newUser.Email = "clarence@yoho.com";
 			newUser.PhoneNumber = "5125554447";
 			newUser.FirstName = "Clarence";
@@ -603,6 +595,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 230;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"eggsellent");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "clarence@yoho.com");
@@ -617,7 +610,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "gregmartinez@drdre.com";
-			newUser.Password = "rainrain";
 			newUser.Email = "gregmartinez@drdre.com";
 			newUser.PhoneNumber = "5125556666";
 			newUser.FirstName = "Greg";
@@ -628,6 +620,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 70;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"rainrain");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "gregmartinez@drdre.com");
@@ -642,7 +635,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "cmiller@bob.com";
-			newUser.Password = "mypuppyspot";
 			newUser.Email = "cmiller@bob.com";
 			newUser.PhoneNumber = "5125555923";
 			newUser.FirstName = "Charles";
@@ -653,6 +645,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 0;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"mypuppyspot");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "cmiller@bob.com");
@@ -667,7 +660,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "knelson@aoll.com";
-			newUser.Password = "spotmycat";
 			newUser.Email = "knelson@aoll.com";
 			newUser.PhoneNumber = "5125557213";
 			newUser.FirstName = "Kelly";
@@ -678,6 +670,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 10;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"spotmycat");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "knelson@aoll.com");
@@ -692,7 +685,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "joewin@xfactor.com";
-			newUser.Password = "joejoebob";
 			newUser.Email = "joewin@xfactor.com";
 			newUser.PhoneNumber = "5125557774";
 			newUser.FirstName = "Joe";
@@ -703,6 +695,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 30;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"joejoebob");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "joewin@xfactor.com");
@@ -717,7 +710,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "orielly@foxnews.cnn";
-			newUser.Password = "bobbyboy";
 			newUser.Email = "orielly@foxnews.cnn";
 			newUser.PhoneNumber = "5125551111";
 			newUser.FirstName = "Bill";
@@ -728,6 +720,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 120;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"bobbyboy");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "orielly@foxnews.cnn");
@@ -742,7 +735,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "ankaisrad@gogle.com";
-			newUser.Password = "chadgirl";
 			newUser.Email = "ankaisrad@gogle.com";
 			newUser.PhoneNumber = "5125555631";
 			newUser.FirstName = "Anka";
@@ -753,6 +745,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 150;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"chadgirl");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "ankaisrad@gogle.com");
@@ -767,7 +760,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "megrhodes@freserve.co.uk";
-			newUser.Password = "megan55";
 			newUser.Email = "megrhodes@freserve.co.uk";
 			newUser.PhoneNumber = "5125557700";
 			newUser.FirstName = "Megan";
@@ -778,6 +770,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 50;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"megan55");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "megrhodes@freserve.co.uk");
@@ -792,7 +785,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "erynrice@aoll.com";
-			newUser.Password = "ricearoni";
 			newUser.Email = "erynrice@aoll.com";
 			newUser.PhoneNumber = "5125550006";
 			newUser.FirstName = "Eryn";
@@ -803,6 +795,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.PopcornPoints = 70;
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"ricearoni");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "erynrice@aoll.com");
@@ -814,6 +807,7 @@ namespace Team1_FinalProject.Seeding
 			
 			_context.SaveChanges();
 			
+
 			
 			
         }

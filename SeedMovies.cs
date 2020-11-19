@@ -9,7 +9,7 @@ namespace Team1_FinalProject.Seeding
 {
 	public static class SeedMovies
 	{
-		public static void AddMovies(AppDbContext db)
+		public static void AddMovie(AppDbContext db)
 		{
             //Create a new list for all of the movies
 		List<Movie> AllMovies = new List<Movie>();
@@ -44,7 +44,7 @@ namespace Team1_FinalProject.Seeding
 		{
 			MovieID = 3003,
 			Title = "Snow White and the Seven Dwarfs",
-			Description = "A beautiful girl, Snow White, takes refuge in the forest in the house of seven dwarfs to hide from her stepmother, the wicked Queen. The Queen is jealous because she wants to be known as "the fairest in the land," and Snow White's beauty surpasses her own.",
+			Description = "A beautiful girl, Snow White, takes refuge in the forest in the house of seven dwarfs to hide from her stepmother, the wicked Queen. The Queen is jealous because she wants to be known as \"the fairest in the land,\" and Snow White's beauty surpasses her own.",
 			ReleaseDate = new DateTime(1937,12,20),
 			Revenue = 184925486,
 			Runtime = 83,
@@ -330,7 +330,7 @@ namespace Team1_FinalProject.Seeding
 		{
 			MovieID = 3025,
 			Title = "Catch-22",
-			Description = "A bombardier in World War II tries desperately to escape the insanity of the war. However, sometimes insanity is the only sane way to cope with a crazy situation. Catch-22 is a parody of a "military mentality" and of a bureaucratic society in general.",
+			Description = "A bombardier in World War II tries desperately to escape the insanity of the war. However, sometimes insanity is the only sane way to cope with a crazy situation. Catch-22 is a parody of a \"military mentality\" and of a bureaucratic society in general.",
 			ReleaseDate = new DateTime(1970,6,24),
 			Revenue = 24911670,
 			Runtime = 121,
@@ -434,7 +434,7 @@ namespace Team1_FinalProject.Seeding
 		{
 			MovieID = 3033,
 			Title = "Monty Python and the Holy Grail",
-			Description = "King Arthur, accompanied by his squire, recruits his Knights of the Round Table, including Sir Bedevere the Wise, Sir Lancelot the Brave, Sir Robin the Not-Quite-So-Brave-As-Sir-Lancelot and Sir Galahad the Pure. On the way, Arthur battles the Black Knight who, despite having had all his limbs chopped off, insists he can still fight. They reach Camelot, but Arthur decides not  to enter, as "it is a silly place".",
+			Description = "King Arthur, accompanied by his squire, recruits his Knights of the Round Table, including Sir Bedevere the Wise, Sir Lancelot the Brave, Sir Robin the Not-Quite-So-Brave-As-Sir-Lancelot and Sir Galahad the Pure. On the way, Arthur battles the Black Knight who, despite having had all his limbs chopped off, insists he can still fight. They reach Camelot, but Arthur decides not  to enter, as \"it is a silly place\".",
 			ReleaseDate = new DateTime(1975,3,13),
 			Revenue = 5028948,
 			Runtime = 91,
@@ -447,7 +447,7 @@ namespace Team1_FinalProject.Seeding
 		{
 			MovieID = 3034,
 			Title = "The Color Purple",
-			Description = "An epic tale spanning forty years in the life of Celie (Whoopi Goldberg), an African-American woman living in the South who survives incredible abuse and bigotry.  After Celie's abusive father marries her off to the equally debasing "Mister" Albert Johnson (Danny Glover), things go from bad to worse, leaving Celie to find companionship anywhere she can.  She perseveres, holding on to her dream of one day being reunited with her sister in Africa.  Based on the novel by Alice Walker.",
+			Description = "An epic tale spanning forty years in the life of Celie (Whoopi Goldberg), an African-American woman living in the South who survives incredible abuse and bigotry.  After Celie's abusive father marries her off to the equally debasing \"Mister\" Albert Johnson (Danny Glover), things go from bad to worse, leaving Celie to find companionship anywhere she can.  She perseveres, holding on to her dream of one day being reunited with her sister in Africa.  Based on the novel by Alice Walker.",
 			ReleaseDate = new DateTime(1985,12,18),
 			Revenue = 146292009,
 			Runtime = 154,
@@ -486,7 +486,7 @@ namespace Team1_FinalProject.Seeding
 		{
 			MovieID = 3037,
 			Title = "Spaceballs",
-			Description = "When the nefarious Dark Helmet hatches a plan to snatch Princess Vespa and steal her planet's air, space-bum-for-hire Lone Starr and his clueless sidekick fly to the rescue. Along the way, they meet Yogurt, who puts Lone Starr wise to the power of "The Schwartz." Can he master it in time to save the day?",
+			Description = "When the nefarious Dark Helmet hatches a plan to snatch Princess Vespa and steal her planet's air, space-bum-for-hire Lone Starr and his clueless sidekick fly to the rescue. Along the way, they meet Yogurt, who puts Lone Starr wise to the power of \"The Schwartz.\" Can he master it in time to save the day?",
 			ReleaseDate = new DateTime(1987,6,24),
 			Revenue = 38119483,
 			Runtime = 96,
@@ -551,7 +551,7 @@ namespace Team1_FinalProject.Seeding
 		{
 			MovieID = 3042,
 			Title = "Bill & Ted's Excellent Adventure",
-			Description = "In the small town of San Dimas, a few miles away from Los Angeles, there are two nearly brain dead teenage boys going by the names of Bill S, Preston ESQ. and Ted Theodore Logan, they have a dream together of starting their own rock and roll band called the "Wyld Stallyns". Unfortunately, they are still in high school and on the verge of failing out of their school as well, and if they do not pass their upcoming history report, they will be separated as a result of Ted's father sending him to military school. But, what Bill and Ted do not know is that they must stay together to save the future. So, a man from the future named Rufus came to help them pass their report. So, both Bill and Ted decided to gather up historical figures which they need for their report. They are hoping that this will help them pass their report so they can stay together.",
+			Description = "In the small town of San Dimas, a few miles away from Los Angeles, there are two nearly brain dead teenage boys going by the names of Bill S, Preston ESQ. and Ted Theodore Logan, they have a dream together of starting their own rock and roll band called the \"Wyld Stallyns\". Unfortunately, they are still in high school and on the verge of failing out of their school as well, and if they do not pass their upcoming history report, they will be separated as a result of Ted's father sending him to military school. But, what Bill and Ted do not know is that they must stay together to save the future. So, a man from the future named Rufus came to help them pass their report. So, both Bill and Ted decided to gather up historical figures which they need for their report. They are hoping that this will help them pass their report so they can stay together.",
 			ReleaseDate = new DateTime(1989,2,17),
 			Revenue = 40485039,
 			Runtime = 90,
@@ -603,7 +603,7 @@ namespace Team1_FinalProject.Seeding
 		{
 			MovieID = 3046,
 			Title = "West Side Story",
-			Description = "In the slums of the upper West Side of Manhattan, New York, a gang of Polish-American teenagers called the Jets compete with a rival gang of recently immigrated Puerto Ricans, the Sharks, to "own" the neighborhood streets. Tensions are high between the gangs but two kids, one from each rival gang, fall in love leading to tragedy.",
+			Description = "In the slums of the upper West Side of Manhattan, New York, a gang of Polish-American teenagers called the Jets compete with a rival gang of recently immigrated Puerto Ricans, the Sharks, to \"own\" the neighborhood streets. Tensions are high between the gangs but two kids, one from each rival gang, fall in love leading to tragedy.",
 			ReleaseDate = new DateTime(1961,10,18),
 			Revenue = 43656822,
 			Runtime = 152,
@@ -733,7 +733,7 @@ namespace Team1_FinalProject.Seeding
 		{
 			MovieID = 3056,
 			Title = "Dazed and Confused",
-			Description = "The adventures of a group of Texas teens on their last day of school in 1976, centering on student Randall Floyd, who moves easily among stoners, jocks and geeks. Floyd is a star athlete, but he also likes smoking weed, which presents a conundrum when his football coach demands he sign a "no drugs" pledge.",
+			Description = "The adventures of a group of Texas teens on their last day of school in 1976, centering on student Randall Floyd, who moves easily among stoners, jocks and geeks. Floyd is a star athlete, but he also likes smoking weed, which presents a conundrum when his football coach demands he sign a \"no drugs\" pledge.",
 			ReleaseDate = new DateTime(1993,9,24),
 			Revenue = 7993039,
 			Runtime = 102,
@@ -772,7 +772,7 @@ namespace Team1_FinalProject.Seeding
 		{
 			MovieID = 3059,
 			Title = "Annie Get Your Gun",
-			Description = "This film adaptation of Irving Berlin's classic musical stars Betty Hutton as gunslinger Annie Oakley, who romances fellow sharpshooter Frank Butler (Howard Keel) as they travel with Buffalo Bill's Wild West Show. Previously off target when it comes to love, Annie proves you can get a man with a gun in this battle-of-the-sexes extravaganza, which features timeless numbers like "Anything You Can Do" and "There's No Business Like Show Business."",
+			Description = "This film adaptation of Irving Berlin's classic musical stars Betty Hutton as gunslinger Annie Oakley, who romances fellow sharpshooter Frank Butler (Howard Keel) as they travel with Buffalo Bill's Wild West Show. Previously off target when it comes to love, Annie proves you can get a man with a gun in this battle-of-the-sexes extravaganza, which features timeless numbers like \"Anything You Can Do\" and \"There's No Business Like Show Business.\"",
 			ReleaseDate = new DateTime(1950,5,17),
 			Revenue = 8000000,
 			Runtime = 107,
@@ -928,7 +928,7 @@ namespace Team1_FinalProject.Seeding
 		{
 			MovieID = 3071,
 			Title = "Shakespeare in Love",
-			Description = "Young Shakespeare is forced to stage his latest comedy, "Romeo and Ethel, the Pirate's Daughter," before it's even written. When a lovely noblewoman auditions for a role, they fall into forbidden love -- and his play finds a new life (and title). As their relationship progresses, Shakespeare's comedy soon transforms into tragedy.",
+			Description = "Young Shakespeare is forced to stage his latest comedy, \"Romeo and Ethel, the Pirate's Daughter,\" before it's even written. When a lovely noblewoman auditions for a role, they fall into forbidden love -- and his play finds a new life (and title). As their relationship progresses, Shakespeare's comedy soon transforms into tragedy.",
 			ReleaseDate = new DateTime(1998,12,11),
 			Revenue = 289317794,
 			Runtime = 122,
@@ -1110,7 +1110,7 @@ namespace Team1_FinalProject.Seeding
 		{
 			MovieID = 3085,
 			Title = "Apocalypse Now",
-			Description = "At the height of the Vietnam war, Captain Benjamin Willard is sent on a dangerous mission that, officially, "does not exist, nor will it ever exist." His goal is to locate - and eliminate - a mysterious Green Beret Colonel named Walter Kurtz, who has been leading his personal army on illegal guerrilla missions into enemy territory.",
+			Description = "At the height of the Vietnam war, Captain Benjamin Willard is sent on a dangerous mission that, officially, \"does not exist, nor will it ever exist.\" His goal is to locate - and eliminate - a mysterious Green Beret Colonel named Walter Kurtz, who has been leading his personal army on illegal guerrilla missions into enemy territory.",
 			ReleaseDate = new DateTime(1979,8,15),
 			Revenue = 89460381,
 			Runtime = 153,
@@ -1305,7 +1305,7 @@ namespace Team1_FinalProject.Seeding
 		{
 			MovieID = 3100,
 			Title = "The Big Lebowski",
-			Description = "Jeffrey "The Dude" Lebowski, a Los Angeles slacker who only wants to bowl and drink white Russians, is mistaken for another Jeffrey Lebowski, a wheelchair-bound millionaire, and finds himself dragged into a strange series of events involving nihilists, adult film producers, ferrets, errant toes, and large sums of money.",
+			Description = "Jeffrey \"The Dude\" Lebowski, a Los Angeles slacker who only wants to bowl and drink white Russians, is mistaken for another Jeffrey Lebowski, a wheelchair-bound millionaire, and finds himself dragged into a strange series of events involving nihilists, adult film producers, ferrets, errant toes, and large sums of money.",
 			ReleaseDate = new DateTime(1998,3,6),
 			Revenue = 46189568,
 			Runtime = 117,

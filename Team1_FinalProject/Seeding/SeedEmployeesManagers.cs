@@ -16,7 +16,7 @@ namespace Team1_FinalProject.Seeding
     //add identity data
     public static class SeedIdentity
     {
-        public static async Task AddAdmin(IServiceProvider serviceProvider)
+        public static async Task AddEmployee(IServiceProvider serviceProvider)
         {
             //Get instances of the services needed to add a user & add a user to a role
             AppDbContext _context = serviceProvider.GetRequiredService<AppDbContext>();
@@ -39,7 +39,6 @@ namespace Team1_FinalProject.Seeding
 			AppUser newUser = new AppUser();
 			
 			newUser.UserName = "t.jacobs@mainstreetmovies.com";
-			newUser.Password = "toddyboy";
 			newUser.Email = "t.jacobs@mainstreetmovies.com";
 			newUser.PhoneNumber = "9074653365";
 			newUser.FirstName = "Jacobs";
@@ -49,6 +48,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.Address = "4564 Elm St. Georgetown, TX78628";
 			
 			IdentityResult result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"toddyboy");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "t.jacobs@mainstreetmovies.com");
@@ -63,7 +63,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "e.rice@mainstreetmovies.com";
-			newUser.Password = "ricearoni";
 			newUser.Email = "e.rice@mainstreetmovies.com";
 			newUser.PhoneNumber = "9073876657";
 			newUser.FirstName = "Rice";
@@ -73,6 +72,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.Address = "3405 Rio Grande Austin, TX78746";
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"ricearoni");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "e.rice@mainstreetmovies.com");
@@ -87,7 +87,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "a.taylor@mainstreetmovies.com";
-			newUser.Password = "nostalgic";
 			newUser.Email = "a.taylor@mainstreetmovies.com";
 			newUser.PhoneNumber = "9074748452";
 			newUser.FirstName = "Taylor";
@@ -97,6 +96,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.Address = "467 Nueces St. Austin, TX78727";
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"nostalgic");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "a.taylor@mainstreetmovies.com");
@@ -111,7 +111,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "g.martinez@mainstreetmovies.com";
-			newUser.Password = "fungus";
 			newUser.Email = "g.martinez@mainstreetmovies.com";
 			newUser.PhoneNumber = "9078746718";
 			newUser.FirstName = "Martinez";
@@ -121,6 +120,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.Address = "8295 Sunset Blvd. Austin, TX78712";
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"fungus");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "g.martinez@mainstreetmovies.com");
@@ -135,7 +135,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "m.sheffield@mainstreetmovies.com";
-			newUser.Password = "longhorns";
 			newUser.Email = "m.sheffield@mainstreetmovies.com";
 			newUser.PhoneNumber = "9075479167";
 			newUser.FirstName = "Sheffield";
@@ -145,6 +144,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.Address = "3886 Avenue A San Marcos, TX78666";
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"longhorns");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "m.sheffield@mainstreetmovies.com");
@@ -159,7 +159,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "j.tanner@mainstreetmovies.com";
-			newUser.Password = "tanman";
 			newUser.Email = "j.tanner@mainstreetmovies.com";
 			newUser.PhoneNumber = "9074590929";
 			newUser.FirstName = "Tanner";
@@ -169,6 +168,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.Address = "4347 Almstead Austin, TX78712";
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"tanman");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "j.tanner@mainstreetmovies.com");
@@ -183,7 +183,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "m.rhodes@mainstreetmovies.com";
-			newUser.Password = "countryrhodes";
 			newUser.Email = "m.rhodes@mainstreetmovies.com";
 			newUser.PhoneNumber = "9073744746";
 			newUser.FirstName = "Rhodes";
@@ -193,6 +192,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.Address = "4587 Enfield Rd. Austin, TX78729";
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"countryrhodes");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "m.rhodes@mainstreetmovies.com");
@@ -207,7 +207,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "e.stuart@mainstreetmovies.com";
-			newUser.Password = "stewboy";
 			newUser.Email = "e.stuart@mainstreetmovies.com";
 			newUser.PhoneNumber = "9078178335";
 			newUser.FirstName = "Stuart";
@@ -217,6 +216,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.Address = "5576 Toro Ring San Antonio, TX78758";
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"stewboy");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "e.stuart@mainstreetmovies.com");
@@ -231,7 +231,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "r.taylor@mainstreetmovies.com";
-			newUser.Password = "swansong";
 			newUser.Email = "r.taylor@mainstreetmovies.com";
 			newUser.PhoneNumber = "9074512631";
 			newUser.FirstName = "Taylor";
@@ -241,6 +240,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.Address = "345 Longview Dr. Austin, TX78746";
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"swansong");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "r.taylor@mainstreetmovies.com");
@@ -255,7 +255,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "v.lawrence@mainstreetmovies.com";
-			newUser.Password = "lottery";
 			newUser.Email = "v.lawrence@mainstreetmovies.com";
 			newUser.PhoneNumber = "9079457399";
 			newUser.FirstName = "Lawrence";
@@ -265,6 +264,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.Address = "6639 Butterfly Ln. Austin, TX78712";
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"lottery");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "v.lawrence@mainstreetmovies.com");
@@ -279,7 +279,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "a.rogers@mainstreetmovies.com";
-			newUser.Password = "evanescent";
 			newUser.Email = "a.rogers@mainstreetmovies.com";
 			newUser.PhoneNumber = "9078752943";
 			newUser.FirstName = "Alberts";
@@ -289,6 +288,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.Address = "4965 Oak Hill Austin, TX78705";
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"evanescent");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "a.rogers@mainstreetmovies.com");
@@ -303,7 +303,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "c.baker@mainstreetmovies.com";
-			newUser.Password = "hecktour";
 			newUser.Email = "c.baker@mainstreetmovies.com";
 			newUser.PhoneNumber = "9075571146";
 			newUser.FirstName = "Baker";
@@ -313,6 +312,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.Address = "1245 Lake Anchorage Blvd. Cedar Park, TX78613";
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"hecktour");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "c.baker@mainstreetmovies.com");
@@ -327,7 +327,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "w.sewell@mainstreetmovies.com";
-			newUser.Password = "walkamile";
 			newUser.Email = "w.sewell@mainstreetmovies.com";
 			newUser.PhoneNumber = "9074510084";
 			newUser.FirstName = "Sewell";
@@ -337,6 +336,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.Address = "2365 51st St. Austin, TX78755";
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"walkamile");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "w.sewell@mainstreetmovies.com");
@@ -351,7 +351,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "j.mason@mainstreetmovies.com";
-			newUser.Password = "changalang";
 			newUser.Email = "j.mason@mainstreetmovies.com";
 			newUser.PhoneNumber = "9018833432";
 			newUser.FirstName = "Mason";
@@ -361,6 +360,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.Address = "444 45th St Austin, TX78701";
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"changalang");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "j.mason@mainstreetmovies.com");
@@ -375,7 +375,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "j.jackson@mainstreetmovies.com";
-			newUser.Password = "offbeat";
 			newUser.Email = "j.jackson@mainstreetmovies.com";
 			newUser.PhoneNumber = "9075554545";
 			newUser.FirstName = "Jackson";
@@ -385,6 +384,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.Address = "222 Main Austin, TX78760";
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"offbeat");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "j.jackson@mainstreetmovies.com");
@@ -399,7 +399,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "m.nguyen@mainstreetmovies.com";
-			newUser.Password = "landus";
 			newUser.Email = "m.nguyen@mainstreetmovies.com";
 			newUser.PhoneNumber = "9075524141";
 			newUser.FirstName = "Nguyen";
@@ -409,6 +408,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.Address = "465 N. Bear Cub Austin, TX78734";
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"landus");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "m.nguyen@mainstreetmovies.com");
@@ -423,7 +423,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "s.barnes@mainstreetmovies.com";
-			newUser.Password = "rhythm";
 			newUser.Email = "s.barnes@mainstreetmovies.com";
 			newUser.PhoneNumber = "9556662323";
 			newUser.FirstName = "Barnes";
@@ -433,6 +432,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.Address = "888 S. Main Kyle, TX78640";
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"rhythm");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "s.barnes@mainstreetmovies.com");
@@ -447,7 +447,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "l.jones@mainstreetmovies.com";
-			newUser.Password = "kindly";
 			newUser.Email = "l.jones@mainstreetmovies.com";
 			newUser.PhoneNumber = "9886662222";
 			newUser.FirstName = "Johns";
@@ -457,6 +456,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.Address = "999 LeBlat Austin, TX78747";
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"kindly");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "l.jones@mainstreetmovies.com");
@@ -471,7 +471,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "c.silva@mainstreetmovies.com";
-			newUser.Password = "arched";
 			newUser.Email = "c.silva@mainstreetmovies.com";
 			newUser.PhoneNumber = "9221113333";
 			newUser.FirstName = "Silva";
@@ -481,6 +480,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.Address = "900 4th St Austin, TX78758";
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"arched");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "c.silva@mainstreetmovies.com");
@@ -495,7 +495,6 @@ namespace Team1_FinalProject.Seeding
 			newUser = new AppUser();
 			
 			newUser.UserName = "s.rankin@mainstreetmovies.com";
-			newUser.Password = "decorate";
 			newUser.Email = "s.rankin@mainstreetmovies.com";
 			newUser.PhoneNumber = "9893336666";
 			newUser.FirstName = "Rankin";
@@ -505,6 +504,7 @@ namespace Team1_FinalProject.Seeding
 			newUser.Address = "23 Polar Bear Road Buda, TX78712";
 			
 			result = new IdentityResult();
+			result = await _userManager.CreateAsync(newUser,"decorate");
 			
 			_context.SaveChanges();
 			newUser = _context.Users.FirstOrDefault(u => u.UserName == "s.rankin@mainstreetmovies.com");
@@ -515,6 +515,8 @@ namespace Team1_FinalProject.Seeding
 			}
 			
 			_context.SaveChanges();
+			
+
 			
 			
         }

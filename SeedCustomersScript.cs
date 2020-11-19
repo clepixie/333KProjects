@@ -28,13 +28,12 @@ Public Sub GenerateCustomersSeed()
     
     'create output file
     Set outputfile = fs.CreateTextFile(Filename, True)
-    For i = 3 To 32
+    For i = 2 To 32
             
             'parse in the values from the spreadsheet - Chr(34) prints a double quote (") to the file
             outputfile.WriteLine (vbTab & vbTab & vbTab & "newUser = new AppUser();")
             outputfile.WriteLine (vbTab & vbTab & vbTab)
             outputfile.WriteLine (vbTab & vbTab & vbTab & "newUser.UserName = " & Chr(34) & wksht.UsedRange(i, 16) & Chr(34) & ";")
-            outputfile.WriteLine (vbTab & vbTab & vbTab & "newUser.Password = " & Chr(34) & wksht.UsedRange(i, 2) & Chr(34) & ";")
             outputfile.WriteLine (vbTab & vbTab & vbTab & "newUser.Email = " & Chr(34) & wksht.UsedRange(i, 16) & Chr(34) & ";")
             outputfile.WriteLine (vbTab & vbTab & vbTab & "newUser.PhoneNumber = " & Chr(34) & wksht.UsedRange(i, 15) & Chr(34) & ";")
             outputfile.WriteLine (vbTab & vbTab & vbTab & "newUser.FirstName = " & Chr(34) & wksht.UsedRange(i, 4) & Chr(34) & ";")
@@ -45,6 +44,7 @@ Public Sub GenerateCustomersSeed()
             outputfile.WriteLine (vbTab & vbTab & vbTab & "newUser.PopcornPoints = " & wksht.UsedRange(i, 17) & ";")
             outputfile.WriteLine (vbTab & vbTab & vbTab)
             outputfile.WriteLine (vbTab & vbTab & vbTab & "result = new IdentityResult();")
+            outputfile.WriteLine (vbTab & vbTab & vbTab & "result = await _userManager.CreateAsync(newUser," & Chr(34) & wksht.UsedRange(i, 2) & Chr(34) & ");")
             outputfile.WriteLine (vbTab & vbTab & vbTab)
             outputfile.WriteLine (vbTab & vbTab & vbTab & "_context.SaveChanges();")
             outputfile.WriteLine (vbTab & vbTab & vbTab & "newUser = _context.Users.FirstOrDefault(u => u.UserName == " & Chr(34) & wksht.UsedRange(i, 16) & Chr(34) & ");")

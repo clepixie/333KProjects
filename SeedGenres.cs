@@ -9,7 +9,7 @@ namespace Team1_FinalProject.Seeding
 {
 	public static class SeedGenres
 	{
-		public static void SeedGenres(AppDbContext db)
+		public static void AddGenre(AppDbContext db)
 		{
 		    //Create a new list for all of the Genres
 		List<Genre> AllGenres = new List<Genre>();
@@ -93,9 +93,9 @@ namespace Team1_FinalProject.Seeding
 			{
 				//update the counters
 				intGenreID = seedGenre.GenreID;
-				strGenreTitle = seedGenre.Title;
+				strGenreTitle = seedGenre.GenreName;
 				//see if the genre is already in the database using the UniqueIdentifier
-				Genre dbGenre = db.Genres.FirstOrDefault(m => m.UniqueIdentifier == seedGenre.UniqueIdentifier);
+				Genre dbGenre = db.Genres.FirstOrDefault(m => m.GenreID == seedGenre.GenreID);
 
 					//if genre is null, genre is not in database
 					if (dbGenre == null)
