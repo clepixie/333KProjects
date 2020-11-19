@@ -14,6 +14,7 @@
                 <label asp-for="MovieShowing" class="control-label"></label><br />
                 <input type="radio" class="radio" asp-for="MovieShowing" value="@Select.Movie" /> By Movie Info<br />
                 <input type="radio" class="radio" asp-for="MovieShowing" value="@Select.Showing" />By Showings Date<br />
+                <span asp-validation-for="MovieShowing" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />Submit<br />

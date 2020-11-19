@@ -28,8 +28,12 @@
                     <span asp-validation-for="SelectGenreID" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="SelectMPAA" class="control-label"></label>
-                    @Html.DropDownListFor(model => model.SelectMPAA, (SelectList)ViewBag.AllMPAA, new { @class = "form-control" })
+                    <label asp-for="SelectMPAA" class="control-label"></label><br />
+                    <input type="radio" class="radio" asp-for="MovieShowing" value="@MPAA.G" />G<br />
+                    <input type="radio" class="radio" asp-for="MovieShowing" value="@MPAA.PG" />PG<br />
+                    <input type="radio" class="radio" asp-for="MovieShowing" value="@MPAA.PG13" />PG-13<br />
+                    <input type="radio" class="radio" asp-for="MovieShowing" value="@MPAA.R" />R<br />
+                    <input type="radio" class="radio" asp-for="MovieShowing" value="@MPAA.Unrated" />Unrated<br />
                     <span asp-validation-for="SelectMPAA" class="text-danger"></span>
                 </div>
                 <div class="form-group">
