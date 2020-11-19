@@ -31,9 +31,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Runtime)
             </th>
-            @*<th>
+            <th>
                 Showtimes:
-            </th>*@
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -58,13 +58,12 @@
             <th>
                 @Html.DisplayFor(modelItem => item.Runtime)
             </th>
-            // how to go through each list of showings in the Showings property of the movie
-            @*<th>
+            <th>
                 @foreach (Showing showing in item.Showings)
                 {
                     showing.StartDateTime.ToString("H:mm");
                 }
-            </th>*@
+            </th>
             <td>
                 // add role stuff for who can edit movies
                 <a asp-action="Edit" asp-route-id="@item.MovieID">Edit</a> |

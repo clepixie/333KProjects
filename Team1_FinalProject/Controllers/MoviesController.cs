@@ -24,7 +24,7 @@ namespace Team1_FinalProject.Controllers
                         select m;
             ViewBag.AllMovies = _context.Movies.Count();
             ViewBag.SelectedMovies = _context.Movies.Count();
-            return View("Index", query.Include(m => m.Genre).ToList());
+            return View("Index", query.Include(m => m.Genre).Include(m => m.Showings).ToList());
         }
         // GET: Movies/Index
         public IActionResult DisplaySearchResults(SearchViewModel svm)
@@ -87,7 +87,7 @@ namespace Team1_FinalProject.Controllers
                     query = query.Where(m => m.Tagline.Contains(svm.SearchActor));
                 }
 
-                List<Movie> SelectedMovies = query.Include(m => m.Genre).ToList();
+                List<Movie> SelectedMovies = query.Include(m => m.Genre).Include(m => m.Showings).ToList();
                 ViewBag.AllMovies = _context.Movies.Count();
                 ViewBag.SelectedMovies = SelectedMovies.Count();
                 return View("Index", SelectedMovies.OrderByDescending(m => m.MovieID));
@@ -102,7 +102,7 @@ namespace Team1_FinalProject.Controllers
                     query = query.Where(m => m.StartDateTime == svm.SearchShowingDate);
                 }
 
-                List<Showing> SelectedShowings = query.Include(s => s.Movie).Include(s => s.TicketCount).ToList();
+                List<Showing> SelectedShowings = query.Include(s => s.Movie).ThenInclude(m => m.Genre).ToList();
                 ViewBag.AllShowings = _context.Showings.Count();
                 ViewBag.SelectedShowings = SelectedShowings.Count();
                 return View("ShowingsIndex", SelectedShowings.OrderByDescending(s => s.StartDateTime));
