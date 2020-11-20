@@ -11,10 +11,22 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MovieNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MovieNumber)
+        </dd>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Title)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Tagline)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Tagline)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Description)
@@ -42,9 +54,26 @@
         </dd>
     </dl>
 </div>
+<table class="table table-bordered">
+    <tr>
+        <th>Showing Date</th>
+        <th>Showing Time</th>
+        <th>Tickets Available</th>
+        <th>Purchase Ticket</th>
+    </tr>
+    @foreach (Showing s in Model.Showings)
+    {
+        <tr>
+            <td>@Html.DisplayFor(ModelItem => s.StartDateTime.ToString("MM/dd"))</td>
+            <td>@Html.DisplayFor(ModelItem => s.StartDateTime.ToString("HH:mm tt"))<span>-</span>@Html.DisplayFor(ModelItem => s.EndDateTime.ToString("HH:mm tt"))</td>
+            <td>@Html.DisplayFor(ModelItem => s.TicketCount)/25</td>
+            <td><a asp-action="Create" asp-route-showingID="">Edit</a></td>
+        </tr>
+    }
+</table>
 // add table here with Showings information; Details button to see specific Details for a showing
 // allow you to click a Showing via a 'Select Seats' button in Tickets/Create
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.MovieID">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@s.ShowingID">Purchase Ticket</a> |
     <a asp-action="Index">Back to List</a>
 </div>
