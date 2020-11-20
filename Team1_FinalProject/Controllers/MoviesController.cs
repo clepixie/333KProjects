@@ -33,7 +33,7 @@ namespace Team1_FinalProject.Controllers
 
             if (ModelState.IsValid == false) //something is wrong
             {
-                return View("SearchMoviesShowings");//send user back to inputs page
+                return View("Home/SearchMoviesShowings");//send user back to inputs page
             }
 
             if (svm.MovieShowing == Select.Movie)

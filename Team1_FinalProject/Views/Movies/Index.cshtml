@@ -61,7 +61,8 @@
             <th>
                 @foreach (Showing showing in item.Showings)
                 {
-                    showing.StartDateTime.ToString("H:mm");
+                    @Html.DisplayFor(ModelItem => s.StartDateTime).ToString("H:mm");
+
                 }
             </th>
             <td>

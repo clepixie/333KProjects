@@ -25,9 +25,10 @@ namespace Team1_FinalProject.Models
 		[Display(Name = "Genre:")]
 		public Int32 SelectGenreID { get; set; }
 		[Display(Name = "Showing Date:")]
+		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
 		public DateTime? SearchShowingDate { get; set; }
 		[Display(Name = "Release Year:")]
-		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{yyyy}")]
+		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy}")]
 		public DateTime? SearchReleaseDate { get; set; }
 		[Display(Name = "MPAA Rating:")]
 		public MPAA? SelectMPAA { get; set; } 
