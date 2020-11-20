@@ -67,9 +67,16 @@
                 <b>Showtimes:</b>
                 @using (Html.BeginForm())
                 {
-                    @foreach (Showing showing in item.Showings)
+                    if (item.Showings.Count() == 0)
                     {
-                        @Html.DisplayFor(ModelItem => showing.StartDateTime) <span>, </span>
+                        <b>None this week!</b>
+                    }
+                    else
+                    {
+                        @foreach (Showing showing in item.Showings)
+                        {
+                            @Html.DisplayFor(ModelItem => showing.StartDateTime) <span>|| </span>
+                        }
                     }
 
                 }

@@ -62,7 +62,7 @@ namespace Team1_FinalProject.Controllers
                 }
             }
 
-            if (svm.SearchReleaseDateEnd != null)
+            if (svm.SearchReleaseDateEnd != null && svm.SearchReleaseDateStart == null)
             {
                 query = query.Where(m => m.ReleaseDate.Year == svm.SearchReleaseDateEnd);
             }

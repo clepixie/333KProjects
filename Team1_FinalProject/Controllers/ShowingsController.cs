@@ -62,7 +62,7 @@ namespace Team1_FinalProject.Controllers
                 }
             }
 
-            if (svm.SearchReleaseDateEnd != null)
+            if (svm.SearchShowingDateEnd != null && svm.SearchShowingDateStart == null)
             {
                 DateTime ends = (DateTime)svm.SearchShowingDateEnd;
                 query = query.Where(m => m.StartDateTime == ends);
