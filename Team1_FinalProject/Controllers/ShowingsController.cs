@@ -48,27 +48,24 @@ namespace Team1_FinalProject.Controllers
 
             if (svm.SearchShowingDateStart != null)
             {
-                DateTime starts = (DateTime)svm.SearchShowingDateEnd;
+                DateTime starts = (DateTime)svm.SearchShowingDateStart;
                 if (svm.SearchShowingDateEnd != null)
                 {
                     DateTime ends = (DateTime)svm.SearchShowingDateEnd;
-                    foreach (DateTime day in EachDay(starts, ends))
-                    {
-                        query = query.Where(m => m.StartDateTime.ToString("MM/dd/yyyy") == day.ToString("MM/dd/yyyy"));
-                    }
+                    query = query.Where(m => m.StartDateTime.Date >= starts && m.StartDateTime.Date <= ends);
 
                 }
 
                 else
                 {
-                    query = query.Where(m => m.StartDateTime.ToString("MM/dd/yyyy") == starts.ToString("MM/dd/yyyy"));
+                    query = query.Where(m => m.StartDateTime.Date == starts);
                 }
             }
 
             if (svm.SearchReleaseDateEnd != null)
             {
                 DateTime ends = (DateTime)svm.SearchShowingDateEnd;
-                query = query.Where(m => m.StartDateTime.ToString("MM/dd/yyyy") == ends.ToString("MM/dd/yyyy"));
+                query = query.Where(m => m.StartDateTime == ends);
             }
 
             List<Showing> SelectedShowings = query.Include(s => s.Movie).ThenInclude(m => m.Genre).ToList();
