@@ -32,12 +32,8 @@ namespace Team1_FinalProject.Models
 		[DataType(DataType.Date)]
 		public DateTime? SearchShowingDateEnd { get; set; }
 		[Display(Name = "Release Year:")]
-		[DisplayFormat(DataFormatString = "{0:yyyy}")]
-		[DataType(DataType.Date)]
-		public DateTime? SearchReleaseDateStart { get; set; }
-		[DisplayFormat(DataFormatString = "{0:yyyy}")]
-		[DataType(DataType.Date)]
-		public DateTime? SearchReleaseDateEnd { get; set; }
+		public int? SearchReleaseDateStart { get; set; }
+		public int? SearchReleaseDateEnd { get; set; }
 		[Display(Name = "MPAA Rating:")]
 		public MPAA? SelectMPAA { get; set; } 
 		[Display(Name = "Actors:")]

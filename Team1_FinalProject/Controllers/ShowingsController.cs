@@ -19,6 +19,12 @@ namespace Team1_FinalProject.Controllers
             _context = context;
         }
 
+        public IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
+        {
+            for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
+                yield return day;
+        }
+
         // GET: Showings
         public IActionResult Index()
         {
@@ -28,7 +34,45 @@ namespace Team1_FinalProject.Controllers
             ViewBag.SelectedShowings = _context.Showings.Count();
             return View("Index", query.Include(m => m.Movie).ThenInclude(m => m.Genre).OrderBy(m => m.StartDateTime).ToList());
         }
+        // GET: Movies/Index
+        public IActionResult DisplayShowingSearchResults(SearchViewModel svm)
+        {
+            TryValidateModel(svm);
 
+            if (ModelState.IsValid == false) //something is wrong
+            {
+                return View("~/Views/Home/SearchMoviesShowings");//send user back to inputs page
+            }
+            var query = from s in _context.Showings
+                        select s;
+
+            if (svm.SearchShowingDateStart != null)
+            {
+                DateTime starts = (DateTime)svm.SearchShowingDateStart;
+                if (svm.SearchShowingDateEnd != null)
+                {
+                    DateTime ends = (DateTime)svm.SearchShowingDateEnd;
+                    query = query.Where(m => m.StartDateTime.Date >= starts && m.StartDateTime.Date <= ends);
+
+                }
+
+                else
+                {
+                    query = query.Where(m => m.StartDateTime.Date == starts);
+                }
+            }
+
+            if (svm.SearchReleaseDateEnd != null)
+            {
+                DateTime ends = (DateTime)svm.SearchShowingDateEnd;
+                query = query.Where(m => m.StartDateTime == ends);
+            }
+
+            List<Showing> SelectedShowings = query.Include(s => s.Movie).ThenInclude(m => m.Genre).ToList();
+            ViewBag.AllShowings = _context.Showings.Count();
+            ViewBag.SelectedShowings = SelectedShowings.Count();
+            return View("Index", SelectedShowings.OrderBy(s => s.StartDateTime));
+        }
         // GET: Showings/Details/5
         public async Task<IActionResult> Details(int? id)
         {

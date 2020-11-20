@@ -36,8 +36,14 @@ namespace Team1_FinalProject.Controllers
         {
             ViewBag.AllGenres = GetAllGenres();
             svm.SelectGenreID = 0;
-
-            return View("SearchMoviesShowings", svm);
+            if (svm.MovieShowing == Select.Movie)
+            {
+                return View("SearchMovies", svm);
+            }
+            else
+            {
+                return View("SearchShowings", svm);
+            }
         }
 
         private SelectList GetAllGenres()

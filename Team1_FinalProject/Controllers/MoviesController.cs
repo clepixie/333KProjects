@@ -14,11 +14,6 @@ namespace Team1_FinalProject.Controllers
     {
 
         private readonly AppDbContext _context;
-        public IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
-        {
-            for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
-                yield return day;
-        }
 
         public MoviesController(AppDbContext context)
         {
@@ -33,7 +28,7 @@ namespace Team1_FinalProject.Controllers
             return View("Index", query.Include(m => m.Genre).Include(m => m.Showings).OrderByDescending(m => m.Showings.Count()).ToList());
         }
         // GET: Movies/Index
-        public IActionResult DisplaySearchResults(SearchViewModel svm)
+        public IActionResult DisplayMovieSearchResults(SearchViewModel svm)
         {
             TryValidateModel(svm);
 
@@ -42,117 +37,72 @@ namespace Team1_FinalProject.Controllers
                 return View("~/Views/Home/SearchMoviesShowings");//send user back to inputs page
             }
 
-            if (svm.MovieShowing == Select.Movie)
+            var query = from m in _context.Movies
+                        select m;
+            if (svm.SearchTitle != null && svm.SearchTitle != "")
             {
-                var query = from m in _context.Movies
-                            select m;
-                if (svm.SearchTitle != null && svm.SearchTitle != "")
-                {
-                    query = query.Where(m => m.Title.Contains(svm.SearchTitle));
-                }
-
-                if (svm.SearchTagline != null && svm.SearchTagline != "")
-                {
-                    query = query.Where(m => m.Tagline.Contains(svm.SearchTagline));
-                }
-
-                if (svm.SearchReleaseDateStart != null)
-                {
-                    DateTime startr = (DateTime)svm.SearchReleaseDateEnd;
-                    if (svm.SearchReleaseDateEnd != null)
-                    {
-                        DateTime endr = (DateTime)svm.SearchReleaseDateEnd;
-                        foreach (DateTime day in EachDay(startr, endr))
-                        {
-                            query = query.Where(m => m.ReleaseDate.ToString("yyyy") == day.ToString("yyyy"));
-                        }
-                    }
-
-                    else
-                    {
-                        query = query.Where(m => m.ReleaseDate.ToString("yyyy") == startr.ToString("yyyy"));
-                    }
-                }
-
-                if (svm.SearchReleaseDateEnd != null)
-                {
-                    DateTime endr = (DateTime)svm.SearchReleaseDateEnd;
-                    query = query.Where(m => m.ReleaseDate.ToString("yyyy") == endr.ToString("yyyy"));
-                }
-
-                if (svm.SelectGenreID != 0)
-                {
-                    query = query.Where(m => m.Genre.GenreID == svm.SelectGenreID);
-                }
-
-                if (svm.SelectMPAA != null)
-                {
-                    query = query.Where(m => m.MPAA == svm.SelectMPAA);
-                }
-
-                if (svm.SearchRating != null && svm.RatingsRange == null)
-                {
-                    query = query.Where(m => m.AverageRating == svm.SearchRating);
-                }
-
-                switch (svm.RatingsRange)
-                {
-                    case RatingsRange.Greater:
-                        query = query.Where(m => m.AverageRating >= svm.SearchRating);
-                        break;
-                    case RatingsRange.Lesser:
-                        query = query.Where(m => m.AverageRating <= svm.SearchRating);
-                        break;
-                    default:
-                        break;
-                }
-
-                if (svm.SearchActor != null && svm.SearchActor != "")
-                {
-                    query = query.Where(m => m.Actors.Contains(svm.SearchActor));
-                }
-
-                List<Movie> SelectedMovies = query.Include(m => m.Genre).Include(m => m.Showings).ToList();
-                ViewBag.AllMovies = _context.Movies.Count();
-                ViewBag.SelectedMovies = SelectedMovies.Count();
-                return View("Index", SelectedMovies.OrderByDescending(m => m.Showings.Count()));
+                query = query.Where(m => m.Title.Contains(svm.SearchTitle));
             }
 
-            else
+            if (svm.SearchTagline != null && svm.SearchTagline != "")
             {
-                var query = from s in _context.Showings
-                           select s;
+                query = query.Where(m => m.Tagline.Contains(svm.SearchTagline));
+            }
 
-                if (svm.SearchShowingDateStart != null)
-                {
-                    DateTime starts = (DateTime)svm.SearchShowingDateEnd;
-                    if (svm.SearchShowingDateEnd != null)
-                    {
-                        DateTime ends = (DateTime)svm.SearchShowingDateEnd;
-                        foreach (DateTime day in EachDay(starts, ends))
-                        {
-                            query = query.Where(m => m.StartDateTime.ToString("MM/dd/yyyy") == day.ToString("MM/dd/yyyy"));
-                        }
-
-                    }
-
-                    else
-                    {
-                        query = query.Where(m => m.StartDateTime.ToString("MM/dd/yyyy") == starts.ToString("MM/dd/yyyy"));
-                    }
-                }
-
+            if (svm.SearchReleaseDateStart != null)
+            {
                 if (svm.SearchReleaseDateEnd != null)
                 {
-                    DateTime ends = (DateTime)svm.SearchShowingDateEnd;
-                    query = query.Where(m => m.StartDateTime.ToString("MM/dd/yyyy") == ends.ToString("MM/dd/yyyy"));
+                    query = query.Where(m => m.ReleaseDate.Year >= svm.SearchReleaseDateStart && m.ReleaseDate.Year <= svm.SearchReleaseDateEnd );
                 }
 
-                List<Showing> SelectedShowings = query.Include(s => s.Movie).ThenInclude(m => m.Genre).ToList();
-                ViewBag.AllShowings = _context.Showings.Count();
-                ViewBag.SelectedShowings = SelectedShowings.Count();
-                return View("~Views/Showings/Index", SelectedShowings.OrderBy(s => s.StartDateTime));
+                else
+                {
+                    query = query.Where(m => m.ReleaseDate.Year == svm.SearchReleaseDateStart);
+                }
             }
+
+            if (svm.SearchReleaseDateEnd != null)
+            {
+                query = query.Where(m => m.ReleaseDate.Year == svm.SearchReleaseDateEnd);
+            }
+
+            if (svm.SelectGenreID != 0)
+            {
+                query = query.Where(m => m.Genre.GenreID == svm.SelectGenreID);
+            }
+
+            if (svm.SelectMPAA != null)
+            {
+                query = query.Where(m => m.MPAA == svm.SelectMPAA);
+            }
+
+            if (svm.SearchRating != null && svm.RatingsRange == null)
+            {
+                query = query.Where(m => m.AverageRating == svm.SearchRating);
+            }
+
+            switch (svm.RatingsRange)
+            {
+                case RatingsRange.Greater:
+                    query = query.Where(m => m.AverageRating >= svm.SearchRating);
+                    break;
+                case RatingsRange.Lesser:
+                    query = query.Where(m => m.AverageRating <= svm.SearchRating);
+                    break;
+                default:
+                    break;
+            }
+
+            if (svm.SearchActor != null && svm.SearchActor != "")
+            {
+                query = query.Where(m => m.Actors.Contains(svm.SearchActor));
+            }
+
+            List<Movie> SelectedMovies = query.Include(m => m.Genre).Include(m => m.Showings).ToList();
+            ViewBag.AllMovies = _context.Movies.Count();
+            ViewBag.SelectedMovies = SelectedMovies.Count();
+            return View("Index", SelectedMovies.OrderByDescending(m => m.Showings.Count()));
         }
         // GET: Movies
 
