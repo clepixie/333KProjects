@@ -6,6 +6,8 @@ using System.Collections.Generic;
 
 namespace Team1_FinalProject.Models
 {
+    public enum OrderHistory { Past, Cancelled, Future }
+
     public class Order
     {
 		public const Decimal TAX_RATE = .0825m;
@@ -16,13 +18,16 @@ namespace Team1_FinalProject.Models
 	    [Display(Name = "Is this a gift order?")]	
 	    public Boolean GiftOrder {get; set;}
 	
-	    [Display(Name = "Do you want to use Popcorn Points?")]
-	    public Boolean PopcornPoints {get; set;}
+	    [Display(Name = "Popcorn Points Used:")]
+	    public Boolean PopcornPointsUsed {get; set;}
 
 		[Display(Name = "Date:")]
 	    public DateTime Date { get; set; }
 
-		[Display(Name = "Order Subtotal:")]
+        [Display(Name = "Order History:")]
+        public OrderHistory OrderHistory { get; set; }
+
+        [Display(Name = "Order Subtotal:")]
         [DisplayFormat(DataFormatString = "{0:C}")]
 		public Decimal OrderSubtotal
         {
