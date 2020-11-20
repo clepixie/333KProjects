@@ -10,46 +10,52 @@
     <h4>Movie</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.MovieNumber)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.MovieNumber)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Title)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Title)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Genre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Genre)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Tagline)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Tagline)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Description)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Description)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.MPAA)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.MPAA)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Actors)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Actors)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Runtime)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Runtime)
         </dd>
     </dl>
@@ -64,8 +70,8 @@
     @foreach (Showing s in Model.Showings)
     {
         <tr>
-            <td>@Html.DisplayFor(ModelItem => s.StartDateTime.ToString("MM/dd"))</td>
-            <td>@Html.DisplayFor(ModelItem => s.StartDateTime.ToString("HH:mm tt"))<span>-</span>@Html.DisplayFor(ModelItem => s.EndDateTime.ToString("HH:mm tt"))</td>
+            <td>@(s.StartDateTime.ToString("MM/dd"))</td>
+            <td>@(s.StartDateTime.ToString("HH:mm tt"))<span>-</span>@(s.StartDateTime.ToString("HH:mm tt"))</td>
             <td>@Html.DisplayFor(ModelItem => s.TicketCount)/25</td>
             <td><a asp-action="Create" asp-controller= "Ticket" asp-route-showingID="@s.ShowingID">Purchase Ticket</a></td>
         </tr>
