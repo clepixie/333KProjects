@@ -9,10 +9,12 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="DisplaySearchResults" asp-controller="Movies">
-            @if (Model.MovieShowing == Select.Movie)
-            {
+        @if (Model.MovieShowing == Select.Movie)
+        {
+            <form asp-action="DisplaySearchResults" asp-controller="Movies">
                 <div asp-validation-summary="ModelOnly" class="text-danger">
+                </div>
+                <div class="form-group">
                     <label asp-for="SearchTitle" class="control-label"></label>
                     <input asp-for="SearchTitle" class="form-control" />
                     <span asp-validation-for="SearchTitle" class="text-danger"></span>
@@ -37,9 +39,10 @@
                     <span asp-validation-for="SelectMPAA" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="SearchReleaseDate" class="control-label"></label>
-                    <input asp-for="SearchReleaseDate" class="form-control" />
-                    <span asp-validation-for="SearchReleaseDate" class="text-danger"></span>
+                    <label asp-for="SearchReleaseDateStart" class="control-label"></label>
+                    <input asp-for="SearchReleaseDateStart" class="form-control" />
+                    <input asp-for="SearchReleaseDateEnd" class="form-control" />
+                    <span asp-validation-for="SearchReleaseDateStart" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="SearchRating" class="control-label"></label>
@@ -56,20 +59,22 @@
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-primary" />
                 </div>
-            }
-
-            else
-            {
+            </form>
+        }
+        else
+        {
+            <form asp-action="DisplaySearchResults" asp-controller="Movies">
                 <div class="form-group">
-                    <label asp-for="SearchShowingDate" class="control-label"></label>
-                    <input asp-for="SearchShowingDate" class="form-control" />
-                    <span asp-validation-for="SearchShowingDate" class="text-danger"></span>
+                    <label asp-for="SearchShowingDateStart" class="control-label"></label>
+                    <input asp-for="SearchShowingDateStart" class="form-control" />
+                    <input asp-for="SearchShowingDateEnd" class="form-control" />
+                    <span asp-validation-for="SearchShowingDateStart" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-primary" />
                 </div>
-            }
-        </form>
+            </form>
+        }
     </div>
 </div>
 

@@ -490,3 +490,4 @@ C:\Users\alice\Documents\UT\333K\333KProjects\Team1_FinalProject\obj\Debug\netco
 C:\Users\alice\Documents\UT\333K\333KProjects\Team1_FinalProject\obj\Debug\netcoreapp3.1\staticwebassets\Team1_FinalProject.StaticWebAssets.Manifest.cache
 C:\Users\alice\Documents\UT\333K\333KProjects\Team1_FinalProject\obj\Debug\netcoreapp3.1\staticwebassets\Team1_FinalProject.StaticWebAssets.xml
 C:\Users\alice\Documents\UT\333K\333KProjects\Team1_FinalProject\obj\Debug\netcoreapp3.1\Team1_FinalProject.genruntimeconfig.cache
+C:\Users\alice\Documents\UT\333K\333KProjects\Team1_FinalProject\obj\Debug\netcoreapp3.1\Team1_FinalProject.csprojAssemblyReference.cache

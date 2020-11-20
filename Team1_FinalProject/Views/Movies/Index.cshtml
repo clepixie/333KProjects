@@ -63,17 +63,17 @@
             </td>
         </tr>
         <tr>
-            <td colspan="6">
+            <td colspan="6" style="white-space: nowrap">
                 <b>Showtimes:</b>
-                @foreach (Showing showing in item.Showings)
+                @using (Html.BeginForm())
                 {
-                    @using (Html.BeginForm())
+                    @foreach (Showing showing in item.Showings)
                     {
-                        @Html.DisplayFor(ModelItem => showing.StartDateTime) <text>, </text> 
+                        @Html.DisplayFor(ModelItem => showing.StartDateTime) <span>, </span>
                     }
 
                 }
-            </td>
+                </td>
         </tr>
 }
     </tbody>

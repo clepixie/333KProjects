@@ -26,10 +26,18 @@ namespace Team1_FinalProject.Models
 		public Int32 SelectGenreID { get; set; }
 		[Display(Name = "Showing Date:")]
 		[DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
-		public DateTime? SearchShowingDate { get; set; }
+		[DataType(DataType.Date)]
+		public DateTime? SearchShowingDateStart { get; set; }
+		[DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+		[DataType(DataType.Date)]
+		public DateTime? SearchShowingDateEnd { get; set; }
 		[Display(Name = "Release Year:")]
 		[DisplayFormat(DataFormatString = "{0:yyyy}")]
-		public DateTime? SearchReleaseDate { get; set; }
+		[DataType(DataType.Date)]
+		public DateTime? SearchReleaseDateStart { get; set; }
+		[DisplayFormat(DataFormatString = "{0:yyyy}")]
+		[DataType(DataType.Date)]
+		public DateTime? SearchReleaseDateEnd { get; set; }
 		[Display(Name = "MPAA Rating:")]
 		public MPAA? SelectMPAA { get; set; } 
 		[Display(Name = "Actors:")]
