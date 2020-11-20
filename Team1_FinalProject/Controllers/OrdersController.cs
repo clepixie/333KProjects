@@ -11,7 +11,7 @@ using Team1_FinalProject.Models;
 
 namespace Team1_FinalProject.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class OrdersController : Controller
     {
         private readonly AppDbContext _context;
@@ -145,6 +145,23 @@ namespace Team1_FinalProject.Controllers
             _context.Orders.Remove(order);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+        // Checkout
+        public IActionResult Checkout()
+        {
+            return View();
+        }
+
+        // Review
+        public IActionResult Review()
+        {
+            return View();
+        }
+
+        // Confirmation
+        public IActionResult Confirmation()
+        {
+            return View();
         }
 
         private bool OrderExists(int id)
