@@ -14,7 +14,12 @@ namespace Team1_FinalProject.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly AppDbContext _context;
+        private AppDbContext _context;
+        public HomeController(AppDbContext dbContext)
+        {
+            _context = dbContext;
+        }
+
         // GET: /<controller>/
         public IActionResult Index()
         {
@@ -24,7 +29,7 @@ namespace Team1_FinalProject.Controllers
         public IActionResult SearchSelect()
         {
             SearchViewModel svm = new SearchViewModel();
-            return View(svm);
+            return View("SearchSelect", svm);
         }
         // GET: Home/SearchMoviesShowings
         public IActionResult SearchMoviesShowings(SearchViewModel svm)
