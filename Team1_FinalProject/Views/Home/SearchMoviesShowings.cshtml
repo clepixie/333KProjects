@@ -9,7 +9,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="DisplaySearchResults">
+        <form asp-action="DisplaySearchResults" asp-controller="Movies">
             @if (Model.MovieShowing == Select.Movie)
             {
                 <div asp-validation-summary="ModelOnly" class="text-danger">

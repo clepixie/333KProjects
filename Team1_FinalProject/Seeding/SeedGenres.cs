@@ -82,6 +82,11 @@ namespace Team1_FinalProject.Seeding
 		{
 			GenreName = "War",
 		});
+
+		AllGenres.Add(new Genre
+		{
+			GenreName = "Western",
+		});
 				//create some counters to help debug problems
 		Int32 intGenreID = 0;
 		String strGenreTitle = "Start";
