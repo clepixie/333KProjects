@@ -64,7 +64,7 @@ namespace Team1_FinalProject.Controllers
             return movieSelectList;
         }
 
-        [HttpPost]
-        public ActionResult DisplayReportsResults(ReportViewModel rvm) { }
+        //[HttpPost]
+        //public ActionResult DisplayReportsResults(ReportViewModel rvm) { }
     }
 }
