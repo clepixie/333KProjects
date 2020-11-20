@@ -17,11 +17,11 @@ namespace Team1_FinalProject.Models
         public Int32 ShowingID { get; set; }
 
         [Display(Name = "Start Date Time")]
-        [DisplayFormat(DataFormatString = "{0:MMM dd, yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:MM/dd hh:mm tt}")]
         public DateTime StartDateTime { get; set; }
 
         [Display(Name = "End Date Time")]
-        [DisplayFormat(DataFormatString = "{0:MMM dd, yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:hh:mm tt}")]
         public DateTime EndDateTime { get; set; }
 
         [Display(Name = "Theater Room")]
@@ -41,6 +41,10 @@ namespace Team1_FinalProject.Models
             get
             {
                 int count = 0;
+                if (Tickets is null)
+                {
+                    return 25;
+                }
 
                 foreach (Ticket ticket in Tickets)
                 {

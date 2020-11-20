@@ -9,6 +9,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<p>Displaying @ViewBag.SelectedShowings out of @ViewBag.AllShowings Showings</p>
 <table class="table">
     <thead>
         <tr>
@@ -22,9 +23,17 @@
                 @Html.DisplayNameFor(model => model.Room)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SpecialEvent)
+                @Html.DisplayNameFor(model => model.Movie.Title)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movie.MPAA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movie.AverageRating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketCount)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -40,11 +49,21 @@
                 @Html.DisplayFor(modelItem => item.Room)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SpecialEvent)
+                @Html.DisplayFor(modelItem => item.Movie.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Movie.MPAA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Movie.AverageRating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketCount)/25
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ShowingID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ShowingID">Details</a> |
+                <a asp-action="Details" asp-route-id="@item.ShowingID">Showing Details</a> |
+                <a asp-action="Details" asp-route-id="@item.Movie.MovieID">Movie Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.ShowingID">Delete</a>
             </td>
         </tr>

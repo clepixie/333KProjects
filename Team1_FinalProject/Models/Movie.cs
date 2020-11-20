@@ -27,6 +27,8 @@ namespace Team1_FinalProject.Models
 
 		public MPAA MPAA { get; set; }
 
+		[Display(Name = "Release Date")]
+		[DisplayFormat(DataFormatString = "{0:MM/dd/yyy}")]
 		public DateTime ReleaseDate { get; set; }
 
 		public string Actors { get; set; }
@@ -42,7 +44,6 @@ namespace Team1_FinalProject.Models
 
 		public List<Showing> Showings { get; set; }
 		public List<MovieReview> Reviews { get; set; }
-
 		public decimal? AverageRating
 		{
 			get

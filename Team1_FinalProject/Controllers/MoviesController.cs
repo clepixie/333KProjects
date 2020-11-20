@@ -24,7 +24,7 @@ namespace Team1_FinalProject.Controllers
                         select m;
             ViewBag.AllMovies = _context.Movies.Count();
             ViewBag.SelectedMovies = _context.Movies.Count();
-            return View("Index", query.Include(m => m.Genre).Include(m => m.Showings).ToList());
+            return View("Index", query.Include(m => m.Genre).Include(m => m.Showings).OrderByDescending(m => m.Showings.Count()).ToList());
         }
         // GET: Movies/Index
         public IActionResult DisplaySearchResults(SearchViewModel svm)
@@ -33,7 +33,7 @@ namespace Team1_FinalProject.Controllers
 
             if (ModelState.IsValid == false) //something is wrong
             {
-                return View("Home/SearchMoviesShowings");//send user back to inputs page
+                return View("~/Views/Home/SearchMoviesShowings");//send user back to inputs page
             }
 
             if (svm.MovieShowing == Select.Movie)
@@ -84,13 +84,13 @@ namespace Team1_FinalProject.Controllers
 
                 if (svm.SearchActor != null && svm.SearchActor != "")
                 {
-                    query = query.Where(m => m.Tagline.Contains(svm.SearchActor));
+                    query = query.Where(m => m.Actors.Contains(svm.SearchActor));
                 }
 
                 List<Movie> SelectedMovies = query.Include(m => m.Genre).Include(m => m.Showings).ToList();
                 ViewBag.AllMovies = _context.Movies.Count();
                 ViewBag.SelectedMovies = SelectedMovies.Count();
-                return View("Index", SelectedMovies.OrderByDescending(m => m.MovieID));
+                return View("Index", SelectedMovies.OrderByDescending(m => m.Showings.Count()));
             }
 
             else
@@ -105,7 +105,7 @@ namespace Team1_FinalProject.Controllers
                 List<Showing> SelectedShowings = query.Include(s => s.Movie).ThenInclude(m => m.Genre).ToList();
                 ViewBag.AllShowings = _context.Showings.Count();
                 ViewBag.SelectedShowings = SelectedShowings.Count();
-                return View("ShowingsIndex", SelectedShowings.OrderByDescending(s => s.StartDateTime));
+                return View("~Views/Showings/Index", SelectedShowings.OrderBy(s => s.StartDateTime));
             }
         }
         // GET: Movies

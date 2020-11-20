@@ -31,45 +31,48 @@
             <th>
                 @Html.DisplayNameFor(model => model.Runtime)
             </th>
-            <th>
-                Showtimes:
-            </th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) 
 {
         <tr>
-            <th>
+            <td>
                 @Html.DisplayFor(modelItem => item.Title)
-            </th>
-            <th>
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Genre.GenreName)
-            </th>
-            <th>
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.ReleaseDate)
-            </th>
-            <th>
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.MPAA)
-            </th>
-            <th>
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.AverageRating)
-            </th>
-            <th>
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Runtime)
-            </th>
-            <th>
-                @foreach (Showing showing in item.Showings)
-                {
-                    @Html.DisplayFor(ModelItem => s.StartDateTime).ToString("H:mm");
-
-                }
-            </th>
+            </td>
             <td>
                 // add role stuff for who can edit movies
                 <a asp-action="Edit" asp-route-id="@item.MovieID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.MovieID">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.MovieID">Delete</a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                <b>Showtimes:</b>
+                @foreach (Showing showing in item.Showings)
+                {
+                    @using (Html.BeginForm())
+                    {
+                        @Html.DisplayFor(ModelItem => showing.StartDateTime) <text>, </text> 
+                    }
+
+                }
             </td>
         </tr>
 }

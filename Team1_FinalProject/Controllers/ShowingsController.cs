@@ -20,9 +20,13 @@ namespace Team1_FinalProject.Controllers
         }
 
         // GET: Showings
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Showings.ToListAsync());
+            var query = from m in _context.Showings
+                        select m;
+            ViewBag.AllShowings = _context.Showings.Count();
+            ViewBag.SelectedShowings = _context.Showings.Count();
+            return View("Index", query.Include(m => m.Movie).ThenInclude(m => m.Genre).OrderBy(m => m.StartDateTime).ToList());
         }
 
         // GET: Showings/Details/5
