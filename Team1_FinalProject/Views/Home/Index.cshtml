@@ -3,9 +3,10 @@
     ViewData["Title"] = "Main Street Movies Home";
 }
 
-<h1>Welcome to the Main Street Movies!</h1>
+<h1 class="text-center">Welcome to the Main Street Movies!</h1>
 
-<a asp-action="Index" asp-controller="Showings" class="btn btn-success">View Our Showings</a>
-<a asp-action="SearchSelect" asp-controller="Home" class="btn btn-success">Search for Movies</a>
-// search bar: movie title, release date, MPAA rating, genres, customer rating, run time, upcoming show times
+<p class="text-center">
+    <a asp-action="Index" asp-controller="Showings" class="btn btn-success">View Our Showings</a>
+    <a asp-action="SearchSelect" asp-controller="Home" class="btn btn-primary">Search for Movies</a>
+</p>
 

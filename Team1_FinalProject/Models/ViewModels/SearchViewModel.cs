@@ -31,6 +31,13 @@ namespace Team1_FinalProject.Models
 		[DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
 		[DataType(DataType.Date)]
 		public DateTime? SearchShowingDateEnd { get; set; }
+		[Display(Name = "Showing Time:")]
+		[DisplayFormat(DataFormatString = "{0:hh:mm tt}")]
+		[DataType(DataType.Time)]
+		public TimeSpan? SearchShowingTimeStart { get; set; }
+		[DisplayFormat(DataFormatString = "{0:hh:mm tt}")]
+		[DataType(DataType.Time)]
+		public TimeSpan? SearchShowingTimeEnd { get; set; }
 		[Display(Name = "Release Year:")]
 		public int? SearchReleaseDateStart { get; set; }
 		public int? SearchReleaseDateEnd { get; set; }
@@ -43,6 +50,7 @@ namespace Team1_FinalProject.Models
 		public Decimal? SearchRating { get; set; }
 		[Display(Name = "")]
 		public RatingsRange? RatingsRange { get; set; }
+		[Display(Name = "Search Options:")]
 		public Select MovieShowing { get; set; }
 
 	}

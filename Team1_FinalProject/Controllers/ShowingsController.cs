@@ -62,10 +62,32 @@ namespace Team1_FinalProject.Controllers
                 }
             }
 
-            if (svm.SearchReleaseDateEnd != null)
+            if (svm.SearchShowingDateEnd != null && svm.SearchShowingDateStart == null)
             {
                 DateTime ends = (DateTime)svm.SearchShowingDateEnd;
-                query = query.Where(m => m.StartDateTime == ends);
+                query = query.Where(m => m.EndDateTime.Date == ends);
+            }
+
+            if (svm.SearchShowingTimeStart != null)
+            {
+                TimeSpan starts = (TimeSpan)svm.SearchShowingTimeStart;
+                if (svm.SearchShowingDateEnd != null)
+                {
+                    TimeSpan ends = (TimeSpan)svm.SearchShowingTimeEnd;
+                    query = query.Where(m => m.StartDateTime.TimeOfDay >= starts && m.EndDateTime.TimeOfDay <= ends);
+
+                }
+
+                else
+                {
+                    query = query.Where(m => m.StartDateTime.TimeOfDay == starts);
+                }
+            }
+
+            if (svm.SearchShowingTimeEnd != null && svm.SearchShowingTimeStart == null)
+            {
+                TimeSpan ends = (TimeSpan)svm.SearchShowingTimeEnd;
+                query = query.Where(m => m.EndDateTime.TimeOfDay == ends);
             }
 
             List<Showing> SelectedShowings = query.Include(s => s.Movie).ThenInclude(m => m.Genre).ToList();

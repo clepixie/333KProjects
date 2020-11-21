@@ -62,7 +62,7 @@ namespace Team1_FinalProject.Controllers
                 }
             }
 
-            if (svm.SearchReleaseDateEnd != null)
+            if (svm.SearchReleaseDateEnd != null && svm.SearchReleaseDateStart == null)
             {
                 query = query.Where(m => m.ReleaseDate.Year == svm.SearchReleaseDateEnd);
             }
@@ -114,8 +114,11 @@ namespace Team1_FinalProject.Controllers
                 return NotFound();
             }
 
-            var movie = await _context.Movies
-                .FirstOrDefaultAsync(m => m.MovieID == id);
+            Movie movie = await _context.Movies
+                        .Include(o => o.Showings)
+                        .ThenInclude(o => o.Tickets)
+                        .Include(o => o.Genre)
+                        .FirstOrDefaultAsync(m => m.MovieID == id);
             if (movie == null)
             {
                 return NotFound();
