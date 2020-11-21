@@ -103,8 +103,11 @@ namespace Team1_FinalProject.Controllers
                 return NotFound();
             }
 
-            var showing = await _context.Showings
-                .FirstOrDefaultAsync(m => m.ShowingID == id);
+            Showing showing = await _context.Showings
+                                              .Include(o => o.Movie)
+                                              .ThenInclude(o => o.Genre)
+                                              .FirstOrDefaultAsync(m => m.ShowingID == id);
+
             if (showing == null)
             {
                 return NotFound();
