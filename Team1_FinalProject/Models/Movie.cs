@@ -46,6 +46,7 @@ namespace Team1_FinalProject.Models
 
 		public List<Showing> Showings { get; set; }
 		public List<MovieReview> Reviews { get; set; }
+		[Display(Name = "Movie Rating")]
 		public decimal? AverageRating
 		{
 			get
