@@ -35,6 +35,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.OrderTotal)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PopcornPointsUsed)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -63,10 +66,12 @@
                 @Html.DisplayFor(model => o.OrderTotal)
             </td>
             <td>
+                @Html.CheckBoxFor(o => o.PopcornPointsUsed, new { @checked = Model.PopcornPointsUsed })
+            </td>
+            <td>
                 <a asp-action="Edit" asp-route-id="@Model.OrderID">Edit</a> |
                 // add button that says confirm to map to Orders/Confirmation
                 <a asp-action="Gift" asp-controller="Orders" class="btn btn-success">Make this a Gift Order?</a>
-                <a asp-action="PopcornPoints" asp-controller="Orders" class="btn btn-success">Use Popcorn Points?</a>
                 <a asp-action="Review" asp-controller="Orders">Review Order</a>
                 <a asp-action="Index">Back to List</a>
             </td>

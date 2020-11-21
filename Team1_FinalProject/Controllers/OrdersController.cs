@@ -173,7 +173,21 @@ namespace Team1_FinalProject.Controllers
         // Checkout
         public IActionResult Checkout()
         {
-            return View();
+            List<Order> Orders = new List<Order>();
+            if (User.IsInRole("Admin"))
+            {
+                Orders = _context.Orders.Include(o => o.Tickets).ToList();
+            }
+            else
+            {
+                Orders = _context.Orders.Where(o => o.Customer.UserName == User.Identity.Name)
+                                        .Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Movie)
+                                        .ToList();
+            }
+
+            return View(Orders);
         }
 
         // Review
@@ -184,6 +198,12 @@ namespace Team1_FinalProject.Controllers
 
         // Confirmation
         public IActionResult Confirmation()
+        {
+            return View();
+        }
+
+        // Gift Order
+        public IActionResult Gift()
         {
             return View();
         }
