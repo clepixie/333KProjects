@@ -16,11 +16,11 @@ namespace Team1_FinalProject.Models
     {
         public Int32 ShowingID { get; set; }
 
-        [Display(Name = "Start Date Time")]
-        [DisplayFormat(DataFormatString = "{0:MM/dd hh:mm tt}")]
+        [Display(Name = "Starts At")]
+        [DisplayFormat(DataFormatString = "{0:hh:mm tt}")]
         public DateTime StartDateTime { get; set; }
 
-        [Display(Name = "End Date Time")]
+        [Display(Name = "Ends At")]
         [DisplayFormat(DataFormatString = "{0:hh:mm tt}")]
         public DateTime EndDateTime { get; set; }
 

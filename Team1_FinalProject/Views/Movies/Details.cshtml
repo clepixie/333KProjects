@@ -71,7 +71,7 @@
     {
         <tr>
             <td>@(s.StartDateTime.ToString("MM/dd"))</td>
-            <td>@(s.StartDateTime.ToString("HH:mm tt"))<span>-</span>@(s.EndDateTime.ToString("HH:mm tt"))</td>
+            <td>@(s.StartDateTime.ToString("hh:mm tt"))<span>-</span>@(s.EndDateTime.ToString("hh:mm tt"))</td>
             <td>@Html.DisplayFor(ModelItem => s.TicketCount)/25</td>
             <td><a asp-action="Create" asp-controller= "Ticket" asp-route-showingID="@s.ShowingID">Purchase Ticket</a></td>
         </tr>

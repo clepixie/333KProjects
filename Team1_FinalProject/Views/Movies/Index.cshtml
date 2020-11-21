@@ -31,6 +31,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Runtime)
             </th>
+            <th>
+                Actions
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -56,31 +59,30 @@
                 @Html.DisplayFor(modelItem => item.Runtime)
             </td>
             <td>
-                // add role stuff for who can edit movies
                 <a asp-action="Edit" asp-route-id="@item.MovieID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.MovieID">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.MovieID">Delete</a>
             </td>
         </tr>
         <tr>
-            <td colspan="6" style="white-space: nowrap">
+            <td colspan="7" style="white-space: nowrap">
                 <b>Showtimes:</b>
                 @using (Html.BeginForm())
                 {
                     if (item.Showings.Count() == 0)
                     {
-                        <b>None this week!</b>
+                        <span>None this week!</span>
                     }
                     else
                     {
                         @foreach (Showing showing in item.Showings)
                         {
-                            @Html.DisplayFor(ModelItem => showing.StartDateTime) <span>|| </span>
+                            @Html.ActionLink(showing.StartDateTime.ToString("MM/dd hh:mm tt"), "Create", "Ticket", new { id = showing.ShowingID }) <span>|| </span>
                         }
                     }
 
                 }
-                </td>
+            </td>
         </tr>
 }
     </tbody>

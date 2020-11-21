@@ -18,13 +18,15 @@ namespace Team1_FinalProject.Models
     {
 
 		public Int32 MovieID { get; set; }
+		[Display(Name = "Movie #")]
 		public Int32 MovieNumber { get; set; }
+		[Display(Name = "Movie Title")]
 		public string Title { get; set; }
 
 		public Int32 Runtime { get; set; }
 
 		public string Description { get; set; }
-
+		[Display(Name = "MPAA Rating")]
 		public MPAA MPAA { get; set; }
 
 		[Display(Name = "Release Date")]
