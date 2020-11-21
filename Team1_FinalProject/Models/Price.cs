@@ -12,7 +12,7 @@ namespace Team1_FinalProject.Models
         [Display(Name ="Matinee Price")]
         [DisplayFormat(DataFormatString ="{0:c}")]
         public Int32 MatineePrice
-        { get; set; }
+        { get { return OrderSubtotal + Tax; }; set; }
 
         [Display(Name = "Tuesday Discount Price")]
         [DisplayFormat(DataFormatString = "{0:c}")]
