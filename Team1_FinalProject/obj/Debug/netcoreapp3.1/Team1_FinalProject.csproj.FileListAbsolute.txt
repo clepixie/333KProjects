@@ -248,7 +248,6 @@
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/Create.cshtml.g.cs
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/Delete.cshtml.g.cs
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/Edit.cshtml.g.cs
-/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/Index.cshtml.g.cs
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Prices/Create.cshtml.g.cs
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Prices/Delete.cshtml.g.cs
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Prices/Details.cshtml.g.cs
@@ -275,7 +274,6 @@
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Shared/Error.cshtml.g.cs
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Shared/_LoginPartial.cshtml.g.cs
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Shared/_ValidationScriptsPartial.cshtml.g.cs
-/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Home/SearchMoviesShowings.cshtml.g.cs
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Home/SearchSelect.cshtml.g.cs
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/Checkout.cshtml.g.cs
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/Confirmation.cshtml.g.cs
@@ -491,3 +489,7 @@ C:/Users/alice/Documents/UT/333K/333KProjects/Team1_FinalProject/obj/Debug/netco
 C:/Users/alice/Documents/UT/333K/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/staticwebassets/Team1_FinalProject.StaticWebAssets.xml
 C:/Users/alice/Documents/UT/333K/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Team1_FinalProject.genruntimeconfig.cache
 C:/Users/alice/Documents/UT/333K/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Team1_FinalProject.csprojAssemblyReference.cache
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Home/SearchMovies.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Home/SearchShowings.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/Gift.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/Index.cshtml.g.cs

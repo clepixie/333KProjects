@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Team1_FinalProject.Models.Order>
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<h5>Order Details</h5>
+<table class="table table-sm table-bordered" style="width:30%">
+    <tr>
+        <th colspan="2" style="text-align:center">Order Summary</th>
+    </tr>
+    <tr>
+        <td>Movie Title:</td>
+        <td>@Html.DisplayFor(model => model.Ticket.Showing.Movie.Title)</td>
+    </tr>
+    <tr>
+        <td>Price per Ticket:</td>
+        <td>@Html.DisplayFor(model => model.Ticket.Showing.Price)</td>
+    </tr>
+    <tr>
+        <td>Order Date:</td>
+        <td>@Html.DisplayFor(model => model.Date)</td>
+    </tr>
+    <tr>
+        <td>Order Total:</td>
+        <td>@Html.DisplayFor(model => model.OrderTotal)</td>
+    </tr>
+    <tr>
+        <td>Popcorn Points Used:</td>
+        <td>@Html.DisplayFor(model => model.PopcornPointsUsed)</td>
+    </tr>
+    <tr>
+        <td>Order History:</td>
+        <td>@Html.DisplayFor(model => model.OrderHistory)</td>
+    </tr>
+
+</table>

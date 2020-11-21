@@ -22,27 +22,41 @@ namespace Team1_FinalProject.Controllers
         }
 
         // GET: Orders
-        public async Task<IActionResult> Index()
+        public IActionResult Index() //Order History
         {
-            return View(await _context.Orders.ToListAsync());
+            List<Order> Orders = _context.Orders
+                .Include(o => o.Tickets)
+                .ThenInclude(t => t.Showing)
+                .ThenInclude(s => s.Movie)
+                .ToList();
+
+            return View(Orders);
         }
 
         // GET: Orders/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var order = await _context.Orders
-                .FirstOrDefaultAsync(m => m.OrderID == id);
-            if (order == null)
-            {
-                return NotFound();
-            }
+            List<Order> Orders = _context.Orders
+                        .Include(o => o.Tickets)
+                        .ThenInclude(t => t.Showing)
+                        .ThenInclude(s => s.Movie)
+                        .ToList();
 
-            return View(order);
+            return View(Orders);
+
+            //var order = await _context.Orders
+            //    .FirstOrDefaultAsync(m => m.OrderID == id);
+            //if (order == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //return View(order);
         }
 
         // GET: Orders/Create

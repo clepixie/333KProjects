@@ -1,112 +1,56 @@
-@*// should list all the orders the customer has placed; like how in HW5, customers can only view their order
-// maybe dont need yet?*@
+﻿@*// should list all the orders the customer has placed; like how in HW5, customers can only view their order
+    // maybe dont need yet?*@
 @model IEnumerable<Team1_FinalProject.Models.Order>
 
-
-
-@{ ViewData["Title"] = "Index"; }
-
-
+@{ ViewData["Title"] = "Order History"; }
 
 <h1>Order History</h1>
 
-
-
-<p>
-
-    <a asp-action="Create">Create New</a>
-
-</p>
-
 <table class="table">
-
     <thead>
-
-        <tr>
-
-            <th>
-
-                @Html.DisplayNameFor(model => model.OrderID)
-
-            </th>
-
-            <th>
-
-                @Html.DisplayNameFor(model => model.Date)
-
-            </th>
-
-            <th>
-
-                @Html.DisplayNameFor(model => model.OrderTotal)
-
-            </th>
-
-            <th>
-
-                @Html.DisplayNameFor(model => model.PopcornPointsUsed)
-
-            </th>
-
-            <th>
-
-                @Html.DisplayNameFor(model => model.OrderHistory)
-
-            </th>
-
-        </tr>
-
-    </thead>
-
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrderID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrderTotal)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PopcornPointsUsed)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrderHistory)
+                </th>
+            </tr>
+        </thead>
     <tbody>
-
         @foreach (var item in Model)
         {
-
-<tr>
-
-    <td>
-
-        @Html.DisplayFor(modelItem => item.OrderID)
-
-    </td>
-
-    <td>
-
-        @Html.DisplayFor(modelItem => item.Date)
-
-    </td>
-
-    <td>
-
-        @Html.DisplayFor(modelItem => item.OrderTotal)
-
-    </td>
-
-    <td>
-
-        @Html.DisplayFor(modelItem => item.PopcornPointsUsed)
-
-    </td>
-
-    <td>
-
-        @Html.DisplayFor(modelItem => item.OrderHistory)
-
-    </td>
-
-    <td>
-
-        <a asp-action="Edit" asp-route-id="@item.OrderID">Cancel</a> |
-
-        <a asp-action="Details" asp-route-id="@item.OrderID">Details</a> |
-
-        <a asp-action="Delete" asp-route-id="@item.OrderID">Delete</a>
-
-    </td>
-
-</tr>}
-
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PopcornPointsUsed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderHistory)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.OrderID">Cancel</a> |
+                <a asp-action="Details" asp-route-id="@item.OrderID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.OrderID">Delete</a>
+            </td>
+        </tr>
+}
     </tbody>
-
 </table>

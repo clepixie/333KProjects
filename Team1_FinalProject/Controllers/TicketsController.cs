@@ -20,9 +20,14 @@ namespace Team1_FinalProject.Controllers
         }
 
         // GET: Tickets
-        public async Task<IActionResult> Index()
+        public IActionResult Index() //Shopping Cart
         {
-            return View(await _context.Tickets.ToListAsync());
+            List<Ticket> Tickets = _context.Tickets
+                .Include(t => t.Showing)
+                .ThenInclude(s => s.Movie)
+                .ToList();
+
+            return View(Tickets);
         }
 
         // GET: Tickets/Details/5
