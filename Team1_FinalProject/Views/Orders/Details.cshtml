@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Team1_FinalProject.Models.Order>
+﻿@model Team1_FinalProject.Models.Order
 
 @{
     ViewData["Title"] = "Order Details";
@@ -43,6 +43,7 @@
         <td>@Html.DisplayFor(ModelItem => t.Showing.Movie.Title)</td>
         <td>@Html.DisplayFor(ModelItem => t.Price)</td>
         <td>@Html.DisplayFor(ModelItem => t.SeatNumber)</td>
+        <td>@Html.DisplayFor(ModelItem => t.Showing.TicketCount)</td>
     </tr>
 }
 </table>

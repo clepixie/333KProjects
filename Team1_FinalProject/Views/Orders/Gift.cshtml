@@ -1,5 +1,18 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Team1_FinalProject.Models.Order
+
 @{
+    ViewData["Title"] = "Gift Order";
 }
+
+<br />
+<h2>Gift Order Information</h2>
+<h4>Enter The Gift Recipient's Email:</h4>
+<br />
+@Html.TextBoxFor(m => m.GiftOrder)
+// is this fine or do we need to make a separate property for gift order email?
+<br />
+<br />
+<br />
+<td>
+    <a asp-action="Review" asp-controller="Orders" class="btn btn-success"> Submit</a>
+</td>
