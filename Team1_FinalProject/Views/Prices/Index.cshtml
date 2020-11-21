@@ -13,19 +13,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.MatineePrice)
+                @Html.DisplayNameFor(model => model.PriceTitle)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DiscountPrice)
+                @Html.DisplayNameFor(model => model.PriceType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BasePrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.WeekendPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SeniorDiscount)
+                @Html.DisplayNameFor(model => model.PriceValue)
             </th>
             <th></th>
         </tr>
@@ -34,19 +28,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.MatineePrice)
+                @Html.DisplayFor(modelItem => item.PriceTitle)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DiscountPrice)
+                @Html.DisplayFor(modelItem => item.PriceType)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BasePrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WeekendPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SeniorDiscount)
+                @Html.DisplayFor(modelItem => item.PriceValue)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.PriceID">Edit</a> |

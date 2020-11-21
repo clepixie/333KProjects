@@ -23,5 +23,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Models\ViewModels\LoginViewModel.cs" />
+    <Compile Remove="Seeding\SeedTickets.cs" />
   </ItemGroup>
 </Project>

@@ -54,7 +54,7 @@ namespace Team1_FinalProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PriceID,MatineePrice,DiscountPrice,BasePrice,WeekendPrice,SeniorDiscount")] Price price)
+        public async Task<IActionResult> Create([Bind("PriceID,PriceTitle,PriceType,PriceValue")] Price price)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace Team1_FinalProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PriceID,MatineePrice,DiscountPrice,BasePrice,WeekendPrice,SeniorDiscount")] Price price)
+        public async Task<IActionResult> Edit(int id, [Bind("PriceID,PriceTitle,PriceType,PriceValue")] Price price)
         {
             if (id != price.PriceID)
             {

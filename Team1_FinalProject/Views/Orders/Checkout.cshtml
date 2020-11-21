@@ -33,17 +33,17 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(model => t.Ticket.Showing.Movie.Title)
+                    @Html.DisplayFor(model => t.Showing.Movie.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(model => t.Ticket.Showing.StartDateTime)
+                    @Html.DisplayFor(model => t.Showing.StartDateTime)
                 </td>
                 <td>
-                    @Html.DisplayFor(model => t.Ticket.SeatNumber)
+                    @Html.DisplayFor(model => t.SeatNumber)
                 </td>
-                <td>
-                    @Html.DisplayFor(model => t.Ticket.Price.PriceValue)
-                </td>
+                @*<td>
+                    @Html.DisplayFor(model => t.Price.PriceValue)
+                </td>*@
             </tr>
         }
     </tbody>
@@ -68,13 +68,13 @@
     <tbody>
         <tr>
             <td>
-                @Html.DisplayFor(model => o.OrderSubtotal)
+                @Html.DisplayFor(model => model.OrderSubtotal)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => o.Tax)
+                @Html.DisplayFor(model => model.Tax)
             </td>
             <td>
-                @Html.DisplayFor(model => o.OrderTotal)
+                @Html.DisplayFor(model => model.OrderTotal)
             </td>
             <td>
                 @Html.CheckBoxFor(o => o.PopcornPointsUsed, new { @checked = Model.PopcornPointsUsed })

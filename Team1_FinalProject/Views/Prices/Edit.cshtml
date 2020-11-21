@@ -14,29 +14,19 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="PriceID" />
             <div class="form-group">
-                <label asp-for="MatineePrice" class="control-label"></label>
-                <input asp-for="MatineePrice" class="form-control" />
-                <span asp-validation-for="MatineePrice" class="text-danger"></span>
+                <label asp-for="PriceTitle" class="control-label"></label>
+                <input asp-for="PriceTitle" class="form-control" />
+                <span asp-validation-for="PriceTitle" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DiscountPrice" class="control-label"></label>
-                <input asp-for="DiscountPrice" class="form-control" />
-                <span asp-validation-for="DiscountPrice" class="text-danger"></span>
+                <label asp-for="PriceType" class="control-label"></label>
+                <select asp-for="PriceType" class="form-control"></select>
+                <span asp-validation-for="PriceType" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="BasePrice" class="control-label"></label>
-                <input asp-for="BasePrice" class="form-control" />
-                <span asp-validation-for="BasePrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="WeekendPrice" class="control-label"></label>
-                <input asp-for="WeekendPrice" class="form-control" />
-                <span asp-validation-for="WeekendPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SeniorDiscount" class="control-label"></label>
-                <input asp-for="SeniorDiscount" class="form-control" />
-                <span asp-validation-for="SeniorDiscount" class="text-danger"></span>
+                <label asp-for="PriceValue" class="control-label"></label>
+                <input asp-for="PriceValue" class="form-control" />
+                <span asp-validation-for="PriceValue" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
