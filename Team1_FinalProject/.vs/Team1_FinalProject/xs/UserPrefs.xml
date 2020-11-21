@@ -7,7 +7,7 @@
       <File FileName="Views/Orders/Create.cshtml" />
       <File FileName="Controllers/ShowingsController.cs" />
       <File FileName="Controllers/TicketsController.cs" />
-      <File FileName="Controllers/OrdersController.cs" Line="184" Column="64" />
+      <File FileName="Controllers/OrdersController.cs" />
       <File FileName="Controllers/MoviesController.cs" />
       <File FileName="Controllers/MovieReviewsController.cs" />
       <File FileName="Models/ViewModels/ReportViewModel.cs" />
@@ -26,7 +26,7 @@
       <File FileName="Controllers/HomeController.cs" />
       <File FileName="Models/Genre.cs" />
       <File FileName="Controllers/GenresController.cs" />
-      <File FileName="Views/Orders/Checkout.cshtml" Line="46" Column="24" />
+      <File FileName="Views/Orders/Checkout.cshtml" />
       <File FileName="Views/Orders/Edit.cshtml" />
       <File FileName="Views/Orders/Review.cshtml" />
       <File FileName="Views/Home/Index.cshtml" />
@@ -58,8 +58,7 @@
       <File FileName="Views/Tickets/Create.cshtml" />
       <File FileName="Views/Orders/Details.cshtml" />
       <File FileName="Models/Price.cs" />
-      <File FileName="Seeding/SeedTickets.cs" Line="19" Column="53" />
-      <File FileName="Controllers/PricesController.cs" Line="1" Column="1" />
+      <File FileName="Controllers/PricesController.cs" />
       <File FileName="Views/Prices/Create.cshtml" Line="1" Column="1" />
     </Files>
     <Pads>

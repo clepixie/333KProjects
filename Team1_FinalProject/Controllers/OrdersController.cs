@@ -173,21 +173,22 @@ namespace Team1_FinalProject.Controllers
         // Checkout
         public IActionResult Checkout()
         {
-            List<Order> Orders = new List<Order>();
+            Order order = new Order();
+
             if (User.IsInRole("Admin"))
             {
-                Orders = _context.Orders.Include(o => o.Tickets).ToList();
+               order = _context.Orders.Include(o => o.Tickets).ToList();
             }
             else
             {
-                Orders = _context.Orders.Where(o => o.Customer.UserName == User.Identity.Name)
+                order = _context.Orders.Where(o => o.Customer.UserName == User.Identity.Name)
                                         .Include(o => o.Tickets)
                                         .ThenInclude(t => t.Showing)
                                         .ThenInclude(s => s.Movie)
                                         .ToList();
             }
 
-            return View(Orders);
+            return View(Order);
         }
 
         // Review
