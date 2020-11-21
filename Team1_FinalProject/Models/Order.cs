@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System.Collections.Generic;
+using Team1_FinalProject.DAL;
 
 namespace Team1_FinalProject.Models
 {
     public enum OrderHistory { Past, Cancelled, Future }
-
     public class Order
     {
 		public const Decimal TAX_RATE = .0825m;
@@ -31,7 +31,15 @@ namespace Team1_FinalProject.Models
         [DisplayFormat(DataFormatString = "{0:C}")]
 		public Decimal OrderSubtotal
         {
-            get { return Tickets.Sum(t => t.Price); }
+            get 
+            {
+                decimal subtot = 0;
+                foreach (Ticket ticket in Tickets)
+                {
+                    subtot += ticket.Showing.Price.PriceValue;
+                }
+                return subtot;
+            }
         }
 
 		[Display(Name = "Tax (8.25%):")]

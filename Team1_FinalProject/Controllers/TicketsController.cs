@@ -60,7 +60,7 @@ namespace Team1_FinalProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TicketID,SeatNumber,Price")] Ticket ticket)
+        public async Task<IActionResult> Create([Bind("TicketID,SeatNumber")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
@@ -92,7 +92,7 @@ namespace Team1_FinalProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TicketID,SeatNumber,Price")] Ticket ticket)
+        public async Task<IActionResult> Edit(int id, [Bind("TicketID,SeatNumber")] Ticket ticket)
         {
             if (id != ticket.TicketID)
             {

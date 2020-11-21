@@ -12,15 +12,12 @@ namespace Team1_FinalProject.Models
 
 		[Display(Name = "Seat Number:")]
 		public String SeatNumber { get; set; }
-
-		public Decimal Price { get; set; }
 		
 		public Boolean SeatClaim { get; set; }
 
 		public Order Order { get; set; }
 
 		public Showing Showing { get; set; }
-
 
 	}
     
