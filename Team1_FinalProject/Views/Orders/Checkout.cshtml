@@ -13,52 +13,60 @@
 
 <table class="table">
     <thead>
+        <tr>
+            <th>
+                Movie Title
+            </th>
+            <th>
+                Starting Time
+            </th>
+            <th>
+                Seat Number
+            </th>
+            <th>
+                Price Per Ticket
+            </th>
+        </tr>
+    </thead>
+    <tbody>
         @foreach (Ticket t in Model.Tickets)
         {
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Ticket.Showing.Movie.Title)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Ticket.Showing.StartDateTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Ticket.SeatNumber)
-                </th>
-        }
-                <th>
-                    @Html.DisplayNameFor(model => model.Price)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.OrderSubtotal)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Tax)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.OrderTotal)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PopcornPointsUsed)
-                </th>
+                <td>
+                    @Html.DisplayFor(model => t.Ticket.Showing.Movie.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => t.Ticket.Showing.StartDateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => t.Ticket.SeatNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => t.Ticket.Price.PriceValue)
+                </td>
             </tr>
-        </thead>
-    <tbody>
-        @foreach (Order o in Model)
-        {
+        }
+    </tbody>
+</table>
+<table class="table">
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => o.Tickets.Showing.Movie.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(model => o.Ticket.SeatNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(model => o.Ticket.Showing.StartDateTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => o.Price)
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderSubtotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tax)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PopcornPointsUsed)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
             <td>
                 @Html.DisplayFor(model => o.OrderSubtotal)
             </td>
@@ -79,8 +87,6 @@
                 <a asp-action="Index">Back to List</a>
             </td>
         </tr>
-        }
     </tbody>
 </table>
-
     add buttons for gift order? (view with email) and using popcorn points? (view with popcorn points)
