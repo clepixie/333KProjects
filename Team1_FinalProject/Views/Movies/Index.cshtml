@@ -77,10 +77,19 @@
                     {
                         @foreach (Showing showing in item.Showings)
                         {
-                            @Html.ActionLink(showing.StartDateTime.ToString("MM/dd hh:mm tt"), "Create", "Ticket", new { id = showing.ShowingID }) <span>|| </span>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                @if (User.IsInRole("Customer"))
+                                {
+                                    @Html.ActionLink(showing.StartDateTime.ToString("MM/dd hh:mm tt"), "Create", "Ticket", new { id = showing.ShowingID }) <span>|| </span> 
+                                }
+                                @if (User.IsInRole("Employee"))
+                                {
+                                    @(showing.StartDateTime.ToString("MM/dd hh:mm tt")) <span>|| </span> 
+                                }
+                            }
                         }
                     }
-
                 }
             </td>
         </tr>
