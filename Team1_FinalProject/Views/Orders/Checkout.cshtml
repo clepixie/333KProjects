@@ -9,37 +9,40 @@
     purchase as gift option (insert friend's email)*@
 
 <br />
-@*<h1>Checkout</h1>
+<h1>Checkout</h1>
 
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Ticket.Showing.Movie.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ticket.Showing.StartDateTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ticket.SeatNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderSubtotal)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tax)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderTotal)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PopcornPointsUsed)
-            </th>
-        </tr>
-    </thead>
+        @foreach (Ticket t in Model.Tickets)
+        {
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ticket.Showing.Movie.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ticket.Showing.StartDateTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ticket.SeatNumber)
+                </th>
+        }
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrderSubtotal)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tax)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrderTotal)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PopcornPointsUsed)
+                </th>
+            </tr>
+        </thead>
     <tbody>
         @foreach (Order o in Model)
         {
@@ -67,7 +70,7 @@
             </td>
             <td>
                 @Html.CheckBoxFor(o => o.PopcornPointsUsed, new { @checked = Model.PopcornPointsUsed })
-            </td>*@
+            </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@Model.OrderID">Edit</a> |
                 // add button that says confirm to map to Orders/Confirmation
@@ -75,9 +78,9 @@
                 <a asp-action="Review" asp-controller="Orders">Review Order</a>
                 <a asp-action="Index">Back to List</a>
             </td>
-        @*</tr>
+        </tr>
         }
     </tbody>
-</table>*@
+</table>
 
     add buttons for gift order? (view with email) and using popcorn points? (view with popcorn points)
