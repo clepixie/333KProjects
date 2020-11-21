@@ -281,7 +281,6 @@
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Seed/Confirm.cshtml.g.cs
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Seed/Index.cshtml.g.cs
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Home/Reports.cshtml.g.cs
-/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Movies/ShowingsIndex.cshtml.g.cs
 C:/Users/alice/Documents/UT/333K/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Team1_FinalProject.AssemblyInfoInputs.cache
 C:/Users/alice/Documents/UT/333K/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Team1_FinalProject.AssemblyInfo.cs
 C:/Users/alice/Documents/UT/333K/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Team1_FinalProject.csproj.CoreCompileInputs.cache
@@ -493,3 +492,4 @@ C:/Users/alice/Documents/UT/333K/333KProjects/Team1_FinalProject/obj/Debug/netco
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Home/SearchShowings.cshtml.g.cs
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/Gift.cshtml.g.cs
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/Index.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/Details.cshtml.g.cs

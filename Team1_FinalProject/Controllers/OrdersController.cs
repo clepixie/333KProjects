@@ -24,11 +24,19 @@ namespace Team1_FinalProject.Controllers
         // GET: Orders
         public IActionResult Index() //Order History
         {
-            List<Order> Orders = _context.Orders
-                .Include(o => o.Tickets)
-                .ThenInclude(t => t.Showing)
-                .ThenInclude(s => s.Movie)
-                .ToList();
+            List<Order> Orders = new List<Order>();
+            if (User.IsInRole("Admin"))
+            {
+                Orders = _context.Orders.Include(o => o.Tickets).ToList();
+            }
+            else
+            {
+                Orders = _context.Orders.Where(o => o.Customer.UserName == User.Identity.Name)
+                                        .Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Movie)
+                                        .ToList();
+            }
 
             return View(Orders);
         }
@@ -41,22 +49,24 @@ namespace Team1_FinalProject.Controllers
                 return NotFound();
             }
 
-            List<Order> Orders = _context.Orders
-                        .Include(o => o.Tickets)
-                        .ThenInclude(t => t.Showing)
-                        .ThenInclude(s => s.Movie)
-                        .ToList();
+            Order order = _context.Orders
+            .Include(ord => ord.Tickets)
+            .ThenInclude(ord => ord.Showing)
+            .Include(ord => ord.Customer)
+            .FirstOrDefault(o => o.OrderID == id);
 
-            return View(Orders);
+            if (order == null)
+            {
+                return NotFound();
+            }
 
-            //var order = await _context.Orders
-            //    .FirstOrDefaultAsync(m => m.OrderID == id);
-            //if (order == null)
-            //{
-            //    return NotFound();
-            //}
+            //make sure a customer isn't trying to look at someone else's order
+            if (User.IsInRole("Admin") == false && order.Customer.UserName != User.Identity.Name)
+            {
+                return View("Error", new string[] { "You are not authorized to edit this order!" });
+            }
 
-            //return View(order);
+            return View(order);
         }
 
         // GET: Orders/Create

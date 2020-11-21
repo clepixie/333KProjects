@@ -1,20 +1,20 @@
 ﻿<Properties StartupConfiguration="{5BEA845B-2AA8-4BCB-A0C3-D8FEF9946679}|Default">
   <MonoDevelop.Ide.ItemProperties.Team1__FinalProject PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/OrdersController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/TicketsController.cs">
     <Files>
       <File FileName="Startup.cs" Line="82" Column="1" />
       <File FileName="Views/Orders/Confirmation.cshtml" Line="18" Column="1" />
       <File FileName="Views/Orders/Create.cshtml" />
       <File FileName="Controllers/ShowingsController.cs" />
-      <File FileName="Controllers/TicketsController.cs" Line="25" Column="1" />
+      <File FileName="Controllers/TicketsController.cs" Line="23" Column="53" />
       <File FileName="Controllers/PricesController.cs" Line="1" Column="1" />
-      <File FileName="Controllers/OrdersController.cs" Line="28" Column="40" />
+      <File FileName="Controllers/OrdersController.cs" Line="61" Column="1" />
       <File FileName="Controllers/MoviesController.cs" />
       <File FileName="Controllers/MovieReviewsController.cs" />
       <File FileName="Models/ViewModels/ReportViewModel.cs" />
       <File FileName="Models/ViewModels/SearchViewModel.cs" />
-      <File FileName="Models/Showing.cs" Line="23" Column="42" />
-      <File FileName="Models/Ticket.cs" Line="13" Column="3" />
+      <File FileName="Models/Showing.cs" Line="23" Column="36" />
+      <File FileName="Models/Ticket.cs" Line="20" Column="5" />
       <File FileName="Models/Order.cs" Line="22" Column="38" />
       <File FileName="Models/Movie.cs" Line="1" Column="1" />
       <File FileName="Seeding/SeedMovies.cs" />
@@ -29,7 +29,7 @@
       <File FileName="Controllers/HomeController.cs" />
       <File FileName="Models/Genre.cs" />
       <File FileName="Controllers/GenresController.cs" />
-      <File FileName="Views/Orders/Checkout.cshtml" Line="11" Column="1" />
+      <File FileName="Views/Orders/Checkout.cshtml" Line="13" Column="1" />
       <File FileName="Views/Orders/Edit.cshtml" />
       <File FileName="Views/Orders/Review.cshtml" />
       <File FileName="Views/Home/Index.cshtml" />
@@ -56,10 +56,11 @@
       <File FileName="Views/Movies/Index.cshtml" />
       <File FileName="Models/ViewModels/CheckoutViewModel.cs" />
       <File FileName="Views/Orders/Gift.cshtml" />
-      <File FileName="Views/Orders/ShoppingCart.cshtml" Line="12" Column="10" />
+      <File FileName="Views/Orders/ShoppingCart.cshtml" Line="15" Column="21" />
       <File FileName="Views/Prices/Index.cshtml" Line="1" Column="1" />
       <File FileName="Views/Tickets/Index.cshtml" Line="29" Column="5" />
-      <File FileName="Views/Orders/Index.cshtml" Line="1" Column="1" />
+      <File FileName="Views/Orders/Index.cshtml" Line="70" Column="66" />
+      <File FileName="Views/Tickets/Create.cshtml" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -67,7 +68,7 @@
           <Node name="Team1_FinalProject" expanded="True">
             <Node name="Team1_FinalProject" expanded="True">
               <Node name="Controllers" expanded="True">
-                <Node name="OrdersController.cs" selected="True" />
+                <Node name="TicketsController.cs" selected="True" />
               </Node>
               <Node name="DAL" expanded="True" />
               <Node name="Migrations" expanded="True" />
