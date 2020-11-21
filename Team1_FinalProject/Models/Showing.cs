@@ -35,6 +35,7 @@ namespace Team1_FinalProject.Models
         public List<Ticket> Tickets { get; set; }
         [Display(Name = "Price")]
         public Price Price { get; set; }
+
         [Display(Name = "Tickets Available")]
         public int TicketCount
         {
