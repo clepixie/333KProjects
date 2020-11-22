@@ -82,13 +82,15 @@ namespace Team1_FinalProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("OrderID,GiftOrder,PopcornPoints,Date")] Order order)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid == false)
             {
+                return View(order);
+            }
                 _context.Add(order);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            return View(order);
+            
+            
         }
 
         // GET: Orders/Edit/5
@@ -170,25 +172,63 @@ namespace Team1_FinalProject.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+
+       
+
         // Checkout
-        public IActionResult Checkout()
+        
+        public async Task<IActionResult> Checkout(List<Ticket> tickets)
         {
             Order order = new Order();
 
-            if (User.IsInRole("Admin"))
+            order.Tickets = tickets;
+
+            if (ModelState.IsValid == false)
             {
-               order = _context.Orders.Include(o => o.Tickets).ToList();
+                return View(order);
             }
-            else
-            {
-                order = _context.Orders.Where(o => o.Customer.UserName == User.Identity.Name)
+            order.Date = DateTime.Now;
+
+            order.Customer = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            order.OrderHistory = OrderHistory.Future;
+            order.PopcornPointsUsed = false;
+            order.GiftOrder = false;
+
+            _context.Add(order);
+            await _context.SaveChangesAsync();
+            return View(order);
+
+
+            /*ViewBag.AllTickets = _context.Orders.Where(o => o.Customer.UserName == User.Identity.Name)
                                         .Include(o => o.Tickets)
                                         .ThenInclude(t => t.Showing)
                                         .ThenInclude(s => s.Movie)
                                         .ToList();
+             test the viewbag if the order instance doesn't work
+             */       
+            
+            
+        }
+
+        //checkout [POST]
+        [HttpPost]
+        public IActionResult Checkout(Boolean PopcornPointsUsed, Boolean GiftOrder,Order order)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return View(order);
+            }
+            if (PopcornPointsUsed == true)
+            {
+                order.PopcornPointsUsed = true;
+            }
+            if (GiftOrder == true)
+            {
+                order.GiftOrder = true;
             }
 
-            return View(Order);
+            return View(order);
         }
 
         // Review
