@@ -15,7 +15,10 @@ namespace Team1_FinalProject.Models
 	    [Display(Name = "OrderID:")]
 	    public Int32 OrderID {get; set;}
 
-	    [Display(Name = "Is this a gift order?")]	
+        [Display(Name = "Order Number:")]
+        public Int32 OrderNumber { get; set; }
+
+        [Display(Name = "Is this a gift order?")]	
 	    public Boolean GiftOrder {get; set;}
 	
 	    [Display(Name = "Popcorn Points Used:")]
