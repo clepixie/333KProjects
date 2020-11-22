@@ -51,15 +51,12 @@ namespace Team1_FinalProject.Controllers
         private MultiSelectList GetAvailableSeats(Showing showing)
         {
             List<string> allSeats = new List<string> { "A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5", "C1", "C2", "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5", "E1", "E2", "E3", "E4", "E5" };
-            List<Int32> allSeatsID = new List<Int32> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 };
             if (showing.Tickets.Count() != 0)
             {
                 List<Ticket> tickets = showing.Tickets.ToList();
                 foreach (Ticket ticket in tickets)
                 {
-                    int index = allSeats.FindIndex(s => s == ticket.SeatNumber);
                     allSeats.Remove(ticket.SeatNumber);
-                    allSeatsID.Remove(allSeatsID[index]);
                 }
             }
 
@@ -73,19 +70,13 @@ namespace Team1_FinalProject.Controllers
         [HttpGet]
         public IActionResult Create(Int32 showingID)
         {
-            List<Ticket> new_tickets = new List<Ticket>();
 
             // find the order that should be associated with order id passed in param
             Showing showing = _context.Showings.Find(showingID);
 
             ViewBag.AllSeats = GetAvailableSeats(showing);
             
-            foreach(Ticket ticket in new_tickets)
-            {
-                ticket.Showing = showing;
-            }
-            
-            return View(new_tickets);
+            return View(showing);
         }
 
         // POST: Tickets/Create
@@ -93,17 +84,18 @@ namespace Team1_FinalProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("TicketID, SeatNumber, Order")] List<Ticket> tickets, int showingID, string[] SeatNumbers)
-        { 
+        public IActionResult Create([Bind("TicketID, SeatNumber, Order")] Showing showing, string[] SeatNumbers)
+        {
+
             if (ModelState.IsValid == false)
             {
-                Showing showing = _context.Showings.Find(showingID);
                 ViewBag.AllSeats = GetAvailableSeats(showing);
-                return View(tickets);
+                return View();
             }
-            
+
             List<Order> orders = _context.Orders.ToList();
             Order current_order = new Order();
+
             foreach (Order order in orders)
             {
                 if (order.OrderHistory == OrderHistory.Future)
@@ -118,28 +110,27 @@ namespace Team1_FinalProject.Controllers
             current_order.PopcornPointsUsed = false;
             current_order.GiftOrder = false;
 
-            Showing dbshowing = _context.Showings.FirstOrDefault(s => s.ShowingID == showingID);
-            int[] array = { };
+            /*int[] array = { };*/
             
             foreach (Ticket ticket in current_order.Tickets)
             {
-                if (ticket.Showing.Movie.MovieID == dbshowing.Movie.MovieID)
+                if (ticket.Showing.Movie.MovieID == showing.Movie.MovieID)
                 {
-                    if (ticket.Showing.ShowingID != dbshowing.ShowingID)
+                    if (ticket.Showing.ShowingID != showing.ShowingID)
                     {
                         return View("Error", new String[] { "This movie is already in your cart for another showing time!" });
                     }
                 }
             }
                 
-            int idx = 0;
             
-            foreach(Ticket ticket in tickets)
+            foreach(string seatnumber in SeatNumbers)
             {
+                Ticket ticket = new Ticket();
+                ticket.Showing = showing;
                 ticket.SeatClaim = true;
                 ticket.Order = current_order;
-                ticket.SeatNumber = SeatNumbers[idx];
-                idx += 1;
+                ticket.SeatNumber = seatnumber;
                 _context.Tickets.Add(ticket);
                 _context.SaveChanges();
             }
