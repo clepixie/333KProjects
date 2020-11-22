@@ -49,10 +49,22 @@ namespace Team1_FinalProject.Controllers
         }
 
         // GET: Tickets/Create
-        // take movieID
-        public IActionResult Create()
+        // take movieID** shouldent it be showingID
+        public IActionResult Create(int showingID)
         {
-            return View();
+            Ticket rd = new Ticket();
+
+            // find the order that should be associated with order id passed in param
+            Ticket dbTicket = _context.Tickets.Find(showingID);
+
+            //set new order detail's order equal to order you just found
+            rd.Order = dbOrder;
+
+            //populate the viewbag with list of existing products
+            ViewBag.AllProducts = GetAllProducts();
+
+            //pass the newly created order detail to the view
+            return View(rd);
         }
 
         // POST: Tickets/Create
