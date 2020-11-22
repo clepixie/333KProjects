@@ -118,7 +118,22 @@ namespace Team1_FinalProject.Controllers
             current_order.PopcornPointsUsed = false;
             current_order.GiftOrder = false;
 
+            Showing dbshowing = _context.Showings.FirstOrDefault(s => s.ShowingID == showingID);
+            int[] array = { };
+            
+            foreach (Ticket ticket in current_order.Tickets)
+            {
+                if (ticket.Showing.Movie.MovieID == dbshowing.Movie.MovieID)
+                {
+                    if (ticket.Showing.ShowingID != dbshowing.ShowingID)
+                    {
+                        return View("Error", new String[] { "This movie is already in your cart for another showing time!" });
+                    }
+                }
+            }
+                
             int idx = 0;
+            
             foreach(Ticket ticket in tickets)
             {
                 ticket.SeatClaim = true;
