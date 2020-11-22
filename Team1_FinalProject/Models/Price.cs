@@ -19,6 +19,7 @@ namespace Team1_FinalProject.Models
 
         public PType PriceType { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal PriceValue { get; set; }
         public List<Showing> Showings { get; set; }
 
