@@ -1,4 +1,4 @@
-﻿@model Team1_FinalProject.Models.Ticket
+﻿@model IEnumerable<Team1_FinalProject.Models.Ticket>
 
 @{
     ViewData["Title"] = "Create";
@@ -18,7 +18,7 @@
                 <input type="hidden" asp-for="OrderID" />*@
                 <div>
                     <label class="control-label">Seats Available:</label>
-                    @Html.ListBox("SelectedSeats", (MultiSelectList)ViewBag.AllSeats, new { @class = "form-control" })
+                    @Html.ListBox("SeatNumber", (MultiSelectList)ViewBag.AllSeats, new { @class = "form-control" })
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-primary" />

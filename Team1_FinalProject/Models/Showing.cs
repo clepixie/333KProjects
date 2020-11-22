@@ -55,6 +55,12 @@ namespace Team1_FinalProject.Models
                 return (25-count);
             }
         }
-
+        public Showing()
+        {
+            if (Tickets == null)
+            {
+                Tickets = new List<Ticket>();
+            }
+        }
     }
 }

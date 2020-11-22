@@ -81,7 +81,7 @@
                             {
                                 @if (User.IsInRole("Customer"))
                                 {
-                                    @Html.ActionLink(showing.StartDateTime.ToString("MM/dd hh:mm tt"), "Create", "Tickets", new { id = showing.ShowingID }) <span>|| </span> 
+                                    @Html.ActionLink(showing.StartDateTime.ToString("MM/dd hh:mm tt"), "Create", "Tickets", new { showingID = showing.ShowingID }) <span>|| </span> 
                                 }
                                 @if (User.IsInRole("Employee"))
                                 {

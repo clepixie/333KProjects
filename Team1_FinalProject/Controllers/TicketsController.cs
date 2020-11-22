@@ -48,40 +48,41 @@ namespace Team1_FinalProject.Controllers
             return View(ticket);
         }
 
-        private MultiSelectList GetAvailableSeats(int showingID)
+        private MultiSelectList GetAvailableSeats(Showing showing)
         {
             List<string> allSeats = new List<string> { "A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5", "C1", "C2", "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5", "E1", "E2", "E3", "E4", "E5" };
             List<Int32> allSeatsID = new List<Int32> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 };
-            Showing showing = _context.Showings.FirstOrDefault(s => s.ShowingID == showingID);
-            List<Ticket> tickets = showing.Tickets.ToList();
-
-            foreach (Ticket ticket in tickets)
+            if (showing.Tickets.Count() != 0)
             {
-                int index = allSeats.FindIndex(s => s == ticket.SeatNumber);
-                allSeats.Remove(ticket.SeatNumber);
-                allSeatsID.Remove(allSeatsID[index]);
+                List<Ticket> tickets = showing.Tickets.ToList();
+                foreach (Ticket ticket in tickets)
+                {
+                    int index = allSeats.FindIndex(s => s == ticket.SeatNumber);
+                    allSeats.Remove(ticket.SeatNumber);
+                    allSeatsID.Remove(allSeatsID[index]);
+                }
             }
 
             //use the MultiSelectList constructor method to get a new MultiSelectList
-            MultiSelectList mslAllTickets = new MultiSelectList(allSeats, "allSeatsID", "allSeats");
+            MultiSelectList mslAllTickets = new MultiSelectList(allSeats);
 
             return mslAllTickets;
         }
 
         // GET: Tickets/Create
-
-        public IActionResult Create(int showingID)
+        [HttpGet]
+        public IActionResult Create(Int32 showingID)
         {
             List<Ticket> new_tickets = new List<Ticket>();
 
             // find the order that should be associated with order id passed in param
-            Showing dbShowing = _context.Showings.Find(showingID);
+            Showing showing = _context.Showings.Find(showingID);
 
-            ViewBag.AllSeats = GetAvailableSeats(showingID);
+            ViewBag.AllSeats = GetAvailableSeats(showing);
             
             foreach(Ticket ticket in new_tickets)
             {
-                ticket.Showing = dbShowing;
+                ticket.Showing = showing;
             }
             
             return View(new_tickets);
@@ -92,11 +93,12 @@ namespace Team1_FinalProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("TicketID, SeatNumber, Order")] List<Ticket> tickets, int showingID, int[] SelectedSeats)
+        public IActionResult Create([Bind("TicketID, SeatNumber, Order")] List<Ticket> tickets, int showingID, string[] SeatNumbers)
         { 
             if (ModelState.IsValid == false)
             {
-                ViewBag.AllSeats = GetAvailableSeats(showingID);
+                Showing showing = _context.Showings.Find(showingID);
+                ViewBag.AllSeats = GetAvailableSeats(showing);
                 return View(tickets);
             }
             
@@ -116,25 +118,17 @@ namespace Team1_FinalProject.Controllers
             current_order.PopcornPointsUsed = false;
             current_order.GiftOrder = false;
 
+            int idx = 0;
             foreach(Ticket ticket in tickets)
             {
                 ticket.SeatClaim = true;
                 ticket.Order = current_order;
-                foreach (int seatID in SelectedSeats)
-                {
-                    List<string> allSeats = new List<string> { "A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5", "C1", "C2", "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5", "E1", "E2", "E3", "E4", "E5" };
-                    List<Int32> allSeatsID = new List<Int32> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 };
-                    //find the seat associated with that id
-                    int index = allSeatsID.FindIndex(s => s == seatID);
-                    string seat = allSeats.Find(s => s == allSeats[index]);
-
-                    ticket.SeatNumber = seat;
-
-                    //add the course department to the database and save changes
-                    _context.Tickets.Add(ticket);
-                    _context.SaveChanges();
-                }
+                ticket.SeatNumber = SeatNumbers[idx];
+                idx += 1;
+                _context.Tickets.Add(ticket);
+                _context.SaveChanges();
             }
+
             return RedirectToAction("Checkout", "Orders", new { id = current_order.OrderID });
         }
         
