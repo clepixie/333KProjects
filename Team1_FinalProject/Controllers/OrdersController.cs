@@ -10,6 +10,7 @@ using Team1_FinalProject.DAL;
 using Team1_FinalProject.Models;
 using Team1_FinalProject.Utilities;
 
+
 namespace Team1_FinalProject.Controllers
 {
     //[Authorize]
@@ -243,6 +244,8 @@ namespace Team1_FinalProject.Controllers
             return View();
         }
 
+        //Cancel
+        [HttpPost]
         public IActionResult CancelOrder(Order order)
         {
             order.OrderHistory = OrderHistory.Cancelled;
@@ -250,10 +253,13 @@ namespace Team1_FinalProject.Controllers
         }
 
         // Confirmation
+        //pass in order number and send an email
+        [HttpPost]
         public IActionResult Confirmation(Order order)
         {
             order.OrderHistory = OrderHistory.Past;
-            return View();
+            Utilities.EmailMessaging.SendEmail(order.Customer.Email, "Ticket Purchase Confirmation", "Confirmed you just placed an order! You order number is: " + order.OrderNumber);
+            return View(order);
         }
 
         // Gift Order

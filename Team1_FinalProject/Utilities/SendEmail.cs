@@ -3,7 +3,8 @@
 //TODO: You need to add these using statements to get mail to work
 using System.Net.Mail;
 using System.Net;
-namespace SendMailTest
+
+namespace Team1_FinalProject.Utilities
 {
     public static class EmailMessaging
     {
@@ -25,7 +26,7 @@ namespace SendMailTest
             //Create an email address object for the sender address
             MailAddress senderEmail = new MailAddress("mis333k.team1@gmail.com", "Main Street Movies");
             MailMessage mm = new MailMessage();
-            mm.Subject = "Team XX - " + emailSubject;
+            mm.Subject = "Team 1 - " + emailSubject;
             mm.Sender = senderEmail;
             mm.From = senderEmail;
             mm.To.Add(new MailAddress(toEmailAddress));
