@@ -177,36 +177,31 @@ namespace Team1_FinalProject.Controllers
        
 
         // Checkout
-        
+        // add if statement to check if list of tickets is null , then send error 
+        // also if statement for purchasing tickets of multiple showings for same movie
         public async Task<IActionResult> Checkout(List<Ticket> tickets)
         {
-            Order order = new Order();
-
-            order.Tickets = tickets;
-
-            if (ModelState.IsValid == false)
-            {
-                return View(order);
-            }
+            bool isEmpty
+                              
+            //Order order = new Order();
+            //order.Tickets = tickets;
+            order.OrderNumber = Utilities.GenerateNextOrderNumber.GetNextOrderNumber(_context);
             order.Date = DateTime.Now;
-
             order.Customer = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
-            order.OrderHistory = OrderHistory.Future;
-            order.PopcornPointsUsed = false;
-            order.GiftOrder = false;
-
-            _context.Add(order);
-            await _context.SaveChangesAsync();
+            //order.OrderHistory = OrderHistory.Future;
+            //order.PopcornPointsUsed = false;
+            //order.GiftOrder = false;
+                                        _context.Add(order);
+                    await _context.SaveChangesAsync();
             return View(order);
 
-
-            /*ViewBag.AllTickets = _context.Orders.Where(o => o.Customer.UserName == User.Identity.Name)
-                                        .Include(o => o.Tickets)
-                                        .ThenInclude(t => t.Showing)
-                                        .ThenInclude(s => s.Movie)
-                                        .ToList();
-             test the viewbag if the order instance doesn't work
-             */       
+                                                                    ext.Orders.Where(o => o.Customer.UserName == User.Identity.Name)
+                                                .Include(o => o.Tickets)
+                                                .ThenInclude(t => t.Showing)
+                                                .ThenInclude(s => s.Movie)
+                                               .ToList();
+                    test the viewbag if the order instance doesn't work
+                } */       
             
             
         }

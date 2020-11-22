@@ -31,7 +31,6 @@ namespace Team1_FinalProject.Controllers
         public IActionResult DisplayMovieSearchResults(SearchViewModel svm)
         {
             TryValidateModel(svm);
-
             if (ModelState.IsValid == false) //something is wrong
             {
                 return View("~/Views/Home/SearchMoviesShowings");//send user back to inputs page
@@ -39,6 +38,7 @@ namespace Team1_FinalProject.Controllers
 
             var query = from m in _context.Movies
                         select m;
+            if (DateTime.Now - )
             if (svm.SearchTitle != null && svm.SearchTitle != "")
             {
                 query = query.Where(m => m.Title.Contains(svm.SearchTitle));

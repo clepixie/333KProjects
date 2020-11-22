@@ -48,30 +48,42 @@ namespace Team1_FinalProject.Controllers
             return View(ticket);
         }
 
-
-        private SelectList GetAvailableSeats()
+        private SelectList GetAvailableSeats(int showingID)
         {
-            List<Ticket> tickets = _context.Tickets.ToList();
+            List<string> allSeats = ["A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5", "C1", "C2", "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5", "E1", "E2", "E3", "E4", "E5"]
+            List<Int32> allSeatsID = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
+            List<Ticket> tickets = _context.Showing.Find(s => s.ShowingID == showingID).Tickets.ToList();
 
-            SelectList ticketSelectList = new SelectList(tickets.OrderBy(m => m.SeatNumber), "TicketID", "SeatNumber");
+            foreach (Ticket ticket in tickets)
+            {
+                int index = allSeats.FindIndex(ticket.SeatNumber);
+                allSeats = allSeats.Remove(ticket.SeatNumber);
+                allSeatsID = allSeatsID.Remove(allSeatsID[index])
+            }
 
-            return ticketSelectList;
+            //use the MultiSelectList constructor method to get a new MultiSelectList
+            MultiSelectList mslAllTickets = new MultiSelectList(allSeats, "allSeatsID", "allSeats");
+
+            return mslAllTickets;
         }
 
         // GET: Tickets/Create
 
         public IActionResult Create(int showingID)
         {
-            Ticket new_ticket = new Ticket();
+            List<Ticket> new_tickets = new Ticket();
 
             // find the order that should be associated with order id passed in param
             Showing dbShowing = _context.Showings.Find(showingID);
 
-           
-            new_ticket.Showing = dbShowing;
-
+            ViewBag.AllSeats = GetAvailableSeats(showingID);
             
-            return View(new_ticket);
+            foreach(Ticket ticket in new_tickets)
+            {
+                ticket.Showing = dbShowing;
+            }
+            
+            return View(new_tickets);
         }
 
         // POST: Tickets/Create
@@ -79,16 +91,14 @@ namespace Team1_FinalProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("TicketID, SeatNumber, Order")] Ticket ticket, Showing showing)
-        {
-            
+        public IActionResult Create([Bind("TicketID, SeatNumber, Order")] List<Ticket> tickets, int showingID, int[] SelectedSeats)
+        { 
             if (ModelState.IsValid == false)
             {
-                return View("Error");
+                ViewBag.AllSeats = GetAvailableSeats(showingID);
+                return View(tickets);
             }
-
-            ticket.SeatClaim = true;
-
+            
             List<Order> orders = _context.Orders.ToList();
             Order current_order = new Order();
             foreach (Order order in orders)
@@ -105,15 +115,28 @@ namespace Team1_FinalProject.Controllers
             current_order.PopcornPointsUsed = false;
             current_order.GiftOrder = false;
 
-            ticket.Order = current_order;
+            foreach(Ticket ticket in tickets)
+            {
+                ticket.SeatClaim = true;
+                ticket.Order = current_order;
+                foreach (int seatID in SelectedSeats)
+                {
+                    List<string> allSeats = ["A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5", "C1", "C2", "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5", "E1", "E2", "E3", "E4", "E5"]
+                    List<Int32> allSeatsID = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
+                    //find the seat associated with that id
+                    int index = allSeatsID.FindIndex(seatID);
+                    string seat = allSeats.Find(allSeats[index]);
 
-            return View(ticket);
-        }
+                    ticket.SeatNumber = seat
 
-        // GET: Tickets/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
+                    //add the course department to the database and save changes
+                    _context.Tickets.Add(ticket);
+                    _context.SaveChanges();
+                }
+            }
+
+            return RedirectToAction("Checkout", "Orders", new { id = current_order.OrderID });
+
             {
                 return NotFound();
             }
