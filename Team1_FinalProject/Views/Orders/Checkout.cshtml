@@ -63,6 +63,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.PopcornPointsUsed)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GiftOrder)
+            </th>
+            <th>
+                Gift Recipient Email
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -80,13 +86,18 @@
                 @Html.CheckBoxFor(o => o.PopcornPointsUsed, new { @checked = Model.PopcornPointsUsed })
             </td>
             <td>
+                @Html.CheckBoxFor(o => o.GiftOrder, new { @checked = Model.GiftOrder })
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.GiftOrder)
+            </td>
+
+            <td>
                 <a asp-action="Edit" asp-route-id="@Model.OrderID">Edit</a> |
-                // add button that says confirm to map to Orders/Confirmation
-                <a asp-action="Gift" asp-controller="Orders" class="btn btn-success">Make this a Gift Order?</a>
-                <a asp-action="Review" asp-controller="Orders">Review Order</a>
+                <a asp-action="Review" asp-controller="Orders">Review Order</a> |
                 <a asp-action="Index">Back to List</a>
             </td>
         </tr>
     </tbody>
 </table>
-    add buttons for gift order? (view with email) and using popcorn points? (view with popcorn points)
+
