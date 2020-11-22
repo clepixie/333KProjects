@@ -232,14 +232,21 @@ namespace Team1_FinalProject.Controllers
         }
 
         // Review
-        public IActionResult Review()
+        public IActionResult Review(Order order)
         {
             return View();
         }
 
-        // Confirmation
-        public IActionResult Confirmation()
+        public IActionResult CancelOrder(Order order)
         {
+            order.OrderHistory = OrderHistory.Cancelled;
+            return View("Index");
+        }
+
+        // Confirmation
+        public IActionResult Confirmation(Order order)
+        {
+            order.OrderHistory = OrderHistory.Past;
             return View();
         }
 

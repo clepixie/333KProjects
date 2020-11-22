@@ -1,7 +1,7 @@
 @model Team1_FinalProject.Models.Order
 
 @{
-    ViewData["Title"] = "Review";
+    ViewData["Title"] = "Review Your Order";
 }
 
 <h1>Review Your Order</h1>
@@ -30,6 +30,7 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Confirmation" asp-controller="Orders">Confirm Order</a>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Confirmation" asp-controller="Orders">Confirm Order</a> |
+    <a asp-action="CancelOrder" asp-controller="Orders">Cancel Order</a> |
+    <a asp-action="Index" asp-controller="Home">Return to Home</a>
 </div>
