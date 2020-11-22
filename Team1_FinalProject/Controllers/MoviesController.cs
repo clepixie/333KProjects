@@ -38,7 +38,7 @@ namespace Team1_FinalProject.Controllers
 
             var query = from m in _context.Movies
                         select m;
-            if (DateTime.Now - )
+
             if (svm.SearchTitle != null && svm.SearchTitle != "")
             {
                 query = query.Where(m => m.Title.Contains(svm.SearchTitle));

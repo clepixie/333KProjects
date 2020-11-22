@@ -48,17 +48,18 @@ namespace Team1_FinalProject.Controllers
             return View(ticket);
         }
 
-        private SelectList GetAvailableSeats(int showingID)
+        private MultiSelectList GetAvailableSeats(int showingID)
         {
-            List<string> allSeats = ["A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5", "C1", "C2", "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5", "E1", "E2", "E3", "E4", "E5"]
-            List<Int32> allSeatsID = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
-            List<Ticket> tickets = _context.Showing.Find(s => s.ShowingID == showingID).Tickets.ToList();
+            List<string> allSeats = new List<string> { "A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5", "C1", "C2", "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5", "E1", "E2", "E3", "E4", "E5" };
+            List<Int32> allSeatsID = new List<Int32> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 };
+            Showing showing = _context.Showings.FirstOrDefault(s => s.ShowingID == showingID);
+            List<Ticket> tickets = showing.Tickets.ToList();
 
             foreach (Ticket ticket in tickets)
             {
-                int index = allSeats.FindIndex(ticket.SeatNumber);
-                allSeats = allSeats.Remove(ticket.SeatNumber);
-                allSeatsID = allSeatsID.Remove(allSeatsID[index])
+                int index = allSeats.FindIndex(s => s == ticket.SeatNumber);
+                allSeats.Remove(ticket.SeatNumber);
+                allSeatsID.Remove(allSeatsID[index]);
             }
 
             //use the MultiSelectList constructor method to get a new MultiSelectList
@@ -71,7 +72,7 @@ namespace Team1_FinalProject.Controllers
 
         public IActionResult Create(int showingID)
         {
-            List<Ticket> new_tickets = new Ticket();
+            List<Ticket> new_tickets = new List<Ticket>();
 
             // find the order that should be associated with order id passed in param
             Showing dbShowing = _context.Showings.Find(showingID);
@@ -121,32 +122,22 @@ namespace Team1_FinalProject.Controllers
                 ticket.Order = current_order;
                 foreach (int seatID in SelectedSeats)
                 {
-                    List<string> allSeats = ["A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5", "C1", "C2", "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5", "E1", "E2", "E3", "E4", "E5"]
-                    List<Int32> allSeatsID = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
+                    List<string> allSeats = new List<string> { "A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5", "C1", "C2", "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5", "E1", "E2", "E3", "E4", "E5" };
+                    List<Int32> allSeatsID = new List<Int32> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 };
                     //find the seat associated with that id
-                    int index = allSeatsID.FindIndex(seatID);
-                    string seat = allSeats.Find(allSeats[index]);
+                    int index = allSeatsID.FindIndex(s => s == seatID);
+                    string seat = allSeats.Find(s => s == allSeats[index]);
 
-                    ticket.SeatNumber = seat
+                    ticket.SeatNumber = seat;
 
                     //add the course department to the database and save changes
                     _context.Tickets.Add(ticket);
                     _context.SaveChanges();
                 }
             }
-
             return RedirectToAction("Checkout", "Orders", new { id = current_order.OrderID });
-
-                return NotFound();
-            }
-
-            var ticket = await _context.Tickets.FindAsync(id);
-            if (ticket == null)
-            {
-                return NotFound();
-            }
-            return View(ticket);
         }
+        
 
         // POST: Tickets/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
