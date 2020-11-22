@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Team1_FinalProject.DAL;
 using Team1_FinalProject.Models;
+using Team1_FinalProject.Utilities;
 
 namespace Team1_FinalProject.Controllers
 {
@@ -179,19 +180,23 @@ namespace Team1_FinalProject.Controllers
         // Checkout
         // add if statement to check if list of tickets is null , then send error 
         // also if statement for purchasing tickets of multiple showings for same movie
-        public async Task<IActionResult> Checkout(List<Ticket> tickets)
+        public async Task<IActionResult> Checkout(int id)
         {
-            bool isEmpty = !tickets.Any();
+            Order order = await _context.Orders
+                .FirstOrDefaultAsync(m => m.OrderID == id);
+            
+            bool isEmpty = !(order.Tickets).Any();
             {
                 if(isEmpty)
                 {
-                    "Your cart is empty. Please choose what to purchase first."
+                    //Todo: add error view
+                    return View("Your cart is empty. Please choose what to purchase first.");
                 }
                 else
                 {
                     //Order order = new Order();
                     //order.Tickets = tickets;
-                    order.OrderNumber = Utilities.GenerateNextOrderNumber.GetNextOrderNumber(_context);
+                    order.OrderNumber = Utilities.GenerateOrderNumber.GetNextOrderNumber(_context);
                     order.Date = DateTime.Now;
                     order.Customer = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
                     //order.OrderHistory = OrderHistory.Future;
