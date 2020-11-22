@@ -181,31 +181,36 @@ namespace Team1_FinalProject.Controllers
         // also if statement for purchasing tickets of multiple showings for same movie
         public async Task<IActionResult> Checkout(List<Ticket> tickets)
         {
-            bool isEmpty
-                              
-            //Order order = new Order();
-            //order.Tickets = tickets;
-            order.OrderNumber = Utilities.GenerateNextOrderNumber.GetNextOrderNumber(_context);
-            order.Date = DateTime.Now;
-            order.Customer = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
-            //order.OrderHistory = OrderHistory.Future;
-            //order.PopcornPointsUsed = false;
-            //order.GiftOrder = false;
-                                        _context.Add(order);
+            bool isEmpty = !tickets.Any();
+            {
+                if(isEmpty)
+                {
+                    "Your cart is empty. Please choose what to purchase first."
+                }
+                else
+                {
+                    //Order order = new Order();
+                    //order.Tickets = tickets;
+                    order.OrderNumber = Utilities.GenerateNextOrderNumber.GetNextOrderNumber(_context);
+                    order.Date = DateTime.Now;
+                    order.Customer = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+                    //order.OrderHistory = OrderHistory.Future;
+                    //order.PopcornPointsUsed = false;
+                    //order.GiftOrder = false;
+                    _context.Add(order);
                     await _context.SaveChangesAsync();
-            return View(order);
-
-                                                                    ext.Orders.Where(o => o.Customer.UserName == User.Identity.Name)
-                                                .Include(o => o.Tickets)
-                                                .ThenInclude(t => t.Showing)
-                                                .ThenInclude(s => s.Movie)
-                                               .ToList();
-                    test the viewbag if the order instance doesn't work
-                } */       
-            
-            
+                    return View(order);
+                }
+            }
         }
 
+        /*ViewBag.AllTickets = _context.Orders.Where(o => o.Customer.UserName == User.Identity.Name)
+                                        .Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Movie)
+                                        .ToList();
+             test the viewbag if the order instance doesn't work
+        */        
         //checkout [POST]
         [HttpPost]
         public IActionResult Checkout(Boolean PopcornPointsUsed, Boolean GiftOrder,Order order)

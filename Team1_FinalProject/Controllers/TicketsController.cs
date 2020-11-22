@@ -137,7 +137,6 @@ namespace Team1_FinalProject.Controllers
 
             return RedirectToAction("Checkout", "Orders", new { id = current_order.OrderID });
 
-            {
                 return NotFound();
             }
 
