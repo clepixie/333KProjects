@@ -4,29 +4,140 @@
     ViewData["Title"] = "Create";
 }
 
-// in the GET method for Create in the TicketsController, use if statement to see if they are old enough, otherwise return an Error message
-<h1>Create</h1>
+@*// in the GET method for Create in the TicketsController, use if statement to see if they are old enough, otherwise return an Error message
+    <h1>Create</h1>
 
-<h4>Ticket</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            // do drop down list; use SeatClaim as boolean to verify if a seat for the Showing was taken yet.
-            <div class="form-group">
-                <label asp-for="SeatNumber" class="control-label"></label>
-                <input asp-for="SeatNumber" class="form-control" />
-                <span asp-validation-for="SeatNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+    <h4>Ticket</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                // do drop down list; use SeatClaim as boolean to verify if a seat for the Showing was taken yet.
+                <div class="form-group">
+                    <label asp-for="SeatNumber" class="control-label"></label>
+                    <input asp-for="SeatNumber" class="form-control" />
+                    <span asp-validation-for="SeatNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+*@</div>
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        .seat {
+            height: 20px;
+            width: 20px;
+            border: 1px solid gray;
+            cursor: pointer;
+            background-color: white;
+        }
+
+        .walk {
+            padding-bottom: 20px;
+        }
+
+        #driver {
+            background-color: gray;
+            height: 20px;
+            width: 100px;
+            border: 1px solid gray;
+            background-color: white;
+        }
+    </style>
+
+
+
+</head>
+<body>
+
+    <div style="border:1px solid gray; width:130px;" align="center">
+        <table>
+            <tr>
+                <td colspan="5" align="center"><div id="driver"></div></td>
+            </tr>
+            <tr>
+                <td class="walk"></td>
+            </tr>
+            <tr>
+                <td><div class="seat">A1</div></td>
+                <td><div class="seat">A2</div></td>
+                <td><div class="seat">A3</div></td>
+                <td><div class="seat">A4</div></td>
+                <td><div class="seat">A5</div></td>
+            </tr>
+            <tr>
+                <td class="walk"></td>
+            </tr>
+            <tr>
+                <td><div class="seat">B1</div> </td>
+                <td><div class="seat">B2</div></td>
+                <td><div class="seat">B3</div></td>
+                <td><div class="seat">B4</div></td>
+                <td><div class="seat">B5</div></td>
+            </tr>
+            <tr>
+                <td class="walk"></td>
+            </tr>
+            <tr>
+                <td><div class="seat">C1</div> </td>
+                <td><div class="seat">C2</div></td>
+                <td><div class="seat">C3</div></td>
+                <td><div class="seat">C4</div></td>
+                <td><div class="seat">C5</div></td>
+            </tr>
+            <tr>
+                <td class="walk"></td>
+            </tr>
+            <tr>
+                <td><div class="seat">D1</div> </td>
+                <td><div class="seat">D2</div></td>
+                <td><div class="seat">D3</div></td>
+                <td><div class="seat">D4</div></td>
+                <td><div class="seat">D5</div></td>
+            </tr>
+            <tr>
+                <td class="walk"></td>
+            </tr>
+            <tr>
+                <td><div class="seat">E1</div> </td>
+                <td><div class="seat">E2</div></td>
+                <td><div class="seat">E3</div></td>
+                <td><div class="seat">E4</div></td>
+                <td><div class="seat">E5</div></td>
+            </tr>
+        </table>
+    </div>
+
+
+    <script>
+        allSeats = document.querySelectorAll('.seat');
+        for (var i = 0; i < allSeats.length; i++) {
+            var seat = allSeats[i];
+            seat.addEventListener('click', function () {
+                var bgclr = this.style.backgroundColor;
+                if(bgclr =='red')
+                    this.style.backgroundColor = 'white'
+                else
+                    this.style.backgroundColor = 'red'
+                debugger
+            }, false);
+        }
+
+    </script>
+
+
+</body>
+</html>
 
