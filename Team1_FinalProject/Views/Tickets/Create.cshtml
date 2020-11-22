@@ -14,8 +14,8 @@
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 @*do drop down list; use SeatClaim as boolean to verify if a seat for the Showing was taken yet.*@
-                <input type="hidden" asp-for="ShowingID" />
-                <input type="hidden" asp-for="OrderID" />
+                @*<input type="hidden" asp-for="ShowingID" />
+                <input type="hidden" asp-for="OrderID" />*@
                 <div>
                     <label class="control-label">Seats Available:</label>
                     @Html.ListBox("SelectedSeats", (MultiSelectList)ViewBag.AllSeats, new { @class = "form-control" })

@@ -89,8 +89,9 @@
                 @Html.CheckBoxFor(o => o.GiftOrder, new { @checked = Model.GiftOrder })
             </td>
             <td>
-                @Html.TextBoxFor(m => m.GiftOrder)
+                @Html.TextBoxFor(m => m.GiftOrder, new { @readonly = "readonly" })
             </td>
+            
 
             <td>
                 <a asp-action="Edit" asp-route-id="@Model.OrderID">Edit</a> |
