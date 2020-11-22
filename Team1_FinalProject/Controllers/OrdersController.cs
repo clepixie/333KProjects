@@ -184,13 +184,14 @@ namespace Team1_FinalProject.Controllers
         {
             Order order = await _context.Orders
                 .FirstOrDefaultAsync(m => m.OrderID == id);
-            
-            bool isEmpty = !(order.Tickets).Any();
+
+            List<Ticket> tickets = _context.Tickets.Where(o => o.Order.OrderID == id).ToList();
             {
-                if(isEmpty)
+                if(tickets.Count == 0)
                 {
                     //Todo: add error view
-                    return View("Your cart is empty. Please choose what to purchase first.");
+                    return View("Error", new String[] { "Your Cart is Empty. Please choose what to purchase first" });
+
                 }
                 else
                 {

@@ -1,12 +1,12 @@
 ﻿<Properties StartupConfiguration="{5BEA845B-2AA8-4BCB-A0C3-D8FEF9946679}|Default">
   <MonoDevelop.Ide.ItemProperties.Team1__FinalProject PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Showings/Details.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/OrdersController.cs">
     <Files>
       <File FileName="Startup.cs" Line="3" Column="14" />
       <File FileName="Views/Orders/Confirmation.cshtml" Line="11" Column="53" />
       <File FileName="Controllers/ShowingsController.cs" />
       <File FileName="Controllers/PricesController.cs" />
-      <File FileName="Controllers/OrdersController.cs" />
+      <File FileName="Controllers/OrdersController.cs" Line="193" Column="78" />
       <File FileName="Controllers/MoviesController.cs" />
       <File FileName="Controllers/MovieReviewsController.cs" />
       <File FileName="Models/ViewModels/ReportViewModel.cs" />
@@ -27,8 +27,8 @@
       <File FileName="Controllers/HomeController.cs" />
       <File FileName="Models/Genre.cs" />
       <File FileName="Controllers/GenresController.cs" />
-      <File FileName="Views/Orders/Checkout.cshtml" />
-      <File FileName="Views/Orders/Edit.cshtml" />
+      <File FileName="Views/Orders/Checkout.cshtml" Line="1" Column="1" />
+      <File FileName="Views/Orders/Edit.cshtml" Line="1" Column="1" />
       <File FileName="Views/Orders/Review.cshtml" />
       <File FileName="Views/Home/Index.cshtml" />
       <File FileName="Views/Home/SearchSelect.cshtml" />
@@ -60,19 +60,22 @@
       <File FileName="Views/Tickets/Create.cshtml" Line="18" Column="60" />
       <File FileName="DAL/AppDbContext.cs" />
       <File FileName="Controllers/AccountController.cs" />
-      <File FileName="Controllers/TicketsController.cs" />
-      <File FileName="Views/Showings/Details.cshtml" Line="73" Column="1" />
+      <File FileName="Controllers/TicketsController.cs" Line="56" Column="61" />
+      <File FileName="Views/Showings/Details.cshtml" Line="68" Column="10" />
       <File FileName="Utilities/GenerateOrderNumber.cs" />
       <File FileName="Controllers/RoleAdminController.cs" Line="1" Column="1" />
       <File FileName="Views/Tickets/Delete.cshtml" Line="1" Column="1" />
       <File FileName="Views/Tickets/Details.cshtml" Line="1" Column="1" />
+      <File FileName="Views/Shared/Error.cshtml" Line="7" Column="20" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Team1_FinalProject" expanded="True">
             <Node name="Team1_FinalProject" expanded="True">
-              <Node name="Controllers" expanded="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="OrdersController.cs" selected="True" />
+              </Node>
               <Node name="DAL" expanded="True" />
               <Node name="Migrations" expanded="True" />
               <Node name="Models" expanded="True">
@@ -83,9 +86,8 @@
               <Node name="Utilities" expanded="True" />
               <Node name="Views" expanded="True">
                 <Node name="Orders" expanded="True" />
-                <Node name="Showings" expanded="True">
-                  <Node name="Details.cshtml" selected="True" />
-                </Node>
+                <Node name="Shared" expanded="True" />
+                <Node name="Showings" expanded="True" />
                 <Node name="Tickets" expanded="True" />
               </Node>
               <Node name="appsettings.json" expanded="True" />
