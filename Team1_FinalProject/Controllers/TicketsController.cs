@@ -111,7 +111,32 @@ namespace Team1_FinalProject.Controllers
             current_order.GiftOrder = false;
 
             /*int[] array = { };*/
+
+            foreach (Ticket ticket in current_order.Tickets)
+            {
+                if (ticket.Showing.Movie.MPAA== MPAA.R || ticket.Showing.Movie.MPAA == MPAA.NC17)
+                {
+                    TimeSpan newdate = DateTime.Now.Subtract(current_order.Customer.Birthdate);
+
+                    if (newdate.TotalDays < 6570)
+                    {
+                        return View("Error", new String[] { "You must be 18 to watch this film!" });
+                    }
+                }
+            }
+
+            //sorting the tickets from earliest to latest and then comparing each start time to each end time of the next film
+            var sorted_orders = current_order.Tickets.OrderBy(x => x.Showing.StartDateTime.TimeOfDay).ToList();
             
+            foreach (Ticket ticket in sorted_orders.Ticket)
+            {
+                if (ticket.Showing.StartDateTime >= showing.EndDateTime)
+                {
+                    return View("Error", new String[] { "This movie overlaps with another movie in your cart!" });
+
+                }
+            }
+
             foreach (Ticket ticket in current_order.Tickets)
             {
                 if (ticket.Showing.Movie.MovieID == showing.Movie.MovieID)

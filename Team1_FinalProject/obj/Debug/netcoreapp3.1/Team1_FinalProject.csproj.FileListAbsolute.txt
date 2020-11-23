@@ -592,7 +592,6 @@ C:/Users/alice/documents/ut/333k/333kprojects/team1_finalproject/obj/Debug/netco
 /Users/aileenlu/Desktop/Classes Fall 2020/MIS333K/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Movies/Index.cshtml.g.cs
 /Users/aileenlu/Desktop/Classes Fall 2020/MIS333K/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/Checkout.cshtml.g.cs
 /Users/aileenlu/Desktop/Classes Fall 2020/MIS333K/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/Confirmation.cshtml.g.cs
-/Users/aileenlu/Desktop/Classes Fall 2020/MIS333K/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/Create.cshtml.g.cs
 /Users/aileenlu/Desktop/Classes Fall 2020/MIS333K/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/Delete.cshtml.g.cs
 /Users/aileenlu/Desktop/Classes Fall 2020/MIS333K/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/Details.cshtml.g.cs
 /Users/aileenlu/Desktop/Classes Fall 2020/MIS333K/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/Edit.cshtml.g.cs

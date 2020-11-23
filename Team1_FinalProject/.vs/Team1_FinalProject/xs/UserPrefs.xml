@@ -1,34 +1,32 @@
 ﻿<Properties StartupConfiguration="{5BEA845B-2AA8-4BCB-A0C3-D8FEF9946679}|Default">
   <MonoDevelop.Ide.ItemProperties.Team1__FinalProject PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/OrdersController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/AccountController.cs">
     <Files>
-      <File FileName="Startup.cs" Line="3" Column="14" />
-      <File FileName="Views/Orders/Confirmation.cshtml" Line="11" Column="53" />
-      <File FileName="Controllers/ShowingsController.cs" />
-      <File FileName="Controllers/PricesController.cs" />
-      <File FileName="Controllers/OrdersController.cs" Line="193" Column="78" />
-      <File FileName="Controllers/MoviesController.cs" />
-      <File FileName="Controllers/MovieReviewsController.cs" />
+      <File FileName="Startup.cs" Line="91" Column="2" />
+      <File FileName="Views/Orders/Confirmation.cshtml" />
+      <File FileName="Controllers/ShowingsController.cs" Line="1" Column="1" />
+      <File FileName="Controllers/TicketsController.cs" Line="119" Column="24" />
+      <File FileName="Controllers/OrdersController.cs" Line="114" Column="16" />
+      <File FileName="Controllers/MoviesController.cs" Line="1" Column="1" />
+      <File FileName="Controllers/MovieReviewsController.cs" Line="1" Column="1" />
       <File FileName="Models/ViewModels/ReportViewModel.cs" />
       <File FileName="Models/ViewModels/SearchViewModel.cs" />
       <File FileName="Models/Showing.cs" />
-      <File FileName="Models/Ticket.cs" Line="1" Column="1" />
-      <File FileName="Models/Order.cs" />
-      <File FileName="Models/Movie.cs" />
-      <File FileName="Seeding/SeedMovies.cs" />
+      <File FileName="Models/Ticket.cs" />
+      <File FileName="Models/Order.cs" Line="1" Column="1" />
+      <File FileName="Models/Movie.cs" Line="20" Column="1" />
+      <File FileName="Seeding/SeedMovies.cs" Line="77" Column="15" />
       <File FileName="Seeding/SeedShowings.cs" />
       <File FileName="Program.cs" />
       <File FileName="appsettings.Development.json" />
       <File FileName="Views/RoleAdmin/Index.cshtml" />
       <File FileName="Views/RoleAdmin/Edit.cshtml" />
-      <File FileName="Views/Prices/Delete.cshtml" />
-      <File FileName="Views/Prices/Create.cshtml" />
       <File FileName="Views/Orders/Delete.cshtml" />
       <File FileName="Controllers/HomeController.cs" />
-      <File FileName="Models/Genre.cs" />
+      <File FileName="Models/Genre.cs" Line="1" Column="1" />
       <File FileName="Controllers/GenresController.cs" />
-      <File FileName="Views/Orders/Checkout.cshtml" Line="1" Column="1" />
-      <File FileName="Views/Orders/Edit.cshtml" Line="1" Column="1" />
+      <File FileName="Views/Orders/Checkout.cshtml" />
+      <File FileName="Views/Orders/Edit.cshtml" />
       <File FileName="Views/Orders/Review.cshtml" />
       <File FileName="Views/Home/Index.cshtml" />
       <File FileName="Views/Home/SearchSelect.cshtml" />
@@ -40,8 +38,8 @@
       <File FileName="Views/Movies/Create.cshtml" />
       <File FileName="Views/Movies/Details.cshtml" />
       <File FileName="Views/Movies/Delete.cshtml" />
-      <File FileName="Models/AppUser.cs" />
-      <File FileName="Models/MovieReview.cs" />
+      <File FileName="Models/AppUser.cs" Line="1" Column="1" />
+      <File FileName="Models/MovieReview.cs" Line="1" Column="1" />
       <File FileName="Models/ViewModels/AccountViewModels.cs" />
       <File FileName="Seeding/SeedGenres.cs" />
       <File FileName="Views/Account/Register.cshtml" />
@@ -54,19 +52,29 @@
       <File FileName="Views/Movies/Index.cshtml" />
       <File FileName="Models/ViewModels/CheckoutViewModel.cs" />
       <File FileName="Views/Orders/Gift.cshtml" />
-      <File FileName="Views/Prices/Index.cshtml" />
       <File FileName="Views/Tickets/Index.cshtml" />
       <File FileName="Views/Orders/Index.cshtml" />
-      <File FileName="Views/Tickets/Create.cshtml" Line="18" Column="60" />
-      <File FileName="DAL/AppDbContext.cs" />
-      <File FileName="Controllers/AccountController.cs" />
-      <File FileName="Controllers/TicketsController.cs" Line="56" Column="61" />
-      <File FileName="Views/Showings/Details.cshtml" Line="68" Column="10" />
-      <File FileName="Utilities/GenerateOrderNumber.cs" />
+      <File FileName="Views/Tickets/Create.cshtml" Line="22" Column="78" />
+      <File FileName="Views/Orders/Details.cshtml" />
+      <File FileName="Models/Price.cs" />
+      <File FileName="Controllers/PricesController.cs" Line="1" Column="1" />
+      <File FileName="Views/Prices/Create.cshtml" />
+      <File FileName="Views/Tickets/Delete.cshtml" />
+      <File FileName="Views/Tickets/Edit.cshtml" />
+      <File FileName="Views/Showings/Edit.cshtml" />
+      <File FileName="Views/RoleAdmin/Create.cshtml" />
+      <File FileName="Views/Prices/Details.cshtml" />
+      <File FileName="Views/Prices/Edit.cshtml" />
+      <File FileName="Views/Showings/Delete.cshtml" />
+      <File FileName="Views/Showings/Create.cshtml" />
+      <File FileName="Views/Showings/Details.cshtml" />
+      <File FileName="Views/Tickets/Details.cshtml" />
+      <File FileName="Controllers/SeedController.cs" />
+      <File FileName="Views/Showings/Index.cshtml" />
+      <File FileName="../../../../../../../usr/local/share/dotnet/sdk/5.0.100/Sdks/Microsoft.NET.Sdk/targets/Microsoft.PackageDependencyResolution.targets" Line="241" Column="5" />
       <File FileName="Controllers/RoleAdminController.cs" Line="1" Column="1" />
-      <File FileName="Views/Tickets/Delete.cshtml" Line="1" Column="1" />
-      <File FileName="Views/Tickets/Details.cshtml" Line="1" Column="1" />
-      <File FileName="Views/Shared/Error.cshtml" Line="7" Column="20" />
+      <File FileName="Models/ViewModels/RoleViewModels.cs" Line="1" Column="1" />
+      <File FileName="Controllers/AccountController.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -74,7 +82,7 @@
           <Node name="Team1_FinalProject" expanded="True">
             <Node name="Team1_FinalProject" expanded="True">
               <Node name="Controllers" expanded="True">
-                <Node name="OrdersController.cs" selected="True" />
+                <Node name="AccountController.cs" selected="True" />
               </Node>
               <Node name="DAL" expanded="True" />
               <Node name="Migrations" expanded="True" />
@@ -83,9 +91,15 @@
               </Node>
               <Node name="Properties" expanded="True" />
               <Node name="Seeding" expanded="True" />
-              <Node name="Utilities" expanded="True" />
               <Node name="Views" expanded="True">
+                <Node name="Account" expanded="True" />
+                <Node name="Genres" expanded="True" />
+                <Node name="Home" expanded="True" />
+                <Node name="MovieReviews" expanded="True" />
+                <Node name="Movies" expanded="True" />
                 <Node name="Orders" expanded="True" />
+                <Node name="Prices" expanded="True" />
+                <Node name="RoleAdmin" expanded="True" />
                 <Node name="Shared" expanded="True" />
                 <Node name="Showings" expanded="True" />
                 <Node name="Tickets" expanded="True" />
