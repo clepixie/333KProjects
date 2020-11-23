@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<Team1_FinalProject.Models.Showing>
+
 @{
     ViewData["Title"] = "Main Street Movies Home";
 }
@@ -8,5 +9,41 @@
 <p class="text-center">
     <a asp-action="Index" asp-controller="Showings" class="btn btn-success">View Our Showings</a>
     <a asp-action="SearchSelect" asp-controller="Home" class="btn btn-primary">Search for Movies</a>
+    <br />
+    <hr class="hr-danger" />
+    <h2 class="text-center">Today's Showings</h2>
+    <table class="table table-bordered">
+        <tr>
+            <th>Showing Time</th>
+            <th>Tickets Available</th>
+            @if (User.Identity.IsAuthenticated)
+            {
+                @if (User.IsInRole("Customer"))
+                {
+                    <th>Purchase Ticket</th>
+                }
+            }
+        </tr>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="4">None this week!</td>
+            </tr>
+        }
+        @foreach (Showing s in Model)
+        {
+            <tr>
+                <td>@(s.StartDateTime.ToString("hh:mm tt"))<span>-</span>@(s.EndDateTime.ToString("hh:mm tt"))</td>
+                <td>@Html.DisplayFor(ModelItem => s.TicketCount)/25</td>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @if (User.IsInRole("Customer"))
+                    {
+                        <td><a asp-action="Create" asp-controller="Ticket" asp-route-showingID="@s.ShowingID" class="btn btn-primary">Purchase Tickets</a></td>
+                    }
+                }
+            </tr>
+        }
+    </table>
 </p>
 

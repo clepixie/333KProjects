@@ -76,10 +76,16 @@
                 @Html.DisplayFor(modelItem => item.TicketCount)/25
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ShowingID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.ShowingID">Showing Details</a> |
                 <a asp-action="Details" asp-controller="Movies" asp-route-id="@item.Movie.MovieID">Movie Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ShowingID">Delete</a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @if (User.IsInRole("Manager"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.ShowingID">Edit</a> <span> | </span>;
+                        <a asp-action="Delete" asp-route-id="@item.ShowingID">Delete</a>
+                    }
+                }
             </td>
         </tr>
 }

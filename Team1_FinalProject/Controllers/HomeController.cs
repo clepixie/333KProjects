@@ -23,7 +23,8 @@ namespace Team1_FinalProject.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            return View();
+            List<Showing> showingstoday = _context.Showings.Where(s => s.StartDateTime.Date == DateTime.Now.Date).ToList();
+            return View(showingstoday);
         }
         // GET: Home/SearchSelect
         public IActionResult SearchSelect()

@@ -65,9 +65,15 @@
                 @Html.DisplayFor(modelItem => item.Runtime)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.MovieID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.MovieID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MovieID">Delete</a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @if (User.IsInRole("Manager"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.MovieID">Edit</a> <span>|</span>;
+                        <a asp-action="Delete" asp-route-id="@item.MovieID">Delete</a>
+                    }
+                }
             </td>
         </tr>
         <tr>
@@ -87,12 +93,16 @@
                             {
                                 @if (User.IsInRole("Customer"))
                                 {
-                                    @Html.ActionLink(showing.StartDateTime.ToString("MM/dd hh:mm tt"), "Create", "Tickets", new { showingID = showing.ShowingID }) <span>|| </span> 
+                                    @Html.ActionLink(showing.StartDateTime.ToString("MM/dd hh:mm tt"), "Create", "Tickets", new { showingID = showing.ShowingID }) <span>|| </span>
                                 }
-                                @if (User.IsInRole("Employee"))
+                                else
                                 {
-                                    @(showing.StartDateTime.ToString("MM/dd hh:mm tt")) <span>|| </span> 
+                                    @Html.ActionLink(showing.StartDateTime.ToString("MM/dd hh:mm tt"), "CreateFor", "Tickets", new { showingID = showing.ShowingID }) <span>|| </span>
                                 }
+                            }
+                            else
+                            {
+                                @(showing.StartDateTime.ToString("MM/dd hh:mm tt")) <span>|| </span>
                             }
                         }
                     }
