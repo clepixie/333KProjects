@@ -63,6 +63,41 @@ namespace Team1_FinalProject.Controllers
         }
 
 
+        public IActionResult UpdateShowingPrice()
+        {
+            //this code may throw an exception, so we need to be in a Try/Catch block 
+            try
+            {
+                //call the SeedGenres method from your Seeding folder
+                //you will need to pass in the instance of AppDbContext
+                //that you set in the constructor
+                Seeding.SeedShowings.UpdateShowing(_context);
+            }
+            catch (Exception ex)
+            {
+                //add the error messages to a list of strings
+                List<String> errorList = new List<String>();
+
+                //Add the outer message
+                errorList.Add(ex.Message);
+
+                //Add the message from the inner exception
+                errorList.Add(ex.InnerException.Message);
+
+                //Add additional inner exception messages, if there are any
+                if (ex.InnerException.InnerException != null)
+                {
+                    errorList.Add(ex.InnerException.InnerException.Message);
+                }
+
+                return View("Error", errorList);
+
+            }
+
+            //everything is okay - send user to confirmation page
+            return View("Confirm");
+        }
+
         public IActionResult SeedAllMovies()
         {
             //this code may throw an exception, so we need to be in a Try/Catch block 

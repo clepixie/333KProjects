@@ -9,6 +9,58 @@ namespace Team1_FinalProject.Seeding
 {
 	public static class SeedShowings
 	{
+		public static void UpdateShowing(AppDbContext db)
+        {
+			List<Showing> AllShowings = db.Showings.ToList();
+			foreach (Showing showing in AllShowings)
+            {
+				var prices = from p in db.Prices
+							 select p;
+				Price price = new Price();
+				if (showing.StartDateTime.TimeOfDay < new TimeSpan(17, 0, 0) && showing.StartDateTime.TimeOfDay >= new TimeSpan(12, 0, 0) && showing.StartDateTime.DayOfWeek == DayOfWeek.Tuesday)
+				{
+					prices = prices.Where(p => p.PriceType == PType.Tuesday);
+					foreach (Price p in prices)
+					{
+						price = p;
+					}
+				}
+
+				if (showing.StartDateTime.TimeOfDay < new TimeSpan(12, 0, 0) && showing.StartDateTime.DayOfWeek >= DayOfWeek.Monday && showing.StartDateTime.DayOfWeek <= DayOfWeek.Friday)
+				{
+					prices = prices.Where(p => p.PriceType == PType.WeekdayMorning);
+					foreach (Price p in prices)
+					{
+						price = p;
+					}
+				}
+
+				if ((showing.StartDateTime.TimeOfDay >= new TimeSpan(12, 0, 0) && (showing.StartDateTime.DayOfWeek == DayOfWeek.Monday || showing.StartDateTime.DayOfWeek == DayOfWeek.Wednesday || showing.StartDateTime.DayOfWeek == DayOfWeek.Thursday)) || (showing.StartDateTime.DayOfWeek == DayOfWeek.Tuesday && showing.StartDateTime.TimeOfDay >= new TimeSpan(17, 0, 0)))
+				{
+					prices = prices.Where(p => p.PriceType == PType.WeekdayAfternoon);
+					foreach (Price p in prices)
+					{
+						price = p;
+					}
+				}
+
+				if ((showing.StartDateTime.TimeOfDay >= new TimeSpan(12, 0, 0) && showing.StartDateTime.DayOfWeek == DayOfWeek.Friday) || (showing.StartDateTime.DayOfWeek == DayOfWeek.Sunday || showing.StartDateTime.DayOfWeek == DayOfWeek.Saturday))
+				{
+					prices = prices.Where(p => p.PriceType == PType.Weekend);
+					foreach (Price p in prices)
+					{
+						price = p;
+					}
+				}
+
+				showing.Price = price;
+
+				db.Update(showing);
+				db.SaveChanges();
+			}
+
+
+        }
 		public static void AddShowing(AppDbContext db)
 		{
 		    //Create a new list for all of the Showings

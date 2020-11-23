@@ -183,7 +183,10 @@ namespace Team1_FinalProject.Controllers
         // also if statement for purchasing tickets of multiple showings for same movie
         public async Task<IActionResult> Checkout()
         {
-            Order currorder = _context.Orders.Include(o => o.Tickets).ThenInclude(o => o.Showing).ThenInclude(o => o.Movie).Include(o => o.Tickets).ThenInclude(o => o.Showing).ThenInclude(o => o.Price).Where(o => o.Customer.UserName == User.Identity.Name).Where(o => o.OrderHistory == OrderHistory.Future).First();
+            Order currorder = _context.Orders.Include(o => o.Tickets).ThenInclude(o => o.Showing)
+                .ThenInclude(o => o.Movie).Include(o => o.Tickets).ThenInclude(o => o.Showing)
+                .ThenInclude(o => o.Price).Where(o => o.Customer.UserName == User.Identity.Name)
+                .Where(o => o.OrderHistory == OrderHistory.Future).First();
             List<Ticket> tickets = _context.Tickets.Where(t => t.Order.OrderID == currorder.OrderID).ToList();
             // get the tickets associated with that order
 
