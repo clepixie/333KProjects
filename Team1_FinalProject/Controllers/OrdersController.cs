@@ -181,38 +181,27 @@ namespace Team1_FinalProject.Controllers
         // Checkout
         // add if statement to check if list of tickets is null , then send error 
         // also if statement for purchasing tickets of multiple showings for same movie
-        public async Task<IActionResult> CheckoutAsync(int id)
+        public async Task<IActionResult> Checkout()
         {
-            Order order = await _context.Orders
-                .FirstOrDefaultAsync(m => m.OrderID == id);
-
-            List<Order> currorder = _context.Orders.Include(o => o.Tickets).Where(o => o.Customer.UserName == User.Identity.Name).Where(o => o.OrderHistory == OrderHistory.Future).ToList();
+            Order currorder = _context.Orders.Include(o => o.Tickets).ThenInclude(o => o.Showing).ThenInclude(o => o.Movie).Include(o => o.Tickets).ThenInclude(o => o.Showing).ThenInclude(o => o.Price).Where(o => o.Customer.UserName == User.Identity.Name).Where(o => o.OrderHistory == OrderHistory.Future).First();
+            List<Ticket> tickets = _context.Tickets.Where(t => t.Order.OrderID == currorder.OrderID).ToList();
             // get the tickets associated with that order
-            List<Ticket> tickets = _context.Tickets.Where(o => o.Order.OrderID == id).ToList();
 
+            if (tickets.Count() == 0)
             {
-                if (tickets.Count() == 0)
-                {
-                    return View("Error", new String[] { "Your Cart is Empty. Please choose what to purchase first" });
+                return View("Error", new String[] { "Your Cart is Empty. Please choose what to purchase first" });
 
-                }
-                else
-                {
-                    //Order order = new Order();
-
-                    foreach (Order o in currorder)
-
-                        o.Tickets = tickets; // is this o or order
-                    order.OrderNumber = Utilities.GenerateOrderNumber.GetNextOrderNumber(_context);
-                    order.Date = DateTime.Now;
-                    order.Customer = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
-                    order.OrderHistory = OrderHistory.Future;
-                    order.PopcornPointsUsed = false;
-                    order.GiftOrder = false;
-                    _context.Add(order);
-                    await _context.SaveChangesAsync();
-                    return View(order);
-                }
+            }
+            else
+            {
+                currorder.OrderNumber = Utilities.GenerateOrderNumber.GetNextOrderNumber(_context);
+                currorder.Date = DateTime.Now;
+                currorder.Customer = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+                currorder.OrderHistory = OrderHistory.Future;
+                currorder.PopcornPointsUsed = false;
+                currorder.GiftOrder = false;
+                await _context.SaveChangesAsync();
+                return View(currorder);
             }
         }
 
