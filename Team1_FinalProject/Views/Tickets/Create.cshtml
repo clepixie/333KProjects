@@ -15,6 +15,10 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @*do drop down list; use SeatClaim as boolean to verify if a seat for the Showing was taken yet.*@
             @Html.HiddenFor(model => model.SelectShowingID, Model.SelectShowingID)
+            @if (User.IsInRole("Employee"))
+            {
+                @Html.HiddenFor(model => model.SelectOrderID, Model.SelectOrderID)
+            }
             <div>
                 <label class="control-label">Seats Available:</label>
                 @Html.ListBoxFor(model => model.SelectedSeats, (MultiSelectList)ViewBag.AllSeats, new { @class = "form-control" })
