@@ -88,11 +88,11 @@ namespace Team1_FinalProject.Controllers
             {
                 return View(order);
             }
-                _context.Add(order);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            
-            
+            _context.Add(order);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
+
         }
 
         // GET: Orders/Edit/5
@@ -176,34 +176,39 @@ namespace Team1_FinalProject.Controllers
         }
 
 
-       
+
 
         // Checkout
         // add if statement to check if list of tickets is null , then send error 
         // also if statement for purchasing tickets of multiple showings for same movie
-        public async Task<IActionResult> Checkout(int id)
+        public async Task<IActionResult> CheckoutAsync(int id)
         {
             Order order = await _context.Orders
                 .FirstOrDefaultAsync(m => m.OrderID == id);
 
+            List<Order> currorder = _context.Orders.Include(o => o.Tickets).Where(o => o.Customer.UserName == User.Identity.Name).Where(o => o.OrderHistory == OrderHistory.Future).ToList();
+            // get the tickets associated with that order
             List<Ticket> tickets = _context.Tickets.Where(o => o.Order.OrderID == id).ToList();
+
             {
-                if(tickets.Count == 0)
+                if (tickets.Count() == 0)
                 {
-                    //Todo: add error view
                     return View("Error", new String[] { "Your Cart is Empty. Please choose what to purchase first" });
 
                 }
                 else
                 {
                     //Order order = new Order();
-                    //order.Tickets = tickets;
+
+                    foreach (Order o in currorder)
+
+                        o.Tickets = tickets; // is this o or order
                     order.OrderNumber = Utilities.GenerateOrderNumber.GetNextOrderNumber(_context);
                     order.Date = DateTime.Now;
                     order.Customer = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
-                    //order.OrderHistory = OrderHistory.Future;
-                    //order.PopcornPointsUsed = false;
-                    //order.GiftOrder = false;
+                    order.OrderHistory = OrderHistory.Future;
+                    order.PopcornPointsUsed = false;
+                    order.GiftOrder = false;
                     _context.Add(order);
                     await _context.SaveChangesAsync();
                     return View(order);
@@ -211,16 +216,25 @@ namespace Team1_FinalProject.Controllers
             }
         }
 
-        /*ViewBag.AllTickets = _context.Orders.Where(o => o.Customer.UserName == User.Identity.Name)
-                                        .Include(o => o.Tickets)
-                                        .ThenInclude(t => t.Showing)
-                                        .ThenInclude(s => s.Movie)
-                                        .ToList();
-             test the viewbag if the order instance doesn't work
-        */        
+        //ViewBag.AllTickets = GetAllTickets(tickets)
+        //ViewBag.AllTickets = _context.Orders.Where(o => o.Customer.UserName == User.Identity.Name)
+        //                                .Include(o => o.Tickets)
+        //                                .ThenInclude(t => t.Showing)
+        //                                .ThenInclude(s => s.Movie)
+        //                                .ToList();
+
+
+        // only read the gift recipent email if the checkbox is checked
+
+        //private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    if (checkBox1.Checked)
+        //        textBox1.Text = checkBox1.Text;
+        //}
+
         //checkout [POST]
         [HttpPost]
-        public IActionResult Checkout(Boolean PopcornPointsUsed, Boolean GiftOrder,Order order)
+        public IActionResult Checkout(Boolean PopcornPointsUsed, Boolean GiftOrder, Order order)
         {
             if (ModelState.IsValid == false)
             {
@@ -274,3 +288,4 @@ namespace Team1_FinalProject.Controllers
         }
     }
 }
+        

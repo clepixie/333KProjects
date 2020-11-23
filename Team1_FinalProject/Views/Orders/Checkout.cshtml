@@ -41,9 +41,9 @@
                 <td>
                     @Html.DisplayFor(model => t.SeatNumber)
                 </td>
-                @*<td>
-                    @Html.DisplayFor(model => t.Price.PriceValue)
-                </td>*@
+                <td>
+                    @Html.DisplayFor(model => t.Showing.Price.PriceValue)
+                </td>
             </tr>
         }
     </tbody>
@@ -91,10 +91,14 @@
             <td>
                 @Html.TextBoxFor(m => m.GiftOrder, new { @readonly = "readonly" })
             </td>
-            
+
+            <asp:TextBox ID="BoxInstance" ReadOnly="true" runat="server"></asp:TextBox>
+            <asp:CheckBox ID="CheckInstance" runat="server"
+                          OnCheckedChanged="CheckInstance_CheckedChanged" AutoPostBack="true" />
+
 
             <td>
-                <a asp-action="Edit" asp-route-id="@Model.OrderID">Edit</a> |
+                @*<a asp-action="Edit" asp-route-id="@Model.OrderID">Edit</a> |*@
                 <a asp-action="Review" asp-controller="Orders">Review Order</a> |
                 <a asp-action="Index">Back to List</a>
             </td>
