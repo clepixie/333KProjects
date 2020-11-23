@@ -11,7 +11,8 @@ namespace Team1_FinalProject.Models
 		PG,
 		PG13,
 		R,
-		Unrated
+		Unrated,
+		NC17
 	}
 
     public class Movie

@@ -50,18 +50,31 @@ namespace Team1_FinalProject.Controllers
 
         private MultiSelectList GetAvailableSeats(Showing showing)
         {
+            List<TicketViewModel> temptickets = new List<TicketViewModel>();
             List<string> allSeats = new List<string> { "A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5", "C1", "C2", "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5", "E1", "E2", "E3", "E4", "E5" };
-            if (showing.Tickets.Count() != 0)
+            List<int> allSeatsID = new List<int> {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24};
+            int idx = 0;
+
+            foreach (string seat in allSeats)
             {
-                List<Ticket> tickets = showing.Tickets.ToList();
-                foreach (Ticket ticket in tickets)
+                TicketViewModel tempticket = new TicketViewModel();
+                tempticket.SelectSeatID = allSeatsID[idx];
+                tempticket.SelectSeatNumber = allSeats[idx];
+                temptickets.Add(tempticket);
+                idx += 1;
+            }
+
+            List<Ticket> tickets = _context.Tickets.ToList();
+            foreach (Ticket ticket in tickets)
+            {
+                if (ticket.Showing.ShowingID == showing.ShowingID)
                 {
-                    allSeats.Remove(ticket.SeatNumber);
+                    temptickets.RemoveAll(t => t.SelectSeatNumber == ticket.SeatNumber);
                 }
             }
 
             //use the MultiSelectList constructor method to get a new MultiSelectList
-            MultiSelectList mslAllTickets = new MultiSelectList(allSeats);
+            MultiSelectList mslAllTickets = new MultiSelectList(temptickets, "SelectSeatID", "SelectSeatNumber");
 
             return mslAllTickets;
         }
@@ -70,13 +83,14 @@ namespace Team1_FinalProject.Controllers
         [HttpGet]
         public IActionResult Create(Int32 showingID)
         {
-
             // find the order that should be associated with order id passed in param
             Showing showing = _context.Showings.Find(showingID);
 
             ViewBag.AllSeats = GetAvailableSeats(showing);
-            
-            return View(showing);
+            TicketViewModel holdshowingID = new TicketViewModel();
+            holdshowingID.SelectShowingID = showingID;
+
+            return View(holdshowingID);
         }
 
         // POST: Tickets/Create
@@ -84,8 +98,9 @@ namespace Team1_FinalProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("TicketID, SeatNumber, Order")] Showing showing, string[] SeatNumbers)
+        public IActionResult Create([Bind("SelectedSeats, SelectShowingID")] TicketViewModel tvm)
         {
+            Showing showing = _context.Showings.Find(tvm.SelectShowingID);
 
             if (ModelState.IsValid == false)
             {
@@ -111,56 +126,59 @@ namespace Team1_FinalProject.Controllers
             current_order.GiftOrder = false;
 
             /*int[] array = { };*/
-
-            foreach (Ticket ticket in current_order.Tickets)
+            if (current_order.Tickets != null)
             {
-                if (ticket.Showing.Movie.MPAA== MPAA.R || ticket.Showing.Movie.MPAA == MPAA.NC17)
+                foreach (Ticket ticket in current_order.Tickets)
                 {
-                    TimeSpan newdate = DateTime.Now.Subtract(current_order.Customer.Birthdate);
-
-                    if (newdate.TotalDays < 6570)
+                    if (ticket.Showing.Movie.MPAA== MPAA.R || ticket.Showing.Movie.MPAA == MPAA.NC17)
                     {
-                        return View("Error", new String[] { "You must be 18 to watch this film!" });
+                        TimeSpan newdate = DateTime.Now.Subtract(current_order.Customer.Birthdate);
+
+                        if (newdate.TotalDays < 6570)
+                        {
+                            return View("Error", new String[] { "You must be 18 to watch this film!" });
+                        }
                     }
                 }
-            }
 
-            //sorting the tickets from earliest to latest and then comparing each start time to each end time of the next film
-            var sorted_orders = current_order.Tickets.OrderBy(x => x.Showing.StartDateTime.TimeOfDay).ToList();
-            
-            foreach (Ticket ticket in sorted_orders.Ticket)
-            {
-                if (ticket.Showing.StartDateTime >= showing.EndDateTime)
+                //sorting the tickets from earliest to latest and then comparing each start time to each end time of the next film
+                var sorted_tickets = current_order.Tickets.OrderBy(x => x.Showing.StartDateTime.TimeOfDay).ToList();
+
+                foreach (Ticket ticket in sorted_tickets)
                 {
-                    return View("Error", new String[] { "This movie overlaps with another movie in your cart!" });
-
-                }
-            }
-
-            foreach (Ticket ticket in current_order.Tickets)
-            {
-                if (ticket.Showing.Movie.MovieID == showing.Movie.MovieID)
-                {
-                    if (ticket.Showing.ShowingID != showing.ShowingID)
+                    if (ticket.Showing.StartDateTime >= showing.EndDateTime)
                     {
-                        return View("Error", new String[] { "This movie is already in your cart for another showing time!" });
+                        return View("Error", new String[] { "This movie overlaps with another movie in your cart!" });
+
                     }
                 }
-            }
-                
+
+                foreach (Ticket ticket in current_order.Tickets)
+                {
+                    if (ticket.Showing.Movie.MovieID == showing.Movie.MovieID)
+                    {
+                        if (ticket.Showing.ShowingID != showing.ShowingID)
+                        {
+                            return View("Error", new String[] { "This movie is already in your cart for another showing time!" });
+                        }
+                    }
+                }
+            }    
             
-            foreach(string seatnumber in SeatNumbers)
+            foreach(int seatnumber in tvm.SelectedSeats)
             {
+                List<string> allSeats = new List<string> { "A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5", "C1", "C2", "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5", "E1", "E2", "E3", "E4", "E5" };
                 Ticket ticket = new Ticket();
                 ticket.Showing = showing;
                 ticket.SeatClaim = true;
                 ticket.Order = current_order;
-                ticket.SeatNumber = seatnumber;
+                ticket.SeatNumber = allSeats[seatnumber];
                 _context.Tickets.Add(ticket);
+                showing.Tickets.Add(ticket);
                 _context.SaveChanges();
             }
 
-            return RedirectToAction("Checkout", "Orders", new { id = current_order.OrderID });
+            return RedirectToAction("Checkout", "Orders");
         }
         
 
