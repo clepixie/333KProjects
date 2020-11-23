@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Book Store</title>
+    <title>@ViewBag.Title - Main Street Movies</title>
     <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
@@ -44,6 +44,11 @@
                             </li>
                         }
                     }
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item">
+                        <a asp-controller="Orders" asp-action="Checkout" class="nav-link"><span class="fas fa-shopping-cart"></span>Order Checkout</a>
+                    </li>
                 </ul>
             </div>
             @await Html.PartialAsync("_LoginPartial")
