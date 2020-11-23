@@ -7,7 +7,13 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    @if (User.Identity.IsAuthenticated)
+    {
+        @if (User.IsInRole("Manager"))
+        {
+            <a asp-action="Create">Create New</a>
+        }
+    }
 </p>
 <p>Displaying @ViewBag.SelectedMovies out of @ViewBag.AllMovies Movies</p>
 <table class="table">
