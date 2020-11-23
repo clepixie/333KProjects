@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Team1_FinalProject.Models
 {
@@ -41,18 +42,7 @@ namespace Team1_FinalProject.Models
         {
             get
             {
-                int count = 0;
-                if (Tickets is null)
-                {
-                    return 25;
-                }
-
-                foreach (Ticket ticket in Tickets)
-                {
-                    count += 1;
-                }
-
-                return (25-count);
+                return (25 - Tickets.Count());
             }
         }
 

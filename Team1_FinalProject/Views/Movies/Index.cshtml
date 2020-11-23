@@ -65,12 +65,12 @@
                 @Html.DisplayFor(modelItem => item.Runtime)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.MovieID">Details</a> |
+                <a asp-action="Details" asp-route-id="@item.MovieID">Details</a>
                 @if (User.Identity.IsAuthenticated)
                 {
                     @if (User.IsInRole("Manager"))
                     {
-                        <a asp-action="Edit" asp-route-id="@item.MovieID">Edit</a> <span>|</span>;
+                        <span>|</span> <a asp-action="Edit" asp-route-id="@item.MovieID">Edit</a> <span>|</span>;
                         <a asp-action="Delete" asp-route-id="@item.MovieID">Delete</a>
                     }
                 }
