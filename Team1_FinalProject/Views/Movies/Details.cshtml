@@ -89,7 +89,7 @@
             {
                 @if (User.IsInRole("Customer"))
                 {
-                    <td><a asp-action="Create" asp-controller="Ticket" asp-route-id="@s.ShowingID" class="btn btn-primary">Purchase Tickets</a></td>
+                    <td><a asp-action="Create" asp-controller="Ticket" asp-route-showingID="@s.ShowingID" class="btn btn-primary">Purchase Tickets</a></td>
                 }
             }
         </tr>
