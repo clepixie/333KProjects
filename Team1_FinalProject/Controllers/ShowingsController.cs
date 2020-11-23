@@ -104,10 +104,11 @@ namespace Team1_FinalProject.Controllers
             }
        
             Showing showing = await _context.Showings
+                                              .Include(o => o.Price)
                                               .Include(o => o.Movie)
                                               .ThenInclude(o => o.Genre)
                                               .FirstOrDefaultAsync(m => m.ShowingID == id);
-            var prices = from p in _context.Prices
+            /*var prices = from p in _context.Prices
                         select p;
             Price price = new Price();
             if (showing.StartDateTime.TimeOfDay < new TimeSpan(17,0,0) && showing.StartDateTime.TimeOfDay >= new TimeSpan(12, 0, 0) && showing.StartDateTime.DayOfWeek == DayOfWeek.Tuesday)
@@ -144,13 +145,13 @@ namespace Team1_FinalProject.Controllers
                 {
                     price = p;
                 }
-            }
+            }*/
 
             if (showing == null)
             {
                 return NotFound();
             }
-            showing.Price = price;
+/*            showing.Price = price;*/
 
             return View(showing);
         }
