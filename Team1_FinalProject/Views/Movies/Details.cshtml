@@ -84,7 +84,7 @@
         <tr>
             <td>@(s.StartDateTime.ToString("MM/dd"))</td>
             <td>@(s.StartDateTime.ToString("hh:mm tt"))<span>-</span>@(s.EndDateTime.ToString("hh:mm tt"))</td>
-            <td>@Html.DisplayFor(ModelItem => s.TicketCount)/25</td>
+            <td>@Html.DisplayFor(ModelItem => s.TicketCount)/20</td>
             @if (User.Identity.IsAuthenticated)
             {
                 @if (User.IsInRole("Customer"))

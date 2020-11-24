@@ -140,8 +140,8 @@ namespace Team1_FinalProject.Controllers
         private MultiSelectList GetAvailableSeats(Showing showing)
         {
             List<TicketViewModel> temptickets = new List<TicketViewModel>();
-            List<string> allSeats = new List<string> { "A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5", "C1", "C2", "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5", "E1", "E2", "E3", "E4", "E5" };
-            List<int> allSeatsID = new List<int> {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24};
+            List<string> allSeats = new List<string> { "A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5", "C1", "C2", "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5"};
+            List<int> allSeatsID = new List<int> {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19};
             int idx = 0;
 
             foreach (string seat in allSeats)
@@ -264,7 +264,7 @@ namespace Team1_FinalProject.Controllers
 
                 foreach (int seatnumber in tvm.SelectedSeats)
                 {
-                    List<string> allSeats = new List<string> { "A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5", "C1", "C2", "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5", "E1", "E2", "E3", "E4", "E5" };
+                    List<string> allSeats = new List<string> { "A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5", "C1", "C2", "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5"};
                     Ticket ticket = new Ticket();
                     ticket.Showing = showing;
                     ticket.SeatClaim = true;

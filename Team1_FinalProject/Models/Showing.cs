@@ -42,7 +42,7 @@ namespace Team1_FinalProject.Models
         {
             get
             {
-                return (25 - Tickets.Count());
+                return (20 - Tickets.Count());
             }
         }
 

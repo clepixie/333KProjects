@@ -34,7 +34,7 @@ namespace Team1_FinalProject.Controllers
                         select m;
             ViewBag.AllShowings = _context.Showings.Count();
             ViewBag.SelectedShowings = _context.Showings.Count();
-            return View("Index", query.Include(m => m.Movie).ThenInclude(m => m.Genre).Where(m => m.StartDateTime >= DateTime.Now).OrderBy(m => m.StartDateTime).ToList());
+            return View("Index", query.Include(m => m.Movie).ThenInclude(m => m.Genre).Include(m => m.Tickets).Where(m => m.StartDateTime >= DateTime.Now).OrderBy(m => m.StartDateTime).ToList());
         }
 
         public IActionResult AllIndex()
@@ -112,7 +112,7 @@ namespace Team1_FinalProject.Controllers
                 query = query.Where(m => svm.SelectMovieID.Contains(m.Movie.MovieID));
             }
 
-            List<Showing> SelectedShowings = query.Include(s => s.Movie).ThenInclude(m => m.Genre).ToList();
+            List<Showing> SelectedShowings = query.Include(s => s.Movie).ThenInclude(m => m.Genre).Include(m => m.Tickets).ToList();
             ViewBag.AllShowings = _context.Showings.Count();
             ViewBag.SelectedShowings = SelectedShowings.Count();
             return View("Index", SelectedShowings.OrderBy(s => s.StartDateTime));
@@ -130,6 +130,7 @@ namespace Team1_FinalProject.Controllers
                                               .Include(o => o.Price)
                                               .Include(o => o.Movie)
                                               .ThenInclude(o => o.Genre)
+                                              .Include(m => m.Tickets)
                                               .FirstOrDefaultAsync(m => m.ShowingID == id);
             /*var prices = from p in _context.Prices
                         select p;
@@ -214,7 +215,13 @@ namespace Team1_FinalProject.Controllers
                 return NotFound();
             }
 
-            var showing = await _context.Showings.FindAsync(id);
+            ViewBag.AllMovies = GetAllMovies();
+            Showing showing = await _context.Showings
+                                              .Include(o => o.Price)
+                                              .Include(o => o.Movie)
+                                              .ThenInclude(o => o.Genre)
+                                              .Include(m => m.Tickets)
+                                              .FirstOrDefaultAsync(m => m.ShowingID == id);
             if (showing == null)
             {
                 return NotFound();

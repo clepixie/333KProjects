@@ -62,8 +62,30 @@ namespace Team1_FinalProject.Controllers
         }
 
         // GET: MovieReviews/Create
-        public IActionResult Create(int? id)
+        public IActionResult Create()
         {
+/*            List<Order> pastorders = _context.Orders.Include(o => o.Tickets).ToList();
+            bool check = false;
+            foreach (Order order in pastorders)
+            {
+                foreach (Ticket ticket in order.Tickets)
+                {
+                    if (ticket.Showing.Movie.MovieID == id && ticket.Showing.EndDateTime < DateTime.Now)
+                    {
+                        check = true;
+                        break;
+                    }
+                    else
+                    {
+                        return View("Error", new String[] { "You have not watched this movie yet, or have not watched this movie with us; please do that first!" });
+                    }
+                }
+                if (check == true)
+                {
+                    break;
+                }
+            }
+            
             List<MovieReview> userreviews;
             userreviews = _context.MovieReviews.Where(m => m.User.UserName == User.Identity.Name).ToList();
             if (userreviews.Count() != 0)
@@ -75,17 +97,9 @@ namespace Team1_FinalProject.Controllers
                         return RedirectToAction("Edit", "MovieReviews", new { id = id });
                     }
                 }
-            }
-            //create a new instance of the MovieReview class
-            MovieReview mr = new MovieReview();
-
-            //find the movie that should be associated with this MR
-            Movie dbMovie = _context.Movies.Find(id);
-
-            //set the new MR's movie equal to the movie you just found
-            mr.Movie = dbMovie;
-
-            return View(mr);
+            }*/
+            ViewBag.AllMovies = GetWatchedMovies();
+            return View();
         }
 
         // POST: MovieReviews/Create
@@ -93,14 +107,49 @@ namespace Team1_FinalProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MovieReviewID,MovieRating,ReviewDescription,Movie")] MovieReview movieReview)
+        public async Task<IActionResult> Create([Bind("MovieReviewID,MovieRating,ReviewDescription,SelectedMovieID")] MovieReview movieReview, int SelectedMovieID)
         {
+            List<Order> pastorders = _context.Orders.Include(o => o.Tickets).ToList();
+            bool check = false;
+            foreach (Order order in pastorders)
+            {
+                foreach (Ticket ticket in order.Tickets)
+                {
+                    if (ticket.Showing.Movie.MovieID == SelectedMovieID && ticket.Showing.EndDateTime < DateTime.Now)
+                    {
+                        check = true;
+                        break;
+                    }
+                    else
+                    {
+                        return View("Error", new String[] { "You have not watched this movie yet, or have not watched this movie with us; please do that first!" });
+                    }
+                }
+                if (check == true)
+                {
+                    break;
+                }
+            }
+
+            List<MovieReview> userreviews;
+            userreviews = _context.MovieReviews.Where(m => m.User.UserName == User.Identity.Name).ToList();
+            if (userreviews.Count() != 0)
+            {
+                foreach (MovieReview review in userreviews)
+                {
+                    if (review.Movie.MovieID == SelectedMovieID)
+                    {
+                        return RedirectToAction("Edit", "MovieReviews", new { id = SelectedMovieID });
+                    }
+                }
+            }
+
             if (ModelState.IsValid == false)
             {
                 return View(movieReview);
             }
 
-            Movie dbMovie = _context.Movies.Find(movieReview.Movie.MovieID);
+            Movie dbMovie = _context.Movies.Find(SelectedMovieID);
 
             movieReview.Movie = dbMovie;
 
@@ -207,6 +256,25 @@ namespace Team1_FinalProject.Controllers
         private bool MovieReviewExists(int id)
         {
             return _context.MovieReviews.Any(e => e.MovieReviewID == id);
+        }
+        public SelectList GetWatchedMovies()
+        {
+            List<Order> pastorders = _context.Orders.Include(o => o.Tickets).ThenInclude(o => o.Showing).ThenInclude(o => o.Movie).Where(o => o.Customer.UserName == User.Identity.Name).ToList();
+            List<Movie> watchedmovies = new List<Movie>();
+            foreach (Order order in pastorders)
+            {
+                foreach (Ticket ticket in order.Tickets)
+                {
+                    if (watchedmovies.Contains(ticket.Showing.Movie) == false && ticket.Showing.EndDateTime < DateTime.Now)
+                    {
+                        watchedmovies.Add(ticket.Showing.Movie);
+                    }
+                }
+            }
+
+            SelectList movieSelectList = new SelectList(watchedmovies.OrderBy(m => m.MovieID), "MovieID", "Title");
+
+            return movieSelectList;
         }
     }
 }
