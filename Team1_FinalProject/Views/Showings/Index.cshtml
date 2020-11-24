@@ -81,6 +81,15 @@
                 <a asp-action="Details" asp-controller="Movies" asp-route-id="@item.Movie.MovieID">Movie Details</a> |
                 @if (User.Identity.IsAuthenticated)
                 {
+                    
+                    @if (User.IsInRole("Customer"))
+                    {
+                        <a asp-action="Create" asp-controller="Tickets" asp-route-showingID="@item.ShowingID">Purchase Tickets</a> <span> | </span>
+                    }
+                    else
+                    {
+                        <a asp-action="CreateFor" asp-controller="Tickets" asp-route-showingID="@item.ShowingID">Purchase Tickets For a Customer</a> <span> | </span>
+                    }
                     @if (User.IsInRole("Manager"))
                     {
                         <a asp-action="Edit" asp-route-id="@item.ShowingID">Edit</a> <span> | </span>;

@@ -29,7 +29,13 @@ namespace Team1_FinalProject.Controllers
             List<Order> Orders = new List<Order>();
             if (User.IsInRole("Manager") || User.IsInRole("Employee"))
             {
-                Orders = _context.Orders.Include(o => o.Tickets).ToList();
+                Orders = _context.Orders.Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Movie)
+                                        .Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Price)
+                                        .ToList();
             }
             else
             {
@@ -37,6 +43,9 @@ namespace Team1_FinalProject.Controllers
                                         .Include(o => o.Tickets)
                                         .ThenInclude(t => t.Showing)
                                         .ThenInclude(s => s.Movie)
+                                        .Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Price)
                                         .ToList();
             }
 
