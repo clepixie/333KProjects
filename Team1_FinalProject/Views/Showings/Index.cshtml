@@ -11,7 +11,8 @@
     {
         @if (User.IsInRole("Manager"))
         {
-            <a asp-action="Create">Create New</a>
+            <a asp-action="Create">Create New</a> <span>|</span>
+            <a asp-action="AllIndex">All Historical Showings</a>
         }
     }
 </p>

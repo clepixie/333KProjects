@@ -36,6 +36,16 @@ namespace Team1_FinalProject.Controllers
             ViewBag.SelectedShowings = _context.Showings.Count();
             return View("Index", query.Include(m => m.Movie).ThenInclude(m => m.Genre).Where(m => m.StartDateTime >= DateTime.Now).OrderBy(m => m.StartDateTime).ToList());
         }
+
+        public IActionResult AllIndex()
+        {
+            var query = from m in _context.Showings
+                        select m;
+            ViewBag.AllShowings = _context.Showings.Count();
+            ViewBag.SelectedShowings = _context.Showings.Count();
+            return View("Index", query.Include(m => m.Movie).ThenInclude(m => m.Genre).OrderBy(m => m.StartDateTime).ToList());
+        }
+
         // GET: Movies/Index
         [AllowAnonymous]
         public IActionResult DisplayShowingSearchResults(SearchViewModel svm)
