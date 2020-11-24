@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Team1_FinalProject.Controllers
 {
+    [Authorize]
     public class MovieReviewsController : Controller
     {
         private readonly AppDbContext _context;

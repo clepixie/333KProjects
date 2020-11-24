@@ -177,7 +177,7 @@ namespace Team1_FinalProject.Controllers
             ViewBag.AllSeats = GetAvailableSeats(showing);
             TicketViewModel holdshowingID = new TicketViewModel();
             holdshowingID.SelectShowingID = showingID;
-            if (User.IsInRole("Employee"))
+            if (User.IsInRole("Manager") || User.IsInRole("Employee"))
             {
                 holdshowingID.SelectOrderID = orderID;
             }
@@ -203,14 +203,20 @@ namespace Team1_FinalProject.Controllers
                 List<Order> orders = _context.Orders.Where(o => o.Customer.UserName == User.Identity.Name).ToList();
                 Order current_order = new Order();
 
+                bool check = false;
                 foreach (Order order in orders)
                 {
                     if (order.OrderHistory == OrderHistory.Future)
                     {
                         current_order = order;
+                        check = true;
+                        break;
                     }
+                }
 
-                    break;
+                if (check = false)
+                {
+                    current_order.OrderNumber = Utilities.GenerateOrderNumber.GetNextOrderNumber(_context);
                 }
 
                 current_order.OrderHistory = OrderHistory.Future;

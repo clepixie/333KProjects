@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using Team1_FinalProject.Models;
 
 namespace Team1_FinalProject.Controllers
 {
+    [Authorize(Roles = "Manager")]
     public class MoviesController : Controller
     {
 
@@ -19,6 +21,7 @@ namespace Team1_FinalProject.Controllers
         {
             _context = context;
         }
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var query = from m in _context.Movies
@@ -27,6 +30,7 @@ namespace Team1_FinalProject.Controllers
             ViewBag.SelectedMovies = _context.Movies.Count();
             return View("Index", query.Include(m => m.Genre).Include(m => m.Showings).OrderByDescending(m => m.Showings.Count()).ToList());
         }
+        [AllowAnonymous]
         // GET: Movies/Index
         public IActionResult DisplayMovieSearchResults(SearchViewModel svm)
         {
@@ -107,6 +111,7 @@ namespace Team1_FinalProject.Controllers
         // GET: Movies
 
         // GET: Movies/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

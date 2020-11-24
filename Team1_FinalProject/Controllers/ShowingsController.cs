@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using Team1_FinalProject.Models;
 
 namespace Team1_FinalProject.Controllers
 {
+    [Authorize(Roles = "Manager")]
     public class ShowingsController : Controller
     {
         private readonly AppDbContext _context;
@@ -24,8 +26,8 @@ namespace Team1_FinalProject.Controllers
             for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
                 yield return day;
         }
-
         // GET: Showings
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var query = from m in _context.Showings
@@ -35,6 +37,7 @@ namespace Team1_FinalProject.Controllers
             return View("Index", query.Include(m => m.Movie).ThenInclude(m => m.Genre).OrderBy(m => m.StartDateTime).ToList());
         }
         // GET: Movies/Index
+        [AllowAnonymous]
         public IActionResult DisplayShowingSearchResults(SearchViewModel svm)
         {
             TryValidateModel(svm);
@@ -80,14 +83,19 @@ namespace Team1_FinalProject.Controllers
 
                 else
                 {
-                    query = query.Where(m => m.StartDateTime.TimeOfDay == starts);
+                    query = query.Where(m => m.StartDateTime.TimeOfDay >= starts);
                 }
             }
 
             if (svm.SearchShowingTimeEnd != null && svm.SearchShowingTimeStart == null)
             {
                 TimeSpan ends = (TimeSpan)svm.SearchShowingTimeEnd;
-                query = query.Where(m => m.EndDateTime.TimeOfDay == ends);
+                query = query.Where(m => m.EndDateTime.TimeOfDay <= ends);
+            }
+
+            if(svm.SearchTitle != null)
+            {
+                query = query.Where(m => m.Movie.Title.Contains(svm.SearchTitle));
             }
 
             List<Showing> SelectedShowings = query.Include(s => s.Movie).ThenInclude(m => m.Genre).ToList();
@@ -96,6 +104,7 @@ namespace Team1_FinalProject.Controllers
             return View("Index", SelectedShowings.OrderBy(s => s.StartDateTime));
         }
         // GET: Showings/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

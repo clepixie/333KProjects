@@ -28,6 +28,7 @@ namespace Team1_FinalProject.Models
 		[DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
 		[DataType(DataType.Date)]
 		public DateTime? SearchShowingDateStart { get; set; }
+		[Display(Name = "to:")]
 		[DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
 		[DataType(DataType.Date)]
 		public DateTime? SearchShowingDateEnd { get; set; }
@@ -35,11 +36,13 @@ namespace Team1_FinalProject.Models
 		[DisplayFormat(DataFormatString = "{0:hh:mm tt}")]
 		[DataType(DataType.Time)]
 		public TimeSpan? SearchShowingTimeStart { get; set; }
+		[Display(Name = "to:")]
 		[DisplayFormat(DataFormatString = "{0:hh:mm tt}")]
 		[DataType(DataType.Time)]
 		public TimeSpan? SearchShowingTimeEnd { get; set; }
 		[Display(Name = "Release Year:")]
 		public int? SearchReleaseDateStart { get; set; }
+		[Display(Name = "to:")]
 		public int? SearchReleaseDateEnd { get; set; }
 		[Display(Name = "MPAA Rating:")]
 		public MPAA? SelectMPAA { get; set; } 

@@ -13,7 +13,7 @@ using Team1_FinalProject.Utilities;
 
 namespace Team1_FinalProject.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class OrdersController : Controller
     {
         private readonly AppDbContext _context;
@@ -27,7 +27,7 @@ namespace Team1_FinalProject.Controllers
         public IActionResult Index() //Order History
         {
             List<Order> Orders = new List<Order>();
-            if (User.IsInRole("Admin"))
+            if (User.IsInRole("Manager") || User.IsInRole("Employee"))
             {
                 Orders = _context.Orders.Include(o => o.Tickets).ToList();
             }
@@ -207,7 +207,7 @@ namespace Team1_FinalProject.Controllers
         // also if statement for purchasing tickets of multiple showings for same movie
         public async Task<IActionResult> Checkout(int? id)
         {
-            if (User.IsInRole("Employee"))
+            if (User.IsInRole("Manager") || User.IsInRole("Employee"))
             {
                 if (id == null)
                 {
@@ -226,7 +226,6 @@ namespace Team1_FinalProject.Controllers
                 }
                 else
                 {
-                    currorder.OrderNumber = Utilities.GenerateOrderNumber.GetNextOrderNumber(_context);
                     currorder.Date = DateTime.Now;
                     currorder.OrderHistory = OrderHistory.Future;
                     currorder.PopcornPointsUsed = false;
@@ -250,7 +249,6 @@ namespace Team1_FinalProject.Controllers
                 }
                 else
                 {
-                    currorder.OrderNumber = Utilities.GenerateOrderNumber.GetNextOrderNumber(_context);
                     currorder.Date = DateTime.Now;
                     currorder.Customer = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
                     currorder.OrderHistory = OrderHistory.Future;
