@@ -55,6 +55,8 @@ namespace Team1_FinalProject.Models
 		public RatingsRange? RatingsRange { get; set; }
 		[Display(Name = "Search Options:")]
 		public Select MovieShowing { get; set; }
+		[Display(Name = "Select Movies Shown This Week:")]
+		public int[] SelectMovieID { get; set; }
 
 	}
 }

@@ -36,6 +36,7 @@ namespace Team1_FinalProject.Controllers
         public IActionResult SearchMoviesShowings(SearchViewModel svm)
         {
             ViewBag.AllGenres = GetAllGenres();
+            ViewBag.AllAvailableMovies = GetAllAvailableMovies();
             svm.SelectGenreID = 0;
             if (svm.MovieShowing == Select.Movie)
             {
@@ -69,6 +70,16 @@ namespace Team1_FinalProject.Controllers
             SelectList movieSelectList = new SelectList(movieList.OrderBy(m => m.MovieID), "MovieID", "Title");
 
             return movieSelectList;
+        }
+
+        private MultiSelectList GetAllAvailableMovies()
+        {
+            List<Movie> moviesList = _context.Movies.Where(m => m.Showings.Count() != 0).ToList();
+
+            MultiSelectList movieSelectList = new MultiSelectList(moviesList.OrderBy(m => m.MovieID), "MovieID", "Title");
+
+            return movieSelectList;
+
         }
 
         //[HttpPost]

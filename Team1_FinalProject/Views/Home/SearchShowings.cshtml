@@ -25,9 +25,9 @@
                 <span asp-validation-for="SearchShowingTimeStart" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SearchTitle" class="control-label"></label>
-                <input asp-for="SearchTitle" class="form-control" />
-                <span asp-validation-for="SearchTitle" class="text-danger"></span>
+                <label asp-for="SelectMovieID" class="control-label"></label>
+                @Html.ListBoxFor(model => model.SelectMovieID, (MultiSelectList)ViewBag.AllAvailableMovies, new { @class = "form-control" })
+                <span asp-validation-for="SelectMovieID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

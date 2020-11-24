@@ -93,9 +93,9 @@ namespace Team1_FinalProject.Controllers
                 query = query.Where(m => m.EndDateTime.TimeOfDay <= ends);
             }
 
-            if(svm.SearchTitle != null)
+            if(svm.SelectMovieID.Count() != 0)
             {
-                query = query.Where(m => m.Movie.Title.Contains(svm.SearchTitle));
+                query = query.Where(m => svm.SelectMovieID.Contains(m.Movie.MovieID));
             }
 
             List<Showing> SelectedShowings = query.Include(s => s.Movie).ThenInclude(m => m.Genre).ToList();
