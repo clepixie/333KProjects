@@ -169,6 +169,7 @@ namespace Team1_FinalProject.Controllers
         // GET: Showings/Create
         public IActionResult Create()
         {
+            ViewBag.AllMovies = GetAllMovies();
             return View();
         }
 
@@ -177,15 +178,19 @@ namespace Team1_FinalProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ShowingID,StartDateTime,EndDateTime,Room,SpecialEvent")] Showing showing)
+        public async Task<IActionResult> Create([Bind("ShowingID,StartDateTime,EndDateTime,Room,SpecialEvent")] Showing showing, int SelectedMovie)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid == false)
             {
-                _context.Add(showing);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View();
             }
-            return View(showing);
+
+            showing.Movie = _context.Movies.Find(SelectedMovie);
+            showing.Price = GetPrice(showing);
+
+            _context.Add(showing);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Showings/Edit/5
@@ -281,6 +286,61 @@ namespace Team1_FinalProject.Controllers
 
             return movieSelectList;
 
+        }
+
+        private Price GetPrice(Showing showing)
+        {
+            var prices = from p in _context.Prices
+                         select p;
+            Price price = new Price();
+            if (showing.StartDateTime.TimeOfDay < new TimeSpan(17, 0, 0) && showing.StartDateTime.TimeOfDay >= new TimeSpan(12, 0, 0) && showing.StartDateTime.DayOfWeek == DayOfWeek.Tuesday)
+            {
+                prices = prices.Where(p => p.PriceType == PType.Tuesday);
+                foreach (Price p in prices)
+                {
+                    price = p;
+                }
+            }
+
+            if (showing.StartDateTime.TimeOfDay < new TimeSpan(12, 0, 0) && showing.StartDateTime.DayOfWeek >= DayOfWeek.Monday && showing.StartDateTime.DayOfWeek <= DayOfWeek.Friday)
+            {
+                prices = prices.Where(p => p.PriceType == PType.WeekdayMorning);
+                foreach (Price p in prices)
+                {
+                    price = p;
+                }
+            }
+
+            if ((showing.StartDateTime.TimeOfDay >= new TimeSpan(12, 0, 0) && (showing.StartDateTime.DayOfWeek == DayOfWeek.Monday || showing.StartDateTime.DayOfWeek == DayOfWeek.Wednesday || showing.StartDateTime.DayOfWeek == DayOfWeek.Thursday)) || (showing.StartDateTime.DayOfWeek == DayOfWeek.Tuesday && showing.StartDateTime.TimeOfDay >= new TimeSpan(17, 0, 0)))
+            {
+                prices = prices.Where(p => p.PriceType == PType.WeekdayAfternoon);
+                foreach (Price p in prices)
+                {
+                    price = p;
+                }
+            }
+
+            if ((showing.StartDateTime.TimeOfDay >= new TimeSpan(12, 0, 0) && showing.StartDateTime.DayOfWeek == DayOfWeek.Friday) || (showing.StartDateTime.DayOfWeek == DayOfWeek.Sunday || showing.StartDateTime.DayOfWeek == DayOfWeek.Saturday))
+            {
+                prices = prices.Where(p => p.PriceType == PType.Weekend);
+                foreach (Price p in prices)
+                {
+                    price = p;
+                }
+            }
+
+            return price;
+        }
+        private SelectList GetAllMovies()
+        {
+            List<Movie> movieList = _context.Movies.ToList();
+
+            Movie SelectNone = new Movie() { MovieID = 0, Title = "All Movies" };
+            movieList.Add(SelectNone);
+
+            SelectList movieSelectList = new SelectList(movieList.OrderBy(m => m.MovieID), "MovieID", "Title");
+
+            return movieSelectList;
         }
     }
 }

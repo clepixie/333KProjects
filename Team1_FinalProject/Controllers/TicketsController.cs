@@ -117,9 +117,9 @@ namespace Team1_FinalProject.Controllers
             AppUser customer = _userManager.Users.Where(u => u.Email == customerList[cfvm.SelectedCustomerID].SelectCustomerName).First();
             // get list of orders belonging to that user
             List<Order> orders = _context.Orders.Where(o => o.Customer.Id == customer.Id).ToList();
-
+            // instantiate an order
             Order current_order = new Order();
-            // see if any of that user's orders are active
+            // see if any of that user's orders are active; if yes, set the instantiated order to that.
             foreach (Order order in orders)
             {
                 if (order.OrderHistory == OrderHistory.Future)

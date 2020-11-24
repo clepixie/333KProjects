@@ -60,21 +60,37 @@ namespace Team1_FinalProject.Controllers
             return genreSelectList;
         }
 
-        private SelectList GetAllMovies()
-        {
-            List<Movie> movieList = _context.Movies.ToList();
-
-            Movie SelectNone = new Movie() { MovieID = 0, Title = "All Movies" };
-            movieList.Add(SelectNone);
-
-            SelectList movieSelectList = new SelectList(movieList.OrderBy(m => m.MovieID), "MovieID", "Title");
-
-            return movieSelectList;
-        }
-
         private MultiSelectList GetAllAvailableMovies()
         {
             List<Movie> moviesList = _context.Movies.Where(m => m.Showings.Count() != 0).ToList();
+            List<Showing> allShowings = _context.Showings.ToList();
+            foreach (Showing showing in allShowings)
+            {
+                // if a showing is older than today
+                if (showing.StartDateTime < DateTime.Now)
+                {
+                    // first see if the showing's movie is still in the list; if not, go to next showing
+                    if (moviesList.Contains(showing.Movie) == false)
+                    {
+                        continue;
+                    }
+
+                    bool nocurrent = true;
+                    // check to see if that showing's movie has any current showings, meaning its start date is >= today
+                    foreach (Showing mshowing in showing.Movie.Showings)
+                    {
+                        if (mshowing.StartDateTime >= DateTime.Now)
+                        {
+                            nocurrent = false;
+                            break;
+                        }
+                    }
+                    if (nocurrent == true)
+                    {
+                        moviesList.Remove(showing.Movie);
+                    }
+                }
+            }
 
             MultiSelectList movieSelectList = new MultiSelectList(moviesList.OrderBy(m => m.MovieID), "MovieID", "Title");
 
