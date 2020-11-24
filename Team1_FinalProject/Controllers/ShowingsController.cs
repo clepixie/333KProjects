@@ -34,7 +34,7 @@ namespace Team1_FinalProject.Controllers
                         select m;
             ViewBag.AllShowings = _context.Showings.Count();
             ViewBag.SelectedShowings = _context.Showings.Count();
-            return View("Index", query.Include(m => m.Movie).ThenInclude(m => m.Genre).OrderBy(m => m.StartDateTime).ToList());
+            return View("Index", query.Include(m => m.Movie).ThenInclude(m => m.Genre).Where(m => m.StartDateTime >= DateTime.Now).OrderBy(m => m.StartDateTime).ToList());
         }
         // GET: Movies/Index
         [AllowAnonymous]
@@ -49,6 +49,9 @@ namespace Team1_FinalProject.Controllers
             }
             var query = from s in _context.Showings
                         select s;
+
+            // from the beginning, we only want to display showings that are current
+            query = query.Where(m => m.StartDateTime >= DateTime.Now);
 
             if (svm.SearchShowingDateStart != null)
             {
