@@ -259,7 +259,7 @@ namespace Team1_FinalProject.Controllers
         }
         public SelectList GetWatchedMovies()
         {
-            List<Order> pastorders = _context.Orders.Include(o => o.Tickets).ThenInclude(o => o.Showing).ThenInclude(o => o.Movie).Where(o => o.Customer.UserName == User.Identity.Name).ToList();
+            List<Order> pastorders = _context.Orders.Include(o => o.Tickets).ThenInclude(o => o.Showing).ThenInclude(o => o.Movie).Where(o => o.Customer.UserName == User.Identity.Name).Where(o => o.OrderHistory == OrderHistory.Past).ToList();
             List<Movie> watchedmovies = new List<Movie>();
             foreach (Order order in pastorders)
             {
