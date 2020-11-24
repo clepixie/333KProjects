@@ -153,13 +153,18 @@ namespace Team1_FinalProject.Controllers
                 idx += 1;
             }
 
-            List<Ticket> tickets = _context.Tickets.ToList();
+            List<Ticket> tickets = _context.Tickets.Include(t => t.Showing).ToList();
             foreach (Ticket ticket in tickets)
             {
                 if (ticket.Showing.ShowingID == showing.ShowingID)
                 {
                     temptickets.RemoveAll(t => t.SelectSeatNumber == ticket.SeatNumber);
                 }
+            }
+
+            if (temptickets.Count() == 0)
+            {
+                return null;
             }
 
             //use the MultiSelectList constructor method to get a new MultiSelectList
@@ -175,6 +180,10 @@ namespace Team1_FinalProject.Controllers
             Showing showing = _context.Showings.Find(showingID);
 
             ViewBag.AllSeats = GetAvailableSeats(showing);
+            if (ViewBag.AllSeats == null)
+            {
+                return View("Error", new String[] { "This showing no longer has any available seats!" });
+            }
             TicketViewModel holdshowingID = new TicketViewModel();
             holdshowingID.SelectShowingID = showingID;
             if (User.IsInRole("Manager") || User.IsInRole("Employee"))
