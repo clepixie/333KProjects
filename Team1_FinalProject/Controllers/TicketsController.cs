@@ -268,6 +268,7 @@ namespace Team1_FinalProject.Controllers
                     showing.Tickets.Add(ticket);
                     _context.SaveChanges();
                 }
+                return RedirectToAction("Checkout", "Orders");
             }
 
             else
@@ -325,11 +326,9 @@ namespace Team1_FinalProject.Controllers
                     showing.Tickets.Add(ticket);
                     _context.SaveChanges();
                 }
+
+                return RedirectToAction("Checkout", "Orders", new { id = current_order.OrderID });
             }
-
-            /*int[] array = { };*/
-
-            return RedirectToAction("Checkout", "Orders");
         }
         
 

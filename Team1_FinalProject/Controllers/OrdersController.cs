@@ -175,36 +175,90 @@ namespace Team1_FinalProject.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public SelectList GetAllActiveOrders()
+        {
+            List<CheckoutForViewModel> cfvm = new List<CheckoutForViewModel>();
+            List<Order> activeorders = _context.Orders.Include(o => o.Customer).Where(o => o.OrderHistory == OrderHistory.Future).ToList();
+            foreach (Order o in activeorders)
+            {
+                CheckoutForViewModel temp = new CheckoutForViewModel();
+                temp.SelectOrderID = o.OrderID;
+                temp.SelectOrderName = o.Customer.UserName + ": Order " + o.OrderID.ToString();
+                cfvm.Add(temp);
+            }
+            SelectList orderSelectList = new SelectList(cfvm.OrderBy(m => m.SelectOrderID), "SelectOrderID", "SelectOrderName");
+            return orderSelectList;
+        }
 
-
-
+        [HttpGet]
+        public IActionResult CheckoutFor()
+        {
+            ViewBag.AllOrders = GetAllActiveOrders();
+            CheckoutForViewModel cfvm = new CheckoutForViewModel();
+            return View(cfvm);
+        }
+        [HttpPost]
+        public IActionResult CheckoutFor([Bind("SelectedOrderID")] CheckoutForViewModel cfvm)
+        {
+            return RedirectToAction("Checkout", "Orders", new { id = cfvm.SelectedOrderID });
+        }
         // Checkout
         // add if statement to check if list of tickets is null , then send error 
         // also if statement for purchasing tickets of multiple showings for same movie
-        public async Task<IActionResult> Checkout()
+        public async Task<IActionResult> Checkout(int? id)
         {
-            Order currorder = _context.Orders.Include(o => o.Tickets).ThenInclude(o => o.Showing)
-                .ThenInclude(o => o.Movie).Include(o => o.Tickets).ThenInclude(o => o.Showing)
-                .ThenInclude(o => o.Price).Where(o => o.Customer.UserName == User.Identity.Name)
-                .Where(o => o.OrderHistory == OrderHistory.Future).First();
-            List<Ticket> tickets = _context.Tickets.Where(t => t.Order.OrderID == currorder.OrderID).ToList();
-            // get the tickets associated with that order
-
-            if (tickets.Count() == 0)
+            if (User.IsInRole("Employee"))
             {
-                return View("Error", new String[] { "Your Cart is Empty. Please choose what to purchase first" });
+                if (id == null)
+                {
+                    return RedirectToAction("CheckoutFor", "Orders");
+                }
 
+                Order currorder = _context.Orders.Include(o => o.Tickets).ThenInclude(o => o.Showing)
+                    .ThenInclude(o => o.Movie).Include(o => o.Tickets).ThenInclude(o => o.Showing)
+                    .ThenInclude(o => o.Price).FirstOrDefault(o => o.OrderID == id);
+                List<Ticket> tickets = _context.Tickets.Where(t => t.Order.OrderID == currorder.OrderID).ToList();
+
+                if (tickets.Count() == 0)
+                {
+                    return View("Error", new String[] { "Your Cart is Empty. Please choose what to purchase first" });
+
+                }
+                else
+                {
+                    currorder.OrderNumber = Utilities.GenerateOrderNumber.GetNextOrderNumber(_context);
+                    currorder.Date = DateTime.Now;
+                    currorder.OrderHistory = OrderHistory.Future;
+                    currorder.PopcornPointsUsed = false;
+                    currorder.GiftOrder = false;
+                    await _context.SaveChangesAsync();
+                    return View(currorder);
+                }
             }
             else
             {
-                currorder.OrderNumber = Utilities.GenerateOrderNumber.GetNextOrderNumber(_context);
-                currorder.Date = DateTime.Now;
-                currorder.Customer = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
-                currorder.OrderHistory = OrderHistory.Future;
-                currorder.PopcornPointsUsed = false;
-                currorder.GiftOrder = false;
-                await _context.SaveChangesAsync();
-                return View(currorder);
+                Order currorder = _context.Orders.Include(o => o.Tickets).ThenInclude(o => o.Showing)
+                    .ThenInclude(o => o.Movie).Include(o => o.Tickets).ThenInclude(o => o.Showing)
+                    .ThenInclude(o => o.Price).Where(o => o.Customer.UserName == User.Identity.Name)
+                    .Where(o => o.OrderHistory == OrderHistory.Future).First();
+                List<Ticket> tickets = _context.Tickets.Where(t => t.Order.OrderID == currorder.OrderID).ToList();
+
+                if (tickets.Count() == 0)
+                {
+                    return View("Error", new String[] { "Your Cart is Empty. Please choose what to purchase first" });
+
+                }
+                else
+                {
+                    currorder.OrderNumber = Utilities.GenerateOrderNumber.GetNextOrderNumber(_context);
+                    currorder.Date = DateTime.Now;
+                    currorder.Customer = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+                    currorder.OrderHistory = OrderHistory.Future;
+                    currorder.PopcornPointsUsed = false;
+                    currorder.GiftOrder = false;
+                    await _context.SaveChangesAsync();
+                    return View(currorder);
+                }
             }
         }
 
