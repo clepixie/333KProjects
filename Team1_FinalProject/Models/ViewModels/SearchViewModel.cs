@@ -16,6 +16,12 @@ namespace Team1_FinalProject.Models
 		Showing
     }
 
+	public class CustomDateRangeAttribute : RangeAttribute
+	{
+		public CustomDateRangeAttribute() : base(typeof(DateTime), DateTime.Now.Date.ToString(), DateTime.Now.AddYears(20).Date.ToString())
+		{ }
+	}
+
 	public class SearchViewModel
 	{
 		[Display(Name = "Title:")]
@@ -25,6 +31,7 @@ namespace Team1_FinalProject.Models
 		[Display(Name = "Genre:")]
 		public Int32 SelectGenreID { get; set; }
 		[Display(Name = "Showing Date:")]
+		[CustomDateRange(ErrorMessage = "Please select a date that has no passed already.")]
 		[DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
 		[DataType(DataType.Date)]
 		public DateTime? SearchShowingDateStart { get; set; }

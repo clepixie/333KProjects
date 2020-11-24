@@ -37,7 +37,8 @@ namespace Team1_FinalProject.Controllers
             TryValidateModel(svm);
             if (ModelState.IsValid == false) //something is wrong
             {
-                return View("~/Views/Home/SearchMoviesShowings");//send user back to inputs page
+                ViewBag.AllGenres = GetAllGenres();
+                return View("~/Views/Home/SearchMovies.cshtml");//send user back to inputs page
             }
 
             var query = from m in _context.Movies
@@ -237,6 +238,17 @@ namespace Team1_FinalProject.Controllers
         private bool MovieExists(int id)
         {
             return _context.Movies.Any(e => e.MovieID == id);
+        }
+        private SelectList GetAllGenres()
+        {
+            List<Genre> genreList = _context.Genres.ToList();
+
+            Genre SelectNone = new Genre() { GenreID = 0, GenreName = "All Genres" };
+            genreList.Add(SelectNone);
+
+            SelectList genreSelectList = new SelectList(genreList.OrderBy(m => m.GenreID), "GenreID", "GenreName");
+
+            return genreSelectList;
         }
     }
 }

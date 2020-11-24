@@ -44,7 +44,8 @@ namespace Team1_FinalProject.Controllers
 
             if (ModelState.IsValid == false) //something is wrong
             {
-                return View("~/Views/Home/SearchMoviesShowings");//send user back to inputs page
+                ViewBag.AllAvailableMovies = GetAllAvailableMovies();
+                return View("~/Views/Home/SearchShowings.cshtml");//send user back to inputs page
             }
             var query = from s in _context.Showings
                         select s;
@@ -93,7 +94,7 @@ namespace Team1_FinalProject.Controllers
                 query = query.Where(m => m.EndDateTime.TimeOfDay <= ends);
             }
 
-            if(svm.SelectMovieID.Count() != 0)
+            if(svm.SelectMovieID != null)
             {
                 query = query.Where(m => svm.SelectMovieID.Contains(m.Movie.MovieID));
             }
@@ -270,6 +271,16 @@ namespace Team1_FinalProject.Controllers
         private bool ShowingExists(int id)
         {
             return _context.Showings.Any(e => e.ShowingID == id);
+        }
+
+        private MultiSelectList GetAllAvailableMovies()
+        {
+            List<Movie> moviesList = _context.Movies.Where(m => m.Showings.Count() != 0).ToList();
+
+            MultiSelectList movieSelectList = new MultiSelectList(moviesList.OrderBy(m => m.MovieID), "MovieID", "Title");
+
+            return movieSelectList;
+
         }
     }
 }

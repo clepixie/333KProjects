@@ -19,7 +19,7 @@
             {
                 @Html.HiddenFor(model => model.SelectOrderID, Model.SelectOrderID)
             }
-            <div>
+            <div class="form-group">
                 <label class="control-label">Seats Available:</label>
                 @Html.ListBoxFor(model => model.SelectedSeats, (MultiSelectList)ViewBag.AllSeats, new { @class = "form-control" })
             </div>

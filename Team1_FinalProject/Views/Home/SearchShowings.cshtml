@@ -11,13 +11,18 @@
     <div class="col-md-4">
         <form asp-action="DisplayShowingSearchResults" asp-controller="Showings">
             <div class="form-group">
+                <p>Search for showings in a specified range of dates or a specific date for showings. (input in any one of the boxes)</p>
+                <hr class="hr-danger" />
                 <label asp-for="SearchShowingDateStart" class="control-label"></label>
                 <input asp-for="SearchShowingDateStart" class="form-control" />
                 <label asp-for="SearchShowingDateEnd" class="control-label"></label>
                 <input asp-for="SearchShowingDateEnd" class="form-control" />
                 <span asp-validation-for="SearchShowingDateStart" class="text-danger"></span>
             </div>
+            <hr class="hr-danger" />
             <div class="form-group">
+                <p>Search for showings in a specified range of time, after a specific time (input in the first box), or before a specific time (input in the second box).</p>
+                <hr class="hr-danger" />
                 <label asp-for="SearchShowingTimeStart" class="control-label"></label>
                 <input asp-for="SearchShowingTimeStart" class="form-control" />
                 <label asp-for="SearchShowingTimeEnd" class="control-label"></label>
