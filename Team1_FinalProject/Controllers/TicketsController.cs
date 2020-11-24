@@ -214,7 +214,7 @@ namespace Team1_FinalProject.Controllers
                     }
                 }
 
-                if (check = false)
+                if (check == false)
                 {
                     current_order.OrderNumber = Utilities.GenerateOrderNumber.GetNextOrderNumber(_context);
                 }
