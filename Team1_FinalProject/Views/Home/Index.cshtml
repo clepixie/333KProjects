@@ -14,6 +14,7 @@
     <h2 class="text-center">Today's Showings</h2>
     <table class="table table-bordered">
         <tr>
+            <th>Movie Title</th>
             <th>Showing Time</th>
             <th>Tickets Available</th>
             @if (User.Identity.IsAuthenticated)
@@ -33,6 +34,7 @@
         @foreach (Showing s in Model)
         {
             <tr>
+                <td>@s.Movie.Title</td>
                 <td>@(s.StartDateTime.ToString("hh:mm tt"))<span>-</span>@(s.EndDateTime.ToString("hh:mm tt"))</td>
                 <td>@Html.DisplayFor(ModelItem => s.TicketCount)/20</td>
                 @if (User.Identity.IsAuthenticated)

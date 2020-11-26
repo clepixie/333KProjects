@@ -26,6 +26,9 @@
             <th>
                 Price Per Ticket
             </th>
+            <th>
+                Actions
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -43,6 +46,10 @@
                 </td>
                 <td>
                     @Html.DisplayFor(model => t.Showing.Price.PriceValue)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-controller="Tickets" asp-route-id="@t.TicketID" class="fas fa-pencil-alt btn btn-warning" style="color:white"></a> 
+                    <a asp-action="Delete" asp-controller="Tickets" asp-route-id="@t.TicketID" class="fas fa-trash btn btn-danger" style="color:white"></a>
                 </td>
             </tr>
         }
