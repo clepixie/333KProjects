@@ -155,7 +155,7 @@ namespace Team1_FinalProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ShowingID,StartDateTime,EndDateTime,Room,SpecialEvent")] Showing showing, int SelectedMovie)
+        public async Task<IActionResult> Create([Bind("ShowingID,StartDateTime,Room,SpecialEvent")] Showing showing, int SelectedMovie)
         {
             if (ModelState.IsValid == false)
             {
@@ -163,6 +163,7 @@ namespace Team1_FinalProject.Controllers
             }
 
             showing.Movie = _context.Movies.Find(SelectedMovie);
+            showing.EndDateTime = showing.StartDateTime + TimeSpan.FromMinutes(showing.Movie.Runtime);
             showing.Price = GetPrice(showing);
 
             _context.Add(showing);
@@ -197,7 +198,7 @@ namespace Team1_FinalProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ShowingID,StartDateTime,EndDateTime,Room,SpecialEvent")] Showing showing)
+        public async Task<IActionResult> Edit(int id, [Bind("ShowingID,StartDateTime,Room,SpecialEvent")] Showing showing, int SelectedMovie)
         {
             if (id != showing.ShowingID)
             {
@@ -208,9 +209,14 @@ namespace Team1_FinalProject.Controllers
             {
                 try
                 {
+                    showing.Movie = _context.Movies.Find(SelectedMovie);
+                    showing.EndDateTime = showing.StartDateTime + TimeSpan.FromMinutes(showing.Movie.Runtime);
+                    showing.Price = GetPrice(showing);
+
                     _context.Update(showing);
                     await _context.SaveChangesAsync();
                 }
+
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!ShowingExists(showing.ShowingID))
@@ -317,9 +323,6 @@ namespace Team1_FinalProject.Controllers
         private SelectList GetAllMovies()
         {
             List<Movie> movieList = _context.Movies.ToList();
-
-            Movie SelectNone = new Movie() { MovieID = 0, Title = "All Movies" };
-            movieList.Add(SelectNone);
 
             SelectList movieSelectList = new SelectList(movieList.OrderBy(m => m.MovieID), "MovieID", "Title");
 
