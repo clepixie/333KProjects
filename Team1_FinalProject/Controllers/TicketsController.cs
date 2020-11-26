@@ -239,6 +239,7 @@ namespace Team1_FinalProject.Controllers
                     current_order.OrderHistory = OrderHistory.Future;
                     current_order.PopcornPointsUsed = false;
                     current_order.GiftOrder = false;
+                    current_order.Customer = _userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
                     _context.Orders.Add(current_order);
                     _context.SaveChanges();
                 }
