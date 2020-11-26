@@ -180,10 +180,12 @@ namespace Team1_FinalProject.Controllers
             Showing showing = _context.Showings.Find(showingID);
 
             ViewBag.AllSeats = GetAvailableSeats(showing);
+
             if (ViewBag.AllSeats == null)
             {
                 return View("Error", new String[] { "This showing no longer has any available seats!" });
             }
+
             TicketViewModel holdshowingID = new TicketViewModel();
             holdshowingID.SelectShowingID = showingID;
             if (User.IsInRole("Manager") || User.IsInRole("Employee"))
@@ -223,14 +225,16 @@ namespace Team1_FinalProject.Controllers
                     }
                 }
 
+                // if there is no open order in the database for this user
                 if (check == false)
                 {
                     current_order.OrderNumber = Utilities.GenerateOrderNumber.GetNextOrderNumber(_context);
+                    current_order.OrderHistory = OrderHistory.Future;
+                    current_order.PopcornPointsUsed = false;
+                    current_order.GiftOrder = false;
+                    _context.Orders.Add(current_order);
+                    _context.SaveChanges();
                 }
-
-                current_order.OrderHistory = OrderHistory.Future;
-                current_order.PopcornPointsUsed = false;
-                current_order.GiftOrder = false;
 
                 if (current_order.Tickets != null)
                 {
