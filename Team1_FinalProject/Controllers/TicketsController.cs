@@ -202,7 +202,7 @@ namespace Team1_FinalProject.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("SelectedSeats, SelectShowingID, SelectOrderID")] TicketViewModel tvm)
         {
-            Showing showing = _context.Showings.Find(tvm.SelectShowingID);
+            Showing showing = _context.Showings.Include(s => s.Movie).FirstOrDefault(s => s.ShowingID == tvm.SelectShowingID);
 
             if (ModelState.IsValid == false)
             {
@@ -211,7 +211,14 @@ namespace Team1_FinalProject.Controllers
             }
             if (User.IsInRole("Customer"))
             {
-                List<Order> orders = _context.Orders.Where(o => o.Customer.UserName == User.Identity.Name).ToList();
+                List<Order> orders = _context.Orders.Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Movie)
+                                        .Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Price)
+                                        .Where(o => o.Customer.UserName == User.Identity.Name).ToList();
+
                 Order current_order = new Order();
 
                 bool check = false;
@@ -246,7 +253,7 @@ namespace Team1_FinalProject.Controllers
 
                             if (newdate.TotalDays < 6570)
                             {
-                                return View("Error", new String[] { "You must be 18 to watch this film!" });
+                                return View("Error", new String[] { "You must be 18 or older to watch this film!" });
                             }
                         }
                     }
@@ -254,11 +261,13 @@ namespace Team1_FinalProject.Controllers
                     //sorting the tickets from earliest to latest and then comparing each start time to each end time of the next film
                     var sorted_tickets = current_order.Tickets.OrderBy(x => x.Showing.StartDateTime.TimeOfDay).ToList();
 
-                    foreach (Ticket ticket in sorted_tickets)
+                    foreach (Ticket existingticket in sorted_tickets)
                     {
-                        if (ticket.Showing.StartDateTime >= showing.EndDateTime)
+                      
+                        if ((existingticket.Showing.StartDateTime.Date == showing.StartDateTime.Date) && ((existingticket.Showing.StartDateTime <= showing.EndDateTime && showing.Movie.Runtime > (existingticket.Showing.StartDateTime - showing.EndDateTime).TotalMinutes)
+                            || (existingticket.Showing.EndDateTime >= showing.StartDateTime && existingticket.Showing.Movie.Runtime > (showing.StartDateTime - existingticket.Showing.EndDateTime).TotalMinutes)))
                         {
-                            return View("Error", new String[] { "This movie overlaps with another movie in your cart!" });
+                            return View("Error", new String[] { "This movie time overlaps with another movie in your cart!" });
 
                         }
                     }
@@ -284,7 +293,6 @@ namespace Team1_FinalProject.Controllers
                     ticket.Order = current_order;
                     ticket.SeatNumber = allSeats[seatnumber];
                     _context.Tickets.Add(ticket);
-                    showing.Tickets.Add(ticket);
                     _context.SaveChanges();
                 }
                 return RedirectToAction("Checkout", "Orders");

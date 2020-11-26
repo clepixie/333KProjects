@@ -32,18 +32,20 @@ namespace Team1_FinalProject.Controllers
         {
             var query = from m in _context.Showings
                         select m;
-            ViewBag.AllShowings = _context.Showings.Count();
-            ViewBag.SelectedShowings = _context.Showings.Count();
-            return View("Index", query.Include(m => m.Movie).ThenInclude(m => m.Genre).Include(m => m.Tickets).Where(m => m.StartDateTime >= DateTime.Now).OrderBy(m => m.StartDateTime).ToList());
+            List<Showing> showings = query.Include(m => m.Movie).ThenInclude(m => m.Genre).Include(m => m.Tickets).Where(m => m.StartDateTime >= DateTime.Now).OrderBy(m => m.StartDateTime).ToList();
+            ViewBag.AllShowings = showings.Count();
+            ViewBag.SelectedShowings = showings.Count();
+            return View("Index", showings);
         }
 
         public IActionResult AllIndex()
         {
             var query = from m in _context.Showings
                         select m;
-            ViewBag.AllShowings = _context.Showings.Count();
-            ViewBag.SelectedShowings = _context.Showings.Count();
-            return View("Index", query.Include(m => m.Movie).ThenInclude(m => m.Genre).OrderBy(m => m.StartDateTime).ToList());
+            List<Showing> showings = query.Include(m => m.Movie).ThenInclude(m => m.Genre).OrderBy(m => m.StartDateTime).ToList();
+            ViewBag.AllShowings = showings.Count();
+            ViewBag.SelectedShowings = showings.Count();
+            return View("Index", showings);
         }
 
         // GET: Movies/Index
