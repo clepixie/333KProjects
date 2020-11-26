@@ -339,8 +339,9 @@ namespace Team1_FinalProject.Controllers
 
         public IActionResult Confirmation([Bind("OrderID, Tax, OrderTotal, PopcornPointsUsed, OrderNumber")] Order order)
         {
-            ViewBag.OrderNumber = order.OrderNumber;
-            Order pastorder = _context.Orders.Include(o => o.Customer).FirstOrDefault(o => o.OrderID == order.OrderID);
+            Order pastorder = _context.Orders.Include(o => o.Tickets).ThenInclude(o => o.Showing)
+            .ThenInclude(o => o.Movie).Include(o => o.Tickets).ThenInclude(o => o.Showing)
+            .ThenInclude(o => o.Price).Include(o => o.Customer).FirstOrDefault(o => o.OrderID == order.OrderID);
             pastorder.OrderHistory = OrderHistory.Past;
 
             // if they used PC points
@@ -357,8 +358,6 @@ namespace Team1_FinalProject.Controllers
                 pastorder.Customer.PopcornPoints += points;
             }
 
-            ViewBag.Points = pastorder.Customer.PopcornPoints;
-            ViewBag.Free = pastorder.Customer.PopcornPoints / 100;
             _context.Orders.Update(pastorder);
             _context.SaveChanges();
 
@@ -372,7 +371,7 @@ namespace Team1_FinalProject.Controllers
                 Utilities.EmailMessaging.SendEmail(pastorder.Customer.Email, "Ticket Purchase Confirmation", "We confirmed you just placed an order! You order number is: " + order.OrderNumber);
             }
             
-            return View();
+            return View(pastorder);
         }
 
         // Gift Order

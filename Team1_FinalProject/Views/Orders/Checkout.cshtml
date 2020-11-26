@@ -82,6 +82,8 @@
                 </td>
                 <td>
                     @Html.CheckBoxFor(o => o.PopcornPointsUsed, new { @checked = Model.PopcornPointsUsed })
+                    <br />
+                    You have <b>@Model.Customer.PopcornPoints</b>; this can cover an order of <b>@(Model.Customer.PopcornPoints/100)</b> tickets.
                 </td>
                 <td>
                     @Html.CheckBoxFor(o => o.GiftOrder, new { @checked = Model.GiftOrder })
