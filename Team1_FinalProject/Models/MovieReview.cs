@@ -6,7 +6,7 @@ namespace Team1_FinalProject.Models
 {
 	public class MovieReview
 	{
-
+		public enum MRStatus { WIP, Accepted, Rejected}
 		public Int32 MovieReviewID { get; set; }
 
 		[Required(ErrorMessage = "Please select a rating from 1-5")]
@@ -21,6 +21,7 @@ namespace Team1_FinalProject.Models
 		public AppUser User { get; set; }
 
 		public Movie Movie { get; set; }
+		public MRStatus Status { get; set; }
 
        
     }

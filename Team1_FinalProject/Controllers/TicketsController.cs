@@ -116,23 +116,36 @@ namespace Team1_FinalProject.Controllers
             // finds the user that matches the selected ID
             AppUser customer = _userManager.Users.Where(u => u.Email == customerList[cfvm.SelectedCustomerID].SelectCustomerName).First();
             // get list of orders belonging to that user
-            List<Order> orders = _context.Orders.Where(o => o.Customer.Id == customer.Id).ToList();
+            List<Order> orders = _context.Orders.Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Movie)
+                                        .Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Price).Where(o => o.Customer.UserName == customer.Email).ToList();
             // instantiate an order
             Order current_order = new Order();
             // see if any of that user's orders are active; if yes, set the instantiated order to that.
+            bool check = false;
             foreach (Order order in orders)
             {
                 if (order.OrderHistory == OrderHistory.Future)
                 {
                     current_order = order;
+                    check = true;
+                    break;
                 }
-
-                break;
             }
 
-            current_order.OrderHistory = OrderHistory.Future;
-            current_order.PopcornPointsUsed = false;
-            current_order.GiftOrder = false;
+            if (check == false)
+            {
+                current_order.OrderNumber = Utilities.GenerateOrderNumber.GetNextOrderNumber(_context);
+                current_order.OrderHistory = OrderHistory.Future;
+                current_order.PopcornPointsUsed = false;
+                current_order.GiftOrder = false;
+                current_order.Customer = customer;
+                _context.Orders.Add(current_order);
+                _context.SaveChanges();
+            }
 
             return RedirectToAction("Create", "Tickets", new { showingID = cfvm.SelectShowingID, orderID = current_order.OrderID });
         }
@@ -301,7 +314,12 @@ namespace Team1_FinalProject.Controllers
 
             else
             {
-                Order current_order = _context.Orders.Find(tvm.SelectOrderID);
+                Order current_order = _context.Orders.Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Movie)
+                                        .Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Price).FirstOrDefault(o => o.OrderID == tvm.SelectOrderID);
 
                 if (current_order.Tickets != null)
                 {
@@ -313,7 +331,7 @@ namespace Team1_FinalProject.Controllers
 
                             if (newdate.TotalDays < 6570)
                             {
-                                return View("Error", new String[] { "You must be 18 to watch this film!" });
+                                return View("Error", new String[] { "You must be 18 or older to watch this film!" });
                             }
                         }
                     }
@@ -321,11 +339,13 @@ namespace Team1_FinalProject.Controllers
                     //sorting the tickets from earliest to latest and then comparing each start time to each end time of the next film
                     var sorted_tickets = current_order.Tickets.OrderBy(x => x.Showing.StartDateTime.TimeOfDay).ToList();
 
-                    foreach (Ticket ticket in sorted_tickets)
+                    foreach (Ticket existingticket in sorted_tickets)
                     {
-                        if (ticket.Showing.StartDateTime >= showing.EndDateTime)
+
+                        if ((existingticket.Showing.StartDateTime.Date == showing.StartDateTime.Date) && ((existingticket.Showing.StartDateTime <= showing.EndDateTime && showing.Movie.Runtime > (existingticket.Showing.StartDateTime - showing.EndDateTime).TotalMinutes)
+                            || (existingticket.Showing.EndDateTime >= showing.StartDateTime && existingticket.Showing.Movie.Runtime > (showing.StartDateTime - existingticket.Showing.EndDateTime).TotalMinutes)))
                         {
-                            return View("Error", new String[] { "This movie overlaps with another movie in your cart!" });
+                            return View("Error", new String[] { "This movie time overlaps with another movie in your cart!" });
 
                         }
                     }
@@ -344,18 +364,17 @@ namespace Team1_FinalProject.Controllers
 
                 foreach (int seatnumber in tvm.SelectedSeats)
                 {
-                    List<string> allSeats = new List<string> { "A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5", "C1", "C2", "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5", "E1", "E2", "E3", "E4", "E5" };
+                    List<string> allSeats = new List<string> { "A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5", "C1", "C2", "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5"};
                     Ticket ticket = new Ticket();
                     ticket.Showing = showing;
                     ticket.SeatClaim = true;
                     ticket.Order = current_order;
                     ticket.SeatNumber = allSeats[seatnumber];
                     _context.Tickets.Add(ticket);
-                    showing.Tickets.Add(ticket);
                     _context.SaveChanges();
                 }
 
-                return RedirectToAction("Checkout", "Orders", new { id = current_order.OrderID });
+                return RedirectToAction("Checkout", "Orders");
             }
         }
         

@@ -109,7 +109,7 @@ namespace Team1_FinalProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("MovieReviewID,MovieRating,ReviewDescription,SelectedMovieID")] MovieReview movieReview, int SelectedMovieID)
         {
-            List<Order> pastorders = _context.Orders.Include(o => o.Tickets).ToList();
+            List<Order> pastorders = _context.Orders.Include(o => o.Tickets).ThenInclude(o => o.Showing).ThenInclude(o => o.Movie).ToList();
             bool check = false;
             foreach (Order order in pastorders)
             {
@@ -132,7 +132,7 @@ namespace Team1_FinalProject.Controllers
             }
 
             List<MovieReview> userreviews;
-            userreviews = _context.MovieReviews.Where(m => m.User.UserName == User.Identity.Name).ToList();
+            userreviews = _context.MovieReviews.Include(mr => mr.Movie).Where(m => m.User.UserName == User.Identity.Name).ToList();
             if (userreviews.Count() != 0)
             {
                 foreach (MovieReview review in userreviews)

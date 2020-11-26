@@ -225,7 +225,7 @@ namespace Team1_FinalProject.Controllers
 
                 Order currorder = _context.Orders.Include(o => o.Tickets).ThenInclude(o => o.Showing)
                     .ThenInclude(o => o.Movie).Include(o => o.Tickets).ThenInclude(o => o.Showing)
-                    .ThenInclude(o => o.Price).FirstOrDefault(o => o.OrderID == id);
+                    .ThenInclude(o => o.Price).Include(o => o.Customer).FirstOrDefault(o => o.OrderID == id);
                 List<Ticket> tickets = _context.Tickets.Where(t => t.Order.OrderID == currorder.OrderID).ToList();
 
                 if (tickets.Count() == 0)

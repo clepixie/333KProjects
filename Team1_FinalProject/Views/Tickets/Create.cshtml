@@ -15,7 +15,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @*do drop down list; use SeatClaim as boolean to verify if a seat for the Showing was taken yet.*@
             @Html.HiddenFor(model => model.SelectShowingID, Model.SelectShowingID)
-            @if (User.IsInRole("Employee"))
+            @if (User.IsInRole("Employee") || User.IsInRole("Manager"))
             {
                 @Html.HiddenFor(model => model.SelectOrderID, Model.SelectOrderID)
             }
