@@ -287,29 +287,33 @@ namespace Team1_FinalProject.Controllers
 
         //checkout [POST]
         [HttpPost]
-        public IActionResult Checkout(Boolean PopcornPointsUsed, Boolean GiftOrder, Order order)
+        public IActionResult Checkout(CheckoutViewModel cvm, Boolean PopcornPointsUsed, Boolean GiftOrder, Order order)
         {
             if (ModelState.IsValid == false)
             {
-                return View(order);
+                return View(cvm);
             }
             if (PopcornPointsUsed == true)
             {
-                order.PopcornPointsUsed = true;
+                cvm.PCPoints = true;
             }
             if (GiftOrder == true)
             {
-                order.GiftOrder = true;
+                cvm.GiftSelection = true;
             }
 
-            return View(order);
+            return View(cvm);
         }
 
         // Review
-        public IActionResult Review(Order order)
+        public IActionResult Review(CheckoutViewModel cvm, Order order, int? id)
         {
-            return View();
+            Order currorder = _context.Orders.Include(o => o.Tickets).ThenInclude(o => o.Showing)
+            .ThenInclude(o => o.Movie).Include(o => o.Tickets).ThenInclude(o => o.Showing)
+            .ThenInclude(o => o.Price).FirstOrDefault(o => o.OrderID == id);
+            return View(cvm);
         }
+
 
         //Cancel
         [HttpPost]

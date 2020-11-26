@@ -1,4 +1,4 @@
-@model Team1_FinalProject.Models.Order
+@model Team1_FinalProject.Models.CheckoutViewModel
 
 @{
     ViewData["Title"] = "Review";
@@ -29,7 +29,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Ticket t in Model.Tickets)
+        @foreach (Ticket t in Model.CurrentOrder.Tickets)
         {
             <tr>
                 <td>
@@ -52,26 +52,26 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.OrderSubtotal)
+                @Html.DisplayNameFor(model => model.CurrentOrder.OrderSubtotal)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Tax)
+                @Html.DisplayNameFor(model => model.CurrentOrder.Tax)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OrderTotal)
+                @Html.DisplayNameFor(model => model.CurrentOrder.OrderTotal)
             </th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>
-                @Html.DisplayFor(model => model.OrderSubtotal)
+                @Html.DisplayFor(model => model.CurrentOrder.OrderSubtotal)
             </td>
             <td>
-                @Html.DisplayFor(model => model.Tax)
+                @Html.DisplayFor(model => model.CurrentOrder.Tax)
             </td>
             <td>
-                @Html.DisplayFor(model => model.OrderTotal)
+                @Html.DisplayFor(model => model.CurrentOrder.OrderTotal)
             </td>
         </tr>
     </tbody>
@@ -84,18 +84,18 @@
             </tr>
             <tr>
                 <td>Popcorn Points Used:</td>
-                <td>@Html.DisplayFor(model => model.PopcornPointsUsed)</td>
+                <td>@Html.DisplayFor(model => model.PCPoints)</td>
                 // say how many were used for the order
             </tr>
             <tr>
                 <td>Was this a Gift Order?</td>
-                <td>@Html.DisplayFor(model => model.GiftOrder)</td>
+                <td>@Html.DisplayFor(model => model.GiftSelection)</td>
             </tr>
         </table>
 
 
     <div>
-        <a asp-action="Edit" asp-route-id="@Model.OrderID">Edit</a> |
+        @*<a asp-action="Edit" asp-route-id="@Model.OrderID">Edit</a> |*@
         <a asp-action="Confirmation" asp-controller="Orders">Confrim Order</a> |
         <a asp-action="Index">Back to List</a>
     </div>

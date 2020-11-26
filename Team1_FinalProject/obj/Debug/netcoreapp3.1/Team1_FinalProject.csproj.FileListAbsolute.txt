@@ -621,3 +621,5 @@ C:/Users/alice/documents/ut/333k/333kprojects/team1_finalproject/obj/Debug/netco
 /Users/aileenlu/Desktop/Classes Fall 2020/MIS333K/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Tickets/Details.cshtml.g.cs
 /Users/aileenlu/Desktop/Classes Fall 2020/MIS333K/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Tickets/Edit.cshtml.g.cs
 /Users/aileenlu/Desktop/Classes Fall 2020/MIS333K/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Tickets/Index.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/CheckoutFor.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Tickets/CreateFor.cshtml.g.cs

@@ -20,6 +20,9 @@ namespace Team1_FinalProject.Models
 
         [Display(Name = "Is this a gift order?")]	
 	    public Boolean GiftOrder {get; set;}
+
+        [Display(Name = "Enter the Gift Recipient's Email:")]
+        public String GiftEmail { get; set; }
 	
 	    [Display(Name = "Popcorn Points Used:")]
 	    public Boolean PopcornPointsUsed {get; set;}
