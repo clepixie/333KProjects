@@ -311,9 +311,11 @@ namespace Team1_FinalProject.Controllers
             .ThenInclude(o => o.Movie).Include(o => o.Tickets).ThenInclude(o => o.Showing)
             .ThenInclude(o => o.Price).FirstOrDefault(o => o.OrderID == order.OrderID);
 
-         
+            if (order.GiftOrder == false)
+               {
+                order.GiftEmail = null;
+               }
             currorder.GiftEmail = order.GiftEmail;
-            currorder.GiftOrder = order.GiftOrder;
             currorder.PopcornPointsUsed = order.PopcornPointsUsed;
             _context.Orders.Update(currorder);
             _context.SaveChanges();
