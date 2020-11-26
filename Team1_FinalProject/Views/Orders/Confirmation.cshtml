@@ -5,9 +5,10 @@
 }
 
 <h1>Order #</h1>
-<h1>@ViewBag.OrderNumber<h1>
+<h2>@ViewBag.OrderNumber</h2>
 <h1>Thank you for visiting Main Street Movies!</h1>
 <h2>A confirmation message was sent to the email on file.</h2>
+<p>You now have @ViewBag.Points Popcorn Points. @if (ViewBag.Points / 100 > 1){ <p>Next time, you can buy up to </p> @ViewBag.Free <p>tickets!</p> }
 
 
     <a asp-action="Index" asp-controller="Home" class="btn btn-success">Back to Home</a>

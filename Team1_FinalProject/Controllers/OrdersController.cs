@@ -230,7 +230,7 @@ namespace Team1_FinalProject.Controllers
 
                 if (tickets.Count() == 0)
                 {
-                    return View("Error", new String[] { "Your Cart is Empty. Please choose what to purchase first" });
+                    return View("Error", new String[] { "Your cart is empty. Please choose what to purchase first" });
 
                 }
                 else
@@ -239,6 +239,7 @@ namespace Team1_FinalProject.Controllers
                     currorder.OrderHistory = OrderHistory.Future;
                     currorder.PopcornPointsUsed = false;
                     currorder.GiftOrder = false;
+                    currorder.GiftEmail = null;
                     await _context.SaveChangesAsync();
                     return View(currorder);
                 }
@@ -252,7 +253,7 @@ namespace Team1_FinalProject.Controllers
 
                 if (currorder == null)
                 {
-                    return View("Error", new String[] { "Your Cart is Empty. Please choose what to purchase first" });
+                    return View("Error", new String[] { "Your cart is empty. Please choose what to purchase first" });
 
                 }
                 else
@@ -262,64 +263,66 @@ namespace Team1_FinalProject.Controllers
                     currorder.OrderHistory = OrderHistory.Future;
                     currorder.PopcornPointsUsed = false;
                     currorder.GiftOrder = false;
+                    currorder.GiftEmail = null;
                     await _context.SaveChangesAsync();
                     return View(currorder);
                 }
             }
         }
 
-        //ViewBag.AllTickets = GetAllTickets(tickets)
-        //ViewBag.AllTickets = _context.Orders.Where(o => o.Customer.UserName == User.Identity.Name)
-        //                                .Include(o => o.Tickets)
-        //                                .ThenInclude(t => t.Showing)
-        //                                .ThenInclude(s => s.Movie)
-        //                                .ToList();
-
-
-        // only read the gift recipent email if the checkbox is checked
-
-        //private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    if (checkBox1.Checked)
-        //        textBox1.Text = checkBox1.Text;
-        //}
-
-        //checkout [POST]
-
-        /*[HttpPost]
-        public IActionResult Checkout([Bind("OrderID, Tickets, OrderSubtotal, Tax, OrderTotal, PopcornPointsUsed, GiftOrder, GiftEmail")] Order order)
-        {
-*//*            Order currorder = _context.Orders.Include(o => o.Tickets).ThenInclude(o => o.Showing)
-            .ThenInclude(o => o.Movie).Include(o => o.Tickets).ThenInclude(o => o.Showing)
-            .ThenInclude(o => o.Price).Where(o => o.Customer.UserName == User.Identity.Name)
-            .Where(o => o.OrderHistory == OrderHistory.Future).First();*//*
-
-            if (ModelState.IsValid == false)
-            {
-                return View(order);
-            }
-
-            return View("Review", order);
-
-        }*/
+        
 
         // Review [GET]
         public IActionResult Review([Bind("OrderID, PopcornPointsUsed, GiftOrder, GiftEmail")] Order order)
         {
             Order currorder = _context.Orders.Include(o => o.Tickets).ThenInclude(o => o.Showing)
             .ThenInclude(o => o.Movie).Include(o => o.Tickets).ThenInclude(o => o.Showing)
-            .ThenInclude(o => o.Price).FirstOrDefault(o => o.OrderID == order.OrderID);
-
-            if (order.GiftOrder == false)
+            .ThenInclude(o => o.Price).Include(o => o.Customer).FirstOrDefault(o => o.OrderID == order.OrderID);
+            ViewBag.Discount = "N/A";
+            if (order.GiftOrder == false && order.GiftEmail != null)
             {
-                currorder.GiftEmail = null;
+                return View("Error", new String[] { "If you want to checkout as a gift, make sure to check next to Gift Order!" });
             }
+
             else
             {
                 currorder.GiftEmail = order.GiftEmail;
             }
 
-            currorder.PopcornPointsUsed = order.PopcornPointsUsed;
+            if ((DateTime.Now.Date - currorder.Customer.Birthdate).TotalDays >= 21900)
+            {
+                // we will use viewbags rn because they may want to make changes still; not yet confirmed. we will officially change the values when they do confirm
+                Price discountprice = _context.Prices.Where(p => p.PriceType == PType.SeniorCitizen).FirstOrDefault();
+                decimal discount = discountprice.PriceValue;
+                ViewBag.Discount = discount;
+                if (currorder.Tickets.Count() >= 2)
+                {
+                    ViewBag.DiscountDouble = discount * 2;
+                    ViewBag.DiscountSubtotal = currorder.OrderSubtotal + (discount * 2);
+                    ViewBag.DiscountTax = Math.Round(((currorder.OrderSubtotal + (discount * 2)) * .0875m), 2);
+                    ViewBag.DiscountDiff = currorder.OrderSubtotal + discount * 2;
+                    ViewBag.DiscountTotal = Math.Round(((currorder.OrderSubtotal + (discount * 2)) * (1 + .0875m)), 2);
+                }
+                else
+                {
+                    ViewBag.DiscountSubtotal = currorder.OrderSubtotal + (discount);
+                    ViewBag.DiscountTax = Math.Round(((currorder.OrderSubtotal + (discount)) * .0875m), 2);
+                    ViewBag.DiscountDiff = currorder.OrderSubtotal + discount;
+                    ViewBag.DiscountTotal = Math.Round(((currorder.OrderSubtotal + (discount)) * (1 + .0875m)), 2);
+                }
+            }
+
+            if ((order.PopcornPointsUsed == true && currorder.Tickets.Count() <= ((currorder.Customer.PopcornPoints) / 100)) || (order.PopcornPointsUsed == false))
+            {
+                currorder.PopcornPointsUsed = order.PopcornPointsUsed;
+            }
+
+            else
+            {
+                return View("Error", new String[] { "You do not have enough Popcorn Points to use for this order; you have " + currorder.Customer.PopcornPoints + " but you need " +
+                    (currorder.Tickets.Count() * 100) + " to cover this order." });
+            }
+
             _context.Orders.Update(currorder);
             _context.SaveChanges();
 
@@ -334,11 +337,28 @@ namespace Team1_FinalProject.Controllers
             return View("Index");
         }
 
-        public IActionResult Confirmation([Bind("OrderID, OrderNumber")] Order order)
+        public IActionResult Confirmation([Bind("OrderID, Tax, OrderTotal, PopcornPointsUsed, OrderNumber")] Order order)
         {
             ViewBag.OrderNumber = order.OrderNumber;
             Order pastorder = _context.Orders.Include(o => o.Customer).FirstOrDefault(o => o.OrderID == order.OrderID);
             pastorder.OrderHistory = OrderHistory.Past;
+
+            // if they used PC points
+            if (order.PopcornPointsUsed == true)
+            {
+                int points = pastorder.Tickets.Count();
+                pastorder.Customer.PopcornPoints -= points * 100;
+            }
+
+            // if they didn't use PC points
+            else
+            {
+                int points = (int)Decimal.Truncate(pastorder.OrderTotal);
+                pastorder.Customer.PopcornPoints += points;
+            }
+
+            ViewBag.Points = pastorder.Customer.PopcornPoints;
+            ViewBag.Free = pastorder.Customer.PopcornPoints / 100;
             _context.Orders.Update(pastorder);
             _context.SaveChanges();
 
