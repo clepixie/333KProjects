@@ -286,41 +286,40 @@ namespace Team1_FinalProject.Controllers
         //}
 
         //checkout [POST]
-        [HttpPost]
-        public IActionResult Checkout([Bind("Order, Tickets, OrderSubtotal, Tax, OrderTotal, PopcornPointsUsed, GiftOrder, GiftEmail")] Order order)
+
+        /*[HttpPost]
+        public IActionResult Checkout([Bind("OrderID, Tickets, OrderSubtotal, Tax, OrderTotal, PopcornPointsUsed, GiftOrder, GiftEmail")] Order order)
         {
-            Order currorder = _context.Orders.Include(o => o.Tickets).ThenInclude(o => o.Showing)
+*//*            Order currorder = _context.Orders.Include(o => o.Tickets).ThenInclude(o => o.Showing)
             .ThenInclude(o => o.Movie).Include(o => o.Tickets).ThenInclude(o => o.Showing)
             .ThenInclude(o => o.Price).Where(o => o.Customer.UserName == User.Identity.Name)
-            .Where(o => o.OrderHistory == OrderHistory.Future).First();
+            .Where(o => o.OrderHistory == OrderHistory.Future).First();*//*
 
             if (ModelState.IsValid == false)
             {
                 return View(order);
             }
 
-            return View(currorder);
+            return View("Review", order);
 
-        }
+        }*/
 
         // Review [GET]
-        public IActionResult Review(Order order, int? id)
+        public IActionResult Review([Bind("OrderID, PopcornPointsUsed, GiftOrder, GiftEmail")] Order order)
         {
             Order currorder = _context.Orders.Include(o => o.Tickets).ThenInclude(o => o.Showing)
             .ThenInclude(o => o.Movie).Include(o => o.Tickets).ThenInclude(o => o.Showing)
             .ThenInclude(o => o.Price).FirstOrDefault(o => o.OrderID == order.OrderID);
+
+         
+            currorder.GiftEmail = order.GiftEmail;
+            currorder.GiftOrder = order.GiftOrder;
+            currorder.PopcornPointsUsed = order.PopcornPointsUsed;
+            _context.Orders.Update(currorder);
+            _context.SaveChanges();
+
             return View(currorder);
         }
-
-        // Review [POST]
-        //public IActionResult Review(Order order, int? id)
-        //{
-
-        //    Order currorder = _context.Orders.Include(o => o.Tickets).ThenInclude(o => o.Showing)
-        //    .ThenInclude(o => o.Movie).Include(o => o.Tickets).ThenInclude(o => o.Showing)
-        //    .ThenInclude(o => o.Price).FirstOrDefault(o => o.OrderID == id);
-        //    return View(currorder);
-        //}
 
         //Cancel
         [HttpPost]
@@ -330,14 +329,23 @@ namespace Team1_FinalProject.Controllers
             return View("Index");
         }
 
-        // Confirmation
-        //pass in order number and send an email
-        [HttpPost]
-        public IActionResult Confirmation(Order order)
+        public IActionResult Confirmation([Bind("OrderID, GiftEmail, OrderNumber")] Order order)
         {
-            order.OrderHistory = OrderHistory.Past;
-            Utilities.EmailMessaging.SendEmail(order.Customer.Email, "Ticket Purchase Confirmation", "Confirmed you just placed an order! You order number is: " + order.OrderNumber);
-            return View(order);
+            ViewBag.OrderNumber = order.OrderNumber;
+            Order pastorder = _context.Orders.Include(o => o.Customer).FirstOrDefault(o => o.OrderID == order.OrderID);
+            pastorder.OrderHistory = OrderHistory.Past;
+
+            if (order.GiftEmail != null)
+            {
+                Utilities.EmailMessaging.SendEmail(order.GiftEmail, "Ticket Purchase Confirmation", "Your friend" + pastorder.Customer.FirstName + " " + pastorder.Customer.LastName + " " + "bought you some tickets! You order number is: " + order.OrderNumber);
+            }
+
+            else
+            {
+                Utilities.EmailMessaging.SendEmail(pastorder.Customer.Email, "Ticket Purchase Confirmation", "Confirmed you just placed an order! You order number is: " + order.OrderNumber);
+            }
+            
+            return View();
         }
 
         // Gift Order

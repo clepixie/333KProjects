@@ -32,6 +32,8 @@ namespace Team1_FinalProject.Controllers
             SearchViewModel svm = new SearchViewModel();
             return View("SearchSelect", svm);
         }
+
+        // kinda like the POST method for SearchSelect
         // GET: Home/SearchMoviesShowings
         public IActionResult SearchMoviesShowings(SearchViewModel svm)
         {

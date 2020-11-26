@@ -48,49 +48,49 @@
         }
     </tbody>
 </table>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderSubtotal)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tax)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderTotal)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PopcornPointsUsed)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GiftOrder)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                @Html.DisplayFor(model => model.OrderSubtotal)
-            </td>
-            <td>
-                @Html.DisplayFor(model => model.Tax)
-            </td>
-            <td>
-                @Html.DisplayFor(model => model.OrderTotal)
-            </td>
-            <td>
-                @Html.CheckBoxFor(o => o.PopcornPointsUsed, new { @checked = Model.PopcornPointsUsed })
-            </td>
-            <td>
-                @Html.CheckBoxFor(o => o.GiftOrder, new { @checked = Model.GiftOrder })
-            </td>
+<form asp-action="Review">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrderSubtotal)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tax)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrderTotal)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PopcornPointsUsed)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GiftOrder)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.OrderSubtotal)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Tax)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.OrderTotal)
+                </td>
+                <td>
+                    @Html.CheckBoxFor(o => o.PopcornPointsUsed, new { @checked = Model.PopcornPointsUsed })
+                </td>
+                <td>
+                    @Html.CheckBoxFor(o => o.GiftOrder, new { @checked = Model.GiftOrder })
+                </td>
 
-        </tr>
-    </tbody>
-</table>
+            </tr>
+        </tbody>
+    </table>
 
-<form asp-action="Checkout">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="OrderID" />
     <div class="form-group">
@@ -98,11 +98,15 @@
         <input asp-for="GiftEmail" class="form-control" />
         <span asp-validation-for="GiftEmail" class="text-danger"></span>
     </div>
-    <asp:TextBox ID="GiftEmail" ReadOnly="true" runat="server"></asp:TextBox>
-    <asp:CheckBox ID="GiftOrder" runat="server"
-                  OnCheckedChanged="CheckInstance_CheckedChanged" AutoPostBack="true" />
-
-    <a asp-action="Edit" asp-route-id="@Model.OrderID">Edit</a> |
-    <a asp-action="Review" asp-controller="Orders">Review Order</a> |
-    <a asp-action="Index">Back to List</a>
+    <div class="form-group">
+        <asp:TextBox ID="GiftEmail" ReadOnly="true" runat="server"></asp:TextBox>
+        <asp:CheckBox ID="GiftOrder" runat="server"
+                      OnCheckedChanged="CheckInstance_CheckedChanged" AutoPostBack="true" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Review" class="btn btn-primary" />
+    </div>
 </form>
+
+<a asp-action="Edit" asp-route-id="@Model.OrderID">Edit</a> |
+<a asp-action="Index">Back to List</a>
