@@ -1,8 +1,8 @@
 ﻿<Properties StartupConfiguration="{5BEA845B-2AA8-4BCB-A0C3-D8FEF9946679}|Default">
   <MonoDevelop.Ide.ItemProperties.Team1__FinalProject PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Orders/Confirmation.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Models/AppUser.cs">
     <Files>
-      <File FileName="Views/Orders/Confirmation.cshtml" Line="8" Column="13" />
+      <File FileName="Views/Orders/Confirmation.cshtml" Line="15" Column="1" />
       <File FileName="Controllers/ShowingsController.cs" />
       <File FileName="Controllers/TicketsController.cs" />
       <File FileName="Controllers/OrdersController.cs" />
@@ -37,7 +37,7 @@
       <File FileName="Views/Movies/Create.cshtml" />
       <File FileName="Views/Movies/Details.cshtml" />
       <File FileName="Views/Movies/Delete.cshtml" />
-      <File FileName="Models/AppUser.cs" />
+      <File FileName="Models/AppUser.cs" Line="25" Column="41" />
       <File FileName="Models/MovieReview.cs" />
       <File FileName="Models/ViewModels/AccountViewModels.cs" />
       <File FileName="Seeding/SeedGenres.cs" />
@@ -88,6 +88,7 @@
               <Node name="Migrations" expanded="True" />
               <Node name="Models" expanded="True">
                 <Node name="ViewModels" expanded="True" />
+                <Node name="AppUser.cs" selected="True" />
               </Node>
               <Node name="Properties" expanded="True" />
               <Node name="Seeding" expanded="True" />
@@ -97,9 +98,7 @@
                 <Node name="Home" expanded="True" />
                 <Node name="MovieReviews" expanded="True" />
                 <Node name="Movies" expanded="True" />
-                <Node name="Orders" expanded="True">
-                  <Node name="Confirmation.cshtml" selected="True" />
-                </Node>
+                <Node name="Orders" expanded="True" />
                 <Node name="Prices" expanded="True" />
                 <Node name="RoleAdmin" expanded="True" />
                 <Node name="Shared" expanded="True" />

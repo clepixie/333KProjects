@@ -21,6 +21,10 @@ namespace Team1_FinalProject.Models
         public DateTime Birthdate { get; set; }
 
         public Int32 PopcornPoints { get; set; }
+        //1 popcorn point for every $ spent on a movie
+        //100 popcorn points = one movie
+        //special events not eligible
+        //canceled orders return PCPoints
 
         public String Address { get; set; }
 
