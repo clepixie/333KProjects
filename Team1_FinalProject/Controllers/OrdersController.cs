@@ -334,15 +334,17 @@ namespace Team1_FinalProject.Controllers
             ViewBag.OrderNumber = order.OrderNumber;
             Order pastorder = _context.Orders.Include(o => o.Customer).FirstOrDefault(o => o.OrderID == order.OrderID);
             pastorder.OrderHistory = OrderHistory.Past;
+            _context.Orders.Update(pastorder);
+            _context.SaveChanges();
 
             if (order.GiftEmail != null)
             {
-                Utilities.EmailMessaging.SendEmail(order.GiftEmail, "Ticket Purchase Confirmation", "Your friend" + pastorder.Customer.FirstName + " " + pastorder.Customer.LastName + " " + "bought you some tickets! You order number is: " + order.OrderNumber);
+                Utilities.EmailMessaging.SendEmail(order.GiftEmail, "Ticket Purchase Confirmation", "Your friend " + pastorder.Customer.FirstName + " " + pastorder.Customer.LastName + " " + "bought you some tickets! You order number is: " + order.OrderNumber);
             }
 
             else
             {
-                Utilities.EmailMessaging.SendEmail(pastorder.Customer.Email, "Ticket Purchase Confirmation", "Confirmed you just placed an order! You order number is: " + order.OrderNumber);
+                Utilities.EmailMessaging.SendEmail(pastorder.Customer.Email, "Ticket Purchase Confirmation", "We confirmed you just placed an order! You order number is: " + order.OrderNumber);
             }
             
             return View();
