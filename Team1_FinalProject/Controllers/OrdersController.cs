@@ -249,9 +249,8 @@ namespace Team1_FinalProject.Controllers
                     .ThenInclude(o => o.Movie).Include(o => o.Tickets).ThenInclude(o => o.Showing)
                     .ThenInclude(o => o.Price).Where(o => o.Customer.UserName == User.Identity.Name)
                     .Where(o => o.OrderHistory == OrderHistory.Future).FirstOrDefault();
-                List<Ticket> tickets = _context.Tickets.Where(t => t.Order.OrderID == currorder.OrderID).ToList();
 
-                if (tickets.Count() == 0)
+                if (currorder == null)
                 {
                     return View("Error", new String[] { "Your Cart is Empty. Please choose what to purchase first" });
 
@@ -312,10 +311,14 @@ namespace Team1_FinalProject.Controllers
             .ThenInclude(o => o.Price).FirstOrDefault(o => o.OrderID == order.OrderID);
 
             if (order.GiftOrder == false)
-               {
-                order.GiftEmail = null;
-               }
-            currorder.GiftEmail = order.GiftEmail;
+            {
+                currorder.GiftEmail = null;
+            }
+            else
+            {
+                currorder.GiftEmail = order.GiftEmail;
+            }
+
             currorder.PopcornPointsUsed = order.PopcornPointsUsed;
             _context.Orders.Update(currorder);
             _context.SaveChanges();
@@ -331,7 +334,7 @@ namespace Team1_FinalProject.Controllers
             return View("Index");
         }
 
-        public IActionResult Confirmation([Bind("OrderID, GiftEmail, OrderNumber")] Order order)
+        public IActionResult Confirmation([Bind("OrderID, OrderNumber")] Order order)
         {
             ViewBag.OrderNumber = order.OrderNumber;
             Order pastorder = _context.Orders.Include(o => o.Customer).FirstOrDefault(o => o.OrderID == order.OrderID);
@@ -339,7 +342,7 @@ namespace Team1_FinalProject.Controllers
             _context.Orders.Update(pastorder);
             _context.SaveChanges();
 
-            if (order.GiftEmail != null)
+            if (pastorder.GiftEmail != null)
             {
                 Utilities.EmailMessaging.SendEmail(order.GiftEmail, "Ticket Purchase Confirmation", "Your friend " + pastorder.Customer.FirstName + " " + pastorder.Customer.LastName + " " + "bought you some tickets! You order number is: " + order.OrderNumber);
             }
