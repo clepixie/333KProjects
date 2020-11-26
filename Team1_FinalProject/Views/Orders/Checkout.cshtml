@@ -90,15 +90,19 @@
     </tbody>
 </table>
 
-<div class="form-group">
-    <label asp-for="GiftEmail" class="control-label"></label>
-    <input asp-for="GiftEmail" class="form-control" />
-    <span asp-validation-for="GiftEmail" class="text-danger"></span>
-</div>
-<asp:TextBox ID="BoxInstance" ReadOnly="true" runat="server"></asp:TextBox>
-<asp:CheckBox ID="CheckInstance" runat="server"
-              OnCheckedChanged="CheckInstance_CheckedChanged" AutoPostBack="true" />
+<form asp-action="Checkout">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="OrderID" />
+    <div class="form-group">
+        <label asp-for="GiftEmail" class="control-label"></label>
+        <input asp-for="GiftEmail" class="form-control" />
+        <span asp-validation-for="GiftEmail" class="text-danger"></span>
+    </div>
+    <asp:TextBox ID="GiftEmail" ReadOnly="true" runat="server"></asp:TextBox>
+    <asp:CheckBox ID="GiftOrder" runat="server"
+                  OnCheckedChanged="CheckInstance_CheckedChanged" AutoPostBack="true" />
 
-<a asp-action="Edit" asp-route-id="@Model.OrderID">Edit</a> |
-<a asp-action="Review" asp-controller="Orders">Review Order</a> |
-<a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.OrderID">Edit</a> |
+    <a asp-action="Review" asp-controller="Orders">Review Order</a> |
+    <a asp-action="Index">Back to List</a>
+</form>

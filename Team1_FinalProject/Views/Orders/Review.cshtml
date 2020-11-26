@@ -1,4 +1,4 @@
-@model Team1_FinalProject.Models.CheckoutViewModel
+@model Team1_FinalProject.Models.Order
 
 @{
     ViewData["Title"] = "Review";
@@ -9,7 +9,7 @@
     purchase as gift option (insert friend's email)*@
 
 <br />
-<h1>Review You Order</h1>
+<h1>Review Your Order</h1>
 
 <table class="table">
     <thead>
@@ -29,7 +29,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Ticket t in Model.CurrentOrder.Tickets)
+        @foreach (Ticket t in Model.Tickets)
         {
             <tr>
                 <td>
@@ -41,9 +41,9 @@
                 <td>
                     @Html.DisplayFor(model => t.SeatNumber)
                 </td>
-                @*<td>
-                        @Html.DisplayFor(model => t.Price.PriceValue)
-                    </td>*@
+                <td>
+                   @Html.DisplayFor(model => t.Showing.Price.PriceValue)
+                </td>
             </tr>
         }
     </tbody>
@@ -52,26 +52,26 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CurrentOrder.OrderSubtotal)
+                @Html.DisplayNameFor(model => model.OrderSubtotal)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CurrentOrder.Tax)
+                @Html.DisplayNameFor(model => model.Tax)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CurrentOrder.OrderTotal)
+                @Html.DisplayNameFor(model => model.OrderTotal)
             </th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>
-                @Html.DisplayFor(model => model.CurrentOrder.OrderSubtotal)
+                @Html.DisplayFor(model => model.OrderSubtotal)
             </td>
             <td>
-                @Html.DisplayFor(model => model.CurrentOrder.Tax)
+                @Html.DisplayFor(model => model.Tax)
             </td>
             <td>
-                @Html.DisplayFor(model => model.CurrentOrder.OrderTotal)
+                @Html.DisplayFor(model => model.OrderTotal)
             </td>
         </tr>
     </tbody>
@@ -84,12 +84,12 @@
             </tr>
             <tr>
                 <td>Popcorn Points Used:</td>
-                <td>@Html.DisplayFor(model => model.PCPoints)</td>
+                <td>@Html.DisplayFor(model => model.PopcornPointsUsed)</td>
                 // say how many were used for the order
             </tr>
             <tr>
                 <td>Was this a Gift Order?</td>
-                <td>@Html.DisplayFor(model => model.GiftSelection)</td>
+                <td>@Html.DisplayFor(model => model.GiftOrder)</td>
             </tr>
         </table>
 

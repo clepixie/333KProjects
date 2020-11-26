@@ -287,33 +287,40 @@ namespace Team1_FinalProject.Controllers
 
         //checkout [POST]
         [HttpPost]
-        public IActionResult Checkout(CheckoutViewModel cvm, Boolean PopcornPointsUsed, Boolean GiftOrder, Order order)
-        {
-            if (ModelState.IsValid == false)
-            {
-                return View(cvm);
-            }
-            if (PopcornPointsUsed == true)
-            {
-                cvm.PCPoints = true;
-            }
-            if (GiftOrder == true)
-            {
-                cvm.GiftSelection = true;
-            }
-
-            return View(cvm);
-        }
-
-        // Review
-        public IActionResult Review(CheckoutViewModel cvm, Order order, int? id)
+        public IActionResult Checkout([Bind("Order, Tickets, OrderSubtotal, Tax, OrderTotal, PopcornPointsUsed, GiftOrder, GiftEmail")] Order order)
         {
             Order currorder = _context.Orders.Include(o => o.Tickets).ThenInclude(o => o.Showing)
             .ThenInclude(o => o.Movie).Include(o => o.Tickets).ThenInclude(o => o.Showing)
-            .ThenInclude(o => o.Price).FirstOrDefault(o => o.OrderID == id);
-            return View(cvm);
+            .ThenInclude(o => o.Price).Where(o => o.Customer.UserName == User.Identity.Name)
+            .Where(o => o.OrderHistory == OrderHistory.Future).First();
+
+            if (ModelState.IsValid == false)
+            {
+                return View(order);
+            }
+
+            return View(currorder);
+
         }
 
+        // Review [GET]
+        public IActionResult Review(Order order, int? id)
+        {
+            Order currorder = _context.Orders.Include(o => o.Tickets).ThenInclude(o => o.Showing)
+            .ThenInclude(o => o.Movie).Include(o => o.Tickets).ThenInclude(o => o.Showing)
+            .ThenInclude(o => o.Price).FirstOrDefault(o => o.OrderID == order.OrderID);
+            return View(currorder);
+        }
+
+        // Review [POST]
+        //public IActionResult Review(Order order, int? id)
+        //{
+
+        //    Order currorder = _context.Orders.Include(o => o.Tickets).ThenInclude(o => o.Showing)
+        //    .ThenInclude(o => o.Movie).Include(o => o.Tickets).ThenInclude(o => o.Showing)
+        //    .ThenInclude(o => o.Price).FirstOrDefault(o => o.OrderID == id);
+        //    return View(currorder);
+        //}
 
         //Cancel
         [HttpPost]
