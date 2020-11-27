@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Team1_FinalProject.DAL;
 using Team1_FinalProject.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace Team1_FinalProject.Controllers
 {
@@ -15,10 +16,13 @@ namespace Team1_FinalProject.Controllers
     public class MovieReviewsController : Controller
     {
         private readonly AppDbContext _context;
+        private UserManager<AppUser> _userManager;
+        private RoleManager<IdentityRole> _roleManager;
 
-        public MovieReviewsController(AppDbContext context)
+        public MovieReviewsController(AppDbContext context, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: MovieReviews
@@ -155,6 +159,7 @@ namespace Team1_FinalProject.Controllers
 
             movieReview.Movie = dbMovie;
             movieReview.Status = MRStatus.WIP;
+            movieReview.User = _userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
 
             _context.Add(movieReview);
             await _context.SaveChangesAsync();

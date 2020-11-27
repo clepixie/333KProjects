@@ -71,7 +71,12 @@ namespace Team1_FinalProject.Models
 						}
 					}
 
-					return sum / count;
+					if (count == 0)
+                    {
+						return null;
+                    }
+
+					return Math.Round((decimal)(sum / count), 1);
 				}
 			}
 		}
