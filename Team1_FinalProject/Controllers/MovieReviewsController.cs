@@ -120,15 +120,17 @@ namespace Team1_FinalProject.Controllers
                         check = true;
                         break;
                     }
-                    else
-                    {
-                        return View("Error", new String[] { "You have not watched this movie yet, or have not watched this movie with us; please do that first!" });
-                    }
                 }
                 if (check == true)
                 {
                     break;
                 }
+            }
+
+
+            if (check == false)
+            {
+                return View("Error", new String[] { "You have not watched this movie yet, or have not watched this movie with us; please do that first!" });
             }
 
             List<MovieReview> userreviews;
@@ -152,6 +154,7 @@ namespace Team1_FinalProject.Controllers
             Movie dbMovie = _context.Movies.Find(SelectedMovieID);
 
             movieReview.Movie = dbMovie;
+            movieReview.Status = MRStatus.WIP;
 
             _context.Add(movieReview);
             await _context.SaveChangesAsync();
@@ -183,7 +186,7 @@ namespace Team1_FinalProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MovieReviewID,MovieRating,ReviewDescription")] MovieReview movieReview)
+        public async Task<IActionResult> Edit(int id, [Bind("MovieReviewID,MovieRating,ReviewDescription,Status")] MovieReview movieReview)
         {
             if (id != movieReview.MovieReviewID)
             {
@@ -210,6 +213,7 @@ namespace Team1_FinalProject.Controllers
                 //update the scalar properties
                 dbMR.MovieRating = movieReview.MovieRating;
                 dbMR.ReviewDescription = movieReview.ReviewDescription;
+                dbMR.Status = movieReview.Status;
 
                 //save changes
                 _context.Update(dbMR);

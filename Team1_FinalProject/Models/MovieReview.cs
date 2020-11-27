@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Team1_FinalProject.Models
 {
+	public enum MRStatus { WIP, Accepted, Rejected }
 	public class MovieReview
 	{
-		public enum MRStatus { WIP, Accepted, Rejected}
 		public Int32 MovieReviewID { get; set; }
 
 		[Required(ErrorMessage = "Please select a rating from 1-5")]

@@ -28,7 +28,7 @@ namespace Team1_FinalProject.Controllers
                         select m;
             ViewBag.AllMovies = _context.Movies.Count();
             ViewBag.SelectedMovies = _context.Movies.Count();
-            return View("Index", query.Include(m => m.Genre).Include(m => m.Showings).OrderByDescending(m => m.Showings.Count()).ToList());
+            return View("Index", query.Include(m => m.Genre).Include(m => m.Showings).Include(m => m.Reviews).OrderByDescending(m => m.Showings.Count()).ToList());
         }
         [AllowAnonymous]
         // GET: Movies/Index
@@ -104,7 +104,7 @@ namespace Team1_FinalProject.Controllers
                 query = query.Where(m => m.Actors.Contains(svm.SearchActor));
             }
 
-            List<Movie> SelectedMovies = query.Include(m => m.Genre).Include(m => m.Showings).ToList();
+            List<Movie> SelectedMovies = query.Include(m => m.Genre).Include(m => m.Showings).Include(m => m.Reviews).ToList();
             ViewBag.AllMovies = _context.Movies.Count();
             ViewBag.SelectedMovies = SelectedMovies.Count();
             return View("Index", SelectedMovies.OrderByDescending(m => m.Showings.Count()));
@@ -124,6 +124,7 @@ namespace Team1_FinalProject.Controllers
                         .Include(o => o.Showings)
                         .ThenInclude(o => o.Tickets)
                         .Include(o => o.Genre)
+                        .Include(o => o.Reviews)
                         .FirstOrDefaultAsync(m => m.MovieID == id);
             if (movie == null)
             {

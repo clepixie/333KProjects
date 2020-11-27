@@ -64,12 +64,14 @@ namespace Team1_FinalProject.Models
 				{
 					foreach (MovieReview review in Reviews)
 					{
-						sum += review.MovieRating;
-						count += 1;
-						avg = sum / count;
+						if (review.Status == MRStatus.Accepted)
+						{
+							sum += review.MovieRating;
+							count += 1;
+						}
 					}
 
-					return avg;
+					return sum / count;
 				}
 			}
 		}
