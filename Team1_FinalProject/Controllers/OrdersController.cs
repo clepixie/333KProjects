@@ -343,6 +343,7 @@ namespace Team1_FinalProject.Controllers
             .ThenInclude(o => o.Movie).Include(o => o.Tickets).ThenInclude(o => o.Showing)
             .ThenInclude(o => o.Price).Include(o => o.Customer).FirstOrDefault(o => o.OrderID == order.OrderID);
             pastorder.OrderHistory = OrderHistory.Past;
+            ViewBag.Earned = 0;
 
             // if they used PC points
             if (order.PopcornPointsUsed == true)
@@ -355,6 +356,7 @@ namespace Team1_FinalProject.Controllers
             else
             {
                 int points = (int)Decimal.Truncate(pastorder.OrderTotal);
+                ViewBag.Earned = points;
                 pastorder.Customer.PopcornPoints += points;
             }
 
