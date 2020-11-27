@@ -85,9 +85,8 @@ namespace Team1_FinalProject.Controllers
             {
                 foreach (Movie movie in query)
                 {
-                    if (movie.AverageRating != svm.SearchRating)
+                    if (movie.AverageRating != svm.SearchRating || movie.AverageRating == null)
                     {
-                        string title = movie.Title;
                         query = query.Where(m => m.MovieID != movie.MovieID);
                     }
                 }
@@ -98,9 +97,8 @@ namespace Team1_FinalProject.Controllers
                 case RatingsRange.Greater:
                     foreach (Movie movie in query)
                     {
-                        if (movie.AverageRating < svm.SearchRating)
+                        if (movie.AverageRating < svm.SearchRating || movie.AverageRating == null)
                         {
-                            string title = movie.Title;
                             query = query.Where(m => m.MovieID != movie.MovieID);
                         }
                     }
@@ -108,9 +106,8 @@ namespace Team1_FinalProject.Controllers
                 case RatingsRange.Lesser:
                     foreach (Movie movie in query)
                     {
-                        if (movie.AverageRating > svm.SearchRating)
+                        if (movie.AverageRating > svm.SearchRating || movie.AverageRating == null)
                         {
-                            string title = movie.Title;
                             query = query.Where(m => m.MovieID != movie.MovieID);
                         }
                     }

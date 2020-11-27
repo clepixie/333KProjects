@@ -33,6 +33,7 @@ namespace Team1_FinalProject.Controllers
             {
                 movieReviews = _context.MovieReviews
                                 .Include(o => o.Movie)
+                                .OrderBy(o => o.Status)
                                 .ToList();
             }
             else //user is a customer, so only display their records
