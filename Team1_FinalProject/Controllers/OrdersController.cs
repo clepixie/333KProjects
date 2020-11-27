@@ -367,7 +367,7 @@ namespace Team1_FinalProject.Controllers
 
             if (pastorder.GiftEmail != null)
             {
-                Utilities.EmailMessaging.SendEmail(order.GiftEmail, "Ticket Purchase Confirmation", "Your friend " + pastorder.Customer.FirstName + " " + pastorder.Customer.LastName + " " + "bought you some tickets! You order number is: " + order.OrderNumber);
+                Utilities.EmailMessaging.SendEmail(pastorder.GiftEmail, "Ticket Purchase Confirmation", "Your friend " + pastorder.Customer.FirstName + " " + pastorder.Customer.LastName + " " + "bought you some tickets! You order number is: " + order.OrderNumber);
             }
 
             else
