@@ -141,7 +141,7 @@ namespace Team1_FinalProject.Controllers
             //get user info
             String id = User.Identity.Name;
             AppUser user = _context.Users.FirstOrDefault(u => u.UserName == id);
-
+            ViewBag.UserInfo = user;
             //populate the view model
             //(i.e. map the domain model to the view model)
             ivm.Email = user.Email;

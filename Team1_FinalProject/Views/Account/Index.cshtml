@@ -19,5 +19,12 @@
         <dd>
             [@Html.ActionLink("Change your password", "ChangePassword")]
         </dd>
+        @if (User.IsInRole("Customer"))
+        {
+            <dt>Popcorn Points:</dt>
+            <dd>
+                @ViewBag.UserInfo.PopcornPoints
+            </dd>
+        }
     </dl>
 </div>
