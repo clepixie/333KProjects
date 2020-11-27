@@ -48,13 +48,14 @@
                     @Html.DisplayFor(model => t.Showing.Price.PriceValue)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-controller="Tickets" asp-route-id="@t.TicketID" class="fas fa-pencil-alt btn btn-warning" style="color:white"></a> 
+                    <a asp-action="Edit" asp-controller="Tickets" asp-route-id="@t.TicketID" class="fas fa-pencil-alt btn btn-warning" style="color:white"></a>
                     <a asp-action="Delete" asp-controller="Tickets" asp-route-id="@t.TicketID" class="fas fa-trash btn btn-danger" style="color:white"></a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+Note: These calculations do not include discounts yet. That will be presented on the review page.
 <form asp-action="Review">
     <table class="table">
         <thead>
@@ -99,7 +100,6 @@
             </tr>
         </tbody>
     </table>
-    Note: These calculations do not include discounts yet. That will be presented on the review page.
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="OrderID" />
     <div class="form-group">

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Microsoft.AspNetCore.Identity;
 
 namespace Team1_FinalProject.Models
@@ -48,13 +49,12 @@ namespace Team1_FinalProject.Models
 		public List<Showing> Showings { get; set; }
 		public List<MovieReview> Reviews { get; set; }
 		[Display(Name = "Movie Rating")]
+		[DisplayFormat(DataFormatString = "{0:#.#}")]
 		public decimal? AverageRating
 		{
 			get
 			{
-				decimal avg = 0;
-				int count = 0;
-				int sum = 0;
+				List<int> ratings = new List<int>();
 				if (Reviews is null)
 				{
 					return null;
@@ -66,17 +66,16 @@ namespace Team1_FinalProject.Models
 					{
 						if (review.Status == MRStatus.Accepted)
 						{
-							sum += review.MovieRating;
-							count += 1;
+							ratings.Add(review.MovieRating);
 						}
 					}
 
-					if (count == 0)
+					if (ratings.Count() == 0)
                     {
 						return null;
                     }
 
-					return Math.Round((decimal)(sum / count), 1);
+					return (decimal)ratings.Average();
 				}
 			}
 		}

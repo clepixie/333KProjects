@@ -41,8 +41,7 @@ namespace Team1_FinalProject.Controllers
                 return View("~/Views/Home/SearchMovies.cshtml");//send user back to inputs page
             }
 
-            var query = from m in _context.Movies
-                        select m;
+            IQueryable<Movie> query = _context.Movies.Include(m => m.Reviews);
 
             if (svm.SearchTitle != null && svm.SearchTitle != "")
             {
@@ -84,16 +83,37 @@ namespace Team1_FinalProject.Controllers
 
             if (svm.SearchRating != null && svm.RatingsRange == null)
             {
-                query = query.Where(m => m.AverageRating == svm.SearchRating);
+                foreach (Movie movie in query)
+                {
+                    if (movie.AverageRating != svm.SearchRating)
+                    {
+                        string title = movie.Title;
+                        query = query.Where(m => m.MovieID != movie.MovieID);
+                    }
+                }
             }
 
             switch (svm.RatingsRange)
             {
                 case RatingsRange.Greater:
-                    query = query.Where(m => m.AverageRating >= svm.SearchRating);
+                    foreach (Movie movie in query)
+                    {
+                        if (movie.AverageRating < svm.SearchRating)
+                        {
+                            string title = movie.Title;
+                            query = query.Where(m => m.MovieID != movie.MovieID);
+                        }
+                    }
                     break;
                 case RatingsRange.Lesser:
-                    query = query.Where(m => m.AverageRating <= svm.SearchRating);
+                    foreach (Movie movie in query)
+                    {
+                        if (movie.AverageRating > svm.SearchRating)
+                        {
+                            string title = movie.Title;
+                            query = query.Where(m => m.MovieID != movie.MovieID);
+                        }
+                    }
                     break;
                 default:
                     break;

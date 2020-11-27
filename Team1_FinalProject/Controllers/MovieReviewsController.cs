@@ -47,61 +47,38 @@ namespace Team1_FinalProject.Controllers
             return View(movieReviews);
         }
 
+        public IActionResult ReviewsIndex(int? id)
+        {
+            List<MovieReview> reviews = _context.MovieReviews.Where(mr => mr.Movie.MovieID == id).Where(mr => mr.Status == MRStatus.Accepted).ToList();
+            ViewBag.MovieTitle = _context.Movies.Find(id).Title;
+            return View(reviews);
+        }
+
         // GET: MovieReviews/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return View("Error", new String[] { "You must specify what movie review to view!" });
             }
 
             MovieReview movieReview = await _context.MovieReviews.Include(mr => mr.Movie)
                                             .FirstOrDefaultAsync(m => m.MovieReviewID == id);
             if (movieReview == null)
             {
-                return NotFound();
+                return View("Error", new String[] { "No movie review exists for this ID yet!" });
             }
 
+            if(movieReview.User != _userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name) || User.IsInRole("Customer"))
+            {
+                return View("Error", new String[] { "You cannot see the details of a movie review that does not belong to you!" });
+            }
             return View(movieReview);
         }
 
         // GET: MovieReviews/Create
         public IActionResult Create()
         {
-/*            List<Order> pastorders = _context.Orders.Include(o => o.Tickets).ToList();
-            bool check = false;
-            foreach (Order order in pastorders)
-            {
-                foreach (Ticket ticket in order.Tickets)
-                {
-                    if (ticket.Showing.Movie.MovieID == id && ticket.Showing.EndDateTime < DateTime.Now)
-                    {
-                        check = true;
-                        break;
-                    }
-                    else
-                    {
-                        return View("Error", new String[] { "You have not watched this movie yet, or have not watched this movie with us; please do that first!" });
-                    }
-                }
-                if (check == true)
-                {
-                    break;
-                }
-            }
-            
-            List<MovieReview> userreviews;
-            userreviews = _context.MovieReviews.Where(m => m.User.UserName == User.Identity.Name).ToList();
-            if (userreviews.Count() != 0)
-            {
-                foreach (MovieReview review in userreviews)
-                {
-                    if (review.Movie.MovieID == id)
-                    {
-                        return RedirectToAction("Edit", "MovieReviews", new { id = id });
-                    }
-                }
-            }*/
             ViewBag.AllMovies = GetWatchedMovies();
             return View();
         }
