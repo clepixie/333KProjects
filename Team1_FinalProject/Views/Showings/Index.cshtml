@@ -71,7 +71,14 @@
                 @Html.DisplayFor(modelItem => item.Movie.MPAA)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Movie.AverageRating)
+                @if (@item.Movie.AverageRating == null)
+                {
+                    <span>No ratings.</span>
+                }
+                else
+                {
+            <a asp-action="ReviewsIndex" asp-controller="MovieReviews" asp-route-id="@item.Movie.MovieID">@Html.DisplayFor(modelItem => item.Movie.AverageRating)/5</a>
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TicketCount)/20

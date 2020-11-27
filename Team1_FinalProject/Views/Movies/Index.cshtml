@@ -65,7 +65,7 @@
                 }
                 else
                 {
-                <a asp-action="ReviewsIndex" asp-controller="MovieReviews" asp-route-id="@item.MovieID">@Html.DisplayFor(modelItem => item.AverageRating)</a>
+            <a asp-action="ReviewsIndex" asp-controller="MovieReviews" asp-route-id="@item.MovieID">@Html.DisplayFor(modelItem => item.AverageRating)/5</a>
                 }
             </td>
             <td>
@@ -88,6 +88,7 @@
                 <b>Showtimes:</b>
                 @using (Html.BeginForm())
                 {
+                    int count = 0;
                     if (item.Showings.Count() == 0)
                     {
                         <span>None this week!</span>
@@ -96,6 +97,11 @@
                     {
                         @foreach (Showing showing in item.Showings)
                         {
+                            if (showing.StartDateTime < DateTime.Now)
+                            {
+                                continue;
+                            }
+
                             @if (User.Identity.IsAuthenticated)
                             {
                                 @if (User.IsInRole("Customer"))
@@ -106,11 +112,17 @@
                                 {
                                     @Html.ActionLink(showing.StartDateTime.ToString("MM/dd hh:mm tt"), "CreateFor", "Tickets", new { showingID = showing.ShowingID }) <span>|| </span>
                                 }
+                                count += 1;
                             }
                             else
                             {
                                 @(showing.StartDateTime.ToString("MM/dd hh:mm tt")) <span>|| </span>
+                                count += 1;
                             }
+                        }
+                        if (count == 0)
+                        {
+                            <span>None this week!</span>
                         }
                     }
                 }

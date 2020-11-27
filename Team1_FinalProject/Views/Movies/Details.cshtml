@@ -23,10 +23,17 @@
             @Html.DisplayFor(model => model.Title)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Genre)
+            Movie Rating
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Genre.GenreName)
+            @if (@Model.AverageRating == null)
+            {
+                <span>No ratings.</span>
+            }
+            else
+            {
+        <a asp-action="ReviewsIndex" asp-controller="MovieReviews" asp-route-id="@Model.MovieID">@Html.DisplayFor(model => model.AverageRating)/5</a>
+            }
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Genre)
@@ -86,7 +93,11 @@
         </tr>
     }
     @foreach (Showing s in Model.Showings)
-    {
+    {   
+        if (s.StartDateTime < DateTime.Now)
+        {
+            continue;
+        }
         <tr>
             <td>@(s.StartDateTime.ToString("MM/dd"))</td>
             <td>@(s.StartDateTime.ToString("hh:mm tt"))<span>-</span>@(s.EndDateTime.ToString("hh:mm tt"))</td>
