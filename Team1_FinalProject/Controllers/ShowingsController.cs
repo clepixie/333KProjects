@@ -200,9 +200,9 @@ namespace Team1_FinalProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ShowingID,StartDateTime,Room,SpecialEvent")] Showing showing, int SelectedMovie)
         {
-            if (id != showing.ShowingID)
+            if (ModelState.IsValid == false)
             {
-                return NotFound();
+                return View(showing);
             }
 
             if (ModelState.IsValid)

@@ -225,6 +225,10 @@ namespace Team1_FinalProject.Controllers
         public IActionResult Create(Int32 showingID, int? orderID)
         {
             Showing showing = _context.Showings.Find(showingID);
+            if (showing.StartDateTime < DateTime.Now)
+            {
+                return View("Error", new String[] { "This showing has already began!" });
+            }
 
             ViewBag.AllSeats = GetAvailableSeats(showing);
 
@@ -422,6 +426,17 @@ namespace Team1_FinalProject.Controllers
 
             Ticket currticket = _context.Tickets.Include(t => t.Showing).ThenInclude(t => t.Movie).Include(t => t.Order).Include(t => t.Showing).ThenInclude(t => t.Price).FirstOrDefault(t => t.TicketID == id);
             Showing showing = currticket.Showing;
+
+            if (showing.StartDateTime < DateTime.Now)
+            {
+                return View("Error", new String[] { "This showing has already began!" });
+            }
+
+            if (currticket.Order.OrderHistory == OrderHistory.Cancelled || currticket.Order.OrderHistory == OrderHistory.Past)
+            {
+                return View("Error", new String[] { "The order this ticket was on was already finalized or cancelled, and thus cannot be edited." });
+            }
+
             ViewBag.AllSeats = GetAvailableSeatsEdit(showing);
 
             if (ViewBag.AllSeats == null)
