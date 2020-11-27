@@ -150,6 +150,40 @@ namespace Team1_FinalProject.Controllers
             return RedirectToAction("Create", "Tickets", new { showingID = cfvm.SelectShowingID, orderID = current_order.OrderID });
         }
 
+        private SelectList GetAvailableSeatsEdit(Showing showing)
+        {
+            List<TicketViewModel> temptickets = new List<TicketViewModel>();
+            List<string> allSeats = new List<string> { "A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5", "C1", "C2", "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5" };
+            List<int> allSeatsID = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 };
+            int idx = 0;
+
+            foreach (string seat in allSeats)
+            {
+                TicketViewModel tempticket = new TicketViewModel();
+                tempticket.SelectSeatID = allSeatsID[idx];
+                tempticket.SelectSeatNumber = allSeats[idx];
+                temptickets.Add(tempticket);
+                idx += 1;
+            }
+
+            List<Ticket> tickets = _context.Tickets.Include(t => t.Showing).ToList();
+            foreach (Ticket ticket in tickets)
+            {
+                if (ticket.Showing.ShowingID == showing.ShowingID)
+                {
+                    temptickets.RemoveAll(t => t.SelectSeatNumber == ticket.SeatNumber);
+                }
+            }
+
+            if (temptickets.Count() == 0)
+            {
+                return null;
+            }
+
+            SelectList slAllTickets = new SelectList(temptickets, "SelectSeatID", "SelectSeatNumber");
+
+            return slAllTickets;
+        }
         private MultiSelectList GetAvailableSeats(Showing showing)
         {
             List<TicketViewModel> temptickets = new List<TicketViewModel>();
@@ -378,26 +412,49 @@ namespace Team1_FinalProject.Controllers
             }
         }
         
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return View("Error", new String[] { "You must choose which ticket you want to edit on your current order! (try going to your shopping cart)" });
+            }
 
+            Ticket currticket = _context.Tickets.Include(t => t.Showing).ThenInclude(t => t.Movie).Include(t => t.Order).Include(t => t.Showing).ThenInclude(t => t.Price).FirstOrDefault(t => t.TicketID == id);
+            Showing showing = currticket.Showing;
+            ViewBag.AllSeats = GetAvailableSeatsEdit(showing);
+
+            if (ViewBag.AllSeats == null)
+            {
+                return View("Error", new String[] { "This showing no longer has no other available seats!" });
+            }
+
+            return View(currticket);           
+        }
         // POST: Tickets/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TicketID,SeatNumber")] Ticket ticket)
+        public async Task<IActionResult> Edit([Bind("TicketID")] Ticket ticket, int SelectedSeat)
         {
-            if (id != ticket.TicketID)
+            if (ModelState.IsValid == false)
             {
-                return NotFound();
+                return View(ticket);
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(ticket);
+                    Ticket currticket = _context.Tickets.Include(t => t.Showing).ThenInclude(t => t.Movie).Include(t => t.Order).Include(t => t.Showing).ThenInclude(t => t.Price).FirstOrDefault(t => t.TicketID == ticket.TicketID);
+                    List<string> allSeats = new List<string> { "A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5", "C1", "C2", "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5" };
+                    currticket.SeatNumber = allSeats[SelectedSeat];
+
+                    _context.Update(currticket);
                     await _context.SaveChangesAsync();
                 }
+
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!TicketExists(ticket.TicketID))
@@ -409,7 +466,8 @@ namespace Team1_FinalProject.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction("Checkout", "Orders");
             }
             return View(ticket);
         }
