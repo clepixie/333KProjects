@@ -137,6 +137,7 @@ namespace Team1_FinalProject.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-        
+        public string SelectCustomerName { get; internal set; }
+        public int SelectedCustomerID { get; internal set; }
     }
 }

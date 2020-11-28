@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 //TODO: Change this using statement to match your project
 using Team1_FinalProject.DAL;
@@ -151,6 +154,94 @@ namespace Team1_FinalProject.Controllers
 
             //send data to the view
             return View(ivm);
+        }
+
+        private async Task<SelectList> GetAllUsers()
+        {
+            //Get the list of users from the database
+            List<CreateForViewModel> customerList = new List<CreateForViewModel>();
+            List<Int32> customerIDList = new List<Int32>();
+            Int32 count = 0;
+            foreach (AppUser user in _userManager.Users)
+            {
+                if (await _userManager.IsInRoleAsync(user, "Customer") == true) //user is in the role
+                {
+                    //add user to list of members
+                    CreateForViewModel newcus = new CreateForViewModel();
+                    newcus.SelectCustomerName = user.Email;
+                    newcus.SelectCustomerID = count;
+                    customerIDList.Add(count);
+                    customerList.Add(newcus);
+                    count += 1;
+                }
+            }
+
+            //convert the list to a SelectList by calling SelectList constructor
+            //MonthID and MonthName are the names of the properties on the Month class
+            //MonthID is the primary key
+            SelectList customerSelectList = new SelectList(customerList, "SelectCustomerID", "SelectCustomerName");
+
+            //return the electList
+            return customerSelectList;
+        }
+
+        [Authorize(Roles = "Employee")]
+        [HttpGet]
+        public async Task<IActionResult> Edit(Int32 customerID)
+        {
+            ViewBag.AllCustomers = await GetAllUsers();
+            EditProfileViewModel epvm = new EditProfileViewModel();
+            epvm.SelectedCustomerID = customerID;
+            return View(epvm);
+        }
+
+        [Authorize(Roles = "Employee")]
+        [HttpPost]
+        public async Task<IActionResult> EditAsync([Bind("SelectedCustomerID")] EditProfileViewModel epvm)
+        {
+            List<EditProfileViewModel> customerList = new List<EditProfileViewModel>();
+
+            foreach (AppUser edituser in _userManager.Users)
+            {
+                if (await _userManager.IsInRoleAsync(edituser, "Customer") == true) //user is in the role
+                {
+                    //add user to list of members
+                    EditProfileViewModel editcus = new EditProfileViewModel();
+                    editcus.SelectCustomerName = edituser.Email;
+                    customerList.Add(editcus);
+                }
+            }
+            // find the orders that match the user selected; we have to first a) get the int idx selected b) map that idx to the Email in customerList
+            // c) match that to the Emails of Customers
+
+            // finds the user that matches the selected ID
+            AppUser customer = _userManager.Users.Where(u => u.Email == customerList[epvm.SelectedCustomerID].SelectCustomerName).First();
+            // get list of orders belonging to that user
+            List<Order> orders = _context.Orders.Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Movie)
+                                        .Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Price).Where(o => o.Customer.UserName == customer.Email).ToList();
+            
+            // get user info
+            String id = User.Identity.Name;
+            AppUser user = _context.Users.FirstOrDefault(u => u.UserName == id);
+            ViewBag.UserInfo = user;
+
+            // add a drop down for customers so they can pick who to edit
+
+            // set info equal to what the employee edits it as
+            epvm.PhoneNumber = user.PhoneNumber;
+            epvm.Address = user.Address;
+            epvm.Birthdate = user.Birthdate;
+            // not sure if this password stuff is right though
+            epvm.Password = user.PasswordHash;
+            epvm.ConfirmPassword = user.PasswordHash;
+
+            // send data to the view
+            return View(epvm);
+
         }
 
 
