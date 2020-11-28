@@ -296,6 +296,11 @@ namespace Team1_FinalProject.Controllers
                 return View("Error", new String[] { "If you want to checkout as a gift, make sure to check next to Gift Order!" });
             }
 
+            if (order.GiftOrder == true && order.GiftEmail == null)
+            {
+                return View("Error", new String[] { "If you want to checkout as a gift, make sure to enter the Gift Recipient's email!" });
+            }
+
             else
             {
                 currorder.GiftEmail = order.GiftEmail;
