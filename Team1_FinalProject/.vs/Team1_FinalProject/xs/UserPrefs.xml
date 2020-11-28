@@ -1,34 +1,39 @@
 ﻿<Properties StartupConfiguration="{5BEA845B-2AA8-4BCB-A0C3-D8FEF9946679}|Default">
   <MonoDevelop.Ide.ItemProperties.Team1__FinalProject PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Home/Index.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Shared/_Layout.cshtml">
     <Files>
       <File FileName="Controllers/TicketsController.cs" Line="421" Column="42" />
       <File FileName="Controllers/OrdersController.cs" Line="85" Column="97" />
-      <File FileName="Controllers/MovieReviewsController.cs" Line="232" Column="109" />
-      <File FileName="Models/MovieReview.cs" Line="1" Column="1" />
-      <File FileName="Views/MovieReviews/Details.cshtml" Line="26" Column="56" />
-      <File FileName="Views/MovieReviews/Index.cshtml" Line="42" Column="35" />
-      <File FileName="Views/Home/Index.cshtml" Line="1" Column="1" />
+      <File FileName="Controllers/MovieReviewsController.cs" Line="54" Column="1" />
+      <File FileName="Views/MovieReviews/Details.cshtml" Line="1" Column="45" />
+      <File FileName="Views/MovieReviews/Create.cshtml" Line="15" Column="30" />
+      <File FileName="Views/MovieReviews/Edit.cshtml" Line="7" Column="4" />
+      <File FileName="Views/MovieReviews/Index.cshtml" Line="34" Column="17" />
+      <File FileName="Views/MovieReviews/ReviewsIndex.cshtml" Line="1" Column="1" />
+      <File FileName="Views/Shared/_Layout.cshtml" Line="37" Column="101" />
+      <File FileName="Views/Movies/Details.cshtml" Line="7" Column="44" />
+      <File FileName="Views/Movies/Index.cshtml" Line="7" Column="19" />
+      <File FileName="Views/Showings/Index.cshtml" Line="7" Column="23" />
+      <File FileName="Views/Orders/Index.cshtml" Line="7" Column="8" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Team1_FinalProject" expanded="True">
             <Node name="Team1_FinalProject" expanded="True">
-              <Node name="Controllers" expanded="True" />
-              <Node name="DAL" expanded="True" />
-              <Node name="Models" expanded="True">
-                <Node name="ViewModels" expanded="True" />
-              </Node>
               <Node name="Views" expanded="True">
                 <Node name="Account" expanded="True" />
-                <Node name="Home" expanded="True">
-                  <Node name="Index.cshtml" selected="True" />
-                </Node>
+                <Node name="Home" expanded="True" />
                 <Node name="MovieReviews" expanded="True" />
                 <Node name="Movies" expanded="True" />
+                <Node name="Orders" expanded="True" />
+                <Node name="Shared" expanded="True">
+                  <Node name="_Layout.cshtml" selected="True" />
+                </Node>
+                <Node name="Showings" expanded="True" />
                 <Node name="Tickets" expanded="True" />
               </Node>
+              <Node name="appsettings.json" expanded="True" />
             </Node>
           </Node>
         </State>
