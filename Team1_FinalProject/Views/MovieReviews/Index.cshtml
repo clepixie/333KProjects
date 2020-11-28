@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Movie Reviews</h1>
+<h1>My Movie Reviews</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -12,6 +12,9 @@
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Movie.Title)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.MovieRating)
             </th>
@@ -28,6 +31,9 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Movie.Title)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.MovieRating)/5
             </td>
             <td>
@@ -36,18 +42,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
-            @if (User.Identity.IsAuthenticated)
-            {
-                @*@if (User.Identity. == @item.User.Email)*@
-                {
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.MovieReviewID">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.MovieReviewID">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.MovieReviewID">Delete</a>
-                    </td>
-                }
-            }
-            
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MovieReviewID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MovieReviewID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MovieReviewID">Delete</a>
+            </td>
         </tr>
 }
     </tbody>
