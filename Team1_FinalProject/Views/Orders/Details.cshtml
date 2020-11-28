@@ -4,10 +4,9 @@
     ViewData["Title"] = "Order Details";
 }
 
-<h5>Order Details</h5>
+<h4>Order Details</h4>
 <div>
 
-<h4> Order </h4>
 <hr />
 <dl class="row">
     <dt class="col-sm-2">
@@ -35,15 +34,14 @@
 <tr>
     <th>Movie Title</th>
     <th>Ticket Price</th>
-    <th>Quantity</th>
+    <th>Seat Number</th>
 </tr>
 @foreach (Ticket t in Model.Tickets)
 {
     <tr>
         <td>@Html.DisplayFor(ModelItem => t.Showing.Movie.Title)</td>
-        <td>@Html.DisplayFor(ModelItem => t.Showing.Price)</td>
+        <td>@Html.DisplayFor(ModelItem => t.Showing.Price.PriceValue)</td>
         <td>@Html.DisplayFor(ModelItem => t.SeatNumber)</td>
-        <td>@Html.DisplayFor(ModelItem => t.Showing.TicketCount)</td>
     </tr>
 }
 </table>
@@ -52,6 +50,10 @@
 <table class="table table-sm table-bordered" style="width:30%">
 <tr>
     <th colspan="2" style="text-align:center">Order Summary</th>
+</tr>
+<tr>
+    <td>Tickets Ordered:</td>
+    <td>@ViewBag.ticketcounter</td>
 </tr>
 <tr>
     <td>Order Subtotal:</td>

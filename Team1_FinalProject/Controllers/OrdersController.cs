@@ -61,16 +61,26 @@ namespace Team1_FinalProject.Controllers
             }
 
             Order order = _context.Orders
-            .Include(ord => ord.Tickets)
-            .ThenInclude(ord => ord.Showing)
-            .Include(ord => ord.Customer)
-            .FirstOrDefault(o => o.OrderID == id);
+                .Include(o => o.Tickets)
+                .ThenInclude(o => o.Showing)
+                .ThenInclude(o => o.Movie)
+                .Include(o => o.Tickets)
+                .ThenInclude(o => o.Showing)
+                .ThenInclude(o => o.Price)
+                .Include(o => o.Customer)
+                .FirstOrDefault(o => o.OrderID == id);
 
             if (order == null)
             {
                 return NotFound();
             }
 
+            int ticketcount = 0;
+            foreach (Ticket ticket in order.Tickets)
+            {
+                ticketcount += 1;
+            }
+            ViewBag.ticketcounter = ticketcount;
             //make sure a customer isn't trying to look at someone else's order
             if (User.IsInRole("Admin") == false && order.Customer.UserName != User.Identity.Name)
             {
@@ -156,6 +166,7 @@ namespace Team1_FinalProject.Controllers
         }
 
         // GET: Orders/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
