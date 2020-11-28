@@ -13,8 +13,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="MovieReviewID" />
             <div class="form-group">
-                <label asp-for="MovieRating" class="control-label"></label>
-                <input asp-for="MovieRating" class="form-control" />
+                <label asp-for="MovieRating" class="control-label"></label><br />
+                <input type="radio" class="right" asp-for="MovieRating" value="1" /> 1
+                <input type="radio" class="radio" asp-for="MovieRating" value="2" /> 2
+                <input type="radio" class="radio" asp-for="MovieRating" value="3" /> 3
+                <input type="radio" class="radio" asp-for="MovieRating" value="4" /> 4
+                <input type="radio" class="radio" asp-for="MovieRating" value="5" /> 5
                 <span asp-validation-for="MovieRating" class="text-danger"></span>
             </div>
             <div class="form-group">
