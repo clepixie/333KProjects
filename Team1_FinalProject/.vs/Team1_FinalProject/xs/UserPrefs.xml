@@ -1,6 +1,6 @@
 ﻿<Properties StartupConfiguration="{5BEA845B-2AA8-4BCB-A0C3-D8FEF9946679}|Default">
   <MonoDevelop.Ide.ItemProperties.Team1__FinalProject PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Shared/_Layout.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Tickets/Edit.cshtml">
     <Files>
       <File FileName="Controllers/TicketsController.cs" Line="421" Column="42" />
       <File FileName="Controllers/OrdersController.cs" Line="85" Column="97" />
@@ -10,11 +10,12 @@
       <File FileName="Views/MovieReviews/Edit.cshtml" Line="7" Column="4" />
       <File FileName="Views/MovieReviews/Index.cshtml" Line="34" Column="17" />
       <File FileName="Views/MovieReviews/ReviewsIndex.cshtml" Line="1" Column="1" />
-      <File FileName="Views/Shared/_Layout.cshtml" Line="37" Column="101" />
+      <File FileName="Views/Shared/_Layout.cshtml" Line="40" Column="95" />
       <File FileName="Views/Movies/Details.cshtml" Line="7" Column="44" />
       <File FileName="Views/Movies/Index.cshtml" Line="7" Column="19" />
       <File FileName="Views/Showings/Index.cshtml" Line="7" Column="23" />
       <File FileName="Views/Orders/Index.cshtml" Line="7" Column="8" />
+      <File FileName="Views/Tickets/Edit.cshtml" Line="7" Column="87" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -27,11 +28,11 @@
                 <Node name="MovieReviews" expanded="True" />
                 <Node name="Movies" expanded="True" />
                 <Node name="Orders" expanded="True" />
-                <Node name="Shared" expanded="True">
-                  <Node name="_Layout.cshtml" selected="True" />
-                </Node>
+                <Node name="Shared" expanded="True" />
                 <Node name="Showings" expanded="True" />
-                <Node name="Tickets" expanded="True" />
+                <Node name="Tickets" expanded="True">
+                  <Node name="Edit.cshtml" selected="True" />
+                </Node>
               </Node>
               <Node name="appsettings.json" expanded="True" />
             </Node>
