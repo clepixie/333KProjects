@@ -161,6 +161,10 @@ namespace Team1_FinalProject.Controllers
             {
                 return View("Error", new String[] { "This movie review was not found. Try creating a review instead!" });
             }
+            if (movieReview.User != _userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name) || User.IsInRole("Customer"))
+            {
+                return View("Error", new String[] { "You cannot edit a movie review that does not belong to you!" });
+            }
             return View(movieReview);
         }
 
@@ -223,7 +227,11 @@ namespace Team1_FinalProject.Controllers
                 .FirstOrDefaultAsync(m => m.MovieReviewID == id);
             if (movieReview == null)
             {
-                return NotFound();
+                return View("Error", new String[] { "This movie review was not found. Try creating a review instead!" });
+            }
+            if (movieReview.User != _userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name) || User.IsInRole("Customer"))
+            {
+                return View("Error", new String[] { "You cannot delete a movie review that does not belong to you!" });
             }
 
             return View(movieReview);
