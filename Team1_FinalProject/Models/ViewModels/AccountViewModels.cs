@@ -112,22 +112,19 @@ namespace Team1_FinalProject.Models
     public class EditProfileViewModel
     {
         //NOTE: Here is the property for phone number
-        [Required(ErrorMessage = "Phone number is required")]
         [Phone]
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
 
-        [Required(ErrorMessage = "Birthdate is required.")]
+
         [Display(Name = "Birthdate")]
         [DataType(DataType.Date)]
         public DateTime Birthdate { get; set; }
 
-        [Required(ErrorMessage = "Address is required.")]
         [Display(Name = "Address")]
         public String Address { get; set; }
 
         //NOTE: Here is the logic for putting in a password
-        [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
