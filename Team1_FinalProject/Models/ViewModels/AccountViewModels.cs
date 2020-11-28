@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 //TODO: Change this namespace to match your project
 namespace Team1_FinalProject.Models
@@ -105,5 +106,37 @@ namespace Team1_FinalProject.Models
         public String UserName { get; set; }
         public String Email { get; set; }
         public String UserID { get; set; }
+    }
+
+    [Authorize(Roles = "Employee")]
+    public class EditProfileViewModel
+    {
+        //NOTE: Here is the property for phone number
+        [Required(ErrorMessage = "Phone number is required")]
+        [Phone]
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "Birthdate is required.")]
+        [Display(Name = "Birthdate")]
+        [DataType(DataType.Date)]
+        public DateTime Birthdate { get; set; }
+
+        [Required(ErrorMessage = "Address is required.")]
+        [Display(Name = "Address")]
+        public String Address { get; set; }
+
+        //NOTE: Here is the logic for putting in a password
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+        
     }
 }
