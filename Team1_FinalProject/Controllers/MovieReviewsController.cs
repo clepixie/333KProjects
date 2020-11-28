@@ -69,10 +69,10 @@ namespace Team1_FinalProject.Controllers
             {
                 return View("Error", new String[] { "No movie review exists for this ID yet!" });
             }
-
-            if(movieReview.User != _userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name) || User.IsInRole("Customer"))
+            
+            if (movieReview.User != _userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name) && movieReview.Status != MRStatus.Accepted)
             {
-                return View("Error", new String[] { "You cannot see the details of a movie review that does not belong to you!" });
+                return View("Error", new String[] { "You cannot see the details of this nonpublic review." });
             }
             return View(movieReview);
         }
@@ -123,7 +123,7 @@ namespace Team1_FinalProject.Controllers
                 {
                     if (review.Movie.MovieID == SelectedMovieID)
                     {
-                        return RedirectToAction("Edit", "MovieReviews", new { id = SelectedMovieID });
+                        return RedirectToAction("Edit", "MovieReviews", new { id = review.MovieReviewID });
                     }
                 }
             }
@@ -161,7 +161,9 @@ namespace Team1_FinalProject.Controllers
             {
                 return View("Error", new String[] { "This movie review was not found. Try creating a review instead!" });
             }
-            if (movieReview.User != _userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name) || User.IsInRole("Customer"))
+
+            AppUser curruser = _userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            if (movieReview.User != _userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name) && User.IsInRole("Customer"))
             {
                 return View("Error", new String[] { "You cannot edit a movie review that does not belong to you!" });
             }
