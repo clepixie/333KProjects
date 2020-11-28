@@ -290,6 +290,7 @@ namespace Team1_FinalProject.Controllers
             .ThenInclude(o => o.Movie).Include(o => o.Tickets).ThenInclude(o => o.Showing)
             .ThenInclude(o => o.Price).Include(o => o.Customer).FirstOrDefault(o => o.OrderID == order.OrderID);
             ViewBag.Discount = "N/A";
+
             if (order.GiftOrder == false && order.GiftEmail != null)
             {
                 return View("Error", new String[] { "If you want to checkout as a gift, make sure to check next to Gift Order!" });
@@ -298,6 +299,7 @@ namespace Team1_FinalProject.Controllers
             else
             {
                 currorder.GiftEmail = order.GiftEmail;
+                currorder.GiftOrder = order.GiftOrder;
             }
 
             if ((DateTime.Now.Date - currorder.Customer.Birthdate).TotalDays >= 21900)
@@ -376,7 +378,7 @@ namespace Team1_FinalProject.Controllers
 
             if (pastorder.GiftEmail != null)
             {
-                Utilities.EmailMessaging.SendEmail(order.GiftEmail, "Ticket Purchase Confirmation", "Your friend " + pastorder.Customer.FirstName + " " + pastorder.Customer.LastName + " " + "bought you some tickets! You order number is: " + order.OrderNumber);
+                Utilities.EmailMessaging.SendEmail(pastorder.GiftEmail, "Ticket Purchase Confirmation", "Your friend " + pastorder.Customer.FirstName + " " + pastorder.Customer.LastName + " " + "bought you some tickets! You order number is: " + order.OrderNumber);
             }
 
             else

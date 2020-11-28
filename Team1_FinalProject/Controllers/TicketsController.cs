@@ -221,6 +221,7 @@ namespace Team1_FinalProject.Controllers
         }
 
         // GET: Tickets/Create
+        [Authorize]
         [HttpGet]
         public IActionResult Create(Int32 showingID, int? orderID)
         {
@@ -513,7 +514,7 @@ namespace Team1_FinalProject.Controllers
             var ticket = await _context.Tickets.FindAsync(id);
             _context.Tickets.Remove(ticket);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Checkout", "Orders");
         }
 
         private bool TicketExists(int id)
