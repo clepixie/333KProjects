@@ -54,6 +54,7 @@ namespace Team1_FinalProject.Seeding
 				}
 
 				showing.Price = price;
+				showing.Status = SStatus.Published;
 
 				db.Update(showing);
 				db.SaveChanges();

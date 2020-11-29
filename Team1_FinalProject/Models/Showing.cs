@@ -6,13 +6,19 @@ using System.Linq;
 
 namespace Team1_FinalProject.Models
 {
-        
+
     // in the controller, we will need to add spaces like below:
     // switch (employee):
     // {
     //   case 1: return "Theater 1";
     //   // same for the rest
     // }
+    public enum SStatus
+    {
+        Pending,
+        Published
+    }
+
     public class Showing
     {
         public Int32 ShowingID { get; set; }
@@ -36,7 +42,7 @@ namespace Team1_FinalProject.Models
         public List<Ticket> Tickets { get; set; }
         [Display(Name = "Price")]
         public Price Price { get; set; }
-
+        public SStatus Status { get; set; }
         [Display(Name = "Tickets Available")]
         public int TicketCount
         {

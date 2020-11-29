@@ -18,7 +18,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="StartDateTime" class="control-label"></label>
-                <input asp-for="StartDateTime" class="form-control" />
+                @Html.DropDownList("SelectedDate", (MultiSelectList)ViewBag.NextWeekDays, new { @class = "form-control" })
+                <span asp-validation-for="StartDateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDateTime" class="control-label"></label>
+                <input type="time" asp-for="StartDateTime" class="form-control" />
                 <span asp-validation-for="StartDateTime" class="text-danger"></span>
             </div>
             <div class="form-group">

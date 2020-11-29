@@ -25,7 +25,7 @@
         @if (Model.Count() == 0)
         {
             <tr>
-                <td colspan="4">None this week!</td>
+                <td colspan="4">None today!</td>
             </tr>
         }
         @foreach (Showing s in Model)
@@ -48,6 +48,7 @@
                             <td><a asp-action="CreateFor" asp-controller="Tickets" asp-route-showingID="@s.ShowingID" class="btn btn-primary">Purchase Tickets for a Customer</a></td>
                         }
                     }
+
                     else
                     {
                         <td><span>Showing ended today.</span></td>
