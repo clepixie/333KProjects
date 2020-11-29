@@ -154,6 +154,7 @@ namespace Team1_FinalProject.Controllers
         // GET: Movies/Create
         public IActionResult Create()
         {
+            ViewBag.AllGenres = GetAllGenres();
             return View();
         }
 
@@ -162,15 +163,36 @@ namespace Team1_FinalProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MovieID,Title,MovieLength,Description,MPAA,Actors,Runtime,AverageRating")] Movie movie)
+        public async Task<IActionResult> Create([Bind("MovieID,Title,Description,MPAA,Actors,Runtime,Tagline")] Movie movie, int SelectedGenre, string NewGenreName)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid == false)
             {
-                _context.Add(movie);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ViewBag.AllGenres = GetAllGenres();
+                return View();
             }
-            return View(movie);
+
+            if (SelectedGenre == 0 && NewGenreName != null)
+            {
+                Genre newgenre = new Genre();
+                newgenre.GenreName = NewGenreName;
+                _context.Genres.Add(newgenre);
+                await _context.SaveChangesAsync();
+                movie.Genre = newgenre;
+            }
+
+            if (SelectedGenre != 0 && NewGenreName == null)
+            {
+                movie.Genre = _context.Genres.Find(SelectedGenre);
+            }
+
+            if (SelectedGenre != 0 && NewGenreName != null)
+            {
+                return View("Error", new string[] { "Make sure to select N/A if you would like to make a new genre!" });
+            }
+
+            _context.Add(movie);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Movies/Edit/5
@@ -261,7 +283,7 @@ namespace Team1_FinalProject.Controllers
         {
             List<Genre> genreList = _context.Genres.ToList();
 
-            Genre SelectNone = new Genre() { GenreID = 0, GenreName = "All Genres" };
+            Genre SelectNone = new Genre() { GenreID = 0, GenreName = "N/A" };
             genreList.Add(SelectNone);
 
             SelectList genreSelectList = new SelectList(genreList.OrderBy(m => m.GenreID), "GenreID", "GenreName");
