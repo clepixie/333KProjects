@@ -4,6 +4,24 @@
     ViewData["Title"] = "Edit";
 }
 
+<style>
+    input[type="radio"] {
+        position: relative;
+        left: 3px;
+        margin-left: 20px;
+    }
+
+    input[type="checkbox"] {
+        position: relative;
+    }
+
+    label[type="cblabel"] {
+        position: relative;
+        right: 16px;
+    }
+</style>
+
+
 <h1>Edit the Showing for @Model.Movie.Title at @Model.StartDateTime</h1>
 
 <h4>Showing</h4>
@@ -82,7 +100,7 @@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
-</form>
+        </form>
     </div>
 </div>
 
