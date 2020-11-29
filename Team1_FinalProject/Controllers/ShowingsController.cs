@@ -375,7 +375,7 @@ namespace Team1_FinalProject.Controllers
             return View("Index");
         }
         // GET: Showings/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -383,12 +383,12 @@ namespace Team1_FinalProject.Controllers
             }
 
             ViewBag.AllMovies = GetAllMovies();
-            Showing showing = await _context.Showings
+            Showing showing = _context.Showings
                                               .Include(o => o.Price)
                                               .Include(o => o.Movie)
                                               .ThenInclude(o => o.Genre)
                                               .Include(m => m.Tickets)
-                                              .FirstOrDefaultAsync(m => m.ShowingID == id);
+                                              .FirstOrDefault(m => m.ShowingID == id);
             if (showing == null)
             {
                 return NotFound();
@@ -402,6 +402,7 @@ namespace Team1_FinalProject.Controllers
             {
                 return NotFound();
             }
+
             ViewBag.NextWeekDays = GetAllDays();
             ViewBag.AllMovies = GetAllMovies();
             Showing showing = _context.Showings
@@ -426,6 +427,7 @@ namespace Team1_FinalProject.Controllers
         {
             if (ModelState.IsValid == false)
             {
+                ViewBag.AllMovies = GetAllMovies();
                 return View(showing);
             }
 
@@ -433,6 +435,34 @@ namespace Team1_FinalProject.Controllers
             {
                 try
                 {
+                    List<Showing> todayshowing = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).OrderBy(s => s.StartDateTime).ToList();
+
+                    foreach (Showing s in todayshowing)
+                    {
+                        if (showing.Room == s.Room && (((showing.EndDateTime - s.StartDateTime).TotalMinutes < 25 && (showing.EndDateTime - s.StartDateTime).TotalMinutes > 0) || ((s.EndDateTime - showing.StartDateTime).TotalMinutes < 25 && (s.EndDateTime - showing.StartDateTime).TotalMinutes > 0)))
+                        {
+                            ModelState.AddModelError(string.Empty, "You cannot add this showing because it starts or ends within 25  minutes with another showing: " + s.StartDateTime + " " + s.EndDateTime + " and " + showing.StartDateTime + " " + showing.EndDateTime);
+                            ViewBag.AllMovies = GetAllMovies();
+                            return View(showing);
+                            /*return View("Error", new String[] { "You cannot add this showing because it is too close with the existing showing:\n" + s.StartDateTime + " " + s.EndDateTime + "\n" + showing.StartDateTime + " " + showing.EndDateTime });*/
+                        }
+
+                        if (showing.StartDateTime == s.StartDateTime && s.Movie.Title == showing.Movie.Title && s.Room != showing.Room)
+                        {
+                            ModelState.AddModelError(string.Empty, "You cannot schedule " + showing.Movie.Title + " at the same time in both Theaters on " + showing.StartDateTime + ".");
+                            ViewBag.AllMovies = GetAllMovies();
+                            return View(showing);
+                        }
+
+                        if (showing.Room == s.Room && ((s.EndDateTime - showing.StartDateTime).TotalMinutes > 45) || ((showing.EndDateTime - s.StartDateTime).TotalMinutes > 45))
+                        {
+                            ModelState.AddModelError(string.Empty, "There are more than 45 minutes between " + s.StartDateTime.TimeOfDay + " and " + showing.StartDateTime.TimeOfDay + "on" + showing.StartDateTime.Date + ".");
+                            ViewBag.AllMovies = GetAllMovies();
+                            return View(showing);
+                            /*return View("Error", new String[] { "There are more than 45 minutes between " + showing.StartDateTime.TimeOfDay + " and " + todayshowing[idx + 1].StartDateTime.TimeOfDay + "on" + showing.StartDateTime.Date + "." });*/
+                        }
+                    }
+
                     showing.Movie = _context.Movies.Find(SelectedMovie);
                     showing.EndDateTime = showing.StartDateTime + TimeSpan.FromMinutes(showing.Movie.Runtime);
                     showing.Price = GetPrice(showing);
@@ -454,12 +484,13 @@ namespace Team1_FinalProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.AllMovies = GetAllMovies();
             return View(showing);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPending(int id, [Bind("ShowingID,StartDateTime,Room,SpecialEvent")] Showing showing, int SelectedMovie, int SelectedDate)
+        public IActionResult EditPending(int id, [Bind("ShowingID,StartDateTime,Room,SpecialEvent")] Showing showing, int SelectedMovie, int SelectedDate)
         {
             if (ModelState.IsValid == false)
             {
@@ -472,6 +503,7 @@ namespace Team1_FinalProject.Controllers
             {
                 try
                 {
+                    int showid = showing.ShowingID;
                     List<DateTime> nextweek = new List<DateTime>();
                     DateTime today = DateTime.Now.Date + showing.StartDateTime.TimeOfDay;
 
@@ -490,19 +522,58 @@ namespace Team1_FinalProject.Controllers
                     showing.Movie = _context.Movies.Find(SelectedMovie);
                     showing.EndDateTime = showing.StartDateTime + TimeSpan.FromMinutes(showing.Movie.Runtime);
                     showing.Price = GetPrice(showing);
+                    showing.Status = SStatus.Pending;
 
-                    List<Showing> todayshowing = _context.Showings.Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).OrderBy(s => s.StartDateTime).ToList();
+                    List<Showing> todayshowing = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).OrderBy(s => s.StartDateTime).ToList();
 
                     foreach (Showing s in todayshowing)
                     {
-                        if (((showing.EndDateTime - s.StartDateTime).TotalMinutes < 25 && (showing.EndDateTime - s.StartDateTime).TotalMinutes > 0) || ((s.EndDateTime - showing.StartDateTime).TotalMinutes < 25 && (s.EndDateTime - showing.StartDateTime).TotalMinutes > 0))
+                        if (showing.Room == s.Room && (((showing.EndDateTime - s.StartDateTime).TotalMinutes < 25 && (showing.EndDateTime - s.StartDateTime).TotalMinutes > 0) || ((s.EndDateTime - showing.StartDateTime).TotalMinutes < 25 && (s.EndDateTime - showing.StartDateTime).TotalMinutes > 0)))
                         {
-                            return View("Error", new String[] { "You cannot edit the time to this because it is too close with the existing showing:\n" + s.StartDateTime + " " + s.EndDateTime + "\n" + showing.StartDateTime + " " + showing.EndDateTime });
+                            ModelState.AddModelError(string.Empty, "You cannot add this showing because it starts or ends within 25  minutes with another showing: " + s.StartDateTime + " " + s.EndDateTime + " and " + showing.StartDateTime + " " + showing.EndDateTime);
+                            List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
+                            List<DateTime> nw = new List<DateTime>();
+                            DateTime td = DateTime.Now.Date;
+
+                            while (td.DayOfWeek != DayOfWeek.Friday)
+                            {
+                                td = td.AddDays(1);
+                            }
+
+                            foreach (int value in Enumerable.Range(1, 7))
+                            {
+                                nw.Add(td);
+                                td = td.AddDays(1);
+                            }
+                            ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
+                            return View("PendingIndex", pending);
+                            /*return View("Error", new String[] { "You cannot add this showing because it is too close with the existing showing:\n" + s.StartDateTime + " " + s.EndDateTime + "\n" + showing.StartDateTime + " " + showing.EndDateTime });*/
+                        }
+
+                        if (showing.StartDateTime == s.StartDateTime && s.Movie.Title == showing.Movie.Title && s.Room != showing.Room)
+                        {
+                            ModelState.AddModelError(string.Empty, "You cannot schedule " + showing.Movie.Title + " at the same time in both Theaters on " + showing.StartDateTime + ".");
+                            List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
+                            List<DateTime> nw = new List<DateTime>();
+                            DateTime td = DateTime.Now.Date;
+
+                            while (td.DayOfWeek != DayOfWeek.Friday)
+                            {
+                                td = td.AddDays(1);
+                            }
+
+                            foreach (int value in Enumerable.Range(1, 7))
+                            {
+                                nw.Add(td);
+                                td = td.AddDays(1);
+                            }
+                            ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
+                            return View("PendingIndex", pending);
                         }
                     }
 
-                    _context.Update(showing);
-                    await _context.SaveChangesAsync();
+                    _context.Showings.Update(showing);
+                    _context.SaveChanges();
                 }
 
                 catch (DbUpdateConcurrencyException)
@@ -518,6 +589,8 @@ namespace Team1_FinalProject.Controllers
                 }
                 return RedirectToAction("PendingIndex");
             }
+            ViewBag.NextWeekDays = GetAllDays();
+            ViewBag.AllMovies = GetAllMovies();
             return View(showing);
         }
 
