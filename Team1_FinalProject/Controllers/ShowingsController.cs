@@ -26,6 +26,26 @@ namespace Team1_FinalProject.Controllers
             for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
                 yield return day;
         }
+
+        public IActionResult PendingIndex()
+        {
+            List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
+            List<DateTime> nextweek = new List<DateTime>();
+            DateTime today = DateTime.Now.Date;
+
+            while (today.DayOfWeek != DayOfWeek.Friday)
+            {
+                today = today.AddDays(1);
+            }
+
+            foreach (int value in Enumerable.Range(1, 7))
+            {
+                nextweek.Add(today);
+                today = today.AddDays(1);
+            }
+            ViewBag.Week = nextweek[0].ToString("MM/dd/yyyy") + "-" + nextweek[6].ToString("MM/dd/yyyy");
+            return View(pending);
+        }
         // GET: Showings
         [AllowAnonymous]
         public IActionResult Index()
@@ -167,7 +187,7 @@ namespace Team1_FinalProject.Controllers
             List<DateTime> nextweek = new List<DateTime>();
             DateTime today = DateTime.Now.Date + showing.StartDateTime.TimeOfDay;
 
-            while (today.DayOfWeek != DayOfWeek.Sunday)
+            while (today.DayOfWeek != DayOfWeek.Friday)
             {
                 today = today.AddDays(1);
             }
@@ -214,10 +234,11 @@ namespace Team1_FinalProject.Controllers
                     days.Add(showing.StartDateTime.Date);
                 }
             }
-
+            string sdays = "";
+            foreach (DateTime day in days) { sdays += day.ToString("MM/dd/yyyy"); if (days.Count() > 1) { sdays += ", "; } }
             if (days.Count() != 7)
             {
-                return View("Error", new String[] { "Some days are missing from your pending schedule; you only have:\n" + days });
+                return View("Error", new String[] { "Some days are missing from your pending schedule; you only have:\n" + sdays });
             }
 
             while (startdate != enddate)
@@ -279,6 +300,27 @@ namespace Team1_FinalProject.Controllers
             return View(showing);
         }
 
+        public IActionResult EditPending(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            ViewBag.NextWeekDays = GetAllDays();
+            ViewBag.AllMovies = GetAllMovies();
+            Showing showing = _context.Showings
+                                              .Include(o => o.Price)
+                                              .Include(o => o.Movie)
+                                              .ThenInclude(o => o.Genre)
+                                              .Include(m => m.Tickets)
+                                              .FirstOrDefault(m => m.ShowingID == id);
+            if (showing == null)
+            {
+                return NotFound();
+            }
+            return View(showing);
+        }
+
         // POST: Showings/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -315,6 +357,70 @@ namespace Team1_FinalProject.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
+            }
+            return View(showing);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditPending(int id, [Bind("ShowingID,StartDateTime,Room,SpecialEvent")] Showing showing, int SelectedMovie, int SelectedDate)
+        {
+            if (ModelState.IsValid == false)
+            {
+                ViewBag.NextWeekDays = GetAllDays();
+                ViewBag.AllMovies = GetAllMovies();
+                return View(showing);
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    List<DateTime> nextweek = new List<DateTime>();
+                    DateTime today = DateTime.Now.Date + showing.StartDateTime.TimeOfDay;
+
+                    while (today.DayOfWeek != DayOfWeek.Friday)
+                    {
+                        today = today.AddDays(1);
+                    }
+
+                    foreach (int value in Enumerable.Range(1, 7))
+                    {
+                        nextweek.Add(today);
+                        today = today.AddDays(1);
+                    }
+
+                    showing.StartDateTime = nextweek[SelectedDate];
+                    showing.Movie = _context.Movies.Find(SelectedMovie);
+                    showing.EndDateTime = showing.StartDateTime + TimeSpan.FromMinutes(showing.Movie.Runtime);
+                    showing.Price = GetPrice(showing);
+
+                    List<Showing> todayshowing = _context.Showings.Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).OrderBy(s => s.StartDateTime).ToList();
+
+                    foreach (Showing s in todayshowing)
+                    {
+                        if (((showing.EndDateTime - s.StartDateTime).TotalMinutes < 25 && (showing.EndDateTime - s.StartDateTime).TotalMinutes > 0) || ((s.EndDateTime - showing.StartDateTime).TotalMinutes < 25 && (s.EndDateTime - showing.StartDateTime).TotalMinutes > 0))
+                        {
+                            return View("Error", new String[] { "You cannot edit the time to this because it is too close with the existing showing:\n" + s.StartDateTime + " " + s.EndDateTime + "\n" + showing.StartDateTime + " " + showing.EndDateTime });
+                        }
+                    }
+
+                    _context.Update(showing);
+                    await _context.SaveChangesAsync();
+                }
+
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ShowingExists(showing.ShowingID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("PendingIndex");
             }
             return View(showing);
         }
@@ -418,18 +524,19 @@ namespace Team1_FinalProject.Controllers
         private SelectList GetAllDays()
         {
             List<ScheduleViewModel> svm = new List<ScheduleViewModel>();
-            List<DateTime> nextweek = new List<DateTime>();
+            List<string> nextweek = new List<string>();
             List<int> ids = new List<int> { 0, 1, 2, 3, 4, 5, 6 };
             DateTime today = DateTime.Now.Date;
 
-            while(today.DayOfWeek != DayOfWeek.Sunday)
+            while(today.DayOfWeek != DayOfWeek.Friday)
             {
                 today = today.AddDays(1);
             }
 
             foreach (int value in Enumerable.Range(1, 7))
             {
-                nextweek.Add(today);
+                string stoday = today.ToString("MM/dd/yyyy");
+                nextweek.Add(stoday);
                 today = today.AddDays(1);
             }
 

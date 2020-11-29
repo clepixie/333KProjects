@@ -5,26 +5,36 @@
 }
 
 @{
+    List<List<Showing>> alldays = new List<List<Showing>>();
     List<Showing> sunday = Model.Where(m => m.StartDateTime.DayOfWeek == DayOfWeek.Sunday).ToList();
+    alldays.Add(sunday);
     List<Showing> monday = Model.Where(m => m.StartDateTime.DayOfWeek == DayOfWeek.Monday).ToList();
+    alldays.Add(monday);
     List<Showing> tuesday = Model.Where(m => m.StartDateTime.DayOfWeek == DayOfWeek.Tuesday).ToList();
+    alldays.Add(tuesday);
     List<Showing> wednesday = Model.Where(m => m.StartDateTime.DayOfWeek == DayOfWeek.Wednesday).ToList();
+    alldays.Add(wednesday);
     List<Showing> thursday = Model.Where(m => m.StartDateTime.DayOfWeek == DayOfWeek.Thursday).ToList();
+    alldays.Add(thursday);
     List<Showing> friday = Model.Where(m => m.StartDateTime.DayOfWeek == DayOfWeek.Friday).ToList();
+    alldays.Add(friday);
     List<Showing> saturday = Model.Where(m => m.StartDateTime.DayOfWeek == DayOfWeek.Saturday).ToList();
+    alldays.Add(saturday);
 }
-<h1>Pending Showings:</h1>
 
+<h1>Pending Showings:</h1>
+<h4>For the week of @ViewBag.Week</h4>
 <p>
     @if (User.Identity.IsAuthenticated)
     {
         @if (User.IsInRole("Manager"))
         {
             <a asp-action="Create">Create New</a> <span>|</span>
+            <a asp-action="Publish">Publish Movies</a>
         }
     }
 </p>
-@foreach (int value in Enumerable.Range(0, 6))
+@foreach (int value in new List<int> { 5, 6, 0, 1, 2, 3, 4 })
 {
     <h4>@((DayOfWeek)value)</h4>
     <table class="table">
@@ -51,7 +61,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (Showing item in sunday)
+            @foreach (Showing item in alldays[value])
             {
                 <tr>
                     <td>
@@ -76,7 +86,7 @@
                         {
                             @if (User.IsInRole("Manager"))
                             {
-                                <a asp-action="Edit" asp-route-id="@item.ShowingID">Edit</a> <span> | </span>;
+                                <a asp-action="EditPending" asp-route-id="@item.ShowingID">Edit</a> <span> | </span>;
                                 <a asp-action="Delete" asp-route-id="@item.ShowingID">Delete</a>
                             }
                         }

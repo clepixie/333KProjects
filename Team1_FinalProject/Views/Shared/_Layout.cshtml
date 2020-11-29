@@ -42,6 +42,9 @@
                         @if (User.IsInRole("Manager"))
                         {
                             <li>
+                                <a asp-controller="Showings" asp-action="PendingIndex" class="nav-link">Schedule Showings</a>
+                            </li>
+                            <li>
                                 <a asp-controller="RoleAdmin" asp-action="Index" class="nav-link">Manage Users</a>
                             </li>
                             <li>
