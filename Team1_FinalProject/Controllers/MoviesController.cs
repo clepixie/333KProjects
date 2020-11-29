@@ -163,7 +163,7 @@ namespace Team1_FinalProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MovieID,Title,Description,MPAA,Actors,Runtime,Tagline")] Movie movie, int SelectedGenre, string NewGenreName)
+        public IActionResult Create([Bind("MovieID,Title,ReleaseDate,Description,MPAA,Actors,Runtime,Tagline")] Movie movie, int SelectedGenre, string NewGenreName)
         {
             if (ModelState.IsValid == false)
             {
@@ -176,7 +176,7 @@ namespace Team1_FinalProject.Controllers
                 Genre newgenre = new Genre();
                 newgenre.GenreName = NewGenreName;
                 _context.Genres.Add(newgenre);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
                 movie.Genre = newgenre;
             }
 
@@ -190,8 +190,9 @@ namespace Team1_FinalProject.Controllers
                 return View("Error", new string[] { "Make sure to select N/A if you would like to make a new genre!" });
             }
 
-            _context.Add(movie);
-            await _context.SaveChangesAsync();
+            movie.MovieNumber = Utilities.GenerateMovieNumber.GetNextMovieNumber(_context);
+            _context.Movies.Add(movie);
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 
@@ -216,7 +217,7 @@ namespace Team1_FinalProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MovieID,Title,MovieLength,Description,MPAA,Actors,Runtime")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("MovieID,Title,ReleaseDate,MovieLength,Description,MPAA,Actors,Runtime")] Movie movie)
         {
             if (id != movie.MovieID)
             {

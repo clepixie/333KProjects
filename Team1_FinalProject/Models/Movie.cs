@@ -16,8 +16,8 @@ namespace Team1_FinalProject.Models
 		NC17
 	}
 
-    public class Movie
-    {
+	public class Movie
+	{
 
 		public Int32 MovieID { get; set; }
 		[Display(Name = "Movie #")]
@@ -33,6 +33,7 @@ namespace Team1_FinalProject.Models
 
 		[Display(Name = "Release Date")]
 		[DisplayFormat(DataFormatString = "{0:MM/dd/yyy}")]
+		[DataType(DataType.Date)]
 		public DateTime ReleaseDate { get; set; }
 
 		public string Actors { get; set; }
