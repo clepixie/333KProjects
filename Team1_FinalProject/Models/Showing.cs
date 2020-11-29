@@ -32,6 +32,7 @@ namespace Team1_FinalProject.Models
         public DateTime EndDateTime { get; set; }
 
         [Display(Name = "Theater Room")]
+        [Range(1, 2)]
         public int Room { get; set; }
 
         [Display(Name = "Is This a Special Event?")]

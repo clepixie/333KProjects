@@ -204,13 +204,51 @@ namespace Team1_FinalProject.Controllers
             showing.Price = GetPrice(showing);
             showing.Status = SStatus.Pending;
 
-            List<Showing> todayshowing = _context.Showings.Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).OrderBy(s => s.StartDateTime).ToList();
+            List<Showing> todayshowing = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).OrderBy(s => s.StartDateTime).ToList();
 
             foreach (Showing s in todayshowing)
             {
-                if (((showing.EndDateTime - s.StartDateTime).TotalMinutes < 25 && (showing.EndDateTime - s.StartDateTime).TotalMinutes > 0) || ((s.EndDateTime - showing.StartDateTime).TotalMinutes < 25 && (s.EndDateTime - showing.StartDateTime).TotalMinutes > 0))
+                if (showing.Room == s.Room && (((showing.EndDateTime - s.StartDateTime).TotalMinutes < 25 && (showing.EndDateTime - s.StartDateTime).TotalMinutes > 0) || ((s.EndDateTime - showing.StartDateTime).TotalMinutes < 25 && (s.EndDateTime - showing.StartDateTime).TotalMinutes > 0)))
                 {
-                    return View("Error", new String[] { "You cannot add this showing because it is too close with the existing showing:\n" + s.StartDateTime + " " + s.EndDateTime + "\n" + showing.StartDateTime + " " + showing.EndDateTime });
+                    ModelState.AddModelError(string.Empty, "You cannot add this showing because it starts or ends within 25  minutes with another showing: " + s.StartDateTime + " " + s.EndDateTime + " and " + showing.StartDateTime + " " + showing.EndDateTime);
+                    List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
+                    List<DateTime> nw = new List<DateTime>();
+                    DateTime td = DateTime.Now.Date;
+
+                    while (td.DayOfWeek != DayOfWeek.Friday)
+                    {
+                        td = td.AddDays(1);
+                    }
+
+                    foreach (int value in Enumerable.Range(1, 7))
+                    {
+                        nw.Add(td);
+                        td = td.AddDays(1);
+                    }
+                    ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
+                    return View("PendingIndex", pending);
+                    /*return View("Error", new String[] { "You cannot add this showing because it is too close with the existing showing:\n" + s.StartDateTime + " " + s.EndDateTime + "\n" + showing.StartDateTime + " " + showing.EndDateTime });*/
+                }
+
+                if (showing.StartDateTime == s.StartDateTime && s.Movie.Title == showing.Movie.Title && s.Room != showing.Room)
+                {
+                    ModelState.AddModelError(string.Empty, "You cannot schedule " + showing.Movie.Title + " at the same time in both Theaters on " + showing.StartDateTime + ".");
+                    List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
+                    List<DateTime> nw = new List<DateTime>();
+                    DateTime td = DateTime.Now.Date;
+
+                    while (td.DayOfWeek != DayOfWeek.Friday)
+                    {
+                        td = td.AddDays(1);
+                    }
+
+                    foreach (int value in Enumerable.Range(1, 7))
+                    {
+                        nw.Add(td);
+                        td = td.AddDays(1);
+                    }
+                    ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
+                    return View("PendingIndex", pending);
                 }
             }
 
@@ -221,8 +259,8 @@ namespace Team1_FinalProject.Controllers
 
         public IActionResult Publish()
         {
-            List<Showing> showings = _context.Showings.Where(s => s.Status == SStatus.Pending).OrderBy(s => s.StartDateTime).ToList();
-            List<Showing> revshowings = _context.Showings.Where(s => s.Status == SStatus.Pending).OrderByDescending(s => s.StartDateTime).ToList();
+            List<Showing> showings = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).OrderBy(s => s.StartDateTime).ToList();
+            List<Showing> revshowings = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).OrderByDescending(s => s.StartDateTime).ToList();
             DateTime startdate = showings[0].StartDateTime.Date;
             DateTime enddate = revshowings[0].StartDateTime.Date;
             List<DateTime> days = new List<DateTime>();
@@ -238,32 +276,90 @@ namespace Team1_FinalProject.Controllers
             foreach (DateTime day in days) { sdays += day.ToString("MM/dd/yyyy"); if (days.Count() > 1) { sdays += ", "; } }
             if (days.Count() != 7)
             {
-                return View("Error", new String[] { "Some days are missing from your pending schedule; you only have:\n" + sdays });
+                ModelState.AddModelError(string.Empty, "Some days are missing from your pending schedule; you only have: " + sdays);
+                List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
+                List<DateTime> nw = new List<DateTime>();
+                DateTime td = DateTime.Now.Date;
+
+                while (td.DayOfWeek != DayOfWeek.Friday)
+                {
+                    td = td.AddDays(1);
+                }
+
+                foreach (int value in Enumerable.Range(1, 7))
+                {
+                    nw.Add(td);
+                    td = td.AddDays(1);
+                }
+                ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
+                return View("PendingIndex", pending);
+                /*return View("Error", new String[] { "Some days are missing from your pending schedule; you only have:\n" + sdays });*/
             }
 
             while (startdate != enddate)
             {
-                List<Showing> todayshowing = showings.Where(s => s.StartDateTime.Date == startdate).OrderBy(s => s.StartDateTime).ToList();
+                List<List<Showing>> todayshowings = new List<List<Showing>>();
+                List<Showing> todayshowing1 = showings.Where(s => s.StartDateTime.Date == startdate).Where(s => s.Room == 1).OrderBy(s => s.StartDateTime).ToList();
+                todayshowings.Add(todayshowing1);
+                List<Showing> todayshowing2 = showings.Where(s => s.StartDateTime.Date == startdate).Where(s => s.Room == 2).OrderBy(s => s.StartDateTime).ToList();
+                todayshowings.Add(todayshowing2);
 
-                if (todayshowing.Where(s => s.EndDateTime.TimeOfDay > new TimeSpan(21, 30, 0)) == null)
+                if ((todayshowing1.Where(s => s.EndDateTime.TimeOfDay > new TimeSpan(21, 30, 0)) == null) && (todayshowing2.Where(s => s.EndDateTime.TimeOfDay > new TimeSpan(21, 30, 0)) == null))
                 {
-                    return View("Error", new String[] { "You must have one showing on " + startdate + " that ends after 9:30 PM" });
+                    ModelState.AddModelError(string.Empty, "You must have one showing on " + startdate + " that ends after 9:30 PM");
+                    List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
+                    List<DateTime> nw = new List<DateTime>();
+                    DateTime td = DateTime.Now.Date;
+
+                    while (td.DayOfWeek != DayOfWeek.Friday)
+                    {
+                        td = td.AddDays(1);
+                    }
+
+                    foreach (int value in Enumerable.Range(1, 7))
+                    {
+                        nw.Add(td);
+                        td = td.AddDays(1);
+                    }
+                    ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
+                    return View("PendingIndex", pending);
+                    /*return View("Error", new String[] { "You must have one showing on " + startdate + " that ends after 9:30 PM" });*/
                 }
 
-                foreach (Showing showing in todayshowing)
+                foreach (List<Showing> todayshowing in todayshowings)
                 {
-                    int idx = todayshowing.FindIndex(s => s.ShowingID == showing.ShowingID);
-                    try
+                    foreach (Showing showing in todayshowing)
                     {
-                        if (((showing.EndDateTime - todayshowing[idx + 1].StartDateTime).TotalMinutes > 45) || ((todayshowing[idx + 1].EndDateTime - showing.StartDateTime).TotalMinutes > 45))
+                        int idx = todayshowing.FindIndex(s => s.ShowingID == showing.ShowingID);
+                        try
                         {
-                            return View("Error", new String[] { "There are more than 45 minutes between " + showing.StartDateTime.TimeOfDay + " and " + todayshowing[idx + 1].StartDateTime.TimeOfDay + "on" + showing.StartDateTime.Date + "." });
-                        }
+                            if (((showing.EndDateTime - todayshowing[idx + 1].StartDateTime).TotalMinutes > 45) || ((todayshowing[idx + 1].EndDateTime - showing.StartDateTime).TotalMinutes > 45))
+                            {
+                                ModelState.AddModelError(string.Empty, "There are more than 45 minutes between " + showing.StartDateTime.TimeOfDay + " and " + todayshowing[idx + 1].StartDateTime.TimeOfDay + "on" + showing.StartDateTime.Date + ".");
+                                List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
+                                List<DateTime> nw = new List<DateTime>();
+                                DateTime td = DateTime.Now.Date;
 
-                    }
-                    catch
-                    {
-                        continue;
+                                while (td.DayOfWeek != DayOfWeek.Friday)
+                                {
+                                    td = td.AddDays(1);
+                                }
+
+                                foreach (int value in Enumerable.Range(1, 7))
+                                {
+                                    nw.Add(td);
+                                    td = td.AddDays(1);
+                                }
+                                ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
+                                return View("PendingIndex", pending);
+                                /*return View("Error", new String[] { "There are more than 45 minutes between " + showing.StartDateTime.TimeOfDay + " and " + todayshowing[idx + 1].StartDateTime.TimeOfDay + "on" + showing.StartDateTime.Date + "." });*/
+                            }
+
+                        }
+                        catch
+                        {
+                            continue;
+                        }
                     }
                 }
                 startdate = startdate.AddDays(1);
