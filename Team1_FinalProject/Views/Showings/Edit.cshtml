@@ -8,11 +8,57 @@
 
 <h4>Showing</h4>
 <hr />
-@Html.ValidationSummary(true, "", new { @style = "color: red" });
+@Html.ValidationSummary(true, "", new { @style = "color: red" })
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <input type="hidden" asp-for="ShowingID" />
+            <b>Schedule for @Model.StartDateTime.Date.ToString("MM/dd"):</b>
+            <hr class="hr-danger" />
+            <div class="form-group">
+                <table class="table-bordered">
+                    <thead>
+                        <tr>
+                            <th>
+                                Theatre 1
+                            </th>
+                            <th>
+                                Theatre 2
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                @foreach (Showing s in ViewBag.AllShowings1)
+                                {
+                                    if (s.ShowingID == Model.ShowingID)
+                                    {
+                                        <div style="color:blue">@s.StartDateTime.TimeOfDay - @s.EndDateTime.TimeOfDay</div>
+                                    }
+                                    else
+                                    {
+                                        <div>@s.StartDateTime.TimeOfDay - @s.EndDateTime.TimeOfDay</div>
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @foreach (Showing s in ViewBag.AllShowings2)
+                                {
+                                    if (s.ShowingID == Model.ShowingID)
+                                    {
+                                        <div style="color:blue">@s.StartDateTime.TimeOfDay - @s.EndDateTime.TimeOfDay</div>
+                                    }
+                                    else
+                                    {
+                                        <div>@s.StartDateTime.TimeOfDay - @s.EndDateTime.TimeOfDay</div>
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <div class="form-group">
                 <label class="control-label">Movie Title:</label>
                 @Html.DropDownList("SelectedMovie", (MultiSelectList)ViewBag.AllMovies, new { @class = "form-control" })
@@ -23,8 +69,9 @@
                 <span asp-validation-for="StartDateTime" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Room" class="control-label"></label>
-                <select asp-for="Room" class="form-control"></select>
+                <label asp-for="Room" class="control-label"></label><br />
+                <input type="radio" class="radio" asp-for="Room" value="1" /> Theatre Room 1<br />
+                <input type="radio" class="radio" asp-for="Room" value="2" /> Theatre Room 2<br />
                 <span asp-validation-for="Room" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
@@ -35,7 +82,7 @@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
-        </form>
+</form>
     </div>
 </div>
 

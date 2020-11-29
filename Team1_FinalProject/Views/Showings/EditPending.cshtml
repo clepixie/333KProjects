@@ -13,6 +13,53 @@
         <form asp-action="EditPending">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ShowingID" />
+            <b>Schedule for @Model.StartDateTime.Date.ToString("MM/dd"):</b>
+            <hr class="hr-danger" />
+            <div class="form-group">
+                <table class="table-bordered">
+                    <thead>
+                        <tr>
+                            <th>
+                                Theatre 1
+                            </th>
+                            <th>
+                                Theatre 2
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                @foreach (Showing s in ViewBag.AllShowings1)
+                                {
+                                    if (s.ShowingID == Model.ShowingID)
+                                    {
+                                        <div style="color:blue">@s.StartDateTime.TimeOfDay - @s.EndDateTime.TimeOfDay</div>
+                                    }
+                                    else
+                                    {
+                                        <div>@s.StartDateTime.TimeOfDay - @s.EndDateTime.TimeOfDay</div>
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @foreach (Showing s in ViewBag.AllShowings2)
+                                {
+                                    if (s.ShowingID == Model.ShowingID)
+                                    {
+                                        <div style="color:blue">@s.StartDateTime.TimeOfDay - @s.EndDateTime.TimeOfDay</div>
+                                    }
+                                    else
+                                    {
+                                        <div>@s.StartDateTime.TimeOfDay - @s.EndDateTime.TimeOfDay</div>
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr class="hr-danger" />
             <div class="form-group">
                 <label class="control-label">Movie Title:</label>
                 @Html.DropDownList("SelectedMovie", (MultiSelectList)ViewBag.AllMovies, new { @class = "form-control" })
