@@ -32,7 +32,10 @@ namespace Team1_FinalProject.Controllers
             List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
             List<DateTime> nextweek = new List<DateTime>();
             DateTime today = DateTime.Now.Date;
-
+            if (today.DayOfWeek == DayOfWeek.Friday)
+            {
+                today = today.AddDays(1);
+            }
             while (today.DayOfWeek != DayOfWeek.Friday)
             {
                 today = today.AddDays(1);
@@ -426,6 +429,10 @@ namespace Team1_FinalProject.Controllers
                     List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
                     List<DateTime> nw = new List<DateTime>();
                     DateTime td = DateTime.Now.Date;
+                    if (td.DayOfWeek == DayOfWeek.Friday)
+                    {
+                        td = td.AddDays(1);
+                    }
 
                     while (td.DayOfWeek != DayOfWeek.Friday)
                     {
@@ -455,7 +462,10 @@ namespace Team1_FinalProject.Controllers
                                 List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
                                 List<DateTime> nw = new List<DateTime>();
                                 DateTime td = DateTime.Now.Date;
-
+                                if (td.DayOfWeek == DayOfWeek.Friday)
+                                {
+                                    td = td.AddDays(1);
+                                }
                                 while (td.DayOfWeek != DayOfWeek.Friday)
                                 {
                                     td = td.AddDays(1);
@@ -566,7 +576,10 @@ namespace Team1_FinalProject.Controllers
                 List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
                 List<DateTime> nw = new List<DateTime>();
                 DateTime t = DateTime.Now.Date;
-
+                if (td.DayOfWeek == DayOfWeek.Friday)
+                {
+                    td = td.AddDays(1);
+                }
                 while (t.DayOfWeek != DayOfWeek.Friday)
                 {
                     t = t.AddDays(1);
@@ -687,22 +700,14 @@ namespace Team1_FinalProject.Controllers
                     if (showing.StartDateTime.TimeOfDay < start)
                     {
                         ModelState.AddModelError(string.Empty, "You cannot add this showing because a showing cannot start earlier than 9:00 AM!");
-                        List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
-                        List<DateTime> nw = new List<DateTime>();
-                        DateTime td = DateTime.Now.Date;
-
-                        while (td.DayOfWeek != DayOfWeek.Friday)
-                        {
-                            td = td.AddDays(1);
-                        }
-
-                        foreach (int value in Enumerable.Range(1, 7))
-                        {
-                            nw.Add(td);
-                            td = td.AddDays(1);
-                        }
-                        ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
-                        return View("PendingIndex", pending);
+                        ViewBag.AllMovies = GetAllMovies();
+                        Showing show = _context.Showings
+                                          .Include(o => o.Price)
+                                          .Include(o => o.Movie)
+                                          .ThenInclude(o => o.Genre)
+                                          .Include(m => m.Tickets)
+                                          .FirstOrDefault(m => m.ShowingID == id);
+                        return View(show);
                     }
 
                     List<Showing> todayshowingt = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == showing.Room).OrderBy(s => s.StartDateTime).ToList();
@@ -890,7 +895,10 @@ namespace Team1_FinalProject.Controllers
                         List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
                         List<DateTime> nw = new List<DateTime>();
                         DateTime td = DateTime.Now.Date;
-
+                        if (td.DayOfWeek == DayOfWeek.Friday)
+                        {
+                            td = td.AddDays(1);
+                        }
                         while (td.DayOfWeek != DayOfWeek.Friday)
                         {
                             td = td.AddDays(1);
@@ -925,7 +933,10 @@ namespace Team1_FinalProject.Controllers
                             List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
                             List<DateTime> nw = new List<DateTime>();
                             DateTime td = DateTime.Now.Date;
-
+                            if (td.DayOfWeek == DayOfWeek.Friday)
+                            {
+                                td = td.AddDays(1);
+                            }
                             while (td.DayOfWeek != DayOfWeek.Friday)
                             {
                                 td = td.AddDays(1);
@@ -950,7 +961,10 @@ namespace Team1_FinalProject.Controllers
                             List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
                             List<DateTime> nw = new List<DateTime>();
                             DateTime td = DateTime.Now.Date;
-
+                            if (td.DayOfWeek == DayOfWeek.Friday)
+                            {
+                                td = td.AddDays(1);
+                            }
                             while (td.DayOfWeek != DayOfWeek.Friday)
                             {
                                 td = td.AddDays(1);
@@ -976,7 +990,10 @@ namespace Team1_FinalProject.Controllers
                             List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
                             List<DateTime> nw = new List<DateTime>();
                             DateTime td = DateTime.Now.Date;
-
+                            if (td.DayOfWeek == DayOfWeek.Friday)
+                            {
+                                td = td.AddDays(1);
+                            }
                             while (td.DayOfWeek != DayOfWeek.Friday)
                             {
                                 td = td.AddDays(1);
@@ -1002,7 +1019,10 @@ namespace Team1_FinalProject.Controllers
                             List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
                             List<DateTime> nw = new List<DateTime>();
                             DateTime td = DateTime.Now.Date;
-
+                            if (td.DayOfWeek == DayOfWeek.Friday)
+                            {
+                                td = td.AddDays(1);
+                            }
                             while (td.DayOfWeek != DayOfWeek.Friday)
                             {
                                 td = td.AddDays(1);
