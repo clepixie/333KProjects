@@ -33,7 +33,7 @@ namespace Team1_FinalProject.Models
         [Required(ErrorMessage = "This is required!")]
         [Display(Name = "Theater Room")]
         [Range(1, 2)]
-        public int Room { get; set; } = 1;
+        public int Room { get; set; }
         [Required(ErrorMessage = "This is required!")]
         [Display(Name = "Is This a Special Event?")]
         public Boolean SpecialEvent { get; set; }
