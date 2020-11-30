@@ -451,7 +451,7 @@ namespace Team1_FinalProject.Controllers
                         {
                             if (((showing.StartDateTime - todayshowing[idx + 1].EndDateTime).TotalMinutes > 45) || ((todayshowing[idx + 1].StartDateTime - showing.EndDateTime).TotalMinutes > 45))
                             {
-                                ModelState.AddModelError(string.Empty, "There are more than 45 minutes between " + showing.StartDateTime.TimeOfDay + "-" + showing.EndDateTime.TimeOfDay + " and " + todayshowing[idx + 1].StartDateTime.TimeOfDay + "-" + todayshowing[idx + 1].EndDateTime.TimeOfDay + "on" + showing.StartDateTime.Date.ToString("MM/dd/yyyy") + ".");
+                                ModelState.AddModelError(string.Empty, "There are more than 45 minutes between " + showing.StartDateTime.ToString("HH:mm") + "-" + showing.EndDateTime.ToString("HH:mm") + " and " + todayshowing[idx + 1].StartDateTime.ToString("HH:mm") + "-" + todayshowing[idx + 1].EndDateTime.ToString("HH:mm") + " on " + showing.StartDateTime.Date.ToString("MM/dd/yyyy") + ".");
                                 List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
                                 List<DateTime> nw = new List<DateTime>();
                                 DateTime td = DateTime.Now.Date;
@@ -488,7 +488,7 @@ namespace Team1_FinalProject.Controllers
                 _context.SaveChanges();
             }
 
-            return View("Index");
+            return RedirectToAction("Index");
         }
         private SelectList GetDaysShowings()
         {
@@ -583,23 +583,11 @@ namespace Team1_FinalProject.Controllers
 
             if (toshow.Count() != 0)
             {
-                ModelState.AddModelError(string.Empty, "Clear out all the showings in a day before you copy showings to it.");
-                List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
-                List<DateTime> nw = new List<DateTime>();
-                DateTime t = DateTime.Now.Date;
-
-                while (t.DayOfWeek != DayOfWeek.Friday)
+                foreach (Showing s in toshow)
                 {
-                    t = t.AddDays(1);
+                    _context.Showings.Remove(s);
+                    _context.SaveChanges();
                 }
-
-                foreach (int value in Enumerable.Range(1, 7))
-                {
-                    nw.Add(t);
-                    t = t.AddDays(1);
-                }
-                ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
-                return View("PendingIndex", pending);
             }
 
             // get the showings on the date you want to copy from
