@@ -9,12 +9,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="SelectedCustomerID" class="control-label">Choose Customer</label>
-                @Html.DropDownListFor(model => model.SelectedCustomerID, (SelectList)ViewBag.AllCustomers, new { @class = "form-control" })
-            </div>
+        <form asp-action="EditCustomer" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <!--TODO: Add other required fields for registration here-->
             <!--FirstName is included as an example-->
@@ -51,5 +46,5 @@
 </div>
 
 <div>
-    <a asp-controller="Home" asp-action="Index">Home</a>
+    <a asp-controller="Account" asp-action="IndexCustomer">Back to Customer List</a>
 </div>

@@ -32,8 +32,6 @@ namespace Team1_FinalProject.Controllers
             _passwordValidator = (PasswordValidator<AppUser>)userManager.PasswordValidators.FirstOrDefault();
         }
 
-        // get a list of users from the database
-
         // GET: /Account/Register
         [AllowAnonymous]
         public IActionResult Register()
@@ -164,6 +162,9 @@ namespace Team1_FinalProject.Controllers
             return View(ivm);
         }
 
+
+        //this is a customer master list for employees
+        [Authorize(Roles = "Employee")]
         public async Task<IActionResult> IndexCustomer()
         {
 
@@ -184,16 +185,16 @@ namespace Team1_FinalProject.Controllers
 
         [Authorize(Roles = "Employee")]
         [HttpGet]
-        public async Task<IActionResult> Edit(Int32 customerID)
+        public IActionResult EditCustomer(Int32 customerID)
         {
             EditProfileViewModel epvm = new EditProfileViewModel();
             epvm.SelectedCustomerID = customerID;
-            return View(epvm);
+            return View("EditCustomer", epvm);
         }
 
         [Authorize(Roles = "Employee")]
         [HttpPost]
-        public async Task<IActionResult> EditAsync([Bind("SelectedCustomerID")] EditProfileViewModel epvm)
+        public async Task<IActionResult> EditAsync([Bind("Email, Address, PhoneNumber, Birthdate")] EditProfileViewModel epvm)
         {
             List<EditProfileViewModel> customerList = new List<EditProfileViewModel>();
 
@@ -212,15 +213,7 @@ namespace Team1_FinalProject.Controllers
 
             // finds the user that matches the selected ID
             AppUser customer = _userManager.Users.Where(u => u.Email == customerList[epvm.SelectedCustomerID].SelectCustomerName).First();
-            // get list of orders belonging to that user
-            //List<Order> orders = _context.Orders.Include(o => o.Tickets)
-            //                            .ThenInclude(t => t.Showing)
-            //                            .ThenInclude(s => s.Movie)
-            //                            .Include(o => o.Tickets)
-            //                            .ThenInclude(t => t.Showing)
-            //                            .ThenInclude(s => s.Price).Where(o => o.Customer.UserName == customer.Email).ToList();
-            
-            // get user info
+
             String id = User.Identity.Name;
             AppUser user = _context.Users.FirstOrDefault(u => u.UserName == id);
             ViewBag.UserInfo = user;
@@ -233,6 +226,14 @@ namespace Team1_FinalProject.Controllers
             epvm.Password = user.PasswordHash;
             epvm.ConfirmPassword = user.PasswordHash;
 
+            //find the record in the database
+            AppUser dbCustomer = _context.Users.Find(customer.Email);
+
+            //update the properties
+            dbCustomer.Address = customer.Address;
+            dbCustomer.PhoneNumber = customer.PhoneNumber;
+            dbCustomer.Birthdate = customer.Birthdate;
+
             // update the DB
             _context.Update(customer);
             await _context.SaveChangesAsync();
@@ -242,47 +243,6 @@ namespace Team1_FinalProject.Controllers
 
         }
 
-        //[Authorize(Roles = "Employee")]
-        //[HttpPost]
-        //public async Task<IActionResult> EditAsync([Bind("SelectedEmployeeID")] EditProfileViewModel epvm)
-        //{
-        //    List<EditProfileViewModel> employeeList = new List<EditProfileViewModel>();
-
-        //    foreach (AppUser edituser in _userManager.Users)
-        //    {
-        //        if (await _userManager.IsInRoleAsync(edituser, "Employee") == true) //user is in the role
-        //        {
-        //            //add user to list of members
-        //            EditProfileViewModel editcus = new EditProfileViewModel();
-        //            editcus.SelectEmployeeName = edituser.Email;
-        //            employeeList.Add(editcus);
-        //        }
-        //    }
-
-        //    // get user info
-        //    String id = User.Identity.Name;
-        //    AppUser user = _context.Users.FirstOrDefault(u => u.UserName == id);
-        //    ViewBag.UserInfo = user;
-
-        //    // set info equal to what the employee edits it as
-        //    epvm.PhoneNumber = user.PhoneNumber;
-        //    epvm.Address = user.Address;
-        //    epvm.Birthdate = user.Birthdate;
-        //    // not sure if this password stuff is right though
-        //    epvm.Password = user.PasswordHash;
-        //    epvm.ConfirmPassword = user.PasswordHash;
-
-        //    // update the DB
-        //    _context.Update(employee);
-        //    await _context.SaveChangesAsync();
-
-        //    // send data to the view
-        //    return View(epvm);
-
-        //}
-
-
-
         //Logic for change password
         // GET: /Account/ChangePassword
         public ActionResult ChangePassword()
@@ -290,7 +250,26 @@ namespace Team1_FinalProject.Controllers
             return View();
         }
 
-        
+        //Logic for change password
+        // GET: /Account/ChangeAddress
+        public ActionResult ChangeAddress()
+        {
+            return View();
+        }
+
+        //Logic for change password
+        // GET: /Account/ChangeBirthdate
+        public ActionResult ChangeBirthdate()
+        {
+            return View();
+        }
+
+        //Logic for change password
+        // GET: /Account/ChangePhoneNumber
+        public ActionResult ChangePhoneNumber()
+        {
+            return View();
+        }
 
         // POST: /Account/ChangePassword
         [HttpPost]
