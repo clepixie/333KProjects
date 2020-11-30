@@ -22,7 +22,7 @@ namespace Team1_FinalProject.Models
     public class Showing
     {
         public Int32 ShowingID { get; set; }
-
+        [Required(ErrorMessage = "This is required!")]
         [Display(Name = "Starts At")]
         [DisplayFormat(DataFormatString = "{0:hh:mm tt}")]
         public DateTime StartDateTime { get; set; }
@@ -30,11 +30,11 @@ namespace Team1_FinalProject.Models
         [Display(Name = "Ends At")]
         [DisplayFormat(DataFormatString = "{0:hh:mm tt}")]
         public DateTime EndDateTime { get; set; }
-
+        [Required(ErrorMessage = "This is required!")]
         [Display(Name = "Theater Room")]
         [Range(1, 2)]
         public int Room { get; set; }
-
+        [Required(ErrorMessage = "This is required!")]
         [Display(Name = "Is This a Special Event?")]
         public Boolean SpecialEvent { get; set; }
 
