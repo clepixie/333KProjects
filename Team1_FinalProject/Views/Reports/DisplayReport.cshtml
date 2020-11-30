@@ -11,24 +11,30 @@
     <thead>
         <tr>
             <th>
+                Order Date
+            </th>
+            <th>
                 Movie Title
             </th>
             <th>
-                Starting Time
+                Showing Time
             </th>
             <th>
                 MPAA Rating
             </th>
             <th>
-                Price Per Ticket
+                Pre-Tax, Discount Ticket Price
             </th>
-            
+
         </tr>
     </thead>
     <tbody>
         @foreach (Ticket t in @ViewBag.SummarizedTickets)
         {
             <tr>
+                <td>
+                    @Html.DisplayFor(model => t.Order.Date)
+                </td>
                 <td>
                     @Html.DisplayFor(model => t.Showing.Movie.Title)
                 </td>
@@ -47,7 +53,7 @@
     </tbody>
 </table>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-8">
         <h5>Report Summary</h5>
 
 

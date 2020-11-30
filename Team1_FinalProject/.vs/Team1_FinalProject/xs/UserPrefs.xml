@@ -1,6 +1,6 @@
 ﻿<Properties StartupConfiguration="{5BEA845B-2AA8-4BCB-A0C3-D8FEF9946679}|Default">
   <MonoDevelop.Ide.ItemProperties.Team1__FinalProject PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Reports/Index.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Orders/Review.cshtml">
     <Files>
       <File FileName="Controllers/AccountController.cs" Line="195" Column="10" />
       <File FileName="Controllers/TicketsController.cs" Line="1" Column="1" />
@@ -17,7 +17,7 @@
       <File FileName="Views/Orders/Details.cshtml" />
       <File FileName="Views/Orders/Edit.cshtml" />
       <File FileName="Views/Orders/Gift.cshtml" />
-      <File FileName="Views/Orders/Index.cshtml" />
+      <File FileName="Views/Orders/Index.cshtml" Line="1" Column="1" />
       <File FileName="Models/ViewModels/AccountViewModels.cs" />
       <File FileName="Controllers/HomeController.cs" />
       <File FileName="Models/Order.cs" />
@@ -27,13 +27,14 @@
       <File FileName="Views/Account/EditEmployee.cshtml" />
       <File FileName="Views/Home/SearchMovies.cshtml" />
       <File FileName="Views/Reports/CustomerSearch.cshtml" Line="1" Column="1" />
-      <File FileName="Views/Reports/DisplayReport.cshtml" Line="1" Column="1" />
-      <File FileName="Controllers/ReportsController.cs" Line="139" Column="36" />
+      <File FileName="Views/Reports/DisplayReport.cshtml" Line="36" Column="63" />
+      <File FileName="Controllers/ReportsController.cs" Line="41" Column="25" />
       <File FileName="Models/ViewModels/ReportViewModel.cs" Line="1" Column="1" />
-      <File FileName="Views/Reports/Index.cshtml" Line="1" Column="1" />
-      <File FileName="Views/Reports/DecisionReport.cshtml" Line="1" Column="1" />
+      <File FileName="Views/Reports/Index.cshtml" Line="10" Column="1" />
+      <File FileName="Views/Reports/DecisionReport.cshtml" Line="4" Column="40" />
       <File FileName="Views/Reports/PPReport.cshtml" Line="1" Column="1" />
       <File FileName="Views/Reports/DisplayPP.cshtml" Line="1" Column="1" />
+      <File FileName="Views/Orders/Review.cshtml" Line="152" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -49,10 +50,10 @@
               <Node name="Views" expanded="True">
                 <Node name="Account" expanded="True" />
                 <Node name="Home" expanded="True" />
-                <Node name="Orders" expanded="True" />
-                <Node name="Reports" expanded="True">
-                  <Node name="Index.cshtml" selected="True" />
+                <Node name="Orders" expanded="True">
+                  <Node name="Review.cshtml" selected="True" />
                 </Node>
+                <Node name="Reports" expanded="True" />
               </Node>
             </Node>
           </Node>

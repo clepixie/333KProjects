@@ -35,6 +35,12 @@ namespace Team1_FinalProject.Controllers
             return View("Index");
         }
 
+        public IActionResult DecisionReport()
+        {
+
+            return View();
+        }
+
         public IActionResult CustomerSearch()
         {
             return View();
