@@ -69,10 +69,9 @@ namespace Team1_FinalProject.Controllers
             }
 
 
-            if (svm.MPAA != null)
+            if (svm.SelectedMPAA != null)
             {
-                query = query.Where(t => t.Showing.Movie.MPAA==svm.MPAA);
-
+                query = query.Where(t => t.Showing.Movie.MPAA == svm.SelectedMPAA);
             }
 
             if (svm.MovieTitle != null && svm.MovieTitle != "")
@@ -135,20 +134,10 @@ namespace Team1_FinalProject.Controllers
                 query = query.Where(t => t.Showing.Movie.MovieID == svm.Movie.MovieID);
             }
 
-            if (svm.Decision == ReportViewModel.decision.SeatSold)
-            {
-                svm.SeatsSold = query.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).Count();
-            }
-
-            else if (svm.Decision == ReportViewModel.decision.TotalRevenue)
-            {
-                svm.TotalRevenue = query.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).Select(t => t.Order.OrderTotal).Sum();
-            }
-            else if (svm.Decision == ReportViewModel.decision.Both)
-            {
-                svm.SeatsSold = query.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).Count();
-                svm.TotalRevenue = query.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).Select(t => t.Order.OrderTotal).Sum();
-            }
+            
+            svm.SeatsSold = query.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).Count();
+            svm.TotalRevenue = query.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).Select(t => t.Order.OrderTotal).Sum();
+            
 
             return View(svm);
 
