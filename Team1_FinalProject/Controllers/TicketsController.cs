@@ -143,6 +143,10 @@ namespace Team1_FinalProject.Controllers
                 current_order.PopcornPointsUsed = false;
                 current_order.GiftOrder = false;
                 current_order.Customer = customer;
+                if ((DateTime.Now.Date - current_order.Customer.Birthdate).TotalDays >= 21900)
+                {
+                    current_order.Discount = _context.Prices.Where(p => p.PriceType == PType.SeniorCitizen).FirstOrDefault();
+                }
                 _context.Orders.Add(current_order);
                 _context.SaveChanges();
             }
@@ -292,6 +296,10 @@ namespace Team1_FinalProject.Controllers
                     current_order.PopcornPointsUsed = false;
                     current_order.GiftOrder = false;
                     current_order.Customer = _userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+                    if ((DateTime.Now.Date - current_order.Customer.Birthdate).TotalDays >= 21900)
+                    {
+                        current_order.Discount = _context.Prices.Where(p => p.PriceType == PType.SeniorCitizen).FirstOrDefault();
+                    }
                     _context.Orders.Add(current_order);
                     _context.SaveChanges();
                 }
