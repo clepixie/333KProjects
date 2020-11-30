@@ -9117,7 +9117,7 @@
       "outputPath": "/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/ericlin/.config/NuGet/NuGet.Config"
+        "/Users/ericlin/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"

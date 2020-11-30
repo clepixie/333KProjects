@@ -136,7 +136,7 @@ namespace Team1_FinalProject.Controllers
 
             
             svm.SeatsSold = query.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).Count();
-            svm.TotalRevenue = query.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).Select(t => t.Order.OrderTotal).Sum();
+            svm.TotalRevenue = query.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).Select(t => t.Order.PostDiscount).Sum();
             
 
             return View(svm);
