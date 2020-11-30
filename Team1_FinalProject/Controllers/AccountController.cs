@@ -217,19 +217,17 @@ namespace Team1_FinalProject.Controllers
             // finds the user that matches the selected ID
             AppUser customer = _userManager.Users.Where(u => u.Email == customerList[epvm.SelectedCustomerID].SelectCustomerName).First();
             // get list of orders belonging to that user
-            List<Order> orders = _context.Orders.Include(o => o.Tickets)
-                                        .ThenInclude(t => t.Showing)
-                                        .ThenInclude(s => s.Movie)
-                                        .Include(o => o.Tickets)
-                                        .ThenInclude(t => t.Showing)
-                                        .ThenInclude(s => s.Price).Where(o => o.Customer.UserName == customer.Email).ToList();
+            //List<Order> orders = _context.Orders.Include(o => o.Tickets)
+            //                            .ThenInclude(t => t.Showing)
+            //                            .ThenInclude(s => s.Movie)
+            //                            .Include(o => o.Tickets)
+            //                            .ThenInclude(t => t.Showing)
+            //                            .ThenInclude(s => s.Price).Where(o => o.Customer.UserName == customer.Email).ToList();
             
             // get user info
             String id = User.Identity.Name;
             AppUser user = _context.Users.FirstOrDefault(u => u.UserName == id);
             ViewBag.UserInfo = user;
-
-            // add a drop down for customers so they can pick who to edit
 
             // set info equal to what the employee edits it as
             epvm.PhoneNumber = user.PhoneNumber;
@@ -239,10 +237,15 @@ namespace Team1_FinalProject.Controllers
             epvm.Password = user.PasswordHash;
             epvm.ConfirmPassword = user.PasswordHash;
 
+            // update the DB
+            _context.Update(customer);
+            await _context.SaveChangesAsync();
+
             // send data to the view
             return View(epvm);
 
         }
+
 
 
 
