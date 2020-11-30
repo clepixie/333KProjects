@@ -79,8 +79,9 @@ namespace Team1_FinalProject.Models
                 }
 
                 decimal discount = Discount.PriceValue;
+                List<Ticket> nonspecialtickets = Tickets.Where(t => t.Showing.SpecialEvent == false).ToList();
 
-                if (Tickets.Count() >= 2)
+                if (nonspecialtickets.Count() >= 2)
                 {
                         
                     DiscountTotal = Math.Round(((OrderSubtotal + (discount * 2)) * (1 + TAX_RATE)), 2);

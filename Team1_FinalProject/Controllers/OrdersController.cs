@@ -312,21 +312,23 @@ namespace Team1_FinalProject.Controllers
                 // we will use viewbags rn because they may want to make changes still; not yet confirmed. we will officially change the values when they do confirm
                 Price discountprice = _context.Prices.Where(p => p.PriceType == PType.SeniorCitizen).FirstOrDefault();
                 decimal discount = discountprice.PriceValue;
-                ViewBag.Discount = discount;
-                if (currorder.Tickets.Count() >= 2)
+                ViewBag.Discount = "$" + discount;
+                List<Ticket> nonspecialtickets = currorder.Tickets.Where(t => t.Showing.SpecialEvent == false).ToList();
+
+                if (nonspecialtickets.Count() >= 2)
                 {
-                    ViewBag.DiscountDouble = discount * 2;
-                    ViewBag.DiscountSubtotal = currorder.OrderSubtotal + (discount * 2);
-                    ViewBag.DiscountTax = Math.Round(((currorder.OrderSubtotal + (discount * 2)) * .0875m), 2);
-                    ViewBag.DiscountDiff = currorder.OrderSubtotal + discount * 2;
-                    ViewBag.DiscountTotal = Math.Round(((currorder.OrderSubtotal + (discount * 2)) * (1 + .0875m)), 2);
+                    ViewBag.DiscountDouble = "$" + discount * 2;
+                    ViewBag.DiscountSubtotal = "$" + currorder.OrderSubtotal + (discount * 2);
+                    ViewBag.DiscountTax = "$" + Math.Round(((currorder.OrderSubtotal + (discount * 2)) * .0875m), 2);
+                    ViewBag.DiscountDiff = "$" + currorder.OrderSubtotal + discount * 2;
+                    ViewBag.DiscountTotal = "$" + Math.Round(((currorder.OrderSubtotal + (discount * 2)) * (1 + .0875m)), 2);
                 }
                 else
                 {
-                    ViewBag.DiscountSubtotal = currorder.OrderSubtotal + (discount);
-                    ViewBag.DiscountTax = Math.Round(((currorder.OrderSubtotal + (discount)) * .0875m), 2);
-                    ViewBag.DiscountDiff = currorder.OrderSubtotal + discount;
-                    ViewBag.DiscountTotal = Math.Round(((currorder.OrderSubtotal + (discount)) * (1 + .0875m)), 2);
+                    ViewBag.DiscountSubtotal = "$" + currorder.OrderSubtotal + (discount);
+                    ViewBag.DiscountTax = "$" + Math.Round(((currorder.OrderSubtotal + (discount)) * .0875m), 2);
+                    ViewBag.DiscountDiff = "$" + currorder.OrderSubtotal + discount;
+                    ViewBag.DiscountTotal = "$" + Math.Round(((currorder.OrderSubtotal + (discount)) * (1 + .0875m)), 2);
                 }
             }
             
