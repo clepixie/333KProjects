@@ -31,6 +31,7 @@ namespace Team1_FinalProject.Controllers
         
         public IActionResult Index()
         {
+
             return View("Index");
         }
 
