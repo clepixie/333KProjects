@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -14,9 +15,11 @@ using Team1_FinalProject.Models;
 namespace Team1_FinalProject.Seeding
 {
     //add identity data
+	
     public static class SeedEmployeesManagers
     {
-        public static async Task AddEmployee(IServiceProvider serviceProvider)
+		[Authorize(Roles = "Manager")]
+		public static async Task AddEmployee(IServiceProvider serviceProvider)
         {
             //Get instances of the services needed to add a user & add a user to a role
             AppDbContext _context = serviceProvider.GetRequiredService<AppDbContext>();

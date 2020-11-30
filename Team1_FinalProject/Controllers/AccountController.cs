@@ -246,6 +246,44 @@ namespace Team1_FinalProject.Controllers
 
         }
 
+        //[Authorize(Roles = "Employee")]
+        //[HttpPost]
+        //public async Task<IActionResult> EditAsync([Bind("SelectedEmployeeID")] EditProfileViewModel epvm)
+        //{
+        //    List<EditProfileViewModel> employeeList = new List<EditProfileViewModel>();
+
+        //    foreach (AppUser edituser in _userManager.Users)
+        //    {
+        //        if (await _userManager.IsInRoleAsync(edituser, "Employee") == true) //user is in the role
+        //        {
+        //            //add user to list of members
+        //            EditProfileViewModel editcus = new EditProfileViewModel();
+        //            editcus.SelectEmployeeName = edituser.Email;
+        //            employeeList.Add(editcus);
+        //        }
+        //    }
+
+        //    // get user info
+        //    String id = User.Identity.Name;
+        //    AppUser user = _context.Users.FirstOrDefault(u => u.UserName == id);
+        //    ViewBag.UserInfo = user;
+
+        //    // set info equal to what the employee edits it as
+        //    epvm.PhoneNumber = user.PhoneNumber;
+        //    epvm.Address = user.Address;
+        //    epvm.Birthdate = user.Birthdate;
+        //    // not sure if this password stuff is right though
+        //    epvm.Password = user.PasswordHash;
+        //    epvm.ConfirmPassword = user.PasswordHash;
+
+        //    // update the DB
+        //    _context.Update(employee);
+        //    await _context.SaveChangesAsync();
+
+        //    // send data to the view
+        //    return View(epvm);
+
+        //}
 
 
 
