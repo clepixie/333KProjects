@@ -4,35 +4,35 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Create Report</h1>
+<h1>Generate Report</h1>
 
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="DisplayReport">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @*
+            
         <div class="form-group">
             <label asp-for="Decision" class="control-label"></label><br />
-            <input type="radio" class="radio" asp-for="Decision" value="@decision.Both" /> Both<br />
-            <input type="radio" class="radio" asp-for="Decision" value="@decision.SeatSold" /> Seat Sold<br />
-            <input type="radio" class="radio" asp-for="Decision" value="@decision.TotalRevenue" /> Total Revenue<br />
+            <input type="radio" class="radio" asp-for="Decision" value="@ReportViewModel.decision.Both" /> Both<br />
+            <input type="radio" class="radio" asp-for="Decision" value="@ReportViewModel.decision.SeatSold" /> Seats Sold<br />
+            <input type="radio" class="radio" asp-for="Decision" value="@ReportViewModel.decision.TotalRevenue" /> Total Revenue<br />
             <span asp-validation-for="Decision" class="text-danger"></span>
         </div>
-            *@
+            
             <div class="form-group">
                 <label asp-for="MovieTitle" class="control-label"></label>
                 <input asp-for="MovieTitle" class="form-control" />
                 <span asp-validation-for="MovieTitle" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MPAA" class="control-label"></label><br />
-                <input type="radio" class="radio" asp-for="MPAA" value="@MPAA.G" /> G<br />
-                <input type="radio" class="radio" asp-for="MPAA" value="@MPAA.PG" /> PG<br />
-                <input type="radio" class="radio" asp-for="MPAA" value="@MPAA.PG13" /> PG-13<br />
-                <input type="radio" class="radio" asp-for="MPAA" value="@MPAA.R" /> R<br />
-                <input type="radio" class="radio" asp-for="MPAA" value="@MPAA.Unrated" /> Unrated<br />
-                <span asp-validation-for="MPAA" class="text-danger"></span>
+                <label asp-for="SelectedMPAA" class="control-label"></label><br />
+                <input type="radio" class="radio" asp-for="SelectedMPAA" value="@MPAA.G" /> G<br />
+                <input type="radio" class="radio" asp-for="SelectedMPAA" value="@MPAA.PG" /> PG<br />
+                <input type="radio" class="radio" asp-for="SelectedMPAA" value="@MPAA.PG13" /> PG-13<br />
+                <input type="radio" class="radio" asp-for="SelectedMPAA" value="@MPAA.R" /> R<br />
+                <input type="radio" class="radio" asp-for="SelectedMPAA" value="@MPAA.Unrated" /> Unrated<br />
+                <span asp-validation-for="SelectedMPAA" class="text-danger"></span>
             </div>
 
             <div class="form-group">
@@ -64,7 +64,9 @@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
-            <a asp-action="CustomerSearch" asp-controller="Reports" class="btn btn-primary">Create Customer Report</a>
+            <a asp-action="CustomerSearch" asp-controller="Reports" class="btn btn-primary">Create Customer Report Instead</a>
+            <br />
+            <br /> 
         </form>
     </div>
 </div>

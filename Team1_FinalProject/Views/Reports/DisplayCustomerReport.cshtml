@@ -1,4 +1,4 @@
-﻿@model Team1_FinalProject.Models.ReportViewModel
+﻿@*@model Team1_FinalProject.Models.Ticket
 
 @{
     ViewData["Title"] = "DisplayCustomerReport";
@@ -9,6 +9,49 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
+        <table class="table">
 
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Showing.Movie.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Showing.StartDateTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Showing.Price)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SeatNumber)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Showing.Movie.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Showing.StartDateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Showing.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SeatNumber)
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.TicketID">Cancel</a> |
+                            <a asp-action="Details" asp-route-id="@item.TicketID">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.TicketID">Delete</a>
+                            <a asp-action="Checkout" asp-controller="Orders">" asp-route-id="@item.TicketID">Checkout</a>
+                            
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            </table>
     </div>
-</div>
+</div>*@

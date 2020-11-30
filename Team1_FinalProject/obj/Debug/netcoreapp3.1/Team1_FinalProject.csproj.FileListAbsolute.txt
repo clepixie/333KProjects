@@ -273,7 +273,6 @@
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/Review.cshtml.g.cs
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Seed/Confirm.cshtml.g.cs
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Seed/Index.cshtml.g.cs
-/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Home/Reports.cshtml.g.cs
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Home/SearchMovies.cshtml.g.cs
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Home/SearchShowings.cshtml.g.cs
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/Gift.cshtml.g.cs
@@ -777,7 +776,6 @@ C:/Users/alice/documents/ut/333k/333kprojects/team1_finalproject/obj/Debug/netco
 /Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Genres/Edit.cshtml.g.cs
 /Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Genres/Index.cshtml.g.cs
 /Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Home/Index.cshtml.g.cs
-/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Home/Reports.cshtml.g.cs
 /Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Home/SearchMovies.cshtml.g.cs
 /Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Home/SearchSelect.cshtml.g.cs
 /Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Home/SearchShowings.cshtml.g.cs
@@ -1001,7 +999,6 @@ C:/Users/alice/documents/ut/333k/333kprojects/team1_finalproject/obj/Debug/netco
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Team1_FinalProject.TagHelpers.output.cache
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Team1_FinalProject.RazorCoreGenerate.cache
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/ChangePassword.cshtml.g.cs
-/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/Edit.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/Index.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/Login.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/Register.cshtml.g.cs
@@ -1075,3 +1072,67 @@ C:/Users/alice/documents/ut/333k/333kprojects/team1_finalproject/obj/Debug/netco
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Showings/CopySchedule.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Showings/EditPending.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Showings/PendingIndex.cshtml.g.cs
+/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/EditCustomer.cshtml.g.cs
+/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/EditEmployee.cshtml.g.cs
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/Microsoft.Data.Sqlite.dll
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/Microsoft.DotNet.PlatformAbstractions.dll
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/Microsoft.EntityFrameworkCore.Sqlite.dll
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/Microsoft.Extensions.DependencyModel.dll
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/SQLitePCLRaw.batteries_v2.dll
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/SQLitePCLRaw.nativelibrary.dll
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/SQLitePCLRaw.core.dll
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/SQLitePCLRaw.provider.dynamic_cdecl.dll
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/System.Text.Json.dll
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/alpine-x64/native/libe_sqlite3.so
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/linux-arm/native/libe_sqlite3.so
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/linux-arm64/native/libe_sqlite3.so
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/linux-armel/native/libe_sqlite3.so
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/linux-musl-x64/native/libe_sqlite3.so
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/linux-x64/native/libe_sqlite3.so
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/linux-x86/native/libe_sqlite3.so
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/osx-x64/native/libe_sqlite3.dylib
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/win-arm/native/e_sqlite3.dll
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/win-arm64/native/e_sqlite3.dll
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/win-x64/native/e_sqlite3.dll
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/win-x86/native/e_sqlite3.dll
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/EditCustomer.cshtml.g.cs
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/EditEmployee.cshtml.g.cs
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Reports/CustomerSearch.cshtml.g.cs
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Reports/DisplayCustomerReport.cshtml.g.cs
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Reports/DisplayReport.cshtml.g.cs
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Reports/Index.cshtml.g.cs
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Showings/CopySchedule.cshtml.g.cs
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Showings/EditPending.cshtml.g.cs
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Showings/PendingIndex.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/EditCustomer.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/EditEmployee.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/MovieReviews/ReviewsIndex.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Reports/CustomerSearch.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Reports/DisplayCustomerReport.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Reports/DisplayReport.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Reports/Index.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Showings/CopySchedule.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Showings/EditPending.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Showings/PendingIndex.cshtml.g.cs
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/mono_crash.11a6748113.0.json
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/Microsoft.Data.Sqlite.dll
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/Microsoft.DotNet.PlatformAbstractions.dll
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/Microsoft.EntityFrameworkCore.Sqlite.dll
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/Microsoft.Extensions.DependencyModel.dll
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/SQLitePCLRaw.batteries_v2.dll
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/SQLitePCLRaw.nativelibrary.dll
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/SQLitePCLRaw.core.dll
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/SQLitePCLRaw.provider.dynamic_cdecl.dll
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/System.Text.Json.dll
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/alpine-x64/native/libe_sqlite3.so
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/linux-arm/native/libe_sqlite3.so
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/linux-arm64/native/libe_sqlite3.so
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/linux-armel/native/libe_sqlite3.so
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/linux-musl-x64/native/libe_sqlite3.so
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/linux-x64/native/libe_sqlite3.so
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/linux-x86/native/libe_sqlite3.so
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/osx-x64/native/libe_sqlite3.dylib
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/win-arm/native/e_sqlite3.dll
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/win-arm64/native/e_sqlite3.dll
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/win-x64/native/e_sqlite3.dll
+/Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/win-x86/native/e_sqlite3.dll

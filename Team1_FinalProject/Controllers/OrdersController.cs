@@ -329,7 +329,7 @@ namespace Team1_FinalProject.Controllers
                     ViewBag.DiscountTotal = Math.Round(((currorder.OrderSubtotal + (discount)) * (1 + .0875m)), 2);
                 }
             }
-
+            
             if ((order.PopcornPointsUsed == true && currorder.Tickets.Count() <= ((currorder.Customer.PopcornPoints) / 100)) || (order.PopcornPointsUsed == false))
             {
                 currorder.PopcornPointsUsed = order.PopcornPointsUsed;

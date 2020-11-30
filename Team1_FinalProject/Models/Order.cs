@@ -65,6 +65,40 @@ namespace Team1_FinalProject.Models
 
 	    public List<Ticket> Tickets { get; set; }
 
+        public Decimal PostDiscount
+        {
+            get
+            {
+                decimal DiscountTotal = OrderTotal;
+                if ((DateTime.Now.Date - Customer.Birthdate).TotalDays >= 21900)
+                {
+                    decimal discount = 2m;
+                    decimal DiscountDouble;
+                    decimal DiscountSubtotal;
+                    decimal DiscountTax;
+                    decimal DiscountDiff;
+
+                    if (Tickets.Count() >= 2)
+                    {
+                        DiscountDouble = discount * 2;
+                        DiscountSubtotal = OrderSubtotal + (discount * 2);
+                        DiscountTax = Math.Round(((OrderSubtotal + (discount * 2)) * .0875m), 2);
+                        DiscountDiff = OrderSubtotal + discount * 2;
+                        DiscountTotal = Math.Round(((OrderSubtotal + (discount * 2)) * (1 + .0875m)), 2);
+                    }
+                    else
+                    {
+                        DiscountSubtotal = OrderSubtotal + (discount);
+                        DiscountTax = Math.Round(((OrderSubtotal + (discount)) * .0875m), 2);
+                        DiscountDiff = OrderSubtotal + discount;
+                        DiscountTotal = Math.Round(((OrderSubtotal + (discount)) * (1 + .0875m)), 2);
+                    }
+  
+                }
+                return DiscountTotal;
+            }
+        }
+
 	    public Order()
         {
 			if (Tickets == null)

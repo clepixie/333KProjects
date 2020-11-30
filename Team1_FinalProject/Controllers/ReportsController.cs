@@ -31,6 +31,7 @@ namespace Team1_FinalProject.Controllers
         
         public IActionResult Index()
         {
+
             return View("Index");
         }
 
@@ -42,35 +43,7 @@ namespace Team1_FinalProject.Controllers
         {
             List<Movie> moviesList = _context.Movies.Where(m => m.Showings.Count() != 0).ToList();
             List<Showing> allShowings = _context.Showings.ToList();
-            /*
-            foreach (Showing showing in allShowings)
-            {
-                // if a showing is older than today
-                if (showing.StartDateTime < DateTime.Now)
-                {
-                    // first see if the showing's movie is still in the list; if not, go to next showing
-                    if (moviesList.Contains(showing.Movie) == false)
-                    {
-                        continue;
-                    }
-
-                    bool nocurrent = true;
-                    // check to see if that showing's movie has any current showings, meaning its start date is >= today
-                    foreach (Showing mshowing in showing.Movie.Showings)
-                    {
-                        if (mshowing.StartDateTime >= DateTime.Now)
-                        {
-                            nocurrent = false;
-                            break;
-                        }
-                    }
-                    if (nocurrent == true)
-                    {
-                        moviesList.Remove(showing.Movie);
-                    }
-                }
-            }
-            */
+        
             Movie SelectNone = new Movie() { MovieID = 0, Title = "All Movies" };
             moviesList.Add(SelectNone);
             SelectList movieSelectList = new SelectList(moviesList.OrderBy(m => m.MovieID), "MovieID", "Title");
@@ -96,10 +69,9 @@ namespace Team1_FinalProject.Controllers
             }
 
 
-            if (svm.MPAA != null)
+            if (svm.SelectedMPAA != null)
             {
-                query = query.Where(t => t.Showing.Movie.MPAA==svm.MPAA);
-
+                query = query.Where(t => t.Showing.Movie.MPAA == svm.SelectedMPAA);
             }
 
             if (svm.MovieTitle != null && svm.MovieTitle != "")
@@ -162,20 +134,10 @@ namespace Team1_FinalProject.Controllers
                 query = query.Where(t => t.Showing.Movie.MovieID == svm.Movie.MovieID);
             }
 
-            if (svm.Decision == ReportViewModel.decision.SeatSold)
-            {
-                svm.SeatsSold = query.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).Count();
-            }
-
-            else if (svm.Decision == ReportViewModel.decision.TotalRevenue)
-            {
-                svm.TotalRevenue = query.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).Select(t => t.Order.OrderTotal).Sum();
-            }
-            else if (svm.Decision == ReportViewModel.decision.Both)
-            {
-                svm.SeatsSold = query.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).Count();
-                svm.TotalRevenue = query.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).Select(t => t.Order.OrderTotal).Sum();
-            }
+            
+            svm.SeatsSold = query.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).Count();
+            svm.TotalRevenue = query.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).Select(t => t.Order.PostDiscount).Sum();
+            
 
             return View(svm);
 
@@ -211,7 +173,7 @@ namespace Team1_FinalProject.Controllers
             return customerSelectList;
         }
 
-        public IActionResult CustomerReportSearch (ReportViewModel svm)
+        public IActionResult DisplayCustomerReport (ReportViewModel svm)
         {
             var query = from t in _context.Tickets
                         select t;
@@ -225,7 +187,7 @@ namespace Team1_FinalProject.Controllers
 
             List <Ticket> CustomerSearchResults = query.Include(t => t.Order).ToList();
 
-            return View("CustomerSearchResults", CustomerSearchResults.OrderByDescending(t => t.Order.Date));
+            return View(CustomerSearchResults.OrderByDescending(t => t.Order.Date));
         }
     }
 }
