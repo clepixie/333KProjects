@@ -690,6 +690,24 @@ namespace Team1_FinalProject.Controllers
             {
                 try
                 {
+                    // first, find the first day of the next (unpublished) week
+                    DateTime td = DateTime.Now.Date;
+                    if (td.DayOfWeek == DayOfWeek.Friday)
+                    {
+                        td = td.AddDays(1);
+                    }
+
+                    while (td.DayOfWeek != DayOfWeek.Friday)
+                    {
+                        td = td.AddDays(1);
+                    }
+
+                    // if the new starting time is set to be on or after the first day of the next unpublished week, gotta redirect to EditPending
+                    if (showing.StartDateTime.Date >= td)
+                    {
+                        return RedirectToAction("EditPending", new { id = showing.ShowingID });
+                    }
+
                     showing.Movie = _context.Movies.Find(SelectedMovie);
                     showing.EndDateTime = showing.StartDateTime + TimeSpan.FromMinutes(showing.Movie.Runtime);
                     showing.Price = GetPrice(showing);
