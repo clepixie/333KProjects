@@ -1,22 +1,22 @@
 ﻿<Properties StartupConfiguration="{5BEA845B-2AA8-4BCB-A0C3-D8FEF9946679}|Default">
   <MonoDevelop.Ide.ItemProperties.Team1__FinalProject PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Reports/DisplayReport.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Reports/DisplayCustomerReport.cshtml">
     <Files>
       <File FileName="Startup.cs" Line="91" Column="2" />
       <File FileName="Views/Orders/Confirmation.cshtml" />
-      <File FileName="Controllers/ShowingsController.cs" Line="114" Column="18" />
+      <File FileName="Controllers/ShowingsController.cs" Line="117" Column="18" />
       <File FileName="Controllers/TicketsController.cs" Line="108" Column="47" />
-      <File FileName="Controllers/OrdersController.cs" Line="93" Column="24" />
-      <File FileName="Controllers/MoviesController.cs" Line="1" Column="1" />
+      <File FileName="Controllers/OrdersController.cs" Line="29" Column="13" />
+      <File FileName="Controllers/MoviesController.cs" Line="46" Column="13" />
       <File FileName="Controllers/MovieReviewsController.cs" Line="1" Column="1" />
-      <File FileName="Models/ViewModels/ReportViewModel.cs" Line="23" Column="42" />
+      <File FileName="Models/ViewModels/ReportViewModel.cs" Line="25" Column="45" />
       <File FileName="Models/ViewModels/SearchViewModel.cs" Line="32" Column="43" />
       <File FileName="Models/Showing.cs" Line="1" Column="1" />
       <File FileName="Models/Ticket.cs" Line="1" Column="1" />
       <File FileName="Models/Order.cs" Line="64" Column="26" />
       <File FileName="Models/Movie.cs" Line="32" Column="14" />
       <File FileName="Seeding/SeedMovies.cs" />
-      <File FileName="Seeding/SeedShowings.cs" />
+      <File FileName="Seeding/SeedShowings.cs" Line="1" Column="1" />
       <File FileName="Program.cs" />
       <File FileName="appsettings.Development.json" />
       <File FileName="Views/RoleAdmin/Index.cshtml" />
@@ -28,8 +28,8 @@
       <File FileName="Views/Orders/Checkout.cshtml" />
       <File FileName="Views/Orders/Edit.cshtml" />
       <File FileName="Views/Orders/Review.cshtml" />
-      <File FileName="Views/Home/Index.cshtml" />
-      <File FileName="Views/Home/SearchSelect.cshtml" />
+      <File FileName="Views/Home/Index.cshtml" Line="11" Column="5" />
+      <File FileName="Views/Home/SearchSelect.cshtml" Line="1" Column="1" />
       <File FileName="Views/MovieReviews/Create.cshtml" />
       <File FileName="Views/MovieReviews/Delete.cshtml" />
       <File FileName="Views/MovieReviews/Details.cshtml" />
@@ -48,7 +48,6 @@
       <File FileName="Views/Genres/Details.cshtml" />
       <File FileName="Views/Genres/Delete.cshtml" />
       <File FileName="Views/Genres/Create.cshtml" />
-      <File FileName="Views/Home/Reports.cshtml" />
       <File FileName="Views/Movies/Index.cshtml" Line="6" Column="1" />
       <File FileName="Views/Orders/Gift.cshtml" />
       <File FileName="Views/Tickets/Index.cshtml" />
@@ -76,15 +75,18 @@
       <File FileName="Controllers/AccountController.cs" Line="1" Column="1" />
       <File FileName="Models/ViewModels/CreateForViewModel.cs" Line="17" Column="6" />
       <File FileName="Models/ViewModels/CheckoutForViewModel.cs" Line="1" Column="1" />
-      <File FileName="Controllers/ReportsController.cs" Line="123" Column="13" />
-      <File FileName="Views/Reports/Index.cshtml" Line="7" Column="12" />
+      <File FileName="Controllers/ReportsController.cs" Line="211" Column="34" />
+      <File FileName="Views/Reports/Index.cshtml" Line="12" Column="40" />
       <File FileName="Views/Prices/Index.cshtml" Line="11" Column="5" />
       <File FileName="Views/Shared/_Layout.cshtml" Line="51" Column="101" />
-      <File FileName="Views/Reports/DisplayReport.cshtml" Line="29" Column="37" />
+      <File FileName="Views/Reports/DisplayReport.cshtml" Line="14" Column="7" />
       <File FileName="Views/Prices/Delete.cshtml" Line="1" Column="1" />
       <File FileName="Seeding/SeedCustomers.cs" Line="1" Column="1" />
       <File FileName="Models/ViewModels/TicketViewModel.cs" Line="1" Column="1" />
-      <File FileName="Views/Reports/CustomerSearch.cshtml" Line="1" Column="1" />
+      <File FileName="Views/Reports/CustomerSearch.cshtml" Line="24" Column="52" />
+      <File FileName="Views/Home/SearchMovies.cshtml" Line="23" Column="13" />
+      <File FileName="Views/Home/SearchShowings.cshtml" Line="22" Column="13" />
+      <File FileName="Views/Reports/DisplayCustomerReport.cshtml" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -95,9 +97,11 @@
               <Node name="Models" expanded="True">
                 <Node name="ViewModels" expanded="True" />
               </Node>
+              <Node name="Seeding" expanded="True" />
               <Node name="Views" expanded="True">
+                <Node name="Home" expanded="True" />
                 <Node name="Reports" expanded="True">
-                  <Node name="DisplayReport.cshtml" selected="True" />
+                  <Node name="DisplayCustomerReport.cshtml" selected="True" />
                 </Node>
               </Node>
             </Node>

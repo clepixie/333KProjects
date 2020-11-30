@@ -28,16 +28,17 @@ namespace Team1_FinalProject.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
         }
+        
         public IActionResult Index()
         {
-            ViewBag.AllCustomers = GetAllCustomers();
-
-            ReportViewModel svm = new ReportViewModel();
-
-            return View(svm);
+            return View("Index");
         }
 
-        private SelectList GetAllAvailableMovies()
+        public IActionResult CustomerSearch()
+        {
+            return View();
+        }
+        private SelectList GetAllMovies()
         {
             List<Movie> moviesList = _context.Movies.Where(m => m.Showings.Count() != 0).ToList();
             List<Showing> allShowings = _context.Showings.ToList();
@@ -78,41 +79,22 @@ namespace Team1_FinalProject.Controllers
 
         }
 
-        //select list 
-        private async Task<SelectList> GetAllUsers()
-        {
-            //Get the list of users from the database
-            List<CreateForViewModel> customerList = new List<CreateForViewModel>();
-            List<Int32> customerIDList = new List<Int32>();
-            Int32 count = 0;
-            foreach (AppUser user in _userManager.Users)
-            {
-                if (await _userManager.IsInRoleAsync(user, "Customer") == true) //user is in the role
-                {
-                    //add user to list of members
-                    CreateForViewModel newcus = new CreateForViewModel();
-                    newcus.SelectCustomerName = user.Email;
-                    newcus.SelectCustomerID = count;
-                    customerIDList.Add(count);
-                    customerList.Add(newcus);
-                    count += 1;
-                }
-            }
-
-            //convert the list to a SelectList by calling SelectList constructor
-            //MonthID and MonthName are the names of the properties on the Month class
-            //MonthID is the primary key
-            SelectList customerSelectList = new SelectList(customerList, "SelectCustomerID", "SelectCustomerName");
-
-            //return the electList
-            return customerSelectList;
-        }
-
         [HttpPost]
         public IActionResult DisplayReport(ReportViewModel svm)
         {
             var query = from t in _context.Tickets
                         select t;
+            List<Order> Orders = new List<Order>();
+            {
+                Orders = _context.Orders.Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Movie)
+                                        .Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Price)
+                                        .ToList();
+            }
+
 
             if (svm.MPAA != null)
             {
@@ -120,9 +102,9 @@ namespace Team1_FinalProject.Controllers
 
             }
 
-            if (svm.CustomerEmail != null)
+            if (svm.MovieTitle != null && svm.MovieTitle != "")
             {
-                query = query.Where(t => t.Order.Customer.Email == svm.CustomerEmail);
+                query = query.Where(t => t.Showing.Movie.Title.Contains(svm.MovieTitle));
             }
 
             if (svm.PopcornPoints)
@@ -180,29 +162,70 @@ namespace Team1_FinalProject.Controllers
                 query = query.Where(t => t.Showing.Movie.MovieID == svm.Movie.MovieID);
             }
 
-            /*
-            switch (svm.SalaryType)
+            if (svm.Decision == ReportViewModel.decision.SeatSold)
             {
-                case SalaryButton.GreaterThan:
-                    query = query.Where(t => t.MinimumSalary >= svm.Salary);
-                    break;
-                case SalaryButton.LessThan:
-                    query = query.Where(t => t.MinimumSalary <= svm.Salary);
-                    break;
-
+                svm.SeatsSold = query.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).Count();
             }
-            */
 
+            else if (svm.Decision == ReportViewModel.decision.TotalRevenue)
+            {
+                svm.TotalRevenue = query.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).Select(t => t.Order.OrderTotal).Sum();
+            }
+            else if (svm.Decision == ReportViewModel.decision.Both)
+            {
+                svm.SeatsSold = query.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).Count();
+                svm.TotalRevenue = query.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).Select(t => t.Order.OrderTotal).Sum();
+            }
 
-            List<JobPosting> SelectedJobPostings = query.Include(jp => jp.Category).ToList();
+            return View(svm);
 
-            //Populate the view bag with a count of all job postings
-            ViewBag.AllJobs = _context.JobPostings.Count();
-            //Populate the view bag with a count of selected job postings
-            ViewBag.SelectedJobs = SelectedJobPostings.Count();
+        }
 
-            return View("Index", SelectedJobPostings.OrderByDescending(jp => jp.PostedDate));
+        //select list 
+        private async Task<SelectList> GetAllUsers()
+        {
+            //Get the list of users from the database
+            List<CreateForViewModel> customerList = new List<CreateForViewModel>();
+            List<Int32> customerIDList = new List<Int32>();
+            Int32 count = 0;
+            foreach (AppUser user in _userManager.Users)
+            {
+                if (await _userManager.IsInRoleAsync(user, "Customer") == true) //user is in the role
+                {
+                    //add user to list of members
+                    CreateForViewModel newcus = new CreateForViewModel();
+                    newcus.SelectCustomerName = user.Email;
+                    newcus.SelectCustomerID = count;
+                    customerIDList.Add(count);
+                    customerList.Add(newcus);
+                    count += 1;
+                }
+            }
 
+            //convert the list to a SelectList by calling SelectList constructor
+            //MonthID and MonthName are the names of the properties on the Month class
+            //MonthID is the primary key
+            SelectList customerSelectList = new SelectList(customerList, "SelectCustomerID", "SelectCustomerName");
+
+            //return the electList
+            return customerSelectList;
+        }
+
+        public IActionResult CustomerReportSearch (ReportViewModel svm)
+        {
+            var query = from t in _context.Tickets
+                        select t;
+
+            if (svm.CustomerEmail != null)
+            {
+                query = query.Where(t => t.Order.Customer.Email == svm.CustomerEmail);
+            }
+
+            query = query.Where(t => t.Order.PopcornPointsUsed == true);
+
+            List <Ticket> CustomerSearchResults = query.Include(t => t.Order).ToList();
+
+            return View("CustomerSearchResults", CustomerSearchResults.OrderByDescending(t => t.Order.Date));
         }
     }
 }

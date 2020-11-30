@@ -1011,7 +1011,6 @@ C:/Users/alice/documents/ut/333k/333kprojects/team1_finalproject/obj/Debug/netco
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Genres/Edit.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Genres/Index.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Home/Index.cshtml.g.cs
-/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Home/Reports.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Home/SearchMovies.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Home/SearchSelect.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Home/SearchShowings.cshtml.g.cs
@@ -1070,3 +1069,9 @@ C:/Users/alice/documents/ut/333k/333kprojects/team1_finalproject/obj/Debug/netco
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Team1_FinalProject.pdb
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Team1_FinalProject.genruntimeconfig.cache
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Reports/Index.cshtml.g.cs
+/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Reports/CustomerSearch.cshtml.g.cs
+/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Reports/DisplayCustomerReport.cshtml.g.cs
+/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Reports/DisplayReport.cshtml.g.cs
+/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Showings/CopySchedule.cshtml.g.cs
+/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Showings/EditPending.cshtml.g.cs
+/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Showings/PendingIndex.cshtml.g.cs

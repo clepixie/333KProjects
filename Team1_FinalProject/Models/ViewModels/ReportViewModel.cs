@@ -16,10 +16,13 @@ namespace Team1_FinalProject.Models
         {
         }
         public decision Decision { get; set; }
+        public int SeatsSold { get; set; }
+        public decimal TotalRevenue { get; set; }
         public bool PopcornPoints { get; set; }
         public Movie Movie { get; set; }
         public MPAA MPAA { get; set; }
         public string CustomerEmail { get; set; }
+        public string MovieTitle { get; set; }
         [Display(Name = "Showing Date:")]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         [DataType(DataType.Date)]
