@@ -7,12 +7,54 @@
 <h1>Display Report</h1>
 
 <hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Movie Title
+            </th>
+            <th>
+                Starting Time
+            </th>
+            <th>
+                MPAA Rating
+            </th>
+            <th>
+                Price Per Ticket
+            </th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Ticket t in @ViewBag.SummarizedTickets)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => t.Showing.Movie.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => t.Showing.StartDateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => t.Showing.Movie.MPAA)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => t.Showing.Price.PriceValue)
+                </td>
+                
+            </tr>
+        }
+    </tbody>
+</table>
 <div class="row">
     <div class="col-md-4">
         <h5>Report Summary</h5>
+
+
+
         <table class="table table-sm table-bordered" style="width:30%">
             <tr>
-                <th colspan="2" style="text-align:center">Order Summary</th>
+                <th colspan="8" style="text-align:center">Order Summary</th>
             </tr>
             @if (Model.Decision == ReportViewModel.decision.SeatSold)
             {
