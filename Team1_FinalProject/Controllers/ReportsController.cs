@@ -136,7 +136,7 @@ namespace Team1_FinalProject.Controllers
 
             
             svm.SeatsSold = query.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).Count();
-            List<Ticket> tickets = query.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).Select(t => t.Order.PostDiscount).ToList();
+            List<Ticket> tickets = query.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).ToList();
 
             foreach (Ticket ticket in tickets)
             {
