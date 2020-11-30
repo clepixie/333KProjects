@@ -28,7 +28,7 @@ namespace Team1_FinalProject.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
         }
-        
+
         public IActionResult Index()
         {
 
@@ -49,7 +49,7 @@ namespace Team1_FinalProject.Controllers
         {
             List<Movie> moviesList = _context.Movies.Where(m => m.Showings.Count() != 0).ToList();
             List<Showing> allShowings = _context.Showings.ToList();
-        
+
             Movie SelectNone = new Movie() { MovieID = 0, Title = "All Movies" };
             moviesList.Add(SelectNone);
             SelectList movieSelectList = new SelectList(moviesList.OrderBy(m => m.MovieID), "MovieID", "Title");
@@ -140,7 +140,7 @@ namespace Team1_FinalProject.Controllers
                 query = query.Where(t => t.Showing.Movie.MovieID == svm.Movie.MovieID);
             }
 
-            
+
             svm.SeatsSold = query.Where(t => t.Order.OrderHistory == OrderHistory.Past).Count();
             List<Ticket> tickets = query.Where(t => t.Order.OrderHistory == OrderHistory.Past).ToList();
 
@@ -155,7 +155,7 @@ namespace Team1_FinalProject.Controllers
         }
 
         //select list 
-        private async Task<SelectList> GetAllUsers()
+        private async Task<MultiSelectList> GetAllUsers()
         {
             //Get the list of users from the database
             List<CreateForViewModel> customerList = new List<CreateForViewModel>();
@@ -178,13 +178,14 @@ namespace Team1_FinalProject.Controllers
             //convert the list to a SelectList by calling SelectList constructor
             //MonthID and MonthName are the names of the properties on the Month class
             //MonthID is the primary key
-            SelectList customerSelectList = new SelectList(customerList, "SelectCustomerID", "SelectCustomerName");
+            MultiSelectList customerSelectList = new MultiSelectList(customerList, "SelectCustomerID", "SelectCustomerName");
 
             //return the electList
             return customerSelectList;
         }
 
-        public IActionResult DisplayCustomerReport (ReportViewModel svm)
+        [HttpPost]
+        public IActionResult DisplayCustomerReport (ReportViewModel svm, int[] SelectedUsers)
         {
             var query = from t in _context.Tickets
                         select t;
@@ -193,12 +194,35 @@ namespace Team1_FinalProject.Controllers
             {
                 query = query.Where(t => t.Order.Customer.Email == svm.CustomerEmail);
             }
-
+            
+            //AppUser customer = _userManager.Users.Where(u => u.Email == customerList[cfvm.SelectedCustomerID].SelectCustomerName).First();
             query = query.Where(t => t.Order.PopcornPointsUsed == true);
 
             List <Ticket> CustomerSearchResults = query.Include(t => t.Order).ToList();
 
             return View(CustomerSearchResults.OrderByDescending(t => t.Order.Date));
+        }
+
+        public IActionResult PPReport()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult DisplayPP(bool pp)
+        {
+            var query = from o in _context.Orders
+                        select o;
+            if (pp == true)
+            {
+                query = query.Where(o => o.PopcornPointsUsed == true);
+            }
+            List<Order> orders = query
+                .Include(o => o.Tickets)
+                .ThenInclude(t => t.Showing)
+                .ThenInclude(s => s.Movie)
+                .ToList();
+            return View(orders);
         }
     }
 }
