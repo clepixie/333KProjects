@@ -32,6 +32,8 @@ namespace Team1_FinalProject.Controllers
             _passwordValidator = (PasswordValidator<AppUser>)userManager.PasswordValidators.FirstOrDefault();
         }
 
+        // get a list of users from the database
+
         // GET: /Account/Register
         [AllowAnonymous]
         public IActionResult Register()
@@ -139,6 +141,7 @@ namespace Team1_FinalProject.Controllers
         //GET: Account/Index
         public IActionResult Index()
         {
+
             IndexViewModel ivm = new IndexViewModel();
 
             //get user info
@@ -150,50 +153,44 @@ namespace Team1_FinalProject.Controllers
             ivm.Email = user.Email;
             ivm.HasPassword = true;
             ivm.UserID = user.Id;
+            ivm.FirstName = user.FirstName;
+            ivm.LastName = user.LastName;
             ivm.UserName = user.UserName;
+            ivm.Birthdate = user.Birthdate;
+            ivm.PhoneNumber = user.PhoneNumber;
+            ivm.Address = user.Address;
+            
 
-            //send data to the view
             return View(ivm);
         }
 
-        private async Task<SelectList> GetAllUsers()
-        {
-            //Get the list of users from the database
-            List<CreateForViewModel> customerList = new List<CreateForViewModel>();
-            List<Int32> customerIDList = new List<Int32>();
-            Int32 count = 0;
-            foreach (AppUser user in _userManager.Users)
-            {
-                if (await _userManager.IsInRoleAsync(user, "Customer") == true) //user is in the role
-                {
-                    //add user to list of members
-                    CreateForViewModel newcus = new CreateForViewModel();
-                    newcus.SelectCustomerName = user.Email;
-                    newcus.SelectCustomerID = count;
-                    customerIDList.Add(count);
-                    customerList.Add(newcus);
-                    count += 1;
-                }
-            }
+        //private async Task<SelectList> GetAllUsers()
+        //{
 
-            //convert the list to a SelectList by calling SelectList constructor
-            //MonthID and MonthName are the names of the properties on the Month class
-            //MonthID is the primary key
-            SelectList customerSelectList = new SelectList(customerList, "SelectCustomerID", "SelectCustomerName");
+        //    //Get the list of users from the database
 
-            //return the electList
-            return customerSelectList;
-        }
+        //    List<AppUser> customers = new List<AppUser>();
 
-        [Authorize(Roles = "Employee")]
-        [HttpGet]
-        public async Task<IActionResult> Edit(Int32 customerID)
-        {
-            ViewBag.AllCustomers = await GetAllUsers();
-            EditProfileViewModel epvm = new EditProfileViewModel();
-            epvm.SelectedCustomerID = customerID;
-            return View(epvm);
-        }
+        //    foreach (AppUser user in _userManager.Users)
+        //    {
+        //        if (await _userManager.IsInRoleAsync(user, "Customer") == true) //user is in the role
+        //        {
+        //            customers.Add(user);
+        //        }
+        //    }
+
+        //    return View(customers);
+        //}
+
+        //[Authorize(Roles = "Employee")]
+        //[HttpGet]
+        //public async Task<IActionResult> Edit(Int32 customerID)
+        //{
+        //    ViewBag.AllCustomers = await GetAllUsers();
+        //    EditProfileViewModel epvm = new EditProfileViewModel();
+        //    epvm.SelectedCustomerID = customerID;
+        //    return View(epvm);
+        //}
 
         [Authorize(Roles = "Employee")]
         [HttpPost]
