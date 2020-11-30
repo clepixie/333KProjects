@@ -24,12 +24,21 @@
 
         <dt>Birthday:</dt>
         <dd>@Model.Birthdate</dd>
+        <dd>
+            [@Html.ActionLink("Change your birthdate", "ChangeBirthdate")]
+        </dd>
 
         <dt>Address:</dt>
         <dd>@Model.Address</dd>
+        <dd>
+            [@Html.ActionLink("Change your address", "ChangeAddress")]
+        </dd>
 
         <dt>Phone Number:</dt>
         <dd>@Model.PhoneNumber</dd>
+        <dd>
+            [@Html.ActionLink("Change your phone number", "ChangePhoneNumber")]
+        </dd>
 
         <dt>Password:</dt>
         <dd>
@@ -44,3 +53,7 @@
         }
     </dl>
 </div>
+@if (User.IsInRole("Employee"))
+{
+    <a asp-action="IndexCustomer" asp-controller="Account" class="btn btn-success">Customer Master List</a>
+}

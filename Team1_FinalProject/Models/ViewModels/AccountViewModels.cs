@@ -104,7 +104,39 @@ namespace Team1_FinalProject.Models
         [Display(Name = "Confirm new password")]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-    }   
+    }
+
+    //NOTE: This is the view model used to allow the user to 
+    //change their phone number
+    public class ChangePhoneNumberViewModel
+    {
+
+        [Required]
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "New Phone Number")]
+        public string NewPhoneNumber { get; set; }
+
+    }
+
+    public class ChangeAddressViewModel
+    {
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "New Address")]
+        public string NewAddress { get; set; }
+
+    }
+
+    public class ChangeBirthdateModel
+    {
+
+        [Required]
+        [DataType(DataType.DateTime)]
+        [Display(Name = "New Birthdate")]
+        public string NewBirthdate { get; set; }
+
+    }
 
     //NOTE: This is the view model used to display basic user information
     //on the index page
