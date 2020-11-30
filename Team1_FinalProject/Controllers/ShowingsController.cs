@@ -1109,7 +1109,7 @@ namespace Team1_FinalProject.Controllers
             var showing = await _context.Showings.FindAsync(id);
             _context.Showings.Remove(showing);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("PendingIndex");
         }
 
         private bool ShowingExists(int id)
