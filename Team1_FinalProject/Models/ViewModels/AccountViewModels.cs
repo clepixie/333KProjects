@@ -5,7 +5,13 @@ using Microsoft.AspNetCore.Authorization;
 
 //TODO: Change this namespace to match your project
 namespace Team1_FinalProject.Models
-{ 
+{
+    public enum RoleChoice
+    {
+        Customer,
+        Employee,
+        Manager
+    }
     //NOTE: This is the view model used to allow the user to login
     //The user only needs teh email and password to login
     public class LoginViewModel
@@ -75,6 +81,8 @@ namespace Team1_FinalProject.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public RoleChoice RoleChoice { get; set; }
     }
 
     //NOTE: This is the view model used to allow the user to 
