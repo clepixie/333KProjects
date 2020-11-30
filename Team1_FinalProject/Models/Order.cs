@@ -72,23 +72,26 @@ namespace Team1_FinalProject.Models
             get
             {
                 decimal DiscountTotal = OrderTotal;
-                if ((DateTime.Now.Date - Customer.Birthdate).TotalDays >= 21900)
-                {
-                    decimal discount = Discount.PriceValue;
-                    
 
-                    if (Tickets.Count() >= 2)
-                    {
-                        
-                        DiscountTotal = Math.Round(((OrderSubtotal + (discount * 2)) * (1 + .0875m)), 2);
-                    }
-                    else
-                    {
-                        
-                        DiscountTotal = Math.Round(((OrderSubtotal + (discount)) * (1 + .0875m)), 2);
-                    }
-  
+                if (Discount == null)
+                {
+                    return DiscountTotal;
                 }
+
+                decimal discount = Discount.PriceValue;
+
+                if (Tickets.Count() >= 2)
+                {
+                        
+                    DiscountTotal = Math.Round(((OrderSubtotal + (discount * 2)) * (1 + TAX_RATE)), 2);
+                }
+
+                else
+                {
+                        
+                    DiscountTotal = Math.Round(((OrderSubtotal + (discount)) * (1 + TAX_RATE)), 2);
+                }
+  
                 return DiscountTotal;
             }
         }
