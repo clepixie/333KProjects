@@ -129,7 +129,7 @@ namespace Team1_FinalProject.Controllers
                 query = query.Where(m => m.EndDateTime.TimeOfDay <= ends);
             }
 
-            if(svm.SelectMovieID != null)
+            if (svm.SelectMovieID != null)
             {
                 query = query.Where(m => svm.SelectMovieID.Contains(m.Movie.MovieID));
             }
@@ -148,7 +148,7 @@ namespace Team1_FinalProject.Controllers
             {
                 return NotFound();
             }
-       
+
             Showing showing = await _context.Showings
                                               .Include(o => o.Price)
                                               .Include(o => o.Movie)
@@ -205,10 +205,42 @@ namespace Team1_FinalProject.Controllers
             showing.Status = SStatus.Pending;
             _context.Showings.Add(showing);
 
+            TimeSpan start = new TimeSpan(9, 0, 0);
+            if (showing.StartDateTime.TimeOfDay < start)
+            {
+                ModelState.AddModelError(string.Empty, "You cannot add this showing because a showing cannot start earlier than 9:00 AM!");
+                List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
+                List<DateTime> nw = new List<DateTime>();
+                DateTime td = DateTime.Now.Date;
+
+                while (td.DayOfWeek != DayOfWeek.Friday)
+                {
+                    td = td.AddDays(1);
+                }
+
+                foreach (int value in Enumerable.Range(1, 7))
+                {
+                    nw.Add(td);
+                    td = td.AddDays(1);
+                }
+                ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
+                return View("PendingIndex", pending);
+            }
+
             // get a sorted list of all the showings on the day you are trying to add this new showing in the same theater
-            List<Showing> todayshowing = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == showing.Room).OrderBy(s => s.StartDateTime).ToList();
+            List<Showing> todayshowingt = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == showing.Room).OrderBy(s => s.StartDateTime).ToList();
+            todayshowingt.Add(showing);
+            List<Showing> todayshowing = todayshowingt.OrderBy(s => s.StartDateTime).ToList();
+
             int idx = todayshowing.FindIndex(s => s.ShowingID == showing.ShowingID);
 
+            // first entry!
+            if (todayshowing.Count() == 1)
+            {
+                await _context.SaveChangesAsync();
+                return RedirectToAction("PendingIndex");
+            }
+            // it is the first showing of the day and it is not the last one
             if (idx == 0 && todayshowing[idx + 1] != null)
             {
                 if (showing.Room == todayshowing[idx + 1].Room && (((todayshowing[idx + 1].StartDateTime - showing.EndDateTime).TotalMinutes < 25 && (todayshowing[idx + 1].StartDateTime - todayshowing[idx + 1].EndDateTime).TotalMinutes > 0)))
@@ -233,7 +265,8 @@ namespace Team1_FinalProject.Controllers
                 }
             }
 
-            else if (todayshowing[idx + 1] != null)
+            // it is not the first nor last showing
+            else if (idx != (todayshowing.Count() - 1))
             {
 
                 if ((showing.Room == todayshowing[idx + 1].Room && ((todayshowing[idx + 1].StartDateTime - showing.EndDateTime).TotalMinutes < 25 && (todayshowing[idx + 1].EndDateTime - showing.StartDateTime).TotalMinutes > 0)) || (showing.Room == todayshowing[idx - 1].Room && ((showing.StartDateTime - todayshowing[idx - 1].EndDateTime).TotalMinutes < 25 && (showing.StartDateTime - todayshowing[idx - 1].EndDateTime).TotalMinutes > 0)))
@@ -259,7 +292,8 @@ namespace Team1_FinalProject.Controllers
                 }
             }
 
-            else if (todayshowing[idx + 1] == null)
+            // it is the last showing of the day
+            else if (idx == (todayshowing.Count() - 1))
             {
                 if (showing.Room == todayshowing[idx - 1].Room && (((todayshowing[idx - 1].StartDateTime - showing.EndDateTime).TotalMinutes < 25 && (todayshowing[idx - 1].StartDateTime - todayshowing[idx - 1].EndDateTime).TotalMinutes > 0)))
                 {
@@ -451,6 +485,140 @@ namespace Team1_FinalProject.Controllers
 
             return View("Index");
         }
+        private SelectList GetDaysShowings()
+        {
+            List<ScheduleViewModel> svm = new List<ScheduleViewModel>();
+            List<int> dayID = new List<int> { 0, 1, 2, 3, 4, 5, 6 };
+            DateTime td = DateTime.Now;
+
+            if (td.DayOfWeek == DayOfWeek.Friday)
+            {
+                td = td.AddDays(1);
+            }
+
+            while (td.DayOfWeek != DayOfWeek.Friday)
+            {
+                td = td.AddDays(1);
+            }
+
+            foreach (int id in dayID)
+            {
+                int showing = new List<Showing>(_context.Showings.Where(s => s.StartDateTime.Date == td.Date).ToList()).Count();
+                ScheduleViewModel temp = new ScheduleViewModel();
+                temp.DayDate = (td.ToString("MM/dd/yyyy") + ": " + td.DayOfWeek + "; " + "Showings #: " + showing);
+                temp.DayID = id;
+                svm.Add(temp);
+                td = td.AddDays(1);
+            }
+
+            SelectList sldays = new SelectList(svm, "DayID", "DayDate");
+            return sldays;
+        }
+        [HttpGet]
+        public IActionResult CopySchedule()
+        {
+            ViewBag.FromDays = GetDaysShowings();
+            ViewBag.ToDays = GetDaysShowings();
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CopySchedule(int SelectedDateFrom, int SelectedDateTo)
+        {
+            List<int> dayID = new List<int> { 0, 1, 2, 3, 4, 5, 6 };
+            DateTime td = DateTime.Now.Date;
+
+            if (td.DayOfWeek == DayOfWeek.Friday)
+            {
+                td = td.AddDays(1);
+            }
+
+            while (td.DayOfWeek != DayOfWeek.Friday)
+            {
+                td = td.AddDays(1);
+            }
+
+            DateTime selecteddateto = new DateTime();
+            DateTime selecteddatefrom = new DateTime();
+            foreach (int id in dayID)
+            {
+                if (id == SelectedDateFrom)
+                {
+                    selecteddatefrom = td;
+                }
+                if (id == SelectedDateTo)
+                {
+                    selecteddateto = td;
+                }
+                td = td.AddDays(1);
+            }
+            List<Showing> fromshow = _context.Showings.Where(s => s.StartDateTime.Date == selecteddatefrom.Date).ToList();
+            List<Showing> toshow = _context.Showings.Where(s => s.StartDateTime.Date == selecteddateto.Date).ToList();
+
+            if (fromshow.Count() == 0)
+            {
+                ModelState.AddModelError(string.Empty, "You cannot copy showings from a day that has no showings yet!");
+                List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
+                List<DateTime> nw = new List<DateTime>();
+                DateTime t = DateTime.Now.Date;
+
+                while (t.DayOfWeek != DayOfWeek.Friday)
+                {
+                    t = t.AddDays(1);
+                }
+
+                foreach (int value in Enumerable.Range(1, 7))
+                {
+                    nw.Add(t);
+                    t = t.AddDays(1);
+                }
+                ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
+                return View("PendingIndex", pending);
+            }
+
+            if (toshow.Count() != 0)
+            {
+                ModelState.AddModelError(string.Empty, "Clear out all the showings in a day before you copy showings to it.");
+                List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
+                List<DateTime> nw = new List<DateTime>();
+                DateTime t = DateTime.Now.Date;
+
+                while (t.DayOfWeek != DayOfWeek.Friday)
+                {
+                    t = t.AddDays(1);
+                }
+
+                foreach (int value in Enumerable.Range(1, 7))
+                {
+                    nw.Add(t);
+                    t = t.AddDays(1);
+                }
+                ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
+                return View("PendingIndex", pending);
+            }
+
+            // get the showings on the date you want to copy from
+            List<Showing> copiedshowings = _context.Showings.Include(s => s.Movie).ThenInclude(s => s.Genre).Include(s => s.Price).Where(s => s.StartDateTime.Date == selecteddatefrom.Date).Where(s => s.Status == SStatus.Pending).ToList();
+            foreach (Showing showing in copiedshowings)
+            {
+                Showing news = new Showing();
+                // set the new showing to the copied showing
+                // change relevant stuff like the start/end time and the price
+                TimeSpan savetime = showing.StartDateTime.TimeOfDay;
+                news.StartDateTime = selecteddateto + savetime;
+                news.EndDateTime = news.StartDateTime + TimeSpan.FromMinutes(showing.Movie.Runtime);
+                news.Price = GetPrice(news);
+                news.Status = SStatus.Pending;
+                news.Movie = showing.Movie;
+                news.Room = showing.Room;
+                news.SpecialEvent = showing.SpecialEvent;
+                _context.Showings.Add(news);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("PendingIndex");
+        }
+
         // GET: Showings/Edit/5
         public IActionResult Edit(int? id)
         {
@@ -522,9 +690,36 @@ namespace Team1_FinalProject.Controllers
                     showing.Status = SStatus.Published;
                     _context.Update(showing);
 
+                    TimeSpan start = new TimeSpan(9, 0, 0);
+                    if (showing.StartDateTime.TimeOfDay < start)
+                    {
+                        ModelState.AddModelError(string.Empty, "You cannot add this showing because a showing cannot start earlier than 9:00 AM!");
+                        List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
+                        List<DateTime> nw = new List<DateTime>();
+                        DateTime td = DateTime.Now.Date;
+
+                        while (td.DayOfWeek != DayOfWeek.Friday)
+                        {
+                            td = td.AddDays(1);
+                        }
+
+                        foreach (int value in Enumerable.Range(1, 7))
+                        {
+                            nw.Add(td);
+                            td = td.AddDays(1);
+                        }
+                        ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
+                        return View("PendingIndex", pending);
+                    }
+
                     List<Showing> todayshowing = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == showing.Room).OrderBy(s => s.StartDateTime).ToList();
                     int idx = todayshowing.FindIndex(s => s.ShowingID == showing.ShowingID);
 
+                    if (todayshowing.Count() == 1)
+                    {
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
                     if (idx == 0 && todayshowing[idx + 1] != null)
                     {
                         if (showing.Room == todayshowing[idx + 1].Room && (((todayshowing[idx + 1].StartDateTime - showing.EndDateTime).TotalMinutes < 25 && (todayshowing[idx + 1].StartDateTime - todayshowing[idx + 1].EndDateTime).TotalMinutes > 0)))
@@ -689,8 +884,36 @@ namespace Team1_FinalProject.Controllers
                     showing.Status = SStatus.Pending;
                     _context.Showings.Update(showing);
 
+                    TimeSpan start = new TimeSpan(9, 0, 0);
+                    if (showing.StartDateTime.TimeOfDay < start)
+                    {
+                        ModelState.AddModelError(string.Empty, "You cannot add this showing because a showing cannot start earlier than 9:00 AM!");
+                        List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
+                        List<DateTime> nw = new List<DateTime>();
+                        DateTime td = DateTime.Now.Date;
+
+                        while (td.DayOfWeek != DayOfWeek.Friday)
+                        {
+                            td = td.AddDays(1);
+                        }
+
+                        foreach (int value in Enumerable.Range(1, 7))
+                        {
+                            nw.Add(td);
+                            td = td.AddDays(1);
+                        }
+                        ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
+                        return View("PendingIndex", pending);
+                    }
+
                     List<Showing> todayshowing = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == showing.Room).OrderBy(s => s.StartDateTime).ToList();
                     int idx = todayshowing.FindIndex(s => s.ShowingID == showing.ShowingID);
+
+                    if (todayshowing.Count() == 1)
+                    {
+                        _context.SaveChanges();
+                        return RedirectToAction("PendingIndex");
+                    }
 
                     if (idx == 0 && todayshowing[idx + 1] != null)
                     {

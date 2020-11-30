@@ -30,7 +30,8 @@
         @if (User.IsInRole("Manager"))
         {
             <a asp-action="Create">Create New</a> <span>|</span>
-            <a asp-action="Publish">Publish Showings</a>
+            <a asp-action="Publish">Publish Showings</a> <span>|</span>
+            <a asp-action="CopySchedule">Quick Copy</a>
         }
     }
 </p>

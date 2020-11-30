@@ -9,5 +9,7 @@ namespace Team1_FinalProject.Models
     {
         public int ScheduleID { get; set; }
         public string ScheduleDate { get; set; }
+        public int DayID { get; set; }
+        public string DayDate { get; set; }
     }
 }
