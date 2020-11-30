@@ -70,7 +70,7 @@ namespace Team1_FinalProject.Controllers
                 if (result.Succeeded)
                 {
                     //TODO: Add user to desired role. This example adds the user to the customer role
-                    await _userManager.AddToRoleAsync(newUser, "Customer");
+                    await _userManager.AddToRoleAsync(newUser, rvm.RoleChoice.ToString());
 
                     //NOTE: This code logs the user into the account that they just created
                     //You may or may not want to log a user in directly after they register - check
@@ -164,33 +164,32 @@ namespace Team1_FinalProject.Controllers
             return View(ivm);
         }
 
-        //private async Task<SelectList> GetAllUsers()
-        //{
+        public async Task<IActionResult> IndexCustomer()
+        {
 
-        //    //Get the list of users from the database
+            //Get the list of users from the database
 
-        //    List<AppUser> customers = new List<AppUser>();
+            List<AppUser> customers = new List<AppUser>();
 
-        //    foreach (AppUser user in _userManager.Users)
-        //    {
-        //        if (await _userManager.IsInRoleAsync(user, "Customer") == true) //user is in the role
-        //        {
-        //            customers.Add(user);
-        //        }
-        //    }
+            foreach (AppUser user in _userManager.Users)
+            {
+                if (await _userManager.IsInRoleAsync(user, "Customer") == true) //user is in the role
+                {
+                    customers.Add(user);
+                }
+            }
 
-        //    return View(customers);
-        //}
+            return View("IndexCustomer", customers);
+        }
 
-        //[Authorize(Roles = "Employee")]
-        //[HttpGet]
-        //public async Task<IActionResult> Edit(Int32 customerID)
-        //{
-        //    ViewBag.AllCustomers = await GetAllUsers();
-        //    EditProfileViewModel epvm = new EditProfileViewModel();
-        //    epvm.SelectedCustomerID = customerID;
-        //    return View(epvm);
-        //}
+        [Authorize(Roles = "Employee")]
+        [HttpGet]
+        public async Task<IActionResult> Edit(Int32 customerID)
+        {
+            EditProfileViewModel epvm = new EditProfileViewModel();
+            epvm.SelectedCustomerID = customerID;
+            return View(epvm);
+        }
 
         [Authorize(Roles = "Employee")]
         [HttpPost]

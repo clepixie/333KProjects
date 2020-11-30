@@ -18,7 +18,6 @@ namespace Team1_FinalProject.Seeding
 	
     public static class SeedEmployeesManagers
     {
-		[Authorize(Roles = "Manager")]
 		public static async Task AddEmployee(IServiceProvider serviceProvider)
         {
             //Get instances of the services needed to add a user & add a user to a role
