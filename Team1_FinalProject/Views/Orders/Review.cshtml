@@ -46,7 +46,7 @@
                     <td>
                         @Html.DisplayFor(model => t.Showing.Price.PriceValue)
                         <br />
-                        @if (ViewBag.DiscountTotal != null && count != 0)
+                        @if (ViewBag.DiscountTotal != null && count != 0 && t.Showing.SpecialEvent == false)
                         {
                             <b style="color:red">@ViewBag.Discount</b>
                             count -= 1;
@@ -104,7 +104,6 @@
                     @if (ViewBag.DiscountTax != null)
                     {
                         @ViewBag.DiscountTax
-                        @Html.HiddenFor(model => model.Tax, (decimal)ViewBag.DiscountTax)
                     }
                     else
                     {
@@ -115,7 +114,6 @@
                     @if (ViewBag.DiscountTotal != null)
                     {
                         @ViewBag.DiscountTotal
-                        @Html.HiddenFor(model => model.OrderTotal, (decimal)ViewBag.DiscountTotal)
                     }
                     else
                     {

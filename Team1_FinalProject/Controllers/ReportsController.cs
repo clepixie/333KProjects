@@ -35,6 +35,12 @@ namespace Team1_FinalProject.Controllers
             return View("Index");
         }
 
+        public IActionResult DecisionReport()
+        {
+
+            return View();
+        }
+
         public IActionResult CustomerSearch()
         {
             return View();
@@ -135,14 +141,14 @@ namespace Team1_FinalProject.Controllers
             }
 
             
-            svm.SeatsSold = query.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).Count();
-            List<Ticket> tickets = query.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).ToList();
+            svm.SeatsSold = query.Where(t => t.Order.OrderHistory == OrderHistory.Past).Count();
+            List<Ticket> tickets = query.Where(t => t.Order.OrderHistory == OrderHistory.Past).ToList();
 
             foreach (Ticket ticket in tickets)
             {
                 svm.TotalRevenue += ticket.Order.PostDiscount;
             }
-
+            ViewBag.SummarizedTickets = tickets;
 
             return View(svm);
 

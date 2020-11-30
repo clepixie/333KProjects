@@ -393,7 +393,7 @@ namespace Team1_FinalProject.Controllers
             }
             string sdays = "";
             foreach (DateTime day in days) { sdays += day.ToString("MM/dd/yyyy"); if (days.Count() > 1) { sdays += ", "; } }
-            if (days.Count() != 7)
+            /*if (days.Count() != 7)
             {
                 ModelState.AddModelError(string.Empty, "Some days are missing from your pending schedule; you only have: " + sdays);
                 List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
@@ -412,8 +412,8 @@ namespace Team1_FinalProject.Controllers
                 }
                 ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
                 return View("PendingIndex", pending);
-                /*return View("Error", new String[] { "Some days are missing from your pending schedule; you only have:\n" + sdays });*/
-            }
+                *//*return View("Error", new String[] { "Some days are missing from your pending schedule; you only have:\n" + sdays });*//*
+            }*/
 
             while (startdate != enddate)
             {

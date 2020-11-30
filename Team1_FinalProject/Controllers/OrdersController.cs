@@ -29,7 +29,8 @@ namespace Team1_FinalProject.Controllers
             List<Order> Orders = new List<Order>();
             if (User.IsInRole("Manager") || User.IsInRole("Employee"))
             {
-                Orders = _context.Orders.Include(o => o.Tickets)
+                Orders = _context.Orders.Include(o => o.Discount)
+                                        .Include(o => o.Tickets)
                                         .ThenInclude(t => t.Showing)
                                         .ThenInclude(s => s.Movie)
                                         .Include(o => o.Tickets)
@@ -40,6 +41,7 @@ namespace Team1_FinalProject.Controllers
             else
             {
                 Orders = _context.Orders.Where(o => o.Customer.UserName == User.Identity.Name)
+                                        .Include(o => o.Discount)
                                         .Include(o => o.Tickets)
                                         .ThenInclude(t => t.Showing)
                                         .ThenInclude(s => s.Movie)
@@ -61,6 +63,7 @@ namespace Team1_FinalProject.Controllers
             }
 
             Order order = _context.Orders
+                .Include(o => o.Discount)
                 .Include(o => o.Tickets)
                 .ThenInclude(o => o.Showing)
                 .ThenInclude(o => o.Movie)
@@ -69,7 +72,21 @@ namespace Team1_FinalProject.Controllers
                 .ThenInclude(o => o.Price)
                 .Include(o => o.Customer)
                 .FirstOrDefault(o => o.OrderID == id);
-
+            if (order.Discount != null)
+            {
+                if (order.Tickets.Where(t => t.Showing.SpecialEvent == false).Count() >= 2)
+                {
+                    ViewBag.DiscountTax = string.Format("{0:C}", (order.OrderSubtotal + (order.Discount.PriceValue * 2)) * .0825m);
+                }
+                else
+                {
+                    ViewBag.DiscountTax = string.Format("{0:C}", (order.OrderSubtotal + order.Discount.PriceValue) * .0825m);
+                }
+            }
+            else
+            {
+                ViewBag.DiscountTax = string.Format("{0:C}", order.Tax);
+            }
             if (order == null)
             {
                 return NotFound();
@@ -82,9 +99,9 @@ namespace Team1_FinalProject.Controllers
             }
             ViewBag.ticketcounter = ticketcount;
             //make sure a customer isn't trying to look at someone else's order
-            if (User.IsInRole("Admin") == false && order.Customer.UserName != User.Identity.Name)
+            if (User.IsInRole("Customer") && order.Customer.UserName != User.Identity.Name)
             {
-                return View("Error", new string[] { "You are not authorized to edit this order!" });
+                return View("Error", new string[] { "You are not authorized to view this order!" });
             }
 
             return View(order);
@@ -286,7 +303,7 @@ namespace Team1_FinalProject.Controllers
         // Review [GET]
         public IActionResult Review([Bind("OrderID, PopcornPointsUsed, GiftOrder, GiftEmail")] Order order)
         {
-            Order currorder = _context.Orders.Include(o => o.Tickets).ThenInclude(o => o.Showing)
+            Order currorder = _context.Orders.Include(o => o.Discount).Include(o => o.Tickets).ThenInclude(o => o.Showing)
             .ThenInclude(o => o.Movie).Include(o => o.Tickets).ThenInclude(o => o.Showing)
             .ThenInclude(o => o.Price).Include(o => o.Customer).FirstOrDefault(o => o.OrderID == order.OrderID);
             ViewBag.Discount = "N/A";
@@ -310,23 +327,24 @@ namespace Team1_FinalProject.Controllers
             if ((DateTime.Now.Date - currorder.Customer.Birthdate).TotalDays >= 21900)
             {
                 // we will use viewbags rn because they may want to make changes still; not yet confirmed. we will officially change the values when they do confirm
-                Price discountprice = _context.Prices.Where(p => p.PriceType == PType.SeniorCitizen).FirstOrDefault();
-                decimal discount = discountprice.PriceValue;
-                ViewBag.Discount = discount;
-                if (currorder.Tickets.Count() >= 2)
+                decimal discount = currorder.Discount.PriceValue;
+                ViewBag.Discount = string.Format("{0:C}", discount);
+                List<Ticket> nonspecialtickets = currorder.Tickets.Where(t => t.Showing.SpecialEvent == false).ToList();
+
+                if (nonspecialtickets.Count() >= 2)
                 {
-                    ViewBag.DiscountDouble = discount * 2;
-                    ViewBag.DiscountSubtotal = currorder.OrderSubtotal + (discount * 2);
-                    ViewBag.DiscountTax = Math.Round(((currorder.OrderSubtotal + (discount * 2)) * .0875m), 2);
-                    ViewBag.DiscountDiff = currorder.OrderSubtotal + discount * 2;
-                    ViewBag.DiscountTotal = Math.Round(((currorder.OrderSubtotal + (discount * 2)) * (1 + .0875m)), 2);
+                    ViewBag.DiscountDouble = string.Format("{0:C}", discount * 2);
+                    ViewBag.DiscountSubtotal = string.Format("{0:C}", currorder.OrderSubtotal + (discount * 2));
+                    ViewBag.DiscountTax = string.Format("{0:C}", Math.Round(((currorder.OrderSubtotal + (discount * 2)) * .0875m), 2));
+                    ViewBag.DiscountDiff = string.Format("{0:C}", currorder.OrderSubtotal + discount * 2);
+                    ViewBag.DiscountTotal = string.Format("{0:C}", Math.Round(((currorder.OrderSubtotal + (discount * 2)) * (1 + .0875m)), 2));
                 }
                 else
                 {
-                    ViewBag.DiscountSubtotal = currorder.OrderSubtotal + (discount);
-                    ViewBag.DiscountTax = Math.Round(((currorder.OrderSubtotal + (discount)) * .0875m), 2);
-                    ViewBag.DiscountDiff = currorder.OrderSubtotal + discount;
-                    ViewBag.DiscountTotal = Math.Round(((currorder.OrderSubtotal + (discount)) * (1 + .0875m)), 2);
+                    ViewBag.DiscountSubtotal = string.Format("{0:C}", currorder.OrderSubtotal + (discount));
+                    ViewBag.DiscountTax = string.Format("{0:C}", Math.Round(((currorder.OrderSubtotal + (discount)) * .0875m), 2));
+                    ViewBag.DiscountDiff = string.Format("{0:C}", currorder.OrderSubtotal + discount);
+                    ViewBag.DiscountTotal = string.Format("{0:C}", Math.Round(((currorder.OrderSubtotal + (discount)) * (1 + .0875m)), 2));
                 }
             }
             
