@@ -46,7 +46,7 @@
                 @Html.DisplayFor(modelItem => item.OrderHistory)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.OrderID">Cancel</a> |
+                <a asp-action="CancelOrderView" asp-route-id="@item.OrderID">Cancel</a> |
                 <a asp-action="Details" asp-route-id="@item.OrderID">Details</a> 
             </td>
         </tr>

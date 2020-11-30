@@ -364,13 +364,54 @@ namespace Team1_FinalProject.Controllers
 
             return View(currorder);
         }
-
+        [HttpGet]
+        public IActionResult CancelOrderView(int id)
+        {
+            Order order = _context.Orders.Include(o => o.Customer)
+                                        .Include(o => o.Discount)
+                                        .Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Movie)
+                                        .Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Price)
+                                        .Where(o => o.OrderID == id)
+                                        .FirstOrDefault();
+            return View("CancelOrder", order);
+        }
         //Cancel
         [HttpPost]
         public IActionResult CancelOrder(Order order)
         {
-            order.OrderHistory = OrderHistory.Cancelled;
-            return View("Index");
+            Order o = _context.Orders.Include(o => o.Customer)
+                                        .Include(o => o.Discount)
+                                        .Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Movie)
+                                        .Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Price)
+                                        .Where(o => o.OrderID == order.OrderID)
+                                        .FirstOrDefault();
+
+            foreach (Ticket t in o.Tickets)
+            {
+                if (t.Showing.StartDateTime - DateTime.Now >= new TimeSpan(1, 0 , 0))
+                {
+                    return View("Error", new String[] { "You cannot cancel this order because one or more of the tickets are for a showing that will start within the hour." });
+                }
+            }
+
+            o.OrderHistory = OrderHistory.Cancelled;
+
+            if (o.PopcornPointsUsed == true)
+            {
+                o.Customer.PopcornPoints += (o.Tickets.Count() * 100);
+            }
+
+            _context.Orders.Update(o);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         public IActionResult Confirmation([Bind("OrderID, Tax, OrderTotal, PopcornPointsUsed, OrderNumber")] Order order)
