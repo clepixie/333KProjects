@@ -173,7 +173,7 @@ namespace Team1_FinalProject.Controllers
             return customerSelectList;
         }
 
-        public IActionResult CustomerReportSearch (ReportViewModel svm)
+        public IActionResult DisplayCustomerReport (ReportViewModel svm)
         {
             var query = from t in _context.Tickets
                         select t;
@@ -187,7 +187,7 @@ namespace Team1_FinalProject.Controllers
 
             List <Ticket> CustomerSearchResults = query.Include(t => t.Order).ToList();
 
-            return View("CustomerSearchResults", CustomerSearchResults.OrderByDescending(t => t.Order.Date));
+            return View(CustomerSearchResults.OrderByDescending(t => t.Order.Date));
         }
     }
 }

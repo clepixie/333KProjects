@@ -15,7 +15,7 @@
         <div class="form-group">
             <label asp-for="Decision" class="control-label"></label><br />
             <input type="radio" class="radio" asp-for="Decision" value="@ReportViewModel.decision.Both" /> Both<br />
-            <input type="radio" class="radio" asp-for="Decision" value="@ReportViewModel.decision.SeatSold" /> Seat Sold<br />
+            <input type="radio" class="radio" asp-for="Decision" value="@ReportViewModel.decision.SeatSold" /> Seats Sold<br />
             <input type="radio" class="radio" asp-for="Decision" value="@ReportViewModel.decision.TotalRevenue" /> Total Revenue<br />
             <span asp-validation-for="Decision" class="text-danger"></span>
         </div>
