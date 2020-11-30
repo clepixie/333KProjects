@@ -66,7 +66,8 @@ namespace Team1_FinalProject.Models
 	    public List<Ticket> Tickets { get; set; }
 
         public Price Discount { get; set; }
-
+        [Display(Name = "Order Total:")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public Decimal PostDiscount
         {
             get

@@ -267,7 +267,10 @@ namespace Team1_FinalProject.Controllers
             }
             if (User.IsInRole("Customer"))
             {
-                List<Order> orders = _context.Orders.Include(o => o.Tickets)
+                List<Order> orders = _context.Orders
+                                        .Include(o => o.Customer)
+                                        .Include(o => o.Discount)
+                                        .Include(o => o.Tickets)
                                         .ThenInclude(t => t.Showing)
                                         .ThenInclude(s => s.Movie)
                                         .Include(o => o.Tickets)
@@ -325,8 +328,8 @@ namespace Team1_FinalProject.Controllers
                     foreach (Ticket existingticket in sorted_tickets)
                     {
                       
-                        if ((existingticket.Showing.StartDateTime.Date == showing.StartDateTime.Date) && ((existingticket.Showing.StartDateTime <= showing.EndDateTime && showing.Movie.Runtime > (existingticket.Showing.StartDateTime - showing.EndDateTime).TotalMinutes)
-                            || (existingticket.Showing.EndDateTime >= showing.StartDateTime && existingticket.Showing.Movie.Runtime > (showing.StartDateTime - existingticket.Showing.EndDateTime).TotalMinutes)))
+                        if ((existingticket.Showing.StartDateTime.Date == showing.StartDateTime.Date) && ((existingticket.Showing.StartDateTime <= showing.EndDateTime && existingticket.Showing.EndDateTime >= showing.EndDateTime)
+                            || (existingticket.Showing.EndDateTime >= showing.StartDateTime && showing.EndDateTime >= existingticket.Showing.EndDateTime)))
                         {
                             return View("Error", new String[] { "This movie time overlaps with another movie in your cart!" });
 
