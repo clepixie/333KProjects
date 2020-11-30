@@ -16,8 +16,10 @@ namespace Team1_FinalProject.Models
         {
         }
         [Display(Name ="Report Type:")]
+        [Required]
         public decision Decision { get; set; }
         public int SeatsSold { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal TotalRevenue { get; set; }
         [Display(Name ="Search orders purchased with Popcorn Points:")]
         public bool PopcornPoints { get; set; }
