@@ -1136,3 +1136,4 @@ C:/Users/alice/documents/ut/333k/333kprojects/team1_finalproject/obj/Debug/netco
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/win-arm64/native/e_sqlite3.dll
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/win-x64/native/e_sqlite3.dll
 /Users/nadiabaig/Desktop/mis 333k/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/runtimes/win-x86/native/e_sqlite3.dll
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/mono_crash.11a6748113.0.json
