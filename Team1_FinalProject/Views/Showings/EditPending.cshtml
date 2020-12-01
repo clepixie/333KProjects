@@ -70,7 +70,7 @@
             <hr class="hr-danger" />
             <div class="form-group">
                 <label class="control-label">Movie Title:</label>
-                @Html.DropDownList("SelectedMovie", (MultiSelectList)ViewBag.AllMovies, new { @class = "form-control" })
+                @Html.DisplayFor(model => model.Movie.Title)
             </div>
             <div class="form-group">
                 <label asp-for="StartDateTime" class="control-label"></label>

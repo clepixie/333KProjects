@@ -634,7 +634,6 @@ namespace Team1_FinalProject.Controllers
                 return NotFound();
             }
 
-            ViewBag.AllMovies = GetAllMovies();
             Showing showing = _context.Showings
                                               .Include(o => o.Price)
                                               .Include(o => o.Movie)
@@ -662,7 +661,6 @@ namespace Team1_FinalProject.Controllers
             }
 
             ViewBag.NextWeekDays = GetAllDays();
-            ViewBag.AllMovies = GetAllMovies();
             Showing showing = _context.Showings
                                               .Include(o => o.Price)
                                               .Include(o => o.Movie)
@@ -714,7 +712,6 @@ namespace Team1_FinalProject.Controllers
                         return RedirectToAction("EditPending", new { id = showing.ShowingID });
                     }
 
-                    showing.Movie = _context.Movies.Find(SelectedMovie);
                     showing.EndDateTime = showing.StartDateTime + TimeSpan.FromMinutes(showing.Movie.Runtime);
                     showing.Price = GetPrice(showing);
                     showing.Status = SStatus.Published;
@@ -932,7 +929,6 @@ namespace Team1_FinalProject.Controllers
                     }
 
                     showing.StartDateTime = nextweek[SelectedDate];
-                    showing.Movie = _context.Movies.Find(SelectedMovie);
                     showing.EndDateTime = showing.StartDateTime + TimeSpan.FromMinutes(showing.Movie.Runtime);
                     showing.Price = GetPrice(showing);
                     showing.Status = SStatus.Pending;
