@@ -82,6 +82,10 @@ namespace Team1_FinalProject.Controllers
                 {
                     ViewBag.DiscountTax = string.Format("{0:C}", (order.OrderSubtotal + order.Discount.PriceValue) * .0825m);
                 }
+                else
+                {
+                    ViewBag.DiscountTax = string.Format("{0:C}", order.Tax);
+                }
             }
 
             else
