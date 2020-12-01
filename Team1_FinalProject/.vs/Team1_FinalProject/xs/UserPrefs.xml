@@ -1,13 +1,13 @@
 ﻿<Properties StartupConfiguration="{5BEA845B-2AA8-4BCB-A0C3-D8FEF9946679}|Default">
   <MonoDevelop.Ide.ItemProperties.Team1__FinalProject PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Orders/CancelOrder.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Reports/DisplayReport.cshtml">
     <Files>
       <File FileName="Controllers/AccountController.cs" Line="195" Column="10" />
       <File FileName="Controllers/TicketsController.cs" Line="1" Column="1" />
       <File FileName="Controllers/MoviesController.cs" />
       <File FileName="Models/AppUser.cs" />
       <File FileName="Controllers/MovieReviewsController.cs" />
-      <File FileName="Views/Reports/DisplayCustomerReport.cshtml" Line="80" Column="3" />
+      <File FileName="Views/Reports/DisplayCustomerReport.cshtml" Line="96" Column="3" />
       <File FileName="Views/Account/Index.cshtml" />
       <File FileName="Views/Account/Register.cshtml" />
       <File FileName="Views/Orders/Checkout.cshtml" Line="139" Column="1" />
@@ -26,17 +26,18 @@
       <File FileName="Views/Account/Login.cshtml" />
       <File FileName="Views/Account/EditEmployee.cshtml" />
       <File FileName="Views/Home/SearchMovies.cshtml" />
-      <File FileName="Views/Reports/CustomerSearch.cshtml" Line="24" Column="51" />
+      <File FileName="Views/Reports/CustomerSearch.cshtml" Line="21" Column="51" />
       <File FileName="Views/Reports/DisplayReport.cshtml" Line="92" Column="7" />
-      <File FileName="Controllers/ReportsController.cs" Line="203" Column="46" />
+      <File FileName="Controllers/ReportsController.cs" Line="249" Column="25" />
       <File FileName="Models/ViewModels/ReportViewModel.cs" Line="1" Column="1" />
       <File FileName="Views/Reports/Index.cshtml" Line="12" Column="81" />
       <File FileName="Views/Reports/DecisionReport.cshtml" Line="67" Column="51" />
       <File FileName="Views/Reports/PPReport.cshtml" Line="1" Column="1" />
       <File FileName="Views/Reports/DisplayPP.cshtml" Line="28" Column="45" />
       <File FileName="Views/Orders/Review.cshtml" Line="150" Column="1" />
-      <File FileName="Controllers/OrdersController.cs" Line="1" Column="1" />
+      <File FileName="Controllers/OrdersController.cs" Line="359" Column="46" />
       <File FileName="Views/Orders/CancelOrder.cshtml" Line="1" Column="1" />
+      <File FileName="Views/Orders/CancelSuccess.cshtml" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -48,10 +49,10 @@
                 <Node name="ViewModels" expanded="True" />
               </Node>
               <Node name="Views" expanded="True">
-                <Node name="Orders" expanded="True">
-                  <Node name="CancelOrder.cshtml" selected="True" />
+                <Node name="Orders" expanded="True" />
+                <Node name="Reports" expanded="True">
+                  <Node name="DisplayReport.cshtml" selected="True" />
                 </Node>
-                <Node name="Reports" expanded="True" />
               </Node>
             </Node>
           </Node>
