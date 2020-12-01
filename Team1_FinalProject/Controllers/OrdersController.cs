@@ -377,6 +377,10 @@ namespace Team1_FinalProject.Controllers
                                         .ThenInclude(s => s.Price)
                                         .Where(o => o.OrderID == id)
                                         .FirstOrDefault();
+            if (order.OrderHistory == OrderHistory.Cancelled)
+            {
+                return View("Error", new String[] { "This order has already been canceled!" });
+            }
             return View("CancelOrder", order);
         }
         //Cancel
