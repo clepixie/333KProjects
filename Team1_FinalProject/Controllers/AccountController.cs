@@ -244,15 +244,12 @@ namespace Team1_FinalProject.Controllers
 
         //Logic for change password
         // GET: /Account/ChangePassword
-        public ActionResult ChangePassword(AppUser customer)
+        public ActionResult ChangePassword()
         {
-            _context.Users.Update(customer);
-            _context.SaveChanges();
-
-            return View("IndexCustomer", customer);
+            return View();
         }
 
-        
+
         // GET: /Account/ChangeAddress
         [HttpGet]
         public ActionResult ChangeAddress(string email)
