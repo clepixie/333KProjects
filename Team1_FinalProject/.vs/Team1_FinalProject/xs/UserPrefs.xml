@@ -1,12 +1,51 @@
 ﻿<Properties StartupConfiguration="{5BEA845B-2AA8-4BCB-A0C3-D8FEF9946679}|Default">
   <MonoDevelop.Ide.ItemProperties.Team1__FinalProject PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Reports/AggregateCustomerReport.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Models/AppUser.cs">
     <Files>
-      <File FileName="Controllers/ReportsController.cs" Line="276" Column="19" />
-      <File FileName="Models/ViewModels/CustomerReportViewModel.cs" Line="13" Column="50" />
-      <File FileName="Views/Reports/CustomerSearch.cshtml" Line="1" Column="1" />
-      <File FileName="Views/Orders/Index.cshtml" Line="32" Column="9" />
-      <File FileName="Views/Reports/AggregateCustomerReport.cshtml" Line="1" Column="1" />
+      <File FileName="Controllers/AccountController.cs" Line="195" Column="10" />
+      <File FileName="Controllers/TicketsController.cs" />
+      <File FileName="Controllers/MoviesController.cs" />
+      <File FileName="Models/AppUser.cs" Line="12" Column="1" />
+      <File FileName="Controllers/MovieReviewsController.cs" />
+      <File FileName="Views/Reports/DisplayCustomerReport.cshtml" />
+      <File FileName="Views/Account/Index.cshtml" Line="1" Column="1" />
+      <File FileName="Views/Account/Register.cshtml" Line="1" Column="1" />
+      <File FileName="Views/Orders/Checkout.cshtml" />
+      <File FileName="Views/Orders/CheckoutFor.cshtml" />
+      <File FileName="Views/Orders/Confirmation.cshtml" />
+      <File FileName="Views/Orders/Delete.cshtml" />
+      <File FileName="Views/Orders/Details.cshtml" />
+      <File FileName="Views/Orders/Edit.cshtml" />
+      <File FileName="Views/Orders/Gift.cshtml" />
+      <File FileName="Views/Orders/Index.cshtml" />
+      <File FileName="Models/ViewModels/AccountViewModels.cs" Line="1" Column="1" />
+      <File FileName="Controllers/HomeController.cs" />
+      <File FileName="Models/Order.cs" />
+      <File FileName="Models/MovieReview.cs" />
+      <File FileName="Models/Movie.cs" Line="9" Column="2" />
+      <File FileName="Views/Account/Login.cshtml" Line="1" Column="1" />
+      <File FileName="Views/Account/EditEmployee.cshtml" />
+      <File FileName="Views/Home/SearchMovies.cshtml" />
+      <File FileName="Views/Reports/CustomerSearch.cshtml" />
+      <File FileName="Views/Reports/DisplayReport.cshtml" />
+      <File FileName="Controllers/ReportsController.cs" Line="291" Column="25" />
+      <File FileName="Models/ViewModels/ReportViewModel.cs" />
+      <File FileName="Views/Reports/Index.cshtml" />
+      <File FileName="Views/Reports/DecisionReport.cshtml" />
+      <File FileName="Views/Reports/PPReport.cshtml" Line="28" Column="17" />
+      <File FileName="Views/Reports/DisplayPP.cshtml" />
+      <File FileName="Views/Orders/Review.cshtml" />
+      <File FileName="Controllers/OrdersController.cs" Line="112" Column="32" />
+      <File FileName="Views/Orders/CancelOrder.cshtml" />
+      <File FileName="Views/Orders/CancelSuccess.cshtml" />
+      <File FileName="Views/Account/ChangeAddress.cshtml" Line="1" Column="1" />
+      <File FileName="Views/Account/EditCustomer.cshtml" Line="1" Column="1" />
+      <File FileName="Views/RoleAdmin/Create.cshtml" Line="1" Column="1" />
+      <File FileName="Views/RoleAdmin/Edit.cshtml" Line="1" Column="1" />
+      <File FileName="Models/ViewModels/ScheduleViewModel.cs" Line="1" Column="1" />
+      <File FileName="Models/ViewModels/CustomerReportViewModel.cs" Line="1" Column="1" />
+      <File FileName="Controllers/RoleAdminController.cs" Line="1" Column="1" />
+      <File FileName="Models/Genre.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -16,12 +55,13 @@
               <Node name="Controllers" expanded="True" />
               <Node name="Models" expanded="True">
                 <Node name="ViewModels" expanded="True" />
+                <Node name="AppUser.cs" selected="True" />
               </Node>
               <Node name="Views" expanded="True">
+                <Node name="Account" expanded="True" />
                 <Node name="Orders" expanded="True" />
-                <Node name="Reports" expanded="True">
-                  <Node name="AggregateCustomerReport.cshtml" selected="True" />
-                </Node>
+                <Node name="Reports" expanded="True" />
+                <Node name="RoleAdmin" expanded="True" />
               </Node>
             </Node>
           </Node>
@@ -31,9 +71,6 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <Debugger.DebugSourceFolders>
-    <String>/Users/ericlin/Documents/GitHub</String>
-  </Debugger.DebugSourceFolders>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

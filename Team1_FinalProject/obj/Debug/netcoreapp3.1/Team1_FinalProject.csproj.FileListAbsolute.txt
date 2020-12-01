@@ -1073,7 +1073,6 @@ C:/Users/alice/documents/ut/333k/333kprojects/team1_finalproject/obj/Debug/netco
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Showings/EditPending.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Showings/PendingIndex.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/EditCustomer.cshtml.g.cs
-/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/EditEmployee.cshtml.g.cs
 /Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/Microsoft.Data.Sqlite.dll
 /Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/Microsoft.DotNet.PlatformAbstractions.dll
 /Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/bin/Debug/netcoreapp3.1/Microsoft.EntityFrameworkCore.Sqlite.dll
@@ -1160,3 +1159,4 @@ C:/Users/alice/documents/ut/333k/333kprojects/team1_finalproject/obj/Debug/netco
 >>>>>>> Stashed changes
 /Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/CancelSuccess.cshtml.g.cs
 /Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Reports/AggregateCustomerReport.cshtml.g.cs
+/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Reports/AggregateCustomerReport.cshtml.g.cs

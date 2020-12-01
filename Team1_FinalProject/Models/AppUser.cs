@@ -28,6 +28,12 @@ namespace Team1_FinalProject.Models
         //special events not eligible
         //canceled orders return PCPoints
 
+        public enum EmploymentStatus
+        {
+            Hired,
+            Fired
+        }
+
         public String Address { get; set; }
 
         public List<Order> Orders { get; set; }
