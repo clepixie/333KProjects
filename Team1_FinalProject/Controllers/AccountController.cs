@@ -203,7 +203,7 @@ namespace Team1_FinalProject.Controllers
                 {
                     //add user to list of members
                     EditProfileViewModel editcus = new EditProfileViewModel();
-                    editcus.SelectCustomerName = edituser.Email;
+                    editcus.Email = epvm.Email;
                     customerList.Add(editcus);
                 }
             }
@@ -226,7 +226,7 @@ namespace Team1_FinalProject.Controllers
             epvm.ConfirmPassword = user.PasswordHash;
 
             //find the record in the database
-            AppUser dbCustomer = _context.Users.Find(customer.Email);
+            AppUser dbCustomer = _context.Users.Find(epvm.Email);
 
             //update the properties
             dbCustomer.Address = customer.Address;
@@ -234,7 +234,7 @@ namespace Team1_FinalProject.Controllers
             dbCustomer.Birthdate = customer.Birthdate;
 
             // update the DB
-            _context.Update(customer);
+            _context.Update(dbCustomer);
             await _context.SaveChangesAsync();
 
             // send data to the view
@@ -255,22 +255,22 @@ namespace Team1_FinalProject.Controllers
         
         // GET: /Account/ChangeAddress
         [HttpGet]
-        public ActionResult ChangeAddress([Bind("Email, NewAddress")] ChangeAddressViewModel avm, AppUser customer)
+        public ActionResult ChangeAddress(string email)
         {
             ChangeAddressViewModel newavm = new ChangeAddressViewModel();
             {
-                newavm.Email = avm.Email;
+                newavm.Email = email;
 
             };
 
-            return View(avm);
+            return View(newavm);
         }
 
         // post change address
         [HttpPost]
         public async Task<ActionResult> ChangeAddress(string id, [Bind("Email, NewAddress")] ChangeAddressViewModel avm)
         {
-            if (id != avm.Email)
+            if (User.Identity.Name != avm.Email)
             {
                 return View("Error", new String[] { "There was a problem editing this customer. Try again!" });
             }
@@ -285,7 +285,7 @@ namespace Team1_FinalProject.Controllers
             try
             {
                 //find the record in the database
-                AppUser dbUsers = _context.Users.Find(avm.Email);
+                AppUser dbUsers = _context.Users.Where(u => u.Email == avm.Email).FirstOrDefault();
 
                 //update the notes
                 dbUsers.Address = avm.NewAddress;
@@ -306,21 +306,21 @@ namespace Team1_FinalProject.Controllers
         //Logic for change birthdate
         // GET: /Account/ChangeBirthdate
         [HttpGet]
-        public ActionResult ChangeBirthdate([Bind("Email, NewBirthdate")] ChangeBirthdateViewModel cbvm, AppUser customer)
+        public ActionResult ChangeBirthdate(string email)
         {
             ChangeBirthdateViewModel newcbvm = new ChangeBirthdateViewModel();
             {
-                newcbvm.Email = cbvm.Email;
+                newcbvm.Email = email;
 
             };
 
-            return View(cbvm);
+            return View(newcbvm);
         }
 
         [HttpPost]
-        public async Task<ActionResult> ChangeBirthdate(string id, [Bind("Email, NewBirthdate")] ChangeBirthdateViewModel cbvm)
+        public async Task<ActionResult> ChangeBirthdate([Bind("Email, NewBirthdate")] ChangeBirthdateViewModel cbvm)
         { 
-            if (id != cbvm.Email)
+            if (User.Identity.Name != cbvm.Email)
             {
                 return View("Error", new String[] { "There was a problem editing this customer. Try again!" });
             }
@@ -335,7 +335,7 @@ namespace Team1_FinalProject.Controllers
             try
             {
                 //find the record in the database
-                AppUser dbUsers = _context.Users.Find(cbvm.Email);
+                AppUser dbUsers = _context.Users.Where(u => u.Email == cbvm.Email).FirstOrDefault();
 
                 //update the notes
                 dbUsers.Birthdate = cbvm.NewBirthdate;
@@ -355,22 +355,22 @@ namespace Team1_FinalProject.Controllers
 
         // get for change phonenumber
         [HttpGet]
-        public ActionResult ChangePhoneNumber([Bind("Email, NewPhoneNumber")] ChangePhoneNumberViewModel pnvm, AppUser customer)
+        public ActionResult ChangePhoneNumber(string email)
         {
             ChangePhoneNumberViewModel newpnvm = new ChangePhoneNumberViewModel();
             {
-                newpnvm.Email = pnvm.Email;
+                newpnvm.Email = email;
 
             };
 
-            return View(pnvm);
+            return View(newpnvm);
         }
 
         // change phone number
         [HttpPost]
         public async Task<ActionResult> ChangePhoneNumberAsync(string id, [Bind("Email, NewPhoneNumber")] ChangePhoneNumberViewModel pnvm)
         {
-            if (id != pnvm.Email)
+            if (User.Identity.Name != pnvm.Email)
             {
                 return View("Error", new String[] { "There was a problem editing this customer. Try again!" });
             }
@@ -385,7 +385,7 @@ namespace Team1_FinalProject.Controllers
             try
             {
                 //find the record in the database
-                AppUser dbUsers = _context.Users.Find(pnvm.Email);
+                AppUser dbUsers = _context.Users.Where(u => u.Email == pnvm.Email).FirstOrDefault();
 
                 //update the notes
                 dbUsers.PhoneNumber = pnvm.NewPhoneNumber;

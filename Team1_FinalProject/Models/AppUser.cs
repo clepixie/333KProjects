@@ -18,6 +18,8 @@ namespace Team1_FinalProject.Models
         
         public String MiddleInitial { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [DataType(DataType.Date)]
         public DateTime Birthdate { get; set; }
 
         public Int32 PopcornPoints { get; set; }

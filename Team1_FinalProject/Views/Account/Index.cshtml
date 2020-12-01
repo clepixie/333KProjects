@@ -23,21 +23,21 @@
         <dd>@Model.Email</dd>
 
         <dt>Birthday:</dt>
-        <dd>@Model.Birthdate</dd>
+        <dd>@((Model.Birthdate).ToString("MM/dd/yyyy"))</dd>
         <dd>
-            [@Html.ActionLink("Change your birthdate", "ChangeBirthdate")]
+            [@Html.ActionLink("Change your birthdate", "ChangeBirthdate", new { email = Model.Email })]
         </dd>
 
         <dt>Address:</dt>
         <dd>@Model.Address</dd>
         <dd>
-            [@Html.ActionLink("Change your address", "ChangeAddress")]
+            [@Html.ActionLink("Change your address", "ChangeAddress", new { email = Model.Email })]
         </dd>
 
         <dt>Phone Number:</dt>
         <dd>@Model.PhoneNumber</dd>
         <dd>
-            [@Html.ActionLink("Change your phone number", "ChangePhoneNumber")]
+            [@Html.ActionLink("Change your phone number", "ChangePhoneNumber", new { email = Model.Email })]
         </dd>
 
         <dt>Password:</dt>

@@ -137,6 +137,8 @@ namespace Team1_FinalProject.Models
         [DataType(DataType.DateTime)]
         [Display(Name = "New Birthdate")]
         public String Email { get; set; }
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [DataType(DataType.Date)]
         public DateTime NewBirthdate { get; set; }
 
     }
@@ -151,6 +153,8 @@ namespace Team1_FinalProject.Models
         public String UserName { get; set; }
         public String Email { get; set; }
         public String UserID { get; set; }
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [DataType(DataType.Date)]
         public DateTime Birthdate { get; set; }
         public String Address { get; set; }
         public String PhoneNumber { get; set; }
@@ -159,6 +163,8 @@ namespace Team1_FinalProject.Models
     [Authorize(Roles = "Employee")]
     public class EditProfileViewModel
     {
+        public String Email { get; set; }
+
         //NOTE: Here is the property for phone number
         [Phone]
         [Display(Name = "Phone Number")]
@@ -166,6 +172,7 @@ namespace Team1_FinalProject.Models
 
 
         [Display(Name = "Birthdate")]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         [DataType(DataType.Date)]
         public DateTime Birthdate { get; set; }
 
