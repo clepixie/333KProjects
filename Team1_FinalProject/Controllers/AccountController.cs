@@ -244,30 +244,162 @@ namespace Team1_FinalProject.Controllers
 
         //Logic for change password
         // GET: /Account/ChangePassword
-        public ActionResult ChangePassword()
+        public ActionResult ChangePassword(AppUser customer)
         {
-            return View();
+            _context.Users.Update(customer);
+            _context.SaveChanges();
+
+            return View("IndexCustomer", customer);
         }
 
-        //Logic for change password
+        
         // GET: /Account/ChangeAddress
-        public ActionResult ChangeAddress()
+        [HttpGet]
+        public ActionResult ChangeAddress([Bind("Email, NewAddress")] ChangeAddressViewModel avm, AppUser customer)
         {
-            return View();
+            ChangeAddressViewModel newavm = new ChangeAddressViewModel();
+            {
+                newavm.Email = avm.Email;
+
+            };
+
+            return View(avm);
         }
 
-        //Logic for change password
+        // post change address
+        [HttpPost]
+        public async Task<ActionResult> ChangeAddress(string id, [Bind("Email, NewAddress")] ChangeAddressViewModel avm)
+        {
+            if (id != avm.Email)
+            {
+                return View("Error", new String[] { "There was a problem editing this customer. Try again!" });
+            }
+
+            AppUser userLoggedIn = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            if (ModelState.IsValid == false)
+            {
+                return View(avm);
+            }
+
+            try
+            {
+                //find the record in the database
+                AppUser dbUsers = _context.Users.Find(avm.Email);
+
+                //update the notes
+                dbUsers.Address = avm.NewAddress;
+
+                _context.Update(dbUsers);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new String[] { "There was an error updating this order!", ex.Message });
+            }
+
+            //send the user to the Account Index page.
+            return RedirectToAction(nameof(Index));
+
+        }
+
+        //Logic for change birthdate
         // GET: /Account/ChangeBirthdate
-        public ActionResult ChangeBirthdate()
+        [HttpGet]
+        public ActionResult ChangeBirthdate([Bind("Email, NewBirthdate")] ChangeBirthdateViewModel cbvm, AppUser customer)
         {
-            return View();
+            ChangeBirthdateViewModel newcbvm = new ChangeBirthdateViewModel();
+            {
+                newcbvm.Email = cbvm.Email;
+
+            };
+
+            return View(cbvm);
         }
 
-        //Logic for change password
-        // GET: /Account/ChangePhoneNumber
-        public ActionResult ChangePhoneNumber()
+        [HttpPost]
+        public async Task<ActionResult> ChangeBirthdate(string id, [Bind("Email, NewBirthdate")] ChangeBirthdateViewModel cbvm)
+        { 
+            if (id != cbvm.Email)
+            {
+                return View("Error", new String[] { "There was a problem editing this customer. Try again!" });
+            }
+
+            AppUser userLoggedIn = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            if (ModelState.IsValid == false)
+            {
+                return View(cbvm);
+            }
+
+            try
+            {
+                //find the record in the database
+                AppUser dbUsers = _context.Users.Find(cbvm.Email);
+
+                //update the notes
+                dbUsers.Birthdate = cbvm.NewBirthdate;
+
+                _context.Update(dbUsers);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new String[] { "There was an error updating this order!", ex.Message });
+            }
+
+            //send the user to the Account Index page.
+            return RedirectToAction(nameof(Index));
+
+        }
+
+        // get for change phonenumber
+        [HttpGet]
+        public ActionResult ChangePhoneNumber([Bind("Email, NewPhoneNumber")] ChangePhoneNumberViewModel pnvm, AppUser customer)
         {
-            return View();
+            ChangePhoneNumberViewModel newpnvm = new ChangePhoneNumberViewModel();
+            {
+                newpnvm.Email = pnvm.Email;
+
+            };
+
+            return View(pnvm);
+        }
+
+        // change phone number
+        [HttpPost]
+        public async Task<ActionResult> ChangePhoneNumberAsync(string id, [Bind("Email, NewPhoneNumber")] ChangePhoneNumberViewModel pnvm)
+        {
+            if (id != pnvm.Email)
+            {
+                return View("Error", new String[] { "There was a problem editing this customer. Try again!" });
+            }
+
+            AppUser userLoggedIn = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            if (ModelState.IsValid == false)
+            {
+                return View(pnvm);
+            }
+
+            try
+            {
+                //find the record in the database
+                AppUser dbUsers = _context.Users.Find(pnvm.Email);
+
+                //update the notes
+                dbUsers.PhoneNumber = pnvm.NewPhoneNumber;
+
+                _context.Update(dbUsers);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new String[] { "There was an error updating this order!", ex.Message });
+            }
+
+            //send the user to the Account Index page.
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: /Account/ChangePassword

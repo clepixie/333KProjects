@@ -114,6 +114,7 @@ namespace Team1_FinalProject.Models
         [Required]
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "New Phone Number")]
+        public String Email { get; set; }
         public string NewPhoneNumber { get; set; }
 
     }
@@ -124,17 +125,19 @@ namespace Team1_FinalProject.Models
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "New Address")]
+        public String Email { get; set; }
         public string NewAddress { get; set; }
 
     }
 
-    public class ChangeBirthdateModel
+    public class ChangeBirthdateViewModel
     {
 
         [Required]
         [DataType(DataType.DateTime)]
         [Display(Name = "New Birthdate")]
-        public string NewBirthdate { get; set; }
+        public String Email { get; set; }
+        public DateTime NewBirthdate { get; set; }
 
     }
 

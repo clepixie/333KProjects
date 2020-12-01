@@ -1,4 +1,4 @@
-﻿@model ChangeBirthdateModel
+﻿@model ChangeBirthdateViewModel
 
 @{
     ViewData["Title"] = "Change Birthdate";
@@ -9,16 +9,17 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="ChangeBirthdate" method="post">
+        <form asp-action="ChangeBirthdate" asp-route-id="@Model.Email" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="NewBirthdate" class="control-label"></label>
+                <label asp-for="NewBirthdate" class="control-label">New Birthdate</label>
                 <input asp-for="NewBirthdate" class="form-control" />
                 <span asp-validation-for="NewBirthdate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Change Birthdate" class="btn btn-primary" />
             </div>
+            <input type="hidden" asp-for="Email" />
         </form>
     </div>
 </div>
