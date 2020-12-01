@@ -170,7 +170,6 @@ namespace Team1_FinalProject.Models
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
 
-
         [Display(Name = "Birthdate")]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         [DataType(DataType.Date)]

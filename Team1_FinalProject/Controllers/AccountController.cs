@@ -163,7 +163,7 @@ namespace Team1_FinalProject.Controllers
 
 
         //this is a customer master list for employees
-        [Authorize(Roles = "Employee")]
+        [Authorize(Roles = "Employee, Manager")]
         public async Task<IActionResult> IndexCustomer()
         {
 
@@ -182,63 +182,83 @@ namespace Team1_FinalProject.Controllers
             return View("IndexCustomer", customers);
         }
 
-        [Authorize(Roles = "Employee")]
+        [Authorize(Roles = "Employee, Manager")]
         [HttpGet]
-        public IActionResult EditCustomer(Int32 customerID)
+        public IActionResult EditCustomer(string email)
         {
-            EditProfileViewModel epvm = new EditProfileViewModel();
-            epvm.SelectedCustomerID = customerID;
-            return View("EditCustomer", epvm);
+            EditProfileViewModel newepvm = new EditProfileViewModel();
+            newepvm.Email = email;
+            return View(newepvm);
         }
 
-        [Authorize(Roles = "Employee")]
+        [Authorize(Roles = "Employee, Manager")]
         [HttpPost]
-        public async Task<IActionResult> EditAsync([Bind("Email, Address, PhoneNumber, Birthdate")] EditProfileViewModel epvm)
+        public async Task<IActionResult> EditCustomer([Bind("Email, Address, PhoneNumber, Birthdate")] EditProfileViewModel epvm)
         {
-            List<EditProfileViewModel> customerList = new List<EditProfileViewModel>();
+            //List<EditProfileViewModel> customerList = new List<EditProfileViewModel>();
 
-            foreach (AppUser edituser in _userManager.Users)
-            {
-                if (await _userManager.IsInRoleAsync(edituser, "Customer") == true) //user is in the role
-                {
-                    //add user to list of members
-                    EditProfileViewModel editcus = new EditProfileViewModel();
-                    editcus.Email = epvm.Email;
-                    customerList.Add(editcus);
-                }
-            }
+            //foreach (AppUser edituser in _userManager.Users)
+            //{
+            //    if (await _userManager.IsInRoleAsync(edituser, "Customer") == true) //user is in the role
+            //    {
+            //        //add user to list of members
+            //        EditProfileViewModel editcus = new EditProfileViewModel();
+            //        editcus.Email = epvm.Email;
+            //        customerList.Add(editcus);
+            //    }
+            //}
             // find the orders that match the user selected; we have to first a) get the int idx selected b) map that idx to the Email in customerList
             // c) match that to the Emails of Customers
 
             // finds the user that matches the selected ID
-            AppUser customer = _userManager.Users.Where(u => u.Email == customerList[epvm.SelectedCustomerID].SelectCustomerName).First();
+            AppUser dbUsers = _context.Users.Where(u => u.Email == epvm.Email).FirstOrDefault();
 
-            String id = User.Identity.Name;
-            AppUser user = _context.Users.FirstOrDefault(u => u.UserName == id);
-            ViewBag.UserInfo = user;
+            //String id = User.Identity.Name;
+            //AppUser user = _context.Users.FirstOrDefault(u => u.UserName == id);
+            //ViewBag.UserInfo = user;
 
-            // set info equal to what the employee edits it as
-            epvm.PhoneNumber = user.PhoneNumber;
-            epvm.Address = user.Address;
-            epvm.Birthdate = user.Birthdate;
-            // not sure if this password stuff is right though
-            epvm.Password = user.PasswordHash;
-            epvm.ConfirmPassword = user.PasswordHash;
-
-            //find the record in the database
-            AppUser dbCustomer = _context.Users.Find(epvm.Email);
+            //// set info equal to what the employee edits it as
+            //epvm.PhoneNumber = user.PhoneNumber;
+            //epvm.Address = user.Address;
+            //epvm.Birthdate = user.Birthdate;
+            //// not sure if this password stuff is right though
+            //epvm.Password = user.PasswordHash;
+            //epvm.ConfirmPassword = user.PasswordHash;
 
             //update the properties
-            dbCustomer.Address = customer.Address;
-            dbCustomer.PhoneNumber = customer.PhoneNumber;
-            dbCustomer.Birthdate = customer.Birthdate;
+            if (epvm.ConfirmPassword != epvm.Password)
+            {
+                
+                return View("Error", new String[] {"The passwords do not match." });
+                
+            }
+
+            if (epvm.Address != null)
+            {
+                dbUsers.Address = epvm.Address;
+            }
+            if (epvm.PhoneNumber != null)
+            {
+                dbUsers.PhoneNumber = epvm.PhoneNumber;
+            }
+
+            if (epvm.Birthdate != null)
+            {
+                dbUsers.Birthdate = epvm.Birthdate;
+            }
+
+            if (epvm.Password != null && epvm.ConfirmPassword != null)
+            {
+                dbUsers.PasswordHash = epvm.Password;
+                dbUsers.PasswordHash = epvm.ConfirmPassword;
+            }
 
             // update the DB
-            _context.Update(dbCustomer);
+            _context.Update(dbUsers);
             await _context.SaveChangesAsync();
 
             // send data to the view
-            return View(epvm);
+            return RedirectToAction(nameof(Index));
 
         }
 
@@ -265,7 +285,7 @@ namespace Team1_FinalProject.Controllers
 
         // post change address
         [HttpPost]
-        public async Task<ActionResult> ChangeAddress(string id, [Bind("Email, NewAddress")] ChangeAddressViewModel avm)
+        public async Task<ActionResult> ChangeAddress([Bind("Email, NewAddress")] ChangeAddressViewModel avm)
         {
             if (User.Identity.Name != avm.Email)
             {
