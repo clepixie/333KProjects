@@ -26,7 +26,12 @@ namespace Team1_FinalProject.Models
         public Movie Movie { get; set; }
         [Display(Name = "Search by MPAA Rating:")]
         public MPAA? SelectedMPAA { get; set; }
-        public string CustomerEmail { get; set; }
+
+        [Display(Name = "Available Customers")]
+        public int SelectCustomerID { get; set; }
+        public string SelectCustomerName { get; set; }
+        public int SelectedCustomerID { get; set; }
+
         [Display(Name = "Search Movie Title:")]
         public string MovieTitle { get; set; }
         [Display(Name = "Showing Date:")]

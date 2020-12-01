@@ -1,11 +1,11 @@
-﻿@model Team1_FinalProject.Models.Ticket
+﻿@model Team1_FinalProject.Models.CustomerReportViewModel
 
 @{
     ViewData["Title"] = "DisplayCustomerReport";
 }
 
 <h1>Display Customer Report</h1>
-@*
+
     <hr />
     <table class="table">
         <thead>
@@ -32,26 +32,26 @@
         </thead>
 
         <tbody>
-            @foreach (Ticket t  in CustomerSearchResults)
+            @foreach (Order o  in ViewBag.CustomerOrders)
             {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => t.Order.OrderID)
+                    @Html.DisplayFor(modelItem => o.OrderID)
                 </td>
                 <td>
-                    @Html.DisplayFor(model => t.Order.Customer)
+                    @Html.DisplayFor(model => o.Customer.UserName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => t.Order.Date)
+                    @Html.DisplayFor(modelItem => o.Date)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => t.Order.PostDiscount)
+                    @Html.DisplayFor(modelItem => o.PostDiscount)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => t.Order.PopcornPointsUsed)
+                    @Html.DisplayFor(modelItem => o.PopcornPointsUsed)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => t.Order.OrderHistory)
+                    @Html.DisplayFor(modelItem => o.OrderHistory)
                 </td>
             </tr>
             }
@@ -62,23 +62,27 @@
         <div class="col-md-8">
             <h5>Customer Summary</h5>
             <table class="table table-sm table-bordered" style="width:30%">
+
                 <tr>
-                    <th colspan="8" style="text-align:center">Order Summary</th>
+                    <td>Total Seats Sold:</td>
+                    <td>@Html.DisplayFor(model => model.SeatsSold)</td>
                 </tr>
-                    <tr>
-                        <td>Total Seats Sold:</td>
-                        <td>@Html.DisplayFor(model => model.SeatsSold)</td>
-                    </tr>
-                    <tr>
-                        <td>Total Revenue:</td>
-                        <td>@Html.DisplayFor(model => model.TotalRevenue)</td>
-                    </tr>
+                <tr>
+                    <td>Total Revenue:</td>
+                    <td>@Html.DisplayFor(model => model.TotalRevenue)</td>
+                </tr>
+                <tr>
+                    <td>Popcorn Points Used:</td>
+                    <td>@Html.DisplayFor(model => model.PopcornPointsUsed)</td>
+                </tr>
             </table>
         </div>
     </div>
 
-*@
+
+
 <div>
     <a asp-action="Index">Create a New Report</a>
     <a asp-action="Index" asp-controller="Home">Back to Home</a>
 </div>
+
