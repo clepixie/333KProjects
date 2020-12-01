@@ -41,10 +41,7 @@ namespace Team1_FinalProject.Controllers
             return View();
         }
 
-        public IActionResult CustomerSearch()
-        {
-            return View();
-        }
+        
         private SelectList GetAllMovies()
         {
             List<Movie> moviesList = _context.Movies.Where(m => m.Showings.Count() != 0).ToList();
@@ -71,6 +68,7 @@ namespace Team1_FinalProject.Controllers
                                         .Include(o => o.Tickets)
                                         .ThenInclude(t => t.Showing)
                                         .ThenInclude(s => s.Price)
+                                        .Include(o => o.Customer)
                                         .ToList();
             }
 
@@ -155,7 +153,7 @@ namespace Team1_FinalProject.Controllers
         }
 
         //select list 
-        private async Task<MultiSelectList> GetAllUsers()
+        private async Task<SelectList> GetAllUsers()
         {
             //Get the list of users from the database
             List<CreateForViewModel> customerList = new List<CreateForViewModel>();
@@ -178,29 +176,77 @@ namespace Team1_FinalProject.Controllers
             //convert the list to a SelectList by calling SelectList constructor
             //MonthID and MonthName are the names of the properties on the Month class
             //MonthID is the primary key
-            MultiSelectList customerSelectList = new MultiSelectList(customerList, "SelectCustomerID", "SelectCustomerName");
+            SelectList customerSelectList = new SelectList(customerList, "SelectCustomerID", "SelectCustomerName");
 
             //return the electList
             return customerSelectList;
         }
-
-        [HttpPost]
-        public IActionResult DisplayCustomerReport (ReportViewModel svm, int[] SelectedUsers)
+        public async Task<IActionResult> CustomerSearch()
         {
-            var query = from t in _context.Tickets
-                        select t;
+            ViewBag.UserList = await GetAllUsers();
+            return View();
+        }
+        [HttpPost]
+        public IActionResult DisplayCustomerReport (ReportViewModel svm)
+        {
+            /*Dictionary<Customer, OrderAggregate> ordersByCust = new Dictionary<>();
 
-            if (svm.CustomerEmail != null)
+            List<Order> orderList = async getOrders();
+
+            foreach (Order order in orderList) {
+                Customer cust = order.customer;
+                OrderAggregate orderAgg = ordersByCust.get(cust);
+                if (orderAgg == null)
+                {
+                    orderAgg = new OrderAggregate();
+                }
+                orderAgg.totalTickets += cust.numTickets;
+                orderAgg.someOtherAggregateAmt += cust.whateverTheFuckElseTheCustomerHas;
+            }
+
+            return ordersByCust.values();
+            */
+            if (svm.SelectedCustomerID != null)
             {
-                query = query.Where(t => t.Order.Customer.Email == svm.CustomerEmail);
+                List<ReportViewModel> customerList = new List<ReportViewModel>();
+                AppUser customer = _userManager.Users.Where(u => u.Email == customerList[svm.SelectedCustomerID].SelectCustomerName).First();
+                List<Order> orders = _context.Orders.Include(o => o.Tickets)
+                                            .ThenInclude(t => t.Showing)
+                                            .ThenInclude(s => s.Movie)
+                                            .Include(o => o.Tickets)
+                                            .ThenInclude(t => t.Showing)
+                                            .ThenInclude(s => s.Price).Where(o => o.Customer.UserName == customer.Email).ToList();
+
+
+                foreach (Order order in orders)
+                {
+                    if (order.OrderHistory == OrderHistory.Past)
+                    {
+                        if (order.PopcornPointsUsed == false)
+                        {
+                            svm.TotalRevenue += order.PostDiscount;
+                        }
+                        else if (order.PopcornPointsUsed == true)
+                        {
+                            svm.SeatsSold += (order.Tickets.Count() * 100);
+                        }
+                    }
+                }
+
+                ViewBag.CustomerOrders = orders;
+            }
+            else
+            {
+                List<Order> orders = _context.Orders.Include(o => o.Tickets)
+                                            .ThenInclude(t => t.Showing)
+                                            .ThenInclude(s => s.Movie)
+                                            .Include(o => o.Tickets)
+                                            .ThenInclude(t => t.Showing)
+                                            .ThenInclude(s => s.Price).ToList();
+                ViewBag.CustomerOrders = orders;
             }
             
-            //AppUser customer = _userManager.Users.Where(u => u.Email == customerList[cfvm.SelectedCustomerID].SelectCustomerName).First();
-            query = query.Where(t => t.Order.PopcornPointsUsed == true);
-
-            List <Ticket> CustomerSearchResults = query.Include(t => t.Order).ToList();
-
-            return View(CustomerSearchResults.OrderByDescending(t => t.Order.Date));
+            return View();
         }
 
         public IActionResult PPReport()
@@ -219,6 +265,7 @@ namespace Team1_FinalProject.Controllers
             }
             List<Ticket> tickets = query
                 .Include(t => t.Order)
+                .ThenInclude(o => o.Customer)
                 .Include(t => t.Showing)
                 .ThenInclude(s => s.Movie)
                 .ToList();
