@@ -1,23 +1,23 @@
 ﻿<Properties StartupConfiguration="{5BEA845B-2AA8-4BCB-A0C3-D8FEF9946679}|Default">
   <MonoDevelop.Ide.ItemProperties.Team1__FinalProject PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Orders/Review.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/OrdersController.cs">
     <Files>
       <File FileName="Controllers/AccountController.cs" Line="195" Column="10" />
       <File FileName="Controllers/TicketsController.cs" Line="1" Column="1" />
       <File FileName="Controllers/MoviesController.cs" />
       <File FileName="Models/AppUser.cs" />
       <File FileName="Controllers/MovieReviewsController.cs" />
-      <File FileName="Views/Reports/DisplayCustomerReport.cshtml" Line="1" Column="1" />
+      <File FileName="Views/Reports/DisplayCustomerReport.cshtml" Line="34" Column="32" />
       <File FileName="Views/Account/Index.cshtml" />
       <File FileName="Views/Account/Register.cshtml" />
-      <File FileName="Views/Orders/Checkout.cshtml" />
-      <File FileName="Views/Orders/CheckoutFor.cshtml" />
+      <File FileName="Views/Orders/Checkout.cshtml" Line="139" Column="1" />
+      <File FileName="Views/Orders/CheckoutFor.cshtml" Line="1" Column="1" />
       <File FileName="Views/Orders/Confirmation.cshtml" />
       <File FileName="Views/Orders/Delete.cshtml" />
       <File FileName="Views/Orders/Details.cshtml" />
       <File FileName="Views/Orders/Edit.cshtml" />
       <File FileName="Views/Orders/Gift.cshtml" />
-      <File FileName="Views/Orders/Index.cshtml" Line="1" Column="1" />
+      <File FileName="Views/Orders/Index.cshtml" Line="30" Column="34" />
       <File FileName="Models/ViewModels/AccountViewModels.cs" />
       <File FileName="Controllers/HomeController.cs" />
       <File FileName="Models/Order.cs" />
@@ -26,33 +26,30 @@
       <File FileName="Views/Account/Login.cshtml" />
       <File FileName="Views/Account/EditEmployee.cshtml" />
       <File FileName="Views/Home/SearchMovies.cshtml" />
-      <File FileName="Views/Reports/CustomerSearch.cshtml" Line="1" Column="1" />
-      <File FileName="Views/Reports/DisplayReport.cshtml" Line="36" Column="63" />
-      <File FileName="Controllers/ReportsController.cs" Line="41" Column="25" />
+      <File FileName="Views/Reports/CustomerSearch.cshtml" Line="24" Column="51" />
+      <File FileName="Views/Reports/DisplayReport.cshtml" Line="94" Column="1" />
+      <File FileName="Controllers/ReportsController.cs" Line="203" Column="46" />
       <File FileName="Models/ViewModels/ReportViewModel.cs" Line="1" Column="1" />
-      <File FileName="Views/Reports/Index.cshtml" Line="10" Column="1" />
-      <File FileName="Views/Reports/DecisionReport.cshtml" Line="4" Column="40" />
+      <File FileName="Views/Reports/Index.cshtml" Line="12" Column="81" />
+      <File FileName="Views/Reports/DecisionReport.cshtml" Line="67" Column="51" />
       <File FileName="Views/Reports/PPReport.cshtml" Line="1" Column="1" />
-      <File FileName="Views/Reports/DisplayPP.cshtml" Line="1" Column="1" />
-      <File FileName="Views/Orders/Review.cshtml" Line="152" Column="1" />
+      <File FileName="Views/Reports/DisplayPP.cshtml" Line="28" Column="45" />
+      <File FileName="Views/Orders/Review.cshtml" Line="150" Column="1" />
+      <File FileName="Controllers/OrdersController.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Team1_FinalProject" expanded="True">
             <Node name="Team1_FinalProject" expanded="True">
-              <Node name="Controllers" expanded="True" />
-              <Node name="Migrations" expanded="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="OrdersController.cs" selected="True" />
+              </Node>
               <Node name="Models" expanded="True">
                 <Node name="ViewModels" expanded="True" />
               </Node>
-              <Node name="Seeding" expanded="True" />
               <Node name="Views" expanded="True">
-                <Node name="Account" expanded="True" />
-                <Node name="Home" expanded="True" />
-                <Node name="Orders" expanded="True">
-                  <Node name="Review.cshtml" selected="True" />
-                </Node>
+                <Node name="Orders" expanded="True" />
                 <Node name="Reports" expanded="True" />
               </Node>
             </Node>
