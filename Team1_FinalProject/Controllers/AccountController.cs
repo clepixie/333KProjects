@@ -54,9 +54,8 @@ namespace Team1_FinalProject.Controllers
                     UserName = rvm.Email,
                     Email = rvm.Email,
                     PhoneNumber = rvm.PhoneNumber,
-
-                    //TODO: Add the rest of the custom user fields here
-                    //FirstName is included as an example
+                    Address = rvm.Address,
+                    Birthdate = rvm.Birthdate,
                     FirstName = rvm.FirstName,
                     LastName = rvm.LastName,
                 };
