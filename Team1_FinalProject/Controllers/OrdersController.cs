@@ -78,11 +78,12 @@ namespace Team1_FinalProject.Controllers
                 {
                     ViewBag.DiscountTax = string.Format("{0:C}", (order.OrderSubtotal + (order.Discount.PriceValue * 2)) * .0825m);
                 }
-                else
+                else if (order.Tickets.Where(t => t.Showing.SpecialEvent == false).Count() == 1)
                 {
                     ViewBag.DiscountTax = string.Format("{0:C}", (order.OrderSubtotal + order.Discount.PriceValue) * .0825m);
                 }
             }
+
             else
             {
                 ViewBag.DiscountTax = string.Format("{0:C}", order.Tax);
