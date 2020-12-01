@@ -1,58 +1,27 @@
 ﻿<Properties StartupConfiguration="{5BEA845B-2AA8-4BCB-A0C3-D8FEF9946679}|Default">
   <MonoDevelop.Ide.ItemProperties.Team1__FinalProject PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/OrdersController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Reports/AggregateCustomerReport.cshtml">
     <Files>
-      <File FileName="Controllers/AccountController.cs" Line="195" Column="10" />
-      <File FileName="Controllers/TicketsController.cs" />
-      <File FileName="Controllers/MoviesController.cs" />
-      <File FileName="Models/AppUser.cs" />
-      <File FileName="Controllers/MovieReviewsController.cs" />
-      <File FileName="Views/Reports/DisplayCustomerReport.cshtml" />
-      <File FileName="Views/Account/Index.cshtml" />
-      <File FileName="Views/Account/Register.cshtml" />
-      <File FileName="Views/Orders/Checkout.cshtml" />
-      <File FileName="Views/Orders/CheckoutFor.cshtml" />
-      <File FileName="Views/Orders/Confirmation.cshtml" />
-      <File FileName="Views/Orders/Delete.cshtml" />
-      <File FileName="Views/Orders/Details.cshtml" />
-      <File FileName="Views/Orders/Edit.cshtml" />
-      <File FileName="Views/Orders/Gift.cshtml" />
-      <File FileName="Views/Orders/Index.cshtml" />
-      <File FileName="Models/ViewModels/AccountViewModels.cs" />
-      <File FileName="Controllers/HomeController.cs" />
-      <File FileName="Models/Order.cs" />
-      <File FileName="Models/MovieReview.cs" />
-      <File FileName="Models/Movie.cs" />
-      <File FileName="Views/Account/Login.cshtml" />
-      <File FileName="Views/Account/EditEmployee.cshtml" />
-      <File FileName="Views/Home/SearchMovies.cshtml" />
-      <File FileName="Views/Reports/CustomerSearch.cshtml" />
-      <File FileName="Views/Reports/DisplayReport.cshtml" />
-      <File FileName="Controllers/ReportsController.cs" />
-      <File FileName="Models/ViewModels/ReportViewModel.cs" />
-      <File FileName="Views/Reports/Index.cshtml" />
-      <File FileName="Views/Reports/DecisionReport.cshtml" />
-      <File FileName="Views/Reports/PPReport.cshtml" />
-      <File FileName="Views/Reports/DisplayPP.cshtml" />
-      <File FileName="Views/Orders/Review.cshtml" />
-      <File FileName="Controllers/OrdersController.cs" Line="390" Column="10" />
-      <File FileName="Views/Orders/CancelOrder.cshtml" />
-      <File FileName="Views/Orders/CancelSuccess.cshtml" />
+      <File FileName="Controllers/ReportsController.cs" Line="276" Column="19" />
+      <File FileName="Models/ViewModels/CustomerReportViewModel.cs" Line="13" Column="50" />
+      <File FileName="Views/Reports/CustomerSearch.cshtml" Line="1" Column="1" />
+      <File FileName="Views/Orders/Index.cshtml" Line="32" Column="9" />
+      <File FileName="Views/Reports/AggregateCustomerReport.cshtml" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Team1_FinalProject" expanded="True">
             <Node name="Team1_FinalProject" expanded="True">
-              <Node name="Controllers" expanded="True">
-                <Node name="OrdersController.cs" selected="True" />
-              </Node>
+              <Node name="Controllers" expanded="True" />
               <Node name="Models" expanded="True">
                 <Node name="ViewModels" expanded="True" />
               </Node>
               <Node name="Views" expanded="True">
                 <Node name="Orders" expanded="True" />
-                <Node name="Reports" expanded="True" />
+                <Node name="Reports" expanded="True">
+                  <Node name="AggregateCustomerReport.cshtml" selected="True" />
+                </Node>
               </Node>
             </Node>
           </Node>
@@ -62,6 +31,9 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <Debugger.DebugSourceFolders>
+    <String>/Users/ericlin/Documents/GitHub</String>
+  </Debugger.DebugSourceFolders>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

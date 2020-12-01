@@ -25,7 +25,9 @@
             <th>
                 Pre-Tax, Discount Ticket Price
             </th>
-            
+            <th>
+                Customer Email
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -47,7 +49,9 @@
                 <td>
                     @Html.DisplayFor(model => t.Showing.Price.PriceValue)
                 </td>
-                
+                <td>
+                    @Html.DisplayFor(model => t.Order.Customer.Email)
+                </td>
             </tr>
         }
     </tbody>

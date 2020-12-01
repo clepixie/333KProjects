@@ -59,7 +59,8 @@ namespace Team1_FinalProject.Controllers
                         select t;
             List<Order> Orders = new List<Order>();
             {
-                Orders = _context.Orders.Include(o => o.Tickets)
+                Orders = _context.Orders.Include(o => o.Discount)
+                                        .Include(o => o.Tickets)
                                         .ThenInclude(t => t.Showing)
                                         .ThenInclude(s => s.Movie)
                                         .Include(o => o.Tickets)
@@ -168,6 +169,8 @@ namespace Team1_FinalProject.Controllers
             List<Ticket> tickets = query
                 .Include(t => t.Order)
                 .ThenInclude(o => o.Customer)
+                .Include(t => t.Order)
+                .ThenInclude(o => o.Discount)
                 .Include(t => t.Showing)
                 .ThenInclude(s => s.Movie)
                 .ToList();
@@ -202,7 +205,7 @@ namespace Team1_FinalProject.Controllers
 
             SelectList customerSelectList = new SelectList(customerList, "SelectCustomerID", "SelectCustomerName");
 
-            //return the electList
+
             return customerSelectList;
         }
         public async Task<IActionResult> CustomerSearch()
@@ -214,48 +217,25 @@ namespace Team1_FinalProject.Controllers
         [HttpPost]
         public async Task<IActionResult> DisplayCustomerReport (CustomerReportViewModel crvm)
         {
-            /*Dictionary<Customer, OrderAggregate> ordersByCust = new Dictionary<>();
 
-            List<Order> orderList = async getOrders();
-
-            foreach (Order order in orderList) {
-                Customer cust = order.customer;
-                OrderAggregate orderAgg = ordersByCust.get(cust);
-                if (orderAgg == null)
-                {
-                    orderAgg = new OrderAggregate();
-                }
-                orderAgg.totalTickets += cust.numTickets;
-                orderAgg.someOtherAggregateAmt += cust.whateverTheFuckElseTheCustomerHas;
-            }
-
-            return ordersByCust.values();
-            
-            if (svm.SelectedCustomerID != null)
-            */
-            
             List<CustomerReportViewModel> customerList = new List<CustomerReportViewModel>();
-
             foreach (AppUser user in _userManager.Users)
             {
                 if (await _userManager.IsInRoleAsync(user, "Customer") == true) //user is in the role
                 {
-                    //add user to list of members
                     CustomerReportViewModel newcus = new CustomerReportViewModel();
                     newcus.SelectCustomerName = user.Email;
                     customerList.Add(newcus);
                 }
             }
-            AppUser customer = _userManager.Users.Where(u => u.Email == customerList[crvm.SelectedCustomerID].SelectCustomerName).First();
-            
-
-            List<Order> orders = _context.Orders.Include(o => o.Tickets)
+            AppUser customer = _userManager.Users.Where(u => u.Email == customerList[crvm.SelectedCustomerID].SelectCustomerName).First();            
+            List<Order> orders = _context.Orders.Include(o => o.Discount)
+                                            .Include(o => o.Tickets)
                                             .ThenInclude(t => t.Showing)
                                             .ThenInclude(s => s.Movie)
                                             .Include(o => o.Tickets)
                                             .ThenInclude(t => t.Showing)
                                             .ThenInclude(s => s.Price).Where(o => o.Customer.UserName == customer.Email).ToList();
-
 
             foreach (Order order in orders)
             {
@@ -269,28 +249,58 @@ namespace Team1_FinalProject.Controllers
                     {
                         crvm.PopcornPointsUsed += (order.Tickets.Count() * 100);
                     }
-
                     crvm.SeatsSold += order.Tickets.Count();
                 }
             }
-
             ViewBag.CustomerOrders = orders;
-            
-            /*
-            else
+            return View(crvm);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> AggregateCustomerReport()
+        {
+            List<CustomerReportViewModel> customerList = new List<CustomerReportViewModel>();
+            foreach (AppUser user in _userManager.Users)
             {
-                List<Order> orders = _context.Orders.Include(o => o.Tickets)
+                if (await _userManager.IsInRoleAsync(user, "Customer") == true) //user is in the role
+                {
+                    CustomerReportViewModel newcus = new CustomerReportViewModel();
+                    newcus.SelectCustomerName = user.Email;
+                    customerList.Add(newcus);
+                }
+            }
+
+            foreach (CustomerReportViewModel c in customerList)
+            {
+                //AppUser customer = _userManager.Users.Where(u => u.Email == customerList[c.SelectedCustomerID].SelectCustomerName).First();
+                List<Order> orders = _context.Orders.Include(o => o.Discount)
+                                            .Include(o => o.Tickets)
                                             .ThenInclude(t => t.Showing)
                                             .ThenInclude(s => s.Movie)
                                             .Include(o => o.Tickets)
                                             .ThenInclude(t => t.Showing)
-                                            .ThenInclude(s => s.Price).ToList();
-                ViewBag.CustomerOrders = orders;
+                                            .ThenInclude(s => s.Price).Where(o => o.Customer.UserName == c.SelectCustomerName).ToList();
+                foreach (Order order in orders)
+                {
+                    if (order.OrderHistory == OrderHistory.Past)
+                    {
+                        if (order.PopcornPointsUsed == false)
+                        {
+                            c.TotalRevenue += order.PostDiscount;
+                        }
+                        else if (order.PopcornPointsUsed == true)
+                        {
+                            c.PopcornPointsUsed += (order.Tickets.Count() * 100);
+                        }
+                        c.SeatsSold += order.Tickets.Count();
+                    }
+                }
             }
-            */
-            return View(crvm);
-        }
 
-        
+            return View(customerList);
+            
+
+        }
     }
 }
