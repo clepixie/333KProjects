@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Team1_FinalProject.DAL;
 using Team1_FinalProject.Models;
+using Team1_FinalProject.Utilities;
 
 namespace Team1_FinalProject.Controllers
 {
@@ -690,11 +691,6 @@ namespace Team1_FinalProject.Controllers
                 return View(showing);
             }
 
-            /*if ((showing.StartDateTime - DateTime.Now) <= new TimeSpan(1, 0, 0))
-            {
-                return View("Error", new String[] { "You cannot edit this showing to this time because it will start less than an hour from now." });
-            }*/
-
             if (ModelState.IsValid)
             {
                 try
@@ -711,8 +707,9 @@ namespace Team1_FinalProject.Controllers
                         td = td.AddDays(1);
                     }
 
+                    int count = _context.Showings.Include(s => s.Tickets).FirstOrDefault(s => s.ShowingID == showing.ShowingID).Tickets.Count();
                     // if the new starting time is set to be on or after the first day of the next unpublished week, gotta redirect to EditPending
-                    if (showing.StartDateTime.Date >= td)
+                    if (showing.StartDateTime.Date >= td && count == 0)
                     {
                         return RedirectToAction("EditPending", new { id = showing.ShowingID });
                     }
@@ -721,7 +718,12 @@ namespace Team1_FinalProject.Controllers
                     showing.EndDateTime = showing.StartDateTime + TimeSpan.FromMinutes(showing.Movie.Runtime);
                     showing.Price = GetPrice(showing);
                     showing.Status = SStatus.Published;
-                    _context.Update(showing);
+                    var entry = _context.Showings.First(e => e.ShowingID == showing.ShowingID);
+
+                    DateTime oldshowingstart = _context.Showings.Where(s => s.ShowingID == showing.ShowingID).FirstOrDefault().StartDateTime;
+                    DateTime oldshowingend = _context.Showings.Where(s => s.ShowingID == showing.ShowingID).FirstOrDefault().EndDateTime;
+
+                    _context.Entry(entry).CurrentValues.SetValues(showing);
 
                     TimeSpan start = new TimeSpan(9, 0, 0);
                     if (showing.StartDateTime.TimeOfDay < start)
@@ -856,8 +858,29 @@ namespace Team1_FinalProject.Controllers
                                               .Include(m => m.Tickets)
                                               .FirstOrDefault(m => m.ShowingID == id);
                             return View(show);
-                        }                     
+                        }
+                    } 
+
+                    List<Order> showingsorders = _context.Orders.Include(o => o.Tickets).ThenInclude(t => t.Showing).Include(o => o.Customer).ToList();
+                    List<Order> emailorders = new List<Order>();
+                    foreach (Order order in showingsorders)
+                    {
+                        foreach (Ticket ticket in order.Tickets)
+                        {
+                            if (ticket.Showing.ShowingID == showing.ShowingID)
+                            {
+                                emailorders.Add(order);
+                            }
+                        }
                     }
+
+                    foreach (Order o in emailorders)
+                    {
+                        EmailMessaging.SendEmail(o.Customer.Email, "Order #" + o.OrderNumber + ": Showing Rescheduling", "One or more of your tickets on this order has been rescheduled. Please consider the information below. We appreciate your understanding." + System.Environment.NewLine
+                                                + showing.Movie.Title + ": " + System.Environment.NewLine + oldshowingstart.ToString("MM/dd/yyyy HH:mm tt") + " - " + oldshowingend.ToString("HH:mm tt") + System.Environment.NewLine + "Changed to: " + System.Environment.NewLine + 
+                                                showing.StartDateTime.ToString("MM/dd/yyyy HH:mm tt") + " - " + showing.EndDateTime.ToString("HH:mm tt"));
+                    }
+
                     await _context.SaveChangesAsync();
                 }
 
@@ -1140,6 +1163,7 @@ namespace Team1_FinalProject.Controllers
 
             var showing = await _context.Showings
                 .FirstOrDefaultAsync(m => m.ShowingID == id);
+
             if (showing == null)
             {
                 return NotFound();
@@ -1151,11 +1175,40 @@ namespace Team1_FinalProject.Controllers
         // POST: Showings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var showing = await _context.Showings.FindAsync(id);
+            var showing = _context.Showings.Include(s => s.Movie).FirstOrDefault(s => s.ShowingID == id);
+
+            List<Order> showingsorders = _context.Orders.Include(o => o.Customer).Include(o => o.Tickets).ThenInclude(o => o.Showing).Include(o => o.Customer).ToList();
+            List<Order> emailorders = new List<Order>();
+
+            foreach (Order order in showingsorders)
+            {
+                foreach (Ticket ticket in order.Tickets)
+                {
+                    if (ticket.Showing.ShowingID == showing.ShowingID)
+                    {
+                        emailorders.Add(order);
+                    }
+                }
+            }
+
+            foreach (Order o in emailorders)
+            {
+                int add = 0;
+                if (o.PopcornPointsUsed == true)
+                {
+                    int count = o.Tickets.Where(t => t.Showing.ShowingID == id).Count();
+                    add = count * 100;
+                    o.Customer.PopcornPoints += add;
+                }
+                EmailMessaging.SendEmail(o.Customer.Email, "Order #" + o.OrderNumber + ": Showing Cancellation", "One or more of your showings on this order has been cancelled. Please consider the information below. We appreciate your understanding." + System.Environment.NewLine
+                                        + showing.Movie.Title + ": " + System.Environment.NewLine + showing.StartDateTime.ToString("MM/dd/yyyy HH:mm tt") + " - " + showing.EndDateTime.ToString("HH:mm tt") + System.Environment.NewLine + "If you purchased your ticket(s) with Popcorn Points, you will be refunded 100 per ticket like so:" 
+                                        + Environment.NewLine + add);
+            }
+
             _context.Showings.Remove(showing);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return RedirectToAction("PendingIndex");
         }
 

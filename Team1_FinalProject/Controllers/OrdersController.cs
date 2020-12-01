@@ -396,7 +396,11 @@ namespace Team1_FinalProject.Controllers
 
             foreach (Ticket t in o.Tickets)
             {
-                if (t.Showing.StartDateTime - DateTime.Now >= new TimeSpan(1, 0 , 0))
+                if ((t.Showing.StartDateTime - DateTime.Now).TotalMinutes < 0)
+                {
+                    return View("Error", new String[] { "You cannot cancel this order because one or more of the tickets are for a showing has already started." });
+                }
+                if ((t.Showing.StartDateTime - DateTime.Now).TotalMinutes <= 60)
                 {
                     return View("Error", new String[] { "You cannot cancel this order because one or more of the tickets are for a showing that will start within the hour." });
                 }
@@ -404,16 +408,24 @@ namespace Team1_FinalProject.Controllers
 
             o.OrderHistory = OrderHistory.Cancelled;
 
+            int? add = null;
             if (o.PopcornPointsUsed == true)
             {
-                o.Customer.PopcornPoints += (o.Tickets.Count() * 100);
+                add = (o.Tickets.Count() * 100);
+                o.Customer.PopcornPoints += (int)add;
             }
 
+            EmailMessaging.SendEmail(o.Customer.Email, "Order Cancellation Confirmation", "We have confirmed that you have cancelled: " + order.OrderNumber + " You should recieve your refund promptly. We hope to see you again soon!");
             _context.Orders.Update(o);
             _context.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("CancelSuccess", new { order = o, pcp = add });
         }
 
+        public IActionResult CancelSuccess(Order order, int? add)
+        {
+            ViewBag.Add = add;
+            return View(order);
+        }
         public IActionResult Confirmation([Bind("OrderID, Tax, OrderTotal, PopcornPointsUsed, OrderNumber")] Order order)
         {
             Order pastorder = _context.Orders.Include(o => o.Tickets).ThenInclude(o => o.Showing)
@@ -442,12 +454,12 @@ namespace Team1_FinalProject.Controllers
 
             if (pastorder.GiftEmail != null)
             {
-                Utilities.EmailMessaging.SendEmail(pastorder.GiftEmail, "Ticket Purchase Confirmation", "Your friend " + pastorder.Customer.FirstName + " " + pastorder.Customer.LastName + " " + "bought you some tickets! You order number is: " + order.OrderNumber);
+                Utilities.EmailMessaging.SendEmail(pastorder.GiftEmail, "Order Purchase Confirmation", "Your friend " + pastorder.Customer.FirstName + " " + pastorder.Customer.LastName + " " + "bought you some tickets! You order number is: " + order.OrderNumber);
             }
 
             else
             {
-                Utilities.EmailMessaging.SendEmail(pastorder.Customer.Email, "Ticket Purchase Confirmation", "We confirmed you just placed an order! You order number is: " + order.OrderNumber);
+                Utilities.EmailMessaging.SendEmail(pastorder.Customer.Email, "Order Purchase Confirmation", "We confirmed you just placed an order! You order number is: " + order.OrderNumber);
             }
             
             return View(pastorder);
