@@ -27,7 +27,8 @@ namespace Team1_FinalProject.Models
         [Display(Name = "Search by MPAA Rating:")]
         public MPAA? SelectedMPAA { get; set; }
 
-        public int? SelectCustomerID { get; set; }
+        [Display(Name = "Available Customers")]
+        public int SelectCustomerID { get; set; }
         public string SelectCustomerName { get; set; }
         public int SelectedCustomerID { get; set; }
 

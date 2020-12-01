@@ -10,14 +10,11 @@ using Team1_FinalProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace Team1_FinalProject.Controllers
 {
     [Authorize(Roles = "Manager")]
     public class ReportsController : Controller
     {
-        // GET: /<controller>/
         private AppDbContext _context;
         private UserManager<AppUser> _userManager;
         private RoleManager<IdentityRole> _roleManager;
@@ -35,9 +32,9 @@ namespace Team1_FinalProject.Controllers
             return View("Index");
         }
 
+        //Aggregate Data Reporting
         public IActionResult DecisionReport()
         {
-
             return View();
         }
 
@@ -152,103 +149,8 @@ namespace Team1_FinalProject.Controllers
 
         }
 
-        //select list 
-        private async Task<SelectList> GetAllUsers()
-        {
-            //Get the list of users from the database
-            List<CreateForViewModel> customerList = new List<CreateForViewModel>();
-            List<Int32> customerIDList = new List<Int32>();
-            Int32 count = 0;
-            foreach (AppUser user in _userManager.Users)
-            {
-                if (await _userManager.IsInRoleAsync(user, "Customer") == true) //user is in the role
-                {
-                    //add user to list of members
-                    CreateForViewModel newcus = new CreateForViewModel();
-                    newcus.SelectCustomerName = user.Email;
-                    newcus.SelectCustomerID = count;
-                    customerIDList.Add(count);
-                    customerList.Add(newcus);
-                    count += 1;
-                }
-            }
 
-            //convert the list to a SelectList by calling SelectList constructor
-            //MonthID and MonthName are the names of the properties on the Month class
-            //MonthID is the primary key
-            SelectList customerSelectList = new SelectList(customerList, "SelectCustomerID", "SelectCustomerName");
-
-            //return the electList
-            return customerSelectList;
-        }
-        public async Task<IActionResult> CustomerSearch()
-        {
-            ViewBag.UserList = await GetAllUsers();
-            return View();
-        }
-        [HttpPost]
-        public IActionResult DisplayCustomerReport (ReportViewModel svm)
-        {
-            /*Dictionary<Customer, OrderAggregate> ordersByCust = new Dictionary<>();
-
-            List<Order> orderList = async getOrders();
-
-            foreach (Order order in orderList) {
-                Customer cust = order.customer;
-                OrderAggregate orderAgg = ordersByCust.get(cust);
-                if (orderAgg == null)
-                {
-                    orderAgg = new OrderAggregate();
-                }
-                orderAgg.totalTickets += cust.numTickets;
-                orderAgg.someOtherAggregateAmt += cust.whateverTheFuckElseTheCustomerHas;
-            }
-
-            return ordersByCust.values();
-            */
-            if (svm.SelectedCustomerID != null)
-            {
-                List<ReportViewModel> customerList = new List<ReportViewModel>();
-                AppUser customer = _userManager.Users.Where(u => u.Email == customerList[svm.SelectedCustomerID].SelectCustomerName).First();
-                List<Order> orders = _context.Orders.Include(o => o.Tickets)
-                                            .ThenInclude(t => t.Showing)
-                                            .ThenInclude(s => s.Movie)
-                                            .Include(o => o.Tickets)
-                                            .ThenInclude(t => t.Showing)
-                                            .ThenInclude(s => s.Price).Where(o => o.Customer.UserName == customer.Email).ToList();
-
-
-                foreach (Order order in orders)
-                {
-                    if (order.OrderHistory == OrderHistory.Past)
-                    {
-                        if (order.PopcornPointsUsed == false)
-                        {
-                            svm.TotalRevenue += order.PostDiscount;
-                        }
-                        else if (order.PopcornPointsUsed == true)
-                        {
-                            svm.SeatsSold += (order.Tickets.Count() * 100);
-                        }
-                    }
-                }
-
-                ViewBag.CustomerOrders = orders;
-            }
-            else
-            {
-                List<Order> orders = _context.Orders.Include(o => o.Tickets)
-                                            .ThenInclude(t => t.Showing)
-                                            .ThenInclude(s => s.Movie)
-                                            .Include(o => o.Tickets)
-                                            .ThenInclude(t => t.Showing)
-                                            .ThenInclude(s => s.Price).ToList();
-                ViewBag.CustomerOrders = orders;
-            }
-            
-            return View();
-        }
-
+        //Popcorn Points Reporting
         public IActionResult PPReport()
         {
             return View();
@@ -273,5 +175,122 @@ namespace Team1_FinalProject.Controllers
             ViewBag.pptickets = tickets;
             return View(tickets);
         }
+
+
+
+        //Customer Reports Stuff
+        //select list 
+        private async Task<SelectList> GetAllUsers()
+        {
+            //Get the list of users from the database
+            List<CustomerReportViewModel> customerList = new List<CustomerReportViewModel>();
+            List<Int32> customerIDList = new List<Int32>();
+            Int32 count = 0;
+            foreach (AppUser user in _userManager.Users)
+            {
+                if (await _userManager.IsInRoleAsync(user, "Customer") == true) //user is in the role
+                {
+                    //add user to list of members
+                    CustomerReportViewModel newcus = new CustomerReportViewModel();
+                    newcus.SelectCustomerName = user.Email;
+                    newcus.SelectCustomerID = count;
+                    customerIDList.Add(count);
+                    customerList.Add(newcus);
+                    count += 1;
+                }
+            }
+
+            SelectList customerSelectList = new SelectList(customerList, "SelectCustomerID", "SelectCustomerName");
+
+            //return the electList
+            return customerSelectList;
+        }
+        public async Task<IActionResult> CustomerSearch()
+        {
+            ViewBag.AllCustomers = await GetAllUsers();
+            CustomerReportViewModel crvm = new CustomerReportViewModel();
+            return View(crvm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> DisplayCustomerReport (CustomerReportViewModel crvm)
+        {
+            /*Dictionary<Customer, OrderAggregate> ordersByCust = new Dictionary<>();
+
+            List<Order> orderList = async getOrders();
+
+            foreach (Order order in orderList) {
+                Customer cust = order.customer;
+                OrderAggregate orderAgg = ordersByCust.get(cust);
+                if (orderAgg == null)
+                {
+                    orderAgg = new OrderAggregate();
+                }
+                orderAgg.totalTickets += cust.numTickets;
+                orderAgg.someOtherAggregateAmt += cust.whateverTheFuckElseTheCustomerHas;
+            }
+
+            return ordersByCust.values();
+            
+            if (svm.SelectedCustomerID != null)
+            */
+            
+            List<CustomerReportViewModel> customerList = new List<CustomerReportViewModel>();
+
+            foreach (AppUser user in _userManager.Users)
+            {
+                if (await _userManager.IsInRoleAsync(user, "Customer") == true) //user is in the role
+                {
+                    //add user to list of members
+                    CustomerReportViewModel newcus = new CustomerReportViewModel();
+                    newcus.SelectCustomerName = user.Email;
+                    customerList.Add(newcus);
+                }
+            }
+            AppUser customer = _userManager.Users.Where(u => u.Email == customerList[crvm.SelectedCustomerID].SelectCustomerName).First();
+            
+
+            List<Order> orders = _context.Orders.Include(o => o.Tickets)
+                                            .ThenInclude(t => t.Showing)
+                                            .ThenInclude(s => s.Movie)
+                                            .Include(o => o.Tickets)
+                                            .ThenInclude(t => t.Showing)
+                                            .ThenInclude(s => s.Price).Where(o => o.Customer.UserName == customer.Email).ToList();
+
+
+            foreach (Order order in orders)
+            {
+                if (order.OrderHistory == OrderHistory.Past)
+                {
+                    if (order.PopcornPointsUsed == false)
+                    {
+                        crvm.TotalRevenue += order.PostDiscount;
+                    }
+                    else if (order.PopcornPointsUsed == true)
+                    {
+                        crvm.PopcornPointsUsed += (order.Tickets.Count() * 100);
+                    }
+
+                    crvm.SeatsSold += order.Tickets.Count();
+                }
+            }
+
+            ViewBag.CustomerOrders = orders;
+            
+            /*
+            else
+            {
+                List<Order> orders = _context.Orders.Include(o => o.Tickets)
+                                            .ThenInclude(t => t.Showing)
+                                            .ThenInclude(s => s.Movie)
+                                            .Include(o => o.Tickets)
+                                            .ThenInclude(t => t.Showing)
+                                            .ThenInclude(s => s.Price).ToList();
+                ViewBag.CustomerOrders = orders;
+            }
+            */
+            return View(crvm);
+        }
+
+        
     }
 }

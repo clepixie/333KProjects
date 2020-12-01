@@ -1,4 +1,4 @@
-﻿@model Team1_FinalProject.Models.ReportViewModel
+﻿@model Team1_FinalProject.Models.CustomerReportViewModel
 
 @{
     ViewData["Title"] = "CustomerSearch";
@@ -13,7 +13,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="SelectCustomerID" class="control-label"></label>
-                @Html.DropDownListFor(model => model.SelectedCustomerID, (SelectList)ViewBag.UserList, new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.SelectedCustomerID, (SelectList)ViewBag.AllCustomers, new { @class = "form-control" })
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
