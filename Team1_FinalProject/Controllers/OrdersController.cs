@@ -385,7 +385,7 @@ namespace Team1_FinalProject.Controllers
            
             if (order.OrderHistory == OrderHistory.Cancelled)
             {
-                return View("Error", new String[] { "This order has already been canceled!" });
+                return View("Error", new String[] { "This order has already been cancelled!" });
             }
             if (order.OrderHistory == OrderHistory.Future)
             {
@@ -429,7 +429,7 @@ namespace Team1_FinalProject.Controllers
                 o.Customer.PopcornPoints += (int)add;
             }
 
-            EmailMessaging.SendEmail(o.Customer.Email, "Order Cancellation Confirmation", "We have confirmed that you have cancelled: " + order.OrderNumber + " You should recieve your refund promptly. We hope to see you again soon!");
+            EmailMessaging.SendEmail(o.Customer.Email, "Order Cancellation Confirmation", "We have confirmed that you have cancelled: " + o.OrderNumber + " You should recieve your refund promptly. We hope to see you again soon!");
             _context.Orders.Update(o);
             _context.SaveChanges();
             return RedirectToAction("CancelSuccess", new { id = o.OrderID, pcp = add });
