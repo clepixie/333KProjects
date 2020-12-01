@@ -1142,8 +1142,20 @@ C:/Users/alice/documents/ut/333k/333kprojects/team1_finalproject/obj/Debug/netco
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Reports/DecisionReport.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Reports/DisplayPP.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Reports/PPReport.cshtml.g.cs
+<<<<<<< Updated upstream
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/ChangeAddress.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/ChangeBirthdate.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/ChangePhoneNumber.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/CancelOrder.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/CancelSuccess.cshtml.g.cs
+=======
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/IndexCustomer.cshtml.g.cs
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Reports/DecisionReport.cshtml.g.cs
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Reports/DisplayPP.cshtml.g.cs
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Reports/PPReport.cshtml.g.cs
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/ChangeAddress.cshtml.g.cs
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/ChangeBirthdate.cshtml.g.cs
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/ChangePhoneNumber.cshtml.g.cs
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/CancelOrder.cshtml.g.cs
+>>>>>>> Stashed changes
+/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/CancelSuccess.cshtml.g.cs
