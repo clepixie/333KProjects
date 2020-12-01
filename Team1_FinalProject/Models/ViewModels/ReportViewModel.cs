@@ -45,7 +45,7 @@ namespace Team1_FinalProject.Models
         [DisplayFormat(DataFormatString = "{0:hh:mm tt}")]
         [DataType(DataType.Time)]
         public TimeSpan? SearchShowingTimeEnd { get; set; }
-
+        
 
 
         //public List<Showing> Showings { get; set; }
