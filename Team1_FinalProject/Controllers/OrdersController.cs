@@ -78,11 +78,16 @@ namespace Team1_FinalProject.Controllers
                 {
                     ViewBag.DiscountTax = string.Format("{0:C}", (order.OrderSubtotal + (order.Discount.PriceValue * 2)) * .0825m);
                 }
-                else
+                else if (order.Tickets.Where(t => t.Showing.SpecialEvent == false).Count() == 1)
                 {
                     ViewBag.DiscountTax = string.Format("{0:C}", (order.OrderSubtotal + order.Discount.PriceValue) * .0825m);
                 }
+                else
+                {
+                    ViewBag.DiscountTax = string.Format("{0:C}", order.Tax);
+                }
             }
+
             else
             {
                 ViewBag.DiscountTax = string.Format("{0:C}", order.Tax);
@@ -380,7 +385,7 @@ namespace Team1_FinalProject.Controllers
            
             if (order.OrderHistory == OrderHistory.Cancelled)
             {
-                return View("Error", new String[] { "This order has already been canceled!" });
+                return View("Error", new String[] { "This order has already been cancelled!" });
             }
             if (order.OrderHistory == OrderHistory.Future)
             {
@@ -424,7 +429,7 @@ namespace Team1_FinalProject.Controllers
                 o.Customer.PopcornPoints += (int)add;
             }
 
-            EmailMessaging.SendEmail(o.Customer.Email, "Order Cancellation Confirmation", "We have confirmed that you have cancelled: " + order.OrderNumber + " You should recieve your refund promptly. We hope to see you again soon!");
+            EmailMessaging.SendEmail(o.Customer.Email, "Order Cancellation Confirmation", "We have confirmed that you have cancelled: " + o.OrderNumber + " You should recieve your refund promptly. We hope to see you again soon!");
             _context.Orders.Update(o);
             _context.SaveChanges();
             return RedirectToAction("CancelSuccess", new { id = o.OrderID, pcp = add });

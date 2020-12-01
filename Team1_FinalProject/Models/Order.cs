@@ -88,7 +88,7 @@ namespace Team1_FinalProject.Models
                     DiscountTotal = Math.Round(((OrderSubtotal + (discount * 2)) * (1 + TAX_RATE)), 2);
                 }
 
-                else
+                else if (nonspecialtickets.Count() == 1)
                 {
                         
                     DiscountTotal = Math.Round(((OrderSubtotal + (discount)) * (1 + TAX_RATE)), 2);

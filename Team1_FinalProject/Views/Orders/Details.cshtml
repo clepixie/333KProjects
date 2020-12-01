@@ -71,9 +71,13 @@
         {
             <td>@string.Format("{0:C}", (Model.Discount.PriceValue * 2))</td>
         }
-        else
+        else if (Model.Tickets.Where(t => t.Showing.SpecialEvent == false).Count() == 1)
         {
             <td>@string.Format("{0:C}", Model.Discount.PriceValue)</td>
+        }
+        else
+        {
+            <td>N/A</td>
         }
     </tr>
     <tr>

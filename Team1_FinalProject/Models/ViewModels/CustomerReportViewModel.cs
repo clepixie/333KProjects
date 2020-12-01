@@ -9,7 +9,7 @@ namespace Team1_FinalProject.Models
     public class CustomerReportViewModel
     {
 
-        [Display(Name = "Available Customers")]
+        [Display(Name = "Search Individual Customer:")]
         public int SelectCustomerID { get; set; }
         public string SelectCustomerName { get; set; }
         public int SelectedCustomerID { get; set; }
