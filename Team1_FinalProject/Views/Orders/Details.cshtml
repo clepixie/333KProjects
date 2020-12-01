@@ -33,6 +33,7 @@
 <table class="table table-primary">
     <tr>
         <th>Movie Title</th>
+        <th>Showing Time</th>
         <th>Ticket Price</th>
         <th>Seat Number</th>
     </tr>
@@ -40,6 +41,7 @@
 {
     <tr>
         <td>@Html.DisplayFor(ModelItem => t.Showing.Movie.Title)</td>
+        <td>@(t.Showing.StartDateTime.ToString("MM/dd/yyyy hh:mm tt"))<span>-</span>@(t.Showing.EndDateTime.ToString("hh:mm tt"))</td>
         <td>@Html.DisplayFor(ModelItem => t.Showing.Price.PriceValue)</td>
         <td>@Html.DisplayFor(ModelItem => t.SeatNumber)</td>
     </tr>

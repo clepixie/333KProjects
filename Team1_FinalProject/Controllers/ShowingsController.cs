@@ -681,11 +681,10 @@ namespace Team1_FinalProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ShowingID,StartDateTime,Room,SpecialEvent")] Showing showing, int SelectedMovie)
+        public async Task<IActionResult> Edit(int id, [Bind("ShowingID,StartDateTime,Room,SpecialEvent")] Showing showing, int ShowingMovie)
         {
             if (ModelState.IsValid == false)
             {
-                ViewBag.AllMovies = GetAllMovies();
                 return View(showing);
             }
 
@@ -693,6 +692,7 @@ namespace Team1_FinalProject.Controllers
             {
                 try
                 {
+                    Movie movie = _context.Movies.Find(ShowingMovie);
                     // first, find the first day of the next (unpublished) week
                     DateTime td = DateTime.Now.Date;
                     if (td.DayOfWeek == DayOfWeek.Friday)
@@ -712,7 +712,7 @@ namespace Team1_FinalProject.Controllers
                         return RedirectToAction("EditPending", new { id = showing.ShowingID });
                     }
 
-                    showing.EndDateTime = showing.StartDateTime + TimeSpan.FromMinutes(showing.Movie.Runtime);
+                    showing.EndDateTime = showing.StartDateTime + TimeSpan.FromMinutes(movie.Runtime);
                     showing.Price = GetPrice(showing);
                     showing.Status = SStatus.Published;
                     var entry = _context.Showings.First(e => e.ShowingID == showing.ShowingID);
@@ -844,9 +844,9 @@ namespace Team1_FinalProject.Controllers
 
                     foreach (Showing s in todayshowingall)
                     {
-                        if (showing.StartDateTime == s.StartDateTime && s.Movie.Title == showing.Movie.Title && s.Room != showing.Room)
+                        if (showing.StartDateTime == s.StartDateTime && s.Movie.Title == movie.Title && s.Room != showing.Room)
                         {
-                            ModelState.AddModelError(string.Empty, "You cannot schedule " + showing.Movie.Title + " at the same time in both Theaters on " + showing.StartDateTime + ".");
+                            ModelState.AddModelError(string.Empty, "You cannot schedule " + movie.Title + " at the same time in both Theaters on " + showing.StartDateTime + ".");
                             ViewBag.AllMovies = GetAllMovies();
                             Showing show = _context.Showings
                                               .Include(o => o.Price)
@@ -874,7 +874,7 @@ namespace Team1_FinalProject.Controllers
                     foreach (Order o in emailorders)
                     {
                         EmailMessaging.SendEmail(o.Customer.Email, "Order #" + o.OrderNumber + ": Showing Rescheduling", "One or more of your tickets on this order has been rescheduled. Please consider the information below. We appreciate your understanding." + System.Environment.NewLine
-                                                + showing.Movie.Title + ": " + System.Environment.NewLine + oldshowingstart.ToString("MM/dd/yyyy HH:mm tt") + " - " + oldshowingend.ToString("HH:mm tt") + System.Environment.NewLine + "Changed to: " + System.Environment.NewLine + 
+                                                + movie.Title + ": " + System.Environment.NewLine + oldshowingstart.ToString("MM/dd/yyyy HH:mm tt") + " - " + oldshowingend.ToString("HH:mm tt") + System.Environment.NewLine + "Changed to: " + System.Environment.NewLine + 
                                                 showing.StartDateTime.ToString("MM/dd/yyyy HH:mm tt") + " - " + showing.EndDateTime.ToString("HH:mm tt"));
                     }
 
@@ -900,7 +900,7 @@ namespace Team1_FinalProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditPending(int id, [Bind("ShowingID,StartDateTime,Room,SpecialEvent")] Showing showing, int SelectedMovie, int SelectedDate)
+        public IActionResult EditPending(int id, [Bind("ShowingID,StartDateTime,Room,SpecialEvent")] Showing showing, int SelectedDate, int ShowingMovie)
         {
             if (ModelState.IsValid == false)
             {
@@ -913,6 +913,7 @@ namespace Team1_FinalProject.Controllers
             {
                 try
                 {
+                    Movie movie = _context.Movies.Find(ShowingMovie);
                     int showid = showing.ShowingID;
                     List<DateTime> nextweek = new List<DateTime>();
                     DateTime today = DateTime.Now.Date + showing.StartDateTime.TimeOfDay;
@@ -929,7 +930,7 @@ namespace Team1_FinalProject.Controllers
                     }
 
                     showing.StartDateTime = nextweek[SelectedDate];
-                    showing.EndDateTime = showing.StartDateTime + TimeSpan.FromMinutes(showing.Movie.Runtime);
+                    showing.EndDateTime = showing.StartDateTime + TimeSpan.FromMinutes(movie.Runtime);
                     showing.Price = GetPrice(showing);
                     showing.Status = SStatus.Pending;
                     _context.Showings.Update(showing);
@@ -1059,9 +1060,9 @@ namespace Team1_FinalProject.Controllers
 
                     foreach (Showing s in todayshowingall)
                     {
-                        if (showing.StartDateTime == s.StartDateTime && s.Movie.Title == showing.Movie.Title && s.Room != showing.Room)
+                        if (showing.StartDateTime == s.StartDateTime && s.Movie.Title == movie.Title && s.Room != showing.Room)
                         {
-                            ModelState.AddModelError(string.Empty, "You cannot schedule " + showing.Movie.Title + " at the same time in both Theaters on " + showing.StartDateTime + ".");
+                            ModelState.AddModelError(string.Empty, "You cannot schedule " + movie.Title + " at the same time in both Theaters on " + showing.StartDateTime + ".");
                             List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
                             List<DateTime> nw = new List<DateTime>();
                             DateTime td = DateTime.Now.Date;
@@ -1107,9 +1108,9 @@ namespace Team1_FinalProject.Controllers
                             *//*return View("Error", new String[] { "You cannot add this showing because it is too close with the existing showing:\n" + s.StartDateTime + " " + s.EndDateTime + "\n" + showing.StartDateTime + " " + showing.EndDateTime });*//*
                         }
 
-                        if (showing.StartDateTime == s.StartDateTime && s.Movie.Title == showing.Movie.Title && s.Room != showing.Room)
+                        if (showing.StartDateTime == s.StartDateTime && s.Movie.Title == movie.Title && s.Room != showing.Room)
                         {
-                            ModelState.AddModelError(string.Empty, "You cannot schedule " + showing.Movie.Title + " at the same time in both Theaters on " + showing.StartDateTime + ".");
+                            ModelState.AddModelError(string.Empty, "You cannot schedule " + movie.Title + " at the same time in both Theaters on " + showing.StartDateTime + ".");
                             List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
                             List<DateTime> nw = new List<DateTime>();
                             DateTime td = DateTime.Now.Date;
@@ -1184,6 +1185,7 @@ namespace Team1_FinalProject.Controllers
                 {
                     if (ticket.Showing.ShowingID == showing.ShowingID)
                     {
+                        _context.Remove(ticket);
                         emailorders.Add(order);
                     }
                 }

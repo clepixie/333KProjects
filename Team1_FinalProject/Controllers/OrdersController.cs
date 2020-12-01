@@ -418,13 +418,23 @@ namespace Team1_FinalProject.Controllers
             EmailMessaging.SendEmail(o.Customer.Email, "Order Cancellation Confirmation", "We have confirmed that you have cancelled: " + order.OrderNumber + " You should recieve your refund promptly. We hope to see you again soon!");
             _context.Orders.Update(o);
             _context.SaveChanges();
-            return RedirectToAction("CancelSuccess", new { order = o, pcp = add });
+            return RedirectToAction("CancelSuccess", new { id = o.OrderID, pcp = add });
         }
 
-        public IActionResult CancelSuccess(Order order, int? add)
+        public IActionResult CancelSuccess(int id, int? pcp)
         {
-            ViewBag.Add = add;
-            return View(order);
+            Order o = _context.Orders.Include(o => o.Customer)
+                                        .Include(o => o.Discount)
+                                        .Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Movie)
+                                        .Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Price)
+                                        .Where(o => o.OrderID == id)
+                                        .FirstOrDefault();
+            ViewBag.Add = pcp;
+            return View(o);
         }
         public IActionResult Confirmation([Bind("OrderID, Tax, OrderTotal, PopcornPointsUsed, OrderNumber")] Order order)
         {
