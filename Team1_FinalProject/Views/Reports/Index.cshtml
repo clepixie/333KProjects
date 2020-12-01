@@ -4,9 +4,11 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Generate Report</h1>
+<h1>Generate A New Report</h1>
 
 <hr />
-<a asp-action="DecisionReport">Decision Report</a> |
-<a asp-action="CustomerSearch">Customer Report</a> |
-<a asp-action="PPReport">Popcorn Points Report</a>
+<p class="text-center">
+    <a class="btn btn-primary" asp-action="DecisionReport">Aggregate Performance Report</a>
+    <a class="btn btn-primary" asp-action="CustomerSearch">Customer Order Report</a>
+    <a class="btn btn-primary" asp-action="PPReport">Popcorn Points Report</a>
+</p>

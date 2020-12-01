@@ -1,5 +1,50 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@*model Team1_FinalProject.Models.ReportViewModel *@
+
 @{
+    ViewData["Title"] = "Display Popcorn Points Report";
 }
+
+<h1>Display Report</h1>
+
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Order Date
+            </th>
+            <th>
+                Movie Title
+            </th>
+            <th>
+                Showing Time
+            </th>
+            <th>
+                Customer Name
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Ticket t in ViewBag.pptickets)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => t.Order.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => t.Showing.Movie.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => t.Showing.StartDateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => t.Order.Customer)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-action="Index">Create a New Report</a>
+    <a asp-action="Index" asp-controller="Home">Back to Home</a>
+</div>

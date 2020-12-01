@@ -209,20 +209,22 @@ namespace Team1_FinalProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult DisplayPP(bool pp)
+        public IActionResult DisplayPP(ReportViewModel rvm)
         {
-            var query = from o in _context.Orders
+            var query = from o in _context.Tickets
                         select o;
-            if (pp == true)
+            if (rvm.PopcornPoints == true)
             {
-                query = query.Where(o => o.PopcornPointsUsed == true);
+                query = query.Where(o => o.Order.PopcornPointsUsed == true);
             }
-            List<Order> orders = query
-                .Include(o => o.Tickets)
-                .ThenInclude(t => t.Showing)
+            List<Ticket> tickets = query
+                .Include(t => t.Order)
+                .Include(t => t.Showing)
                 .ThenInclude(s => s.Movie)
                 .ToList();
-            return View(orders);
+
+            ViewBag.pptickets = tickets;
+            return View(tickets);
         }
     }
 }
