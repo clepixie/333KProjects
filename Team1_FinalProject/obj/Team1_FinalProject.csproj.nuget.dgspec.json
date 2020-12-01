@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/Team1_FinalProject.csproj": {}
+    "/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/Team1_FinalProject.csproj": {}
   },
   "projects": {
-    "/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/Team1_FinalProject.csproj": {
+    "/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/Team1_FinalProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/Team1_FinalProject.csproj",
+        "projectUniqueName": "/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/Team1_FinalProject.csproj",
         "projectName": "Team1_FinalProject",
-        "projectPath": "/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/Team1_FinalProject.csproj",
-        "packagesPath": "/Users/ericlin/.nuget/packages/",
-        "outputPath": "/Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/",
+        "projectPath": "/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/Team1_FinalProject.csproj",
+        "packagesPath": "/Users/aileenlu/.nuget/packages/",
+        "outputPath": "/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/ericlin/.config/NuGet/NuGet.Config"
+          "/Users/aileenlu/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
