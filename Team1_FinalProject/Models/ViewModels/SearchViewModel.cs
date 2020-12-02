@@ -31,7 +31,7 @@ namespace Team1_FinalProject.Models
 		[Display(Name = "Genre:")]
 		public Int32 SelectGenreID { get; set; }
 		[Display(Name = "Showing Date:")]
-		[CustomDateRange(ErrorMessage = "Please select a date that has no passed already.")]
+		[CustomDateRange(ErrorMessage = "Please select a date that has not passed already.")]
 		[DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
 		[DataType(DataType.Date)]
 		public DateTime? SearchShowingDateStart { get; set; }
