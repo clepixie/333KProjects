@@ -164,9 +164,10 @@ namespace Team1_FinalProject.Controllers
 
         //this is a customer master list for employees
         [Authorize(Roles = "Employee, Manager")]
-        public async Task<IActionResult> IndexCustomer()
+        public async Task<IActionResult> IndexCustomer(string email)
         {
-
+            ViewBag.Email = email;
+            
             //Get the list of users from the database
 
             List<AppUser> customers = new List<AppUser>();
@@ -181,6 +182,7 @@ namespace Team1_FinalProject.Controllers
 
             return View("IndexCustomer", customers);
         }
+        // am i passing email in correctly?
 
         [Authorize(Roles = "Employee, Manager")]
         [HttpGet]
@@ -189,41 +191,16 @@ namespace Team1_FinalProject.Controllers
             EditProfileViewModel newepvm = new EditProfileViewModel();
             newepvm.Email = email;
             return View(newepvm);
+
         }
 
         [Authorize(Roles = "Employee, Manager")]
         [HttpPost]
         public async Task<IActionResult> EditCustomer([Bind("Email, Address, PhoneNumber, Birthdate")] EditProfileViewModel epvm)
         {
-            //List<EditProfileViewModel> customerList = new List<EditProfileViewModel>();
-
-            //foreach (AppUser edituser in _userManager.Users)
-            //{
-            //    if (await _userManager.IsInRoleAsync(edituser, "Customer") == true) //user is in the role
-            //    {
-            //        //add user to list of members
-            //        EditProfileViewModel editcus = new EditProfileViewModel();
-            //        editcus.Email = epvm.Email;
-            //        customerList.Add(editcus);
-            //    }
-            //}
-            // find the orders that match the user selected; we have to first a) get the int idx selected b) map that idx to the Email in customerList
-            // c) match that to the Emails of Customers
 
             // finds the user that matches the selected ID
             AppUser dbUsers = _context.Users.Where(u => u.Email == epvm.Email).FirstOrDefault();
-
-            //String id = User.Identity.Name;
-            //AppUser user = _context.Users.FirstOrDefault(u => u.UserName == id);
-            //ViewBag.UserInfo = user;
-
-            //// set info equal to what the employee edits it as
-            //epvm.PhoneNumber = user.PhoneNumber;
-            //epvm.Address = user.Address;
-            //epvm.Birthdate = user.Birthdate;
-            //// not sure if this password stuff is right though
-            //epvm.Password = user.PasswordHash;
-            //epvm.ConfirmPassword = user.PasswordHash;
 
             //update the properties
             if (epvm.ConfirmPassword != epvm.Password)
@@ -258,7 +235,7 @@ namespace Team1_FinalProject.Controllers
             await _context.SaveChangesAsync();
 
             // send data to the view
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(IndexCustomer));
 
         }
 

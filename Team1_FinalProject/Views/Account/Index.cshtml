@@ -55,5 +55,5 @@
 </div>
 @if (User.IsInRole("Employee"))
 {
-    <a asp-action="IndexCustomer" asp-controller="Account" class="btn btn-success">Customer Master List</a>
+    <a asp-action="IndexCustomer" asp-controller="Account" class="btn btn-success" asp-route-email="@Model.Email" >Customer Master List</a>
 }
