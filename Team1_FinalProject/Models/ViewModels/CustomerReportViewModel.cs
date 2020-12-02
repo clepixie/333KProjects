@@ -8,7 +8,6 @@ namespace Team1_FinalProject.Models
 {
     public class CustomerReportViewModel
     {
-
         [Display(Name = "Search Individual Customer:")]
         public int SelectCustomerID { get; set; }
         public string SelectCustomerName { get; set; }
