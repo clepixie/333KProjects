@@ -42,7 +42,7 @@ namespace Team1_FinalProject.Models
                 decimal subtot = 0;
                 foreach (Ticket ticket in Tickets)
                 {
-                    subtot += ticket.Showing.Price.PriceValue;
+                    subtot += ticket.FixPrice;
                 }
                 return subtot;
             }

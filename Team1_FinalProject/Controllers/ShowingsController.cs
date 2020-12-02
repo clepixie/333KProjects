@@ -61,7 +61,7 @@ namespace Team1_FinalProject.Controllers
             ViewBag.SelectedShowings = showings.Count();
             return View("Index", showings);
         }
-
+        [Authorize(Roles = "Manager,Employee")]
         public IActionResult AllIndex()
         {
             var query = from m in _context.Showings

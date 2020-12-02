@@ -315,9 +315,24 @@ namespace Team1_FinalProject.Controllers
             .ThenInclude(o => o.Price).Include(o => o.Customer).FirstOrDefault(o => o.OrderID == order.OrderID);
             ViewBag.Discount = "N/A";
 
+            if (currorder.Tickets.Count() == 0)
+            {
+                return View("Error", new String[] { "Your cart is empty. Please choose what to purchase first" });
+            }
             if (order.GiftOrder == false && order.GiftEmail != null)
             {
                 return View("Error", new String[] { "If you want to checkout as a gift, make sure to check next to Gift Order!" });
+            }
+
+            if (order.PopcornPointsUsed == true)
+            {
+                foreach (Ticket t in currorder.Tickets)
+                {
+                    if (t.Showing.SpecialEvent == true)
+                    {
+                        return View("Error", new String[] { "You cannot use PopcornPoints on this order because one or more showings are Special Events." });
+                    }
+                }
             }
 
             if (order.GiftOrder == true)
@@ -326,8 +341,25 @@ namespace Team1_FinalProject.Controllers
                 {
                     return View("Error", new String[] { "If you want to checkout as a gift, make sure to enter the Gift Recipient's email!" });
                 }
+
                 string roleID = _context.Roles.FirstOrDefault(r => r.Name == "Customer").Id;
                 AppUser gifteduser = _context.Users.Where(u => u.Email == order.GiftEmail).FirstOrDefault();
+
+                bool adultfilm = false;
+
+                foreach (Ticket t in currorder.Tickets)
+                {
+                    if (t.Showing.Movie.MPAA == MPAA.R || t.Showing.Movie.MPAA == MPAA.NC17)
+                    {
+                        adultfilm = true;
+                        break;
+                    }
+                }
+
+                if (((DateTime.Now - gifteduser.Birthdate).TotalDays < 6570) && adultfilm == true)
+                {
+                    return View("Error", new String[] { "You cannot purchase a gift order with R-rated or NC-17-rated showings for a customer that is younger than 18." });
+                }
 
                 if (order.GiftOrder == true && gifteduser == null)
                 {
@@ -496,12 +528,13 @@ namespace Team1_FinalProject.Controllers
 
             if (pastorder.GiftEmail != null)
             {
-                Utilities.EmailMessaging.SendEmail(pastorder.GiftEmail, "Order Purchase Confirmation", "Your friend " + pastorder.Customer.FirstName + " " + pastorder.Customer.LastName + " " + "bought you some tickets! You order number is: " + order.OrderNumber);
+                EmailMessaging.SendEmail(pastorder.Customer.Email, "Gift Order Purchase Confirmation", "We confirmed you just placed an order for your friend at " + pastorder.GiftEmail + "! You order number is: " + order.OrderNumber);
+                EmailMessaging.SendEmail(pastorder.GiftEmail, "Gift Order Purchase Confirmation", "Your friend " + pastorder.Customer.FirstName + " " + pastorder.Customer.LastName + " " + "bought you some tickets! You order number is: " + order.OrderNumber);
             }
 
             else
             {
-                Utilities.EmailMessaging.SendEmail(pastorder.Customer.Email, "Order Purchase Confirmation", "We confirmed you just placed an order! You order number is: " + order.OrderNumber);
+                EmailMessaging.SendEmail(pastorder.Customer.Email, "Order Purchase Confirmation", "We confirmed you just placed an order! You order number is: " + order.OrderNumber);
             }
             
             return View(pastorder);

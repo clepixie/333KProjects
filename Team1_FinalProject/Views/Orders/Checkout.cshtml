@@ -63,7 +63,9 @@
                     @Html.DisplayFor(model => t.SeatNumber)
                 </td>
                 <td>
-                    @Html.DisplayFor(model => t.Showing.Price.PriceValue)
+                    @Html.DisplayFor(model => t.FixPrice)
+                    <br />
+                    @Html.DisplayFor(model => t.Showing.Price.PriceType, new { @style = "color:red" })
                 </td>
                 <td>
                     <a asp-action="Edit" asp-controller="Tickets" asp-route-id="@t.TicketID" class="fas fa-pencil-alt btn btn-warning" style="color:white"></a>
@@ -73,7 +75,7 @@
         }
     </tbody>
 </table>
-Note: These calculations do not include discounts yet. That will be presented on the review page.
+Note: These calculations do not include order discounts yet. That will be presented on the review page.
 <form asp-action="Review">
     <table class="table">
         <thead>

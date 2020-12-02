@@ -426,6 +426,9 @@ namespace Team1_FinalProject.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<decimal>("FixPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int?>("OrderID")
                         .HasColumnType("int");
 

@@ -356,6 +356,7 @@ namespace Team1_FinalProject.Controllers
                     ticket.SeatClaim = true;
                     ticket.Order = current_order;
                     ticket.SeatNumber = allSeats[seatnumber];
+                    ticket.FixPrice = ticket.Showing.Price.PriceValue;
                     _context.Tickets.Add(ticket);
                     _context.SaveChanges();
                 }

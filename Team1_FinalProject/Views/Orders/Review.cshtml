@@ -88,10 +88,14 @@
                     @if (count == 0)
                     {
                         @ViewBag.DiscountDouble
+                        <br />
+                        @Model.Discount.PriceType
                     }
-                    else
+                    else if (count == 1)
                     {
                         @ViewBag.Discount
+                        <br />
+                        @Model.Discount.PriceType
                     }
                 </td>
                 @if (ViewBag.DiscountTax != null)
@@ -137,6 +141,13 @@
             <td>Was this a Gift Order?</td>
             <td class="text-right">@Html.DisplayFor(model => model.GiftOrder)</td>
         </tr>
+        @if (Model.GiftOrder == true)
+        {
+            <tr>
+                <td>Gift Order Email:</td>
+                <td>@Html.DisplayFor(model => model.GiftEmail)</td>
+            </tr>
+        }
     </table>
 
     <input type="hidden" asp-for="OrderID" />
