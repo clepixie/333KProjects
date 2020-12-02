@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
 
 //TODO: Change these using statements to match your project
@@ -208,5 +211,61 @@ namespace Team1_FinalProject.Controllers
             return View("Error", new string[] { "Role Not Found" });
         }
 
+        //select list 
+        private async Task<SelectList> GetAllEmployees()
+        {
+            //Get the list of users from the database
+            List<CustomerReportViewModel> customerList = new List<CustomerReportViewModel>();
+            List<Int32> customerIDList = new List<Int32>();
+            Int32 count = 0;
+            foreach (AppUser user in _userManager.Users)
+            {
+                if (await _userManager.IsInRoleAsync(user, "Employee") == true) //user is in the role
+                {
+                    //add user to list of members
+                    CustomerReportViewModel newcus = new CustomerReportViewModel();
+                    newcus.SelectCustomerName = user.Email;
+                    newcus.SelectCustomerID = count;
+                    customerIDList.Add(count);
+                    customerList.Add(newcus);
+                    count += 1;
+                }
+            }
+
+            SelectList customerSelectList = new SelectList(customerList, "SelectCustomerID", "SelectCustomerName");
+
+
+            return customerSelectList;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> ManageEmployeesIndex()
+        {
+            ViewBag.AllEmployees = await GetAllEmployees();
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<ActionResult> ManageEmployeesIndexAsync(CustomerReportViewModel crvm)
+        {
+            List<CustomerReportViewModel> customerList = new List<CustomerReportViewModel>();
+            foreach (AppUser user in _userManager.Users)
+            {
+                if (await _userManager.IsInRoleAsync(user, "Employee") == true) //user is in the role
+                {
+                    CustomerReportViewModel newcus = new CustomerReportViewModel();
+                    newcus.SelectCustomerName = user.Email;
+                    customerList.Add(newcus);
+                }
+            }
+            AppUser customer = _userManager.Users.Where(u => u.Email == customerList[crvm.SelectedCustomerID].SelectCustomerName).First();
+
+            customer.EStatus = AppUser.EmploymentStatus.Fired;
+            return View("ConfirmFire", customer);
+        }
+
     }
 }
+
+//limit login if employemnt status is fired in account login and role admin display

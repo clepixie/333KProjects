@@ -1,0 +1,14 @@
+﻿@model Team1_FinalProject.Models.AppUser
+
+@{
+    ViewData["Title"] = "ConfirmFire";
+}
+
+<body class="text-center">
+    <h1>Confirmation:</h1>
+    <h2>You have fired </h2>
+    <h2>@Model.Email</h2>
+</body>
+
+<a asp-action="Index" asp-controller="Home" class="btn btn-success">Back to Home</a>
+

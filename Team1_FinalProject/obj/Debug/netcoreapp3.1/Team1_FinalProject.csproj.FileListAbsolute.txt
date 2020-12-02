@@ -1028,7 +1028,6 @@ C:/Users/alice/documents/ut/333k/333kprojects/team1_finalproject/obj/Debug/netco
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/Delete.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/Details.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/Edit.cshtml.g.cs
-/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/Gift.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/Index.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/Review.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Prices/Create.cshtml.g.cs
@@ -1161,3 +1160,5 @@ C:/Users/alice/documents/ut/333k/333kprojects/team1_finalproject/obj/Debug/netco
 /Users/ericlin/Documents/GitHub/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Reports/AggregateCustomerReport.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Reports/AggregateCustomerReport.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/RoleAdmin/ManageEmployeesIndex.cshtml.g.cs
+/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/GiftIndex.cshtml.g.cs
+/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/RoleAdmin/ConfirmFire.cshtml.g.cs

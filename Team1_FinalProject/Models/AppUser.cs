@@ -34,6 +34,8 @@ namespace Team1_FinalProject.Models
             Fired
         }
 
+        public EmploymentStatus EStatus { get; set; }
+
         public String Address { get; set; }
 
         public List<Order> Orders { get; set; }
