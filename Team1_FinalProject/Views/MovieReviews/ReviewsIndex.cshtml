@@ -8,7 +8,7 @@
 
 <table class="table">
     <thead>
-        <tr>
+        <tr style="text-align:center">
             <th>
                 @Html.DisplayNameFor(model => model.MovieRating)
             </th>
@@ -20,7 +20,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr style="text-align:center">
                 <td>
                     @Html.DisplayFor(modelItem => item.MovieRating)/5
                 </td>

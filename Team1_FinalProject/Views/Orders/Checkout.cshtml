@@ -87,10 +87,10 @@ Note: These calculations do not include discounts yet. That will be presented on
                 <th>
                     @Html.DisplayNameFor(model => model.OrderTotal)
                 </th>
-                <th>
+                <th style="text-align:center">
                     @Html.DisplayNameFor(model => model.PopcornPointsUsed)
                 </th>
-                <th>
+                <th style="text-align:center">
                     @Html.DisplayNameFor(model => model.GiftOrder)
                 </th>
             </tr>
@@ -106,12 +106,12 @@ Note: These calculations do not include discounts yet. That will be presented on
                 <td>
                     @Html.DisplayFor(model => model.OrderTotal)
                 </td>
-                <td>
+                <td style="text-align:center">
                     @Html.CheckBoxFor(o => o.PopcornPointsUsed, new { @checked = Model.PopcornPointsUsed })
                     <br />
                     You have <b>@Model.Customer.PopcornPoints</b>; this can cover an order of <b>@(Model.Customer.PopcornPoints/100)</b> tickets.
                 </td>
-                <td>
+                <td style="text-align:center">
                     @Html.CheckBoxFor(o => o.GiftOrder, new { @checked = Model.GiftOrder })
                 </td>
 

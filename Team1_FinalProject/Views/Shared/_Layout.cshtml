@@ -33,12 +33,27 @@
                     </li>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li class="nav-item">
-                            <a asp-controller="MovieReviews" asp-action="Index" class="nav-link">My Movie Reviews</a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-controller="Orders" asp-action="Index" class="nav-link">My Orders</a>
-                        </li>
+                        @if (User.IsInRole("Customer"))
+                        {
+                            <li class="nav-item">
+                                <a asp-controller="MovieReviews" asp-action="Index" class="nav-link">My Movie Reviews</a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="Orders" asp-action="Index" class="nav-link">My Orders</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Manager") || User.IsInRole("Employee"))
+                        {
+                            <li class="nav-item">
+                                <a asp-controller="MovieReviews" asp-action="Index" class="nav-link">Movie Reviews</a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="Orders" asp-action="Index" class="nav-link">Orders</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Account" asp-action="Register" class="nav-link">Register For Users</a>
+                            </li>
+                        }
                         @if (User.IsInRole("Manager"))
                         {
                             <li>
@@ -49,9 +64,6 @@
                             </li>
                             <li>
                                 <a asp-controller="Reports" asp-action="Index" class="nav-link">See Report</a>
-                            </li>
-                            <li>
-                                <a asp-controller="Account" asp-action="Register" class="nav-link">Register For Users</a>
                             </li>
                         }
                     }

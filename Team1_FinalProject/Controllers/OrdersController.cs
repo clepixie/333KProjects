@@ -72,6 +72,7 @@ namespace Team1_FinalProject.Controllers
                 .ThenInclude(o => o.Price)
                 .Include(o => o.Customer)
                 .FirstOrDefault(o => o.OrderID == id);
+
             if (order.Discount != null)
             {
                 if (order.Tickets.Where(t => t.Showing.SpecialEvent == false).Count() >= 2)
@@ -104,7 +105,8 @@ namespace Team1_FinalProject.Controllers
             }
             ViewBag.ticketcounter = ticketcount;
             //make sure a customer isn't trying to look at someone else's order
-            if (User.IsInRole("Customer") && order.Customer.UserName != User.Identity.Name)
+            string email = order.GiftEmail;
+            if (User.IsInRole("Customer") && (order.Customer.UserName != User.Identity.Name && User.Identity.Name != order.GiftEmail))
             {
                 return View("Error", new string[] { "You are not authorized to view this order!" });
             }
@@ -318,9 +320,25 @@ namespace Team1_FinalProject.Controllers
                 return View("Error", new String[] { "If you want to checkout as a gift, make sure to check next to Gift Order!" });
             }
 
-            if (order.GiftOrder == true && order.GiftEmail == null)
+            if (order.GiftOrder == true)
             {
-                return View("Error", new String[] { "If you want to checkout as a gift, make sure to enter the Gift Recipient's email!" });
+                if (order.GiftEmail == null)
+                {
+                    return View("Error", new String[] { "If you want to checkout as a gift, make sure to enter the Gift Recipient's email!" });
+                }
+                string roleID = _context.Roles.FirstOrDefault(r => r.Name == "Customer").Id;
+                AppUser gifteduser = _context.Users.Where(u => u.Email == order.GiftEmail).FirstOrDefault();
+
+                if (order.GiftOrder == true && gifteduser == null)
+                {
+                    return View("Error", new String[] { "If you want to checkout as a gift, make sure that your friend has an account with us!" });
+                }
+
+                string userroleid = _context.UserRoles.Where(ur => ur.UserId == gifteduser.Id).FirstOrDefault().RoleId;
+                if (order.GiftOrder == true && userroleid != roleID)
+                {
+                    return View("Error", new String[] { "If you want to checkout as a gift, make sure that your friend has a customer account with us!" });
+                }
             }
 
             else
@@ -490,9 +508,32 @@ namespace Team1_FinalProject.Controllers
         }
 
         // Gift Order
-        public IActionResult Gift()
+        public IActionResult GiftIndex()
         {
-            return View();
+            if (User.IsInRole("Customer"))
+            {
+                List<Order> orders = _context.Orders.Include(o => o.Customer)
+                                        .Include(o => o.Discount)
+                                        .Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Movie)
+                                        .Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Price).Where(o => o.GiftEmail == User.Identity.Name).ToList();
+                return View(orders);
+            }
+            else
+            {
+                List<Order> orders = _context.Orders.Include(o => o.Customer)
+                                        .Include(o => o.Discount)
+                                        .Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Movie)
+                                        .Include(o => o.Tickets)
+                                        .ThenInclude(t => t.Showing)
+                                        .ThenInclude(s => s.Price).Where(o => o.GiftOrder == true).ToList();
+                return View(orders);
+            }
         }
 
         private bool OrderExists(int id)

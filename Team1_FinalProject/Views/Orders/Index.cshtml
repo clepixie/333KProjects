@@ -4,11 +4,15 @@
 
 @{ ViewData["Title"] = "Order History"; }
 
-<h1>My Order History</h1>
 
+<h1>Order History</h1>
+
+<p>
+    <a asp-action="GiftIndex">View Gifted Orders</a>
+</p>
 <table class="table">
     <thead>
-            <tr>
+            <tr style="text-align:center">
                 <th>
                     @Html.DisplayNameFor(model => model.OrderID)
                 </th>
@@ -22,6 +26,9 @@
                     @Html.DisplayNameFor(model => model.PopcornPointsUsed)
                 </th>
                 <th>
+                    Gift?
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.OrderHistory)
                 </th>
                 <th></th>
@@ -30,7 +37,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
+        <tr style="text-align:center">
             <td>
                 @Html.DisplayFor(modelItem => item.OrderID)
             </td>
@@ -44,11 +51,15 @@
                 @Html.DisplayFor(modelItem => item.PopcornPointsUsed)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.GiftOrder)
+                @Html.DisplayFor(modelItem => item.GiftEmail)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.OrderHistory)
             </td>
             <td>
                 <a asp-action="CancelOrderView" asp-route-id="@item.OrderID">Cancel</a> |
-                <a asp-action="Details" asp-route-id="@item.OrderID">Details</a> 
+                <a asp-action="Details" asp-route-id="@item.OrderID">Details</a>
             </td>
         </tr>
 }
