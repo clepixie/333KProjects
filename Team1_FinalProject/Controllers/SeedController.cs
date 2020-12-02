@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Team1_FinalProject.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class SeedController : Controller
     {
         //You will need an instance of the AppDbContext class for this code to work
