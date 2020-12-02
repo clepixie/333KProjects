@@ -75,7 +75,7 @@ namespace Team1_FinalProject.Controllers
                     //the business rules!
                     Microsoft.AspNetCore.Identity.SignInResult result2 = await _signInManager.PasswordSignInAsync(rvm.Email, rvm.Password, false, lockoutOnFailure: false);
 
-                    Utilities.EmailMessaging.SendEmail(rvm.Email, "Registration Confirmation:", "Congratulations, " + rvm.FirstName + "you have successfully registered your account!");
+                    Utilities.EmailMessaging.SendEmail(rvm.Email, "Registration Confirmation:", "Congratulations, " + rvm.FirstName + " you have successfully registered your account!");
 
                     //Send the user to the home page
                     return RedirectToAction("Index", "Home");
