@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 //TODO: Change this using statement to match your project
 using Team1_FinalProject.DAL;
 using Team1_FinalProject.Models;
+using Team1_FinalProject.Utilities;
 
 //TODO: Change this namespace to match your project
 namespace Team1_FinalProject.Controllers
@@ -74,6 +75,8 @@ namespace Team1_FinalProject.Controllers
                     //the business rules!
                     Microsoft.AspNetCore.Identity.SignInResult result2 = await _signInManager.PasswordSignInAsync(rvm.Email, rvm.Password, false, lockoutOnFailure: false);
 
+                    Utilities.EmailMessaging.SendEmail(rvm.Email, "Registration Confirmation:", "Congratulations, " + rvm.FirstName + "you have successfully registered your account!");
+
                     //Send the user to the home page
                     return RedirectToAction("Index", "Home");
                 }
@@ -136,6 +139,7 @@ namespace Team1_FinalProject.Controllers
         }
 
         //GET: Account/Index
+        [Authorize(Roles = "Employee, Manager, Customer")]
         public IActionResult Index()
         {
 
@@ -156,7 +160,6 @@ namespace Team1_FinalProject.Controllers
             ivm.Birthdate = user.Birthdate;
             ivm.PhoneNumber = user.PhoneNumber;
             ivm.Address = user.Address;
-            
 
             return View(ivm);
         }
@@ -184,9 +187,72 @@ namespace Team1_FinalProject.Controllers
         }
         // am i passing email in correctly?
 
+
+        //this is a customer master list for employees
+        [Authorize(Roles = "Manager")]
+        public async Task<IActionResult> IndexEmployee(string email)
+        {
+            ViewBag.Email = email;
+
+            //Get the list of users from the database
+
+            List<AppUser> employees = new List<AppUser>();
+
+            foreach (AppUser user in _userManager.Users)
+            {
+                if (await _userManager.IsInRoleAsync(user, "Employee") == true) //user is in the role
+                {
+                    employees.Add(user);
+                }
+            }
+
+            return View("IndexEmployee", employees);
+        }
+
+        //this is a customer master list for employees
+        [Authorize(Roles = "Manager")]
+        public async Task<IActionResult> IndexManager(string email)
+        {
+            ViewBag.Email = email;
+
+            //Get the list of users from the database
+
+            List<AppUser> managers = new List<AppUser>();
+
+            foreach (AppUser user in _userManager.Users)
+            {
+                if (await _userManager.IsInRoleAsync(user, "Manager") == true) //user is in the role
+                {
+                    managers.Add(user);
+                }
+            }
+
+            return View("IndexManager", managers);
+        }
+
         [Authorize(Roles = "Employee, Manager")]
         [HttpGet]
         public IActionResult EditCustomer(string email)
+        {
+            EditProfileViewModel newepvm = new EditProfileViewModel();
+            newepvm.Email = email;
+            return View(newepvm);
+
+        }
+
+        [Authorize(Roles = "Manager")]
+        [HttpGet]
+        public IActionResult EditEmployee(string email)
+        {
+            EditProfileViewModel newepvm = new EditProfileViewModel();
+            newepvm.Email = email;
+            return View(newepvm);
+
+        }
+
+        [Authorize(Roles = "Manager")]
+        [HttpGet]
+        public IActionResult EditManager(string email)
         {
             EditProfileViewModel newepvm = new EditProfileViewModel();
             newepvm.Email = email;
@@ -239,8 +305,99 @@ namespace Team1_FinalProject.Controllers
 
         }
 
+        [Authorize(Roles = "Manager")]
+        [HttpPost]
+        public async Task<IActionResult> EditEmployee([Bind("Email, Address, PhoneNumber, Birthdate")] EditProfileViewModel epvm)
+        {
+
+            // finds the user that matches the selected ID
+            AppUser dbUsers = _context.Users.Where(u => u.Email == epvm.Email).FirstOrDefault();
+
+            //update the properties
+            if (epvm.ConfirmPassword != epvm.Password)
+            {
+
+                return View("Error", new String[] { "The passwords do not match." });
+
+            }
+
+            if (epvm.Address != null)
+            {
+                dbUsers.Address = epvm.Address;
+            }
+            if (epvm.PhoneNumber != null)
+            {
+                dbUsers.PhoneNumber = epvm.PhoneNumber;
+            }
+
+            if (epvm.Birthdate != null)
+            {
+                dbUsers.Birthdate = epvm.Birthdate;
+            }
+
+            if (epvm.Password != null && epvm.ConfirmPassword != null)
+            {
+                dbUsers.PasswordHash = epvm.Password;
+                dbUsers.PasswordHash = epvm.ConfirmPassword;
+            }
+
+            // update the DB
+            _context.Update(dbUsers);
+            await _context.SaveChangesAsync();
+
+            // send data to the view
+            return RedirectToAction(nameof(IndexEmployee));
+
+        }
+
+        [Authorize(Roles = "Manager")]
+        [HttpPost]
+        public async Task<IActionResult> EditManager([Bind("Email, Address, PhoneNumber, Birthdate")] EditProfileViewModel epvm)
+        {
+
+            // finds the user that matches the selected ID
+            AppUser dbUsers = _context.Users.Where(u => u.Email == epvm.Email).FirstOrDefault();
+
+            //update the properties
+            if (epvm.ConfirmPassword != epvm.Password)
+            {
+
+                return View("Error", new String[] { "The passwords do not match." });
+
+            }
+
+            if (epvm.Address != null)
+            {
+                dbUsers.Address = epvm.Address;
+            }
+            if (epvm.PhoneNumber != null)
+            {
+                dbUsers.PhoneNumber = epvm.PhoneNumber;
+            }
+
+            if (epvm.Birthdate != null)
+            {
+                dbUsers.Birthdate = epvm.Birthdate;
+            }
+
+            if (epvm.Password != null && epvm.ConfirmPassword != null)
+            {
+                dbUsers.PasswordHash = epvm.Password;
+                dbUsers.PasswordHash = epvm.ConfirmPassword;
+            }
+
+            // update the DB
+            _context.Update(dbUsers);
+            await _context.SaveChangesAsync();
+
+            // send data to the view
+            return RedirectToAction(nameof(IndexManager));
+
+        }
+
         //Logic for change password
         // GET: /Account/ChangePassword
+        [Authorize(Roles = "Employee, Manager, Customer")]
         public ActionResult ChangePassword()
         {
             return View();
@@ -248,6 +405,7 @@ namespace Team1_FinalProject.Controllers
 
 
         // GET: /Account/ChangeAddress
+        [Authorize(Roles = "Employee, Manager")]
         [HttpGet]
         public ActionResult ChangeAddress(string email)
         {
@@ -261,6 +419,7 @@ namespace Team1_FinalProject.Controllers
         }
 
         // post change address
+        [Authorize(Roles = "Employee, Manager")]
         [HttpPost]
         public async Task<ActionResult> ChangeAddress([Bind("Email, NewAddress")] ChangeAddressViewModel avm)
         {
@@ -299,6 +458,7 @@ namespace Team1_FinalProject.Controllers
 
         //Logic for change birthdate
         // GET: /Account/ChangeBirthdate
+        [Authorize(Roles = "Employee, Manager")]
         [HttpGet]
         public ActionResult ChangeBirthdate(string email)
         {
@@ -312,6 +472,7 @@ namespace Team1_FinalProject.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Employee, Manager")]
         public async Task<ActionResult> ChangeBirthdate([Bind("Email, NewBirthdate")] ChangeBirthdateViewModel cbvm)
         { 
             if (User.Identity.Name != cbvm.Email)
@@ -348,6 +509,7 @@ namespace Team1_FinalProject.Controllers
         }
 
         // get for change phonenumber
+        [Authorize(Roles = "Employee, Manager")]
         [HttpGet]
         public ActionResult ChangePhoneNumber(string email)
         {
@@ -361,6 +523,7 @@ namespace Team1_FinalProject.Controllers
         }
 
         // change phone number
+        [Authorize(Roles = "Employee, Manager")]
         [HttpPost]
         public async Task<ActionResult> ChangePhoneNumberAsync(string id, [Bind("Email, NewPhoneNumber")] ChangePhoneNumberViewModel pnvm)
         {
@@ -397,6 +560,7 @@ namespace Team1_FinalProject.Controllers
         }
 
         // POST: /Account/ChangePassword
+        [Authorize(Roles = "Employee, Manager, Customer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel cpvm)

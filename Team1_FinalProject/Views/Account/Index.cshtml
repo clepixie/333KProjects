@@ -53,7 +53,12 @@
         }
     </dl>
 </div>
-@if (User.IsInRole("Employee"))
+@if (User.IsInRole("Manager") || User.IsInRole("Employee"))
 {
-    <a asp-action="IndexCustomer" asp-controller="Account" class="btn btn-success" asp-route-email="@Model.Email" >Customer Master List</a>
+    <a asp-action="IndexCustomer" asp-controller="Account" class="btn btn-success" asp-route-email="@Model.Email">Customer Master List</a>
+}
+@if (User.IsInRole("Manager"))
+{
+    <a asp-action="IndexEmployee" asp-controller="Account" class="btn btn-success" asp-route-email="@Model.Email">Employee Master List</a>
+    <a asp-action="IndexManager" asp-controller="Account" class="btn btn-success" asp-route-email="@Model.Email">Manager Master List</a>
 }
