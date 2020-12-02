@@ -60,6 +60,12 @@ namespace Team1_FinalProject.Controllers
                     FirstName = rvm.FirstName,
                     LastName = rvm.LastName,
                 };
+                TimeSpan newdate = DateTime.Now.Subtract(rvm.Birthdate);
+
+                if (rvm.RoleChoice == RoleChoice.Employee && newdate.TotalDays < 6570)
+                {
+                    return View("Error", new String[] { "Employees must be 18 or older!" });
+                }
 
                 //This code uses the UserManager object to create a new user with the specified password
                 IdentityResult result = await _userManager.CreateAsync(newUser, rvm.Password);
@@ -68,6 +74,7 @@ namespace Team1_FinalProject.Controllers
                 if (result.Succeeded)
                 {
                     //TODO: Add user to desired role. This example adds the user to the customer role
+
                     await _userManager.AddToRoleAsync(newUser, rvm.RoleChoice.ToString());
 
                     //NOTE: This code logs the user into the account that they just created
@@ -75,7 +82,14 @@ namespace Team1_FinalProject.Controllers
                     //the business rules!
                     Microsoft.AspNetCore.Identity.SignInResult result2 = await _signInManager.PasswordSignInAsync(rvm.Email, rvm.Password, false, lockoutOnFailure: false);
 
-                    Utilities.EmailMessaging.SendEmail(rvm.Email, "Registration Confirmation:", "Congratulations, " + rvm.FirstName + " you have successfully registered your account!");
+                    if(rvm.RoleChoice == RoleChoice.Employee)
+                    {
+                        Utilities.EmailMessaging.SendEmail(rvm.Email, "Registration Confirmation:", "Congratulations, " + rvm.FirstName + " you have been hired and your account has been registered!");
+                    }
+                    else
+                    {
+                        Utilities.EmailMessaging.SendEmail(rvm.Email, "Registration Confirmation:", "Congratulations, " + rvm.FirstName + " you have successfully registered your account!");
+                    }
 
                     //Send the user to the home page
                     return RedirectToAction("Index", "Home");

@@ -1,16 +1,16 @@
 ﻿<Properties StartupConfiguration="{5BEA845B-2AA8-4BCB-A0C3-D8FEF9946679}|Default">
   <MonoDevelop.Ide.ItemProperties.Team1__FinalProject PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/RoleAdminController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Account/Register.cshtml">
     <Files>
       <File FileName="Views/RoleAdmin/EditEmployee.cshtml" Line="7" Column="30" IsPinned="True" />
-      <File FileName="Controllers/AccountController.cs" Line="198" Column="10" />
+      <File FileName="Controllers/AccountController.cs" Line="128" Column="14" />
       <File FileName="Controllers/TicketsController.cs" />
       <File FileName="Controllers/MoviesController.cs" />
-      <File FileName="Models/AppUser.cs" Line="36" Column="1" />
+      <File FileName="Models/AppUser.cs" Line="14" Column="6" />
       <File FileName="Controllers/MovieReviewsController.cs" />
       <File FileName="Views/Reports/DisplayCustomerReport.cshtml" Line="59" Column="13" />
       <File FileName="Views/Account/Index.cshtml" Line="1" Column="1" />
-      <File FileName="Views/Account/Register.cshtml" Line="77" Column="17" />
+      <File FileName="Views/Account/Register.cshtml" Line="85" Column="7" />
       <File FileName="Views/Orders/Checkout.cshtml" />
       <File FileName="Views/Orders/CheckoutFor.cshtml" Line="1" Column="1" />
       <File FileName="Views/Orders/Confirmation.cshtml" Line="11" Column="5" />
@@ -18,12 +18,12 @@
       <File FileName="Views/Orders/Details.cshtml" />
       <File FileName="Views/Orders/Edit.cshtml" Line="1" Column="1" />
       <File FileName="Views/Orders/Index.cshtml" />
-      <File FileName="Models/ViewModels/AccountViewModels.cs" Line="1" Column="1" />
-      <File FileName="Controllers/HomeController.cs" />
+      <File FileName="Models/ViewModels/AccountViewModels.cs" Line="17" Column="18" />
+      <File FileName="Controllers/HomeController.cs" Line="1" Column="1" />
       <File FileName="Models/Order.cs" Line="1" Column="1" />
       <File FileName="Models/MovieReview.cs" />
       <File FileName="Models/Movie.cs" Line="9" Column="2" />
-      <File FileName="Views/Account/Login.cshtml" Line="1" Column="1" />
+      <File FileName="Views/Account/Login.cshtml" Line="1" Column="8" />
       <File FileName="Views/Home/SearchMovies.cshtml" />
       <File FileName="Views/Reports/CustomerSearch.cshtml" Line="27" Column="17" />
       <File FileName="Views/Reports/DisplayReport.cshtml" Line="95" Column="11" />
@@ -42,8 +42,8 @@
       <File FileName="Views/RoleAdmin/Create.cshtml" Line="1" Column="1" />
       <File FileName="Views/RoleAdmin/Edit.cshtml" Line="1" Column="1" />
       <File FileName="Models/ViewModels/ScheduleViewModel.cs" Line="1" Column="1" />
-      <File FileName="Models/ViewModels/CustomerReportViewModel.cs" Line="1" Column="1" />
-      <File FileName="Controllers/RoleAdminController.cs" Line="223" Column="1" />
+      <File FileName="Models/ViewModels/CustomerReportViewModel.cs" Line="10" Column="6" />
+      <File FileName="Controllers/RoleAdminController.cs" Line="283" Column="63" />
       <File FileName="Models/Genre.cs" Line="1" Column="1" />
       <File FileName="Views/RoleAdmin/Index.cshtml" Line="5" Column="24" />
       <File FileName="Views/RoleAdmin/ManageEmployeesIndex.cshtml" Line="22" Column="33" />
@@ -56,24 +56,25 @@
       <File FileName="Views/Reports/AggregateCustomerReport.cshtml" Line="1" Column="1" />
       <File FileName="Views/Shared/_Layout.cshtml" Line="62" Column="20" />
       <File FileName="Migrations/20201202041310_Setup19.cs" Line="1" Column="1" />
-      <File FileName="Views/RoleAdmin/ConfirmFire.cshtml" Line="4" Column="39" />
+      <File FileName="Views/RoleAdmin/ConfirmFire.cshtml" Line="10" Column="6" />
       <File FileName="Views/Showings/PendingIndex.cshtml" Line="1" Column="1" />
       <File FileName="Views/Orders/GiftIndex.cshtml" Line="1" Column="1" />
       <File FileName="Program.cs" Line="16" Column="1" />
+      <File FileName="Views/Account/ChangePhoneNumber.cshtml" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Team1_FinalProject" expanded="True">
             <Node name="Team1_FinalProject" expanded="True">
-              <Node name="Controllers" expanded="True">
-                <Node name="RoleAdminController.cs" selected="True" />
-              </Node>
+              <Node name="Controllers" expanded="True" />
               <Node name="Models" expanded="True">
                 <Node name="ViewModels" expanded="True" />
               </Node>
               <Node name="Views" expanded="True">
-                <Node name="Account" expanded="True" />
+                <Node name="Account" expanded="True">
+                  <Node name="Register.cshtml" selected="True" />
+                </Node>
                 <Node name="Orders" expanded="True" />
                 <Node name="Reports" expanded="True" />
                 <Node name="RoleAdmin" expanded="True" />
@@ -89,23 +90,7 @@
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/Controllers/RoleAdminController.cs" relfile="Controllers/RoleAdminController.cs" line="318" column="1" />
-      <Breakpoint file="/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/Controllers/RoleAdminController.cs" relfile="Controllers/RoleAdminController.cs" line="319" column="1" />
-      <Breakpoint file="/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/Controllers/RoleAdminController.cs" relfile="Controllers/RoleAdminController.cs" line="316" column="1" />
-      <Breakpoint file="/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/Controllers/RoleAdminController.cs" relfile="Controllers/RoleAdminController.cs" line="309" column="1" />
-      <Breakpoint file="/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/Controllers/RoleAdminController.cs" relfile="Controllers/RoleAdminController.cs" line="260" column="1" />
-      <Breakpoint file="/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/Controllers/RoleAdminController.cs" relfile="Controllers/RoleAdminController.cs" line="264" column="1" />
-      <Breakpoint file="/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/Controllers/RoleAdminController.cs" relfile="Controllers/RoleAdminController.cs" line="267" column="1" />
-      <Breakpoint file="/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/Controllers/RoleAdminController.cs" relfile="Controllers/RoleAdminController.cs" line="269" column="1" />
-      <Breakpoint file="/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/Controllers/RoleAdminController.cs" relfile="Controllers/RoleAdminController.cs" line="270" column="1" />
-      <Breakpoint file="/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/Controllers/RoleAdminController.cs" relfile="Controllers/RoleAdminController.cs" line="257" column="1" />
-      <Breakpoint file="/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/Controllers/RoleAdminController.cs" relfile="Controllers/RoleAdminController.cs" line="258" column="1" />
-      <Breakpoint file="/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/Controllers/RoleAdminController.cs" relfile="Controllers/RoleAdminController.cs" line="247" column="1" />
-      <Breakpoint file="/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/Controllers/RoleAdminController.cs" relfile="Controllers/RoleAdminController.cs" line="218" column="1" />
-      <Breakpoint file="/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/Controllers/RoleAdminController.cs" relfile="Controllers/RoleAdminController.cs" line="223" column="1" />
-      <Breakpoint file="/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/Controllers/RoleAdminController.cs" relfile="Controllers/RoleAdminController.cs" line="241" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
 </Properties>

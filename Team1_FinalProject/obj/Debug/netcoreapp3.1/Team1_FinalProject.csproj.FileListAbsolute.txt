@@ -1162,3 +1162,6 @@ C:/Users/alice/documents/ut/333k/333kprojects/team1_finalproject/obj/Debug/netco
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/RoleAdmin/ManageEmployeesIndex.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Orders/GiftIndex.cshtml.g.cs
 /Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/RoleAdmin/ConfirmFire.cshtml.g.cs
+/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/EditManager.cshtml.g.cs
+/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/IndexEmployee.cshtml.g.cs
+/Users/aileenlu/Desktop/333KProjects/Team1_FinalProject/obj/Debug/netcoreapp3.1/Razor/Views/Account/IndexManager.cshtml.g.cs
