@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Team1_FinalProject.Controllers
 {
+    [Authorize]
     public class TicketsController : Controller
     {
         private AppDbContext _context;
@@ -29,6 +30,7 @@ namespace Team1_FinalProject.Controllers
         }
 
         // GET: Tickets
+        [Authorize(Roles = "Admin")]
         public IActionResult Index() //Shopping Cart
         {
             List<Ticket> Tickets = _context.Tickets
