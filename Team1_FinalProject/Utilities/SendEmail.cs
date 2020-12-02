@@ -20,7 +20,7 @@ namespace Team1_FinalProject.Utilities
             };
             //Add anything that you need to the body of the message
             // /n is a new line – this will add some white space after the main body of the message
-            String finalMessage = emailBody + "\n\n Thanks for visiting our website!";
+            String finalMessage = emailBody + "\n\nThanks for visiting our website!";
 
 
             //Create an email address object for the sender address
