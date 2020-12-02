@@ -7,6 +7,11 @@ using System.Collections.Generic;
 
 namespace Team1_FinalProject.Models
 {
+    public enum EmploymentStatus
+    {
+        Hired,
+        Fired
+    }
     public class AppUser : IdentityUser
     {
 
@@ -28,11 +33,6 @@ namespace Team1_FinalProject.Models
         //special events not eligible
         //canceled orders return PCPoints
 
-        public enum EmploymentStatus
-        {
-            Hired,
-            Fired
-        }
 
         public EmploymentStatus EStatus { get; set; }
 

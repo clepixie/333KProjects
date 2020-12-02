@@ -222,13 +222,16 @@ namespace Team1_FinalProject.Controllers
             {
                 if (await _userManager.IsInRoleAsync(user, "Employee") == true) //user is in the role
                 {
-                    //add user to list of members
-                    CustomerReportViewModel newcus = new CustomerReportViewModel();
-                    newcus.SelectCustomerName = user.Email;
-                    newcus.SelectCustomerID = count;
-                    customerIDList.Add(count);
-                    customerList.Add(newcus);
-                    count += 1;
+                    if (user.EStatus == EmploymentStatus.Hired)
+                    {
+                        //add user to list of member
+                        CustomerReportViewModel newcus = new CustomerReportViewModel();
+                        newcus.SelectCustomerName = user.Email;
+                        newcus.SelectCustomerID = count;
+                        customerIDList.Add(count);
+                        customerList.Add(newcus);
+                        count += 1;
+                    }
                 }
             }
 
@@ -241,13 +244,15 @@ namespace Team1_FinalProject.Controllers
         [HttpGet]
         public async Task<ActionResult> ManageEmployeesIndex()
         {
-            ViewBag.AllEmployees = await GetAllEmployees();
+            ViewBag.AllEmployees =  await GetAllEmployees();
+            ViewBag.FiredEmployees = await GetAllFiredEmployees();
             return View();
         }
 
 
         [HttpPost]
-        public async Task<ActionResult> ManageEmployeesIndexAsync(CustomerReportViewModel crvm)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> FireEmployeesIndex(CustomerReportViewModel crvm)
         {
             List<CustomerReportViewModel> customerList = new List<CustomerReportViewModel>();
             foreach (AppUser user in _userManager.Users)
@@ -261,9 +266,59 @@ namespace Team1_FinalProject.Controllers
             }
             AppUser customer = _userManager.Users.Where(u => u.Email == customerList[crvm.SelectedCustomerID].SelectCustomerName).First();
 
-            customer.EStatus = AppUser.EmploymentStatus.Fired;
+            customer.EStatus = EmploymentStatus.Fired;
             return View("ConfirmFire", customer);
         }
+
+        private async Task<SelectList> GetAllFiredEmployees()
+        {
+            //Get the list of users from the database
+            List<CustomerReportViewModel> customerList = new List<CustomerReportViewModel>();
+            List<Int32> customerIDList = new List<Int32>();
+            Int32 count = 0;
+            foreach (AppUser user in _userManager.Users)
+            {
+                if (await _userManager.IsInRoleAsync(user, "Employee") == true) //user is in the role
+                {
+                    if (user.EStatus == EmploymentStatus.Fired)
+                    {
+                        //add user to list of members
+                        CustomerReportViewModel newcus = new CustomerReportViewModel();
+                        newcus.SelectCustomerName = user.Email;
+                        newcus.SelectCustomerID = count;
+                        customerIDList.Add(count);
+                        customerList.Add(newcus);
+                        count += 1;
+                    }
+                }
+            }
+
+            SelectList customerSelectList = new SelectList(customerList, "SelectCustomerID", "SelectCustomerName");
+
+
+            return customerSelectList;
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ReHireEmployeesIndex(CustomerReportViewModel crvm)
+        {
+            List<CustomerReportViewModel> customerList = new List<CustomerReportViewModel>();
+            foreach (AppUser user in _userManager.Users)
+            {
+                if (await _userManager.IsInRoleAsync(user, "Employee") == true) //user is in the role
+                {
+                    CustomerReportViewModel newcus = new CustomerReportViewModel();
+                    newcus.SelectCustomerName = user.Email;
+                    customerList.Add(newcus);
+                }
+            }
+            AppUser customer = _userManager.Users.Where(u => u.Email == customerList[crvm.SelectedCustomerID].SelectCustomerName).First();
+
+            customer.EStatus = EmploymentStatus.Hired;
+            return View("ConfirmFire", customer);
+        }
+
 
     }
 }
