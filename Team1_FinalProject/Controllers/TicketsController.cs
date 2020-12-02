@@ -260,7 +260,7 @@ namespace Team1_FinalProject.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("SelectedSeats, SelectShowingID, SelectOrderID")] TicketViewModel tvm)
         {
-            Showing showing = _context.Showings.Include(s => s.Movie).FirstOrDefault(s => s.ShowingID == tvm.SelectShowingID);
+            Showing showing = _context.Showings.Include(s => s.Movie).Include(s => s.Price).FirstOrDefault(s => s.ShowingID == tvm.SelectShowingID);
 
             if (ModelState.IsValid == false)
             {
@@ -358,7 +358,7 @@ namespace Team1_FinalProject.Controllers
                     ticket.SeatClaim = true;
                     ticket.Order = current_order;
                     ticket.SeatNumber = allSeats[seatnumber];
-                    ticket.FixPrice = ticket.Showing.Price.PriceValue;
+                    ticket.FixPrice = showing.Price.PriceValue;
                     _context.Tickets.Add(ticket);
                     _context.SaveChanges();
                 }
@@ -423,7 +423,7 @@ namespace Team1_FinalProject.Controllers
                     ticket.SeatClaim = true;
                     ticket.Order = current_order;
                     ticket.SeatNumber = allSeats[seatnumber];
-                    ticket.FixPrice = ticket.Showing.Price.PriceValue;
+                    ticket.FixPrice = showing.Price.PriceValue;
                     _context.Tickets.Add(ticket);
                     _context.SaveChanges();
                 }
