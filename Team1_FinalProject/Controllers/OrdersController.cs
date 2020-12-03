@@ -356,11 +356,6 @@ namespace Team1_FinalProject.Controllers
                     }
                 }
 
-                if (((DateTime.Now - gifteduser.Birthdate).TotalDays < 6570) && adultfilm == true)
-                {
-                    return View("Error", new String[] { "You cannot purchase a gift order with R-rated or NC-17-rated showings for a customer that is younger than 18." });
-                }
-
                 if (order.GiftOrder == true && gifteduser == null)
                 {
                     return View("Error", new String[] { "If you want to checkout as a gift, make sure that your friend has an account with us!" });
@@ -370,6 +365,11 @@ namespace Team1_FinalProject.Controllers
                 if (order.GiftOrder == true && userroleid != roleID)
                 {
                     return View("Error", new String[] { "If you want to checkout as a gift, make sure that your friend has a customer account with us!" });
+                }
+
+                if (((DateTime.Now - gifteduser.Birthdate).TotalDays < 6570) && adultfilm == true)
+                {
+                    return View("Error", new String[] { "You cannot purchase a gift order with R-rated or NC-17-rated showings for a customer that is younger than 18." });
                 }
             }
 
