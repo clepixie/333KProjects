@@ -356,11 +356,6 @@ namespace Team1_FinalProject.Controllers
                     }
                 }
 
-                if (((DateTime.Now - gifteduser.Birthdate).TotalDays < 6570) && adultfilm == true)
-                {
-                    return View("Error", new String[] { "You cannot purchase a gift order with R-rated or NC-17-rated showings for a customer that is younger than 18." });
-                }
-
                 if (order.GiftOrder == true && gifteduser == null)
                 {
                     return View("Error", new String[] { "If you want to checkout as a gift, make sure that your friend has an account with us!" });
@@ -370,6 +365,11 @@ namespace Team1_FinalProject.Controllers
                 if (order.GiftOrder == true && userroleid != roleID)
                 {
                     return View("Error", new String[] { "If you want to checkout as a gift, make sure that your friend has a customer account with us!" });
+                }
+
+                if (((DateTime.Now - gifteduser.Birthdate).TotalDays < 6570) && adultfilm == true)
+                {
+                    return View("Error", new String[] { "You cannot purchase a gift order with R-rated or NC-17-rated showings for a customer that is younger than 18." });
                 }
             }
 
@@ -478,8 +478,15 @@ namespace Team1_FinalProject.Controllers
                 o.Customer.PopcornPoints += (int)add;
             }
 
+            if (o.PopcornPointsUsed == false)
+            {
+                add = (int)Decimal.Truncate(o.PostDiscount);
+                o.Customer.PopcornPoints -= (int)add;
+            }
+
             EmailMessaging.SendEmail(o.Customer.Email, "Order Cancellation Confirmation", "We have confirmed that you have cancelled: " + o.OrderNumber + " You should recieve your refund promptly. We hope to see you again soon!");
             _context.Orders.Update(o);
+            _context.Users.Update(o.Customer);
             _context.SaveChanges();
             return RedirectToAction("CancelSuccess", new { id = o.OrderID, pcp = add });
         }
@@ -517,7 +524,7 @@ namespace Team1_FinalProject.Controllers
             // if they didn't use PC points
             else
             {
-                int points = (int)Decimal.Truncate(pastorder.OrderTotal);
+                int points = (int)Decimal.Truncate(pastorder.PostDiscount);
                 ViewBag.Earned = points;
                 pastorder.Customer.PopcornPoints += points;
             }

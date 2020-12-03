@@ -11,14 +11,20 @@
     <h2>@Model.OrderNumber</h2>
     <h1>Thank you for visiting Main Street Movies!</h1>
     <h4>A confirmation message was sent to the email on file.</h4>
-    <p>
-        You have earned @ViewBag.Earned Popcorn Points.
-        <br />
-        You now have @Model.Customer.PopcornPoints Popcorn Points. 
-        @if (Model.Customer.PopcornPoints / 100 >= 1)
-        {
-            <p class="text-center">Next time, you can buy up to: </p> <b class="text-center">@tickets</b> <p class="text-center">tickets!</p>
-        }
+    @if (Model.PopcornPointsUsed == false)
+    {
+        <p>You have earned @ViewBag.Earned Popcorn Points.</p>
+    }
+    else
+    {
+        <p>You have used @Model.Tickets.Count() Popcorn Points.</p>
+    }
+    <br />
+    You now have @Model.Customer.PopcornPoints Popcorn Points.
+    @if (Model.Customer.PopcornPoints / 100 >= 1)
+    {
+        <p class="text-center">Next time, you can buy up to: </p> <b class="text-center">@tickets</b> <p class="text-center">tickets!</p>
+    }
 </body>
 <br />
 
