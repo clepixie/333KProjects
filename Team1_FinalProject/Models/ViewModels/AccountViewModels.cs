@@ -109,6 +109,8 @@ namespace Team1_FinalProject.Models
 
     public class ChangeCustomerPasswordViewModel
     {
+        public String Email { get; set; }
+
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
@@ -124,6 +126,8 @@ namespace Team1_FinalProject.Models
 
     public class ChangeEmployeePasswordViewModel
     {
+        public String Email { get; set; }
+
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
@@ -139,6 +143,8 @@ namespace Team1_FinalProject.Models
 
     public class ChangeManagerPasswordViewModel
     {
+        public String Email { get; set; }
+
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
