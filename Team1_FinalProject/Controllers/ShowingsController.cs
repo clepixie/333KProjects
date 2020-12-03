@@ -57,7 +57,7 @@ namespace Team1_FinalProject.Controllers
         {
             var query = from m in _context.Showings
                         select m;
-            List<Showing> showings = query.Include(m => m.Movie).ThenInclude(m => m.Genre).Include(m => m.Tickets).Where(m => m.StartDateTime >= DateTime.Now).Where(m => m.Status == SStatus.Published).OrderBy(m => m.StartDateTime).ToList();
+            List<Showing> showings = query.Include(m => m.Movie).ThenInclude(m => m.Genre).Include(m => m.Tickets).ThenInclude(m => m.Order).Where(m => m.StartDateTime >= DateTime.Now).Where(m => m.Status == SStatus.Published).OrderBy(m => m.StartDateTime).ToList();
             ViewBag.AllShowings = showings.Count();
             ViewBag.SelectedShowings = showings.Count();
             return View("Index", showings);
@@ -67,7 +67,7 @@ namespace Team1_FinalProject.Controllers
         {
             var query = from m in _context.Showings
                         select m;
-            List<Showing> showings = query.Include(m => m.Movie).ThenInclude(m => m.Genre).OrderBy(m => m.StartDateTime).ToList();
+            List<Showing> showings = query.Include(m => m.Movie).ThenInclude(m => m.Genre).Include(m => m.Tickets).ThenInclude(m => m.Order).Where(m => m.Status == SStatus.Published).OrderBy(m => m.StartDateTime).ToList();
             ViewBag.AllShowings = showings.Count();
             ViewBag.SelectedShowings = showings.Count();
             return View("Index", showings);
@@ -115,10 +115,10 @@ namespace Team1_FinalProject.Controllers
             if (svm.SearchShowingTimeStart != null)
             {
                 TimeSpan starts = (TimeSpan)svm.SearchShowingTimeStart;
-                if (svm.SearchShowingDateEnd != null)
+                if (svm.SearchShowingTimeEnd != null)
                 {
                     TimeSpan ends = (TimeSpan)svm.SearchShowingTimeEnd;
-                    query = query.Where(m => m.StartDateTime.TimeOfDay >= starts && m.EndDateTime.TimeOfDay <= ends);
+                    query = query.Where(m => m.StartDateTime.TimeOfDay >= starts && m.StartDateTime.TimeOfDay <= ends);
 
                 }
 
@@ -131,7 +131,7 @@ namespace Team1_FinalProject.Controllers
             if (svm.SearchShowingTimeEnd != null && svm.SearchShowingTimeStart == null)
             {
                 TimeSpan ends = (TimeSpan)svm.SearchShowingTimeEnd;
-                query = query.Where(m => m.EndDateTime.TimeOfDay <= ends);
+                query = query.Where(m => m.StartDateTime.TimeOfDay <= ends);
             }
 
             if (svm.SelectMovieID != null)
@@ -139,7 +139,7 @@ namespace Team1_FinalProject.Controllers
                 query = query.Where(m => svm.SelectMovieID.Contains(m.Movie.MovieID));
             }
 
-            List<Showing> SelectedShowings = query.Include(s => s.Movie).ThenInclude(m => m.Genre).Include(m => m.Tickets).Where(m => m.Status == SStatus.Published).ToList();
+            List<Showing> SelectedShowings = query.Include(s => s.Movie).ThenInclude(m => m.Genre).Include(m => m.Tickets).ThenInclude(m => m.Order).Where(m => m.Status == SStatus.Published).ToList();
             ViewBag.AllShowings = _context.Showings.Where(m => m.StartDateTime >= DateTime.Now).Where(m => m.Status == SStatus.Published).Count();
             ViewBag.SelectedShowings = SelectedShowings.Count();
             return View("Index", SelectedShowings.OrderBy(s => s.StartDateTime));
@@ -159,6 +159,7 @@ namespace Team1_FinalProject.Controllers
                                               .Include(o => o.Movie)
                                               .ThenInclude(o => o.Genre)
                                               .Include(m => m.Tickets)
+                                              .ThenInclude(m => m.Order)
                                               .FirstOrDefaultAsync(m => m.ShowingID == id);
 
             if (showing == null)

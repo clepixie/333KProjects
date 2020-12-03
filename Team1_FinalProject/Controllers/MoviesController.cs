@@ -30,6 +30,7 @@ namespace Team1_FinalProject.Controllers
             ViewBag.SelectedMovies = _context.Movies.Count();
             return View("Index", query.Include(m => m.Genre).Include(m => m.Showings).Include(m => m.Reviews).OrderByDescending(m => m.Showings.Count()).ToList());
         }
+
         [AllowAnonymous]
         // GET: Movies/Index
         public IActionResult DisplayMovieSearchResults(SearchViewModel svm)
@@ -140,6 +141,7 @@ namespace Team1_FinalProject.Controllers
             Movie movie = await _context.Movies
                         .Include(o => o.Showings)
                         .ThenInclude(o => o.Tickets)
+                        .ThenInclude(m => m.Order)
                         .Include(o => o.Genre)
                         .Include(o => o.Reviews)
                         .FirstOrDefaultAsync(m => m.MovieID == id);
@@ -170,7 +172,12 @@ namespace Team1_FinalProject.Controllers
                 ViewBag.AllGenres = GetAllGenres();
                 return View();
             }
-
+            if (SelectedGenre == 0 && NewGenreName == null)
+            {
+                ModelState.AddModelError(string.Empty, "You must either select or create a genre!");
+                ViewBag.AllGenres = GetAllGenres();
+                return View();
+            }
             if (SelectedGenre == 0 && NewGenreName != null)
             {
                 Genre newgenre = new Genre();

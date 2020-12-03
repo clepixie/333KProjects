@@ -60,7 +60,7 @@
             Tickets Available:
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TicketCount)/20
+            @(20 - Model.Tickets.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).Count())/20
         </dd>
         <dt class="col-sm-2">
             Ticket Price:

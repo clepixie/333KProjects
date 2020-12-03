@@ -373,11 +373,10 @@ namespace Team1_FinalProject.Controllers
                 }
             }
 
-            else
-            {
-                currorder.GiftEmail = order.GiftEmail;
-                currorder.GiftOrder = order.GiftOrder;
-            }
+
+            currorder.GiftEmail = order.GiftEmail;
+            currorder.GiftOrder = order.GiftOrder;
+
 
             if ((DateTime.Now.Date - currorder.Customer.Birthdate).TotalDays >= 21900)
             {

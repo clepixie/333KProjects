@@ -49,7 +49,8 @@ namespace Team1_FinalProject.Models
         {
             get
             {
-                return (20 - Tickets.Count());
+                List<Ticket> tickets = Tickets.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).ToList();
+                return (20 - tickets.Count());
             }
         }
 

@@ -81,7 +81,7 @@
                 }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TicketCount)/20
+                @(20 - item.Tickets.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).Count())/20
             </td>
             <td>
                 <a asp-action="Details" asp-route-id="@item.ShowingID">Showing Details</a> |

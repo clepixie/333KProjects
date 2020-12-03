@@ -23,19 +23,22 @@ namespace Team1_FinalProject.Models
 		[Display(Name = "Movie #")]
 		public Int32 MovieNumber { get; set; }
 		[Display(Name = "Movie Title")]
+		[Required(ErrorMessage ="This field is required")]
 		public string Title { get; set; }
-
+		[Required(ErrorMessage = "This field is required")]
 		public Int32 Runtime { get; set; }
-
+		[Required(ErrorMessage = "This field is required")]
 		public string Description { get; set; }
 		[Display(Name = "MPAA Rating")]
+		[Required(ErrorMessage = "This field is required")]
 		public MPAA MPAA { get; set; }
 
 		[Display(Name = "Release Date")]
 		[DisplayFormat(DataFormatString = "{0:MM/dd/yyy}")]
 		[DataType(DataType.Date)]
+		[Required(ErrorMessage = "This field is required")]
 		public DateTime ReleaseDate { get; set; }
-
+		[Required(ErrorMessage = "This field is required")]
 		public string Actors { get; set; }
 
 		public string Tagline { get; set; }
@@ -44,7 +47,6 @@ namespace Team1_FinalProject.Models
 		//apparently on the seeded data there is a column for this so i think
 		// we need a property so we don't run into errors but we can hide it later
 		// possibly thru the view
-
 		public Genre Genre { get; set; }
 
 		public List<Showing> Showings { get; set; }

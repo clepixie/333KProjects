@@ -206,10 +206,10 @@ namespace Team1_FinalProject.Controllers
                 idx += 1;
             }
 
-            List<Ticket> tickets = _context.Tickets.Include(t => t.Showing).ToList();
+            List<Ticket> tickets = _context.Tickets.Include(t => t.Showing).Include(t => t.Order).ToList();
             foreach (Ticket ticket in tickets)
             {
-                if (ticket.Showing.ShowingID == showing.ShowingID)
+                if (ticket.Showing.ShowingID == showing.ShowingID && ticket.Order.OrderHistory != OrderHistory.Cancelled)
                 {
                     temptickets.RemoveAll(t => t.SelectSeatNumber == ticket.SeatNumber);
                 }
@@ -309,10 +309,15 @@ namespace Team1_FinalProject.Controllers
                     _context.SaveChanges();
                 }
 
-                if (current_order.Tickets != null)
-                {
-                    foreach (Ticket ticket in current_order.Tickets)
+                    foreach (int seatnumber in tvm.SelectedSeats)
                     {
+                        List<string> allSeats = new List<string> { "A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5", "C1", "C2", "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5" };
+                        Ticket ticket = new Ticket();
+                        ticket.Showing = showing;
+                        ticket.SeatClaim = true;
+                        ticket.Order = current_order;
+                        ticket.SeatNumber = allSeats[seatnumber];
+                        ticket.FixPrice = showing.Price.PriceValue;
                         if (ticket.Showing.Movie.MPAA == MPAA.R || ticket.Showing.Movie.MPAA == MPAA.NC17)
                         {
                             TimeSpan newdate = DateTime.Now.Subtract(current_order.Customer.Birthdate);
@@ -322,24 +327,6 @@ namespace Team1_FinalProject.Controllers
                                 return View("Error", new String[] { "You must be 18 or older to watch this film!" });
                             }
                         }
-                    }
-
-                    //sorting the tickets from earliest to latest and then comparing each start time to each end time of the next film
-                    var sorted_tickets = current_order.Tickets.OrderBy(x => x.Showing.StartDateTime.TimeOfDay).ToList();
-
-                    foreach (Ticket existingticket in sorted_tickets)
-                    {
-                      
-                        if ((existingticket.Showing.StartDateTime.Date == showing.StartDateTime.Date) && ((existingticket.Showing.StartDateTime <= showing.EndDateTime && existingticket.Showing.EndDateTime >= showing.EndDateTime)
-                            || (existingticket.Showing.EndDateTime >= showing.StartDateTime && showing.EndDateTime >= existingticket.Showing.EndDateTime)))
-                        {
-                            return View("Error", new String[] { "This movie time overlaps with another movie in your cart!" });
-
-                        }
-                    }
-
-                    foreach (Ticket ticket in current_order.Tickets)
-                    {
                         if (ticket.Showing.Movie.MovieID == showing.Movie.MovieID)
                         {
                             if (ticket.Showing.ShowingID != showing.ShowingID)
@@ -347,23 +334,24 @@ namespace Team1_FinalProject.Controllers
                                 return View("Error", new String[] { "This movie is already in your cart for another showing time!" });
                             }
                         }
-                    }
-                }
+                        //sorting the tickets from earliest to latest and then comparing each start time to each end time of the next film
+                        var sorted_tickets = current_order.Tickets.OrderBy(x => x.Showing.StartDateTime.TimeOfDay).ToList();
 
-                foreach (int seatnumber in tvm.SelectedSeats)
-                {
-                    List<string> allSeats = new List<string> { "A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5", "C1", "C2", "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5"};
-                    Ticket ticket = new Ticket();
-                    ticket.Showing = showing;
-                    ticket.SeatClaim = true;
-                    ticket.Order = current_order;
-                    ticket.SeatNumber = allSeats[seatnumber];
-                    ticket.FixPrice = showing.Price.PriceValue;
-                    _context.Tickets.Add(ticket);
-                    _context.SaveChanges();
+                        foreach (Ticket existingticket in sorted_tickets)
+                        {
+
+                            if ((existingticket.Showing.StartDateTime.Date == showing.StartDateTime.Date) && ((existingticket.Showing.StartDateTime <= showing.EndDateTime && existingticket.Showing.EndDateTime >= showing.EndDateTime)
+                                || (existingticket.Showing.EndDateTime >= showing.StartDateTime && showing.EndDateTime >= existingticket.Showing.EndDateTime)))
+                            {
+                                return View("Error", new String[] { "This movie time overlaps with another movie in your cart!" });
+
+                            }
+                        }
+                        _context.Tickets.Add(ticket);
+                        _context.SaveChanges();
+                    }
+                    return RedirectToAction("Checkout", "Orders");
                 }
-                return RedirectToAction("Checkout", "Orders");
-            }
 
             else
             {
@@ -417,7 +405,7 @@ namespace Team1_FinalProject.Controllers
 
                 foreach (int seatnumber in tvm.SelectedSeats)
                 {
-                    List<string> allSeats = new List<string> { "A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5", "C1", "C2", "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5"};
+                    List<string> allSeats = new List<string> { "A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5", "C1", "C2", "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5" };
                     Ticket ticket = new Ticket();
                     ticket.Showing = showing;
                     ticket.SeatClaim = true;
