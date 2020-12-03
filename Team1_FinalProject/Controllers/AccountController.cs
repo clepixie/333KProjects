@@ -282,7 +282,7 @@ namespace Team1_FinalProject.Controllers
 
         [Authorize(Roles = "Employee, Manager")]
         [HttpPost]
-        public async Task<IActionResult> EditCustomer([Bind("Email, Address, PhoneNumber")] EditProfileViewModel epvm)
+        public async Task<IActionResult> EditCustomer([Bind("Email, Address, PhoneNumber, Birthdate")] EditProfileViewModel epvm)
         {
 
             // finds the user that matches the selected ID
