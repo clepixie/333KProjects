@@ -12,6 +12,7 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @Html.HiddenFor(model => model.PriceType, Model.PriceType)
             <input type="hidden" asp-for="PriceID" />
             <div class="form-group">
                 <label asp-for="PriceValue" class="control-label"></label>
