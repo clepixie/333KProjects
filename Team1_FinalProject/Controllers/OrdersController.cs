@@ -478,6 +478,12 @@ namespace Team1_FinalProject.Controllers
                 o.Customer.PopcornPoints += (int)add;
             }
 
+            if (o.PopcornPointsUsed == false)
+            {
+                add = (int)Decimal.Truncate(o.PostDiscount);
+                o.Customer.PopcornPoints -= (int)add;
+            }
+
             EmailMessaging.SendEmail(o.Customer.Email, "Order Cancellation Confirmation", "We have confirmed that you have cancelled: " + o.OrderNumber + " You should recieve your refund promptly. We hope to see you again soon!");
             _context.Orders.Update(o);
             _context.Users.Update(o.Customer);
@@ -518,7 +524,7 @@ namespace Team1_FinalProject.Controllers
             // if they didn't use PC points
             else
             {
-                int points = (int)Decimal.Truncate(pastorder.OrderTotal);
+                int points = (int)Decimal.Truncate(pastorder.PostDiscount);
                 ViewBag.Earned = points;
                 pastorder.Customer.PopcornPoints += points;
             }
