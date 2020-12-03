@@ -104,7 +104,26 @@ namespace Team1_FinalProject.Models
         [Display(Name = "Confirm new password")]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        //public OverwritePasswordViewModel OverwritePasswordViewModel;
     }
+
+    // NOTE: This is the view model used to allow an employee or manager to change a password without the old one
+    //public class OverwritePasswordViewModel
+    //{
+    //    [Required]
+    //    [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+    //    [DataType(DataType.Password)]
+    //    [Display(Name = "New password")]
+    //    public string NewPassword { get; set; }
+
+    //    [DataType(DataType.Password)]
+    //    [Display(Name = "Confirm new password")]
+    //    [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+    //    public string ConfirmPassword { get; set; }
+
+    //    public ChangePasswordViewModel ChangePasswordViewModel;
+    //}
 
     //NOTE: This is the view model used to allow the user to 
     //change their phone number

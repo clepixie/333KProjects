@@ -59,8 +59,14 @@ namespace Team1_FinalProject.Controllers
                     Birthdate = rvm.Birthdate,
                     FirstName = rvm.FirstName,
                     LastName = rvm.LastName,
+                    
                 };
                 TimeSpan newdate = DateTime.Now.Subtract(rvm.Birthdate);
+
+                if (DateTime.Now.Year - rvm.Birthdate.Year < 13)
+                {
+                    return View("Error", new String[] { "You must be at least 13 years old to register!" });
+                }
 
                 if (rvm.RoleChoice == RoleChoice.Employee && newdate.TotalDays < 6570)
                 {
@@ -276,7 +282,7 @@ namespace Team1_FinalProject.Controllers
 
         [Authorize(Roles = "Employee, Manager")]
         [HttpPost]
-        public async Task<IActionResult> EditCustomer([Bind("Email, Address, PhoneNumber, Birthdate")] EditProfileViewModel epvm)
+        public async Task<IActionResult> EditCustomer([Bind("Email, Address, PhoneNumber")] EditProfileViewModel epvm)
         {
 
             // finds the user that matches the selected ID
@@ -299,9 +305,15 @@ namespace Team1_FinalProject.Controllers
                 dbUsers.PhoneNumber = epvm.PhoneNumber;
             }
 
-            if (epvm.Birthdate != null)
+            DateTime prevBday = dbUsers.Birthdate;
+
+            if (epvm.Birthdate != DateTime.MinValue)
             {
                 dbUsers.Birthdate = epvm.Birthdate;
+            }
+            else
+            {
+                dbUsers.Birthdate = prevBday;
             }
 
             if (epvm.Password != null && epvm.ConfirmPassword != null)
@@ -344,9 +356,15 @@ namespace Team1_FinalProject.Controllers
                 dbUsers.PhoneNumber = epvm.PhoneNumber;
             }
 
-            if (epvm.Birthdate != null)
+            DateTime prevBday = dbUsers.Birthdate;
+
+            if (epvm.Birthdate != DateTime.MinValue)
             {
                 dbUsers.Birthdate = epvm.Birthdate;
+            }
+            else
+            {
+                dbUsers.Birthdate = prevBday;
             }
 
             if (epvm.Password != null && epvm.ConfirmPassword != null)
@@ -389,9 +407,15 @@ namespace Team1_FinalProject.Controllers
                 dbUsers.PhoneNumber = epvm.PhoneNumber;
             }
 
-            if (epvm.Birthdate != null)
+            DateTime prevBday = dbUsers.Birthdate;
+
+            if (epvm.Birthdate != DateTime.MinValue)
             {
                 dbUsers.Birthdate = epvm.Birthdate;
+            }
+            else
+            {
+                dbUsers.Birthdate = prevBday;
             }
 
             if (epvm.Password != null && epvm.ConfirmPassword != null)
