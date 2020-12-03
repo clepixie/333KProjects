@@ -240,9 +240,10 @@ namespace Team1_FinalProject.Controllers
             }
 
             // get a sorted list of all the showings on the day you are trying to add this new showing in the same theater
+            List<List<Showing>> allShowings = new List<List<Showing>>();
             List<Showing> todayshowingt = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == showing.Room).OrderBy(s => s.StartDateTime).ToList();
             todayshowingt.Add(showing);
-            List<Showing> todayshowing = todayshowingt.OrderBy(s => s.StartDateTime).ToList();
+            List<Showing> todayshowing = todayshowingt.Where(s => s.Room == showing.Room).OrderBy(s => s.StartDateTime).ToList();
 
             int idx = todayshowing.FindIndex(s => s.ShowingID == showing.ShowingID);
 
@@ -255,9 +256,31 @@ namespace Team1_FinalProject.Controllers
             // it is the first showing of the day and it is not the last one
             if (idx == 0 && (todayshowing.Count() - 1) != idx)
             {
-                if (showing.Room == todayshowing[idx + 1].Room && (((todayshowing[idx + 1].StartDateTime - showing.EndDateTime).TotalMinutes < 25 && (todayshowing[idx + 1].StartDateTime - todayshowing[idx + 1].EndDateTime).TotalMinutes > 0)))
+                if (showing.EndDateTime > todayshowing[idx + 1].StartDateTime)
                 {
-                    ModelState.AddModelError(string.Empty, "You cannot add this showing because it ends within 25 minutes with another showing: " + todayshowing[idx + 1].StartDateTime + " " + todayshowing[idx + 1].EndDateTime + " and " + showing.StartDateTime + " " + showing.EndDateTime);
+                    ModelState.AddModelError(string.Empty, "You cannot add this showing because it overlaps in time with another showing.");
+                    List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
+                    List<DateTime> nw = new List<DateTime>();
+                    DateTime td = DateTime.Now.Date;
+
+                    while (td.DayOfWeek != DayOfWeek.Friday)
+                    {
+                        td = td.AddDays(1);
+                    }
+
+                    foreach (int value in Enumerable.Range(1, 7))
+                    {
+                        nw.Add(td);
+                        td = td.AddDays(1);
+                    }
+                    ViewBag.AllDates = nextweek;
+                    ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
+                    return View("PendingIndex", pending);
+                }
+                if ((((todayshowing[idx + 1].StartDateTime - showing.EndDateTime).TotalMinutes < 25 && (todayshowing[idx + 1].StartDateTime - todayshowing[idx + 1].EndDateTime).TotalMinutes > 0)))
+                {
+                    ModelState.AddModelError(string.Empty, "You cannot add this showing because it ends within 25 minutes with another showing: " + Environment.NewLine
+                        + todayshowing[idx + 1].StartDateTime + " " + todayshowing[idx + 1].EndDateTime + Environment.NewLine + "and" + Environment.NewLine + showing.StartDateTime + " " + showing.EndDateTime);
                     List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
                     List<DateTime> nw = new List<DateTime>();
                     DateTime td = DateTime.Now.Date;
@@ -281,10 +304,33 @@ namespace Team1_FinalProject.Controllers
             // it is not the first nor last showing
             else if (idx != (todayshowing.Count() - 1))
             {
-
-                if ((showing.Room == todayshowing[idx + 1].Room && ((todayshowing[idx + 1].StartDateTime - showing.EndDateTime).TotalMinutes < 25 && (todayshowing[idx + 1].EndDateTime - showing.StartDateTime).TotalMinutes > 0)) || (showing.Room == todayshowing[idx - 1].Room && ((showing.StartDateTime - todayshowing[idx - 1].EndDateTime).TotalMinutes < 25 && (showing.StartDateTime - todayshowing[idx - 1].EndDateTime).TotalMinutes > 0)))
+                if ((showing.EndDateTime > todayshowing[idx + 1].StartDateTime) || (todayshowing[idx - 1].EndDateTime > showing.StartDateTime))
                 {
-                    ModelState.AddModelError(string.Empty, "You cannot add this showing because it starts or ends within 25 minutes with another showing: " + todayshowing[idx + 1].StartDateTime + " " + todayshowing[idx + 1].EndDateTime + " and " + showing.StartDateTime + " " + showing.EndDateTime);
+                    ModelState.AddModelError(string.Empty, "You cannot add this showing because it overlaps in time with another showing.");
+                    List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
+                    List<DateTime> nw = new List<DateTime>();
+                    DateTime td = DateTime.Now.Date;
+
+                    while (td.DayOfWeek != DayOfWeek.Friday)
+                    {
+                        td = td.AddDays(1);
+                    }
+
+                    foreach (int value in Enumerable.Range(1, 7))
+                    {
+                        nw.Add(td);
+                        td = td.AddDays(1);
+                    }
+                    ViewBag.AllDates = nextweek;
+                    ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
+                    return View("PendingIndex", pending);
+                }
+
+                if ((((todayshowing[idx + 1].StartDateTime - showing.EndDateTime).TotalMinutes < 25 && (todayshowing[idx + 1].EndDateTime - showing.StartDateTime).TotalMinutes > 0)) || (showing.Room == todayshowing[idx - 1].Room && ((showing.StartDateTime - todayshowing[idx - 1].EndDateTime).TotalMinutes < 25 && (showing.StartDateTime - todayshowing[idx - 1].EndDateTime).TotalMinutes > 0)))
+                {
+                    ModelState.AddModelError(string.Empty, "You cannot add this showing because it starts or ends within 25 minutes with another showing: " + Environment.NewLine
+                        + todayshowing[idx - 1].StartDateTime + " " + todayshowing[idx - 1].EndDateTime + Environment.NewLine + " and " + Environment.NewLine + showing.StartDateTime + " " + showing.EndDateTime
+                        + " and " + Environment.NewLine + todayshowing[idx + 1].StartDateTime + " " + todayshowing[idx + 1].EndDateTime);
                     List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
                     List<DateTime> nw = new List<DateTime>();
                     DateTime td = DateTime.Now.Date;
@@ -309,9 +355,31 @@ namespace Team1_FinalProject.Controllers
             // it is the last showing of the day
             else if (idx == (todayshowing.Count() - 1))
             {
-                if (showing.Room == todayshowing[idx - 1].Room && (((showing.StartDateTime - todayshowing[idx - 1].EndDateTime).TotalMinutes < 25 && (showing.StartDateTime - todayshowing[idx - 1].EndDateTime).TotalMinutes > 0)))
+                if ((todayshowing[idx - 1].EndDateTime > showing.StartDateTime))
                 {
-                    ModelState.AddModelError(string.Empty, "You cannot add this showing because it starts within 25 minutes with another showing: " + todayshowing[idx + 1].StartDateTime + " " + todayshowing[idx + 1].EndDateTime + " and " + showing.StartDateTime + " " + showing.EndDateTime);
+                    ModelState.AddModelError(string.Empty, "You cannot add this showing because it overlaps in time with another showing.");
+                    List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
+                    List<DateTime> nw = new List<DateTime>();
+                    DateTime td = DateTime.Now.Date;
+
+                    while (td.DayOfWeek != DayOfWeek.Friday)
+                    {
+                        td = td.AddDays(1);
+                    }
+
+                    foreach (int value in Enumerable.Range(1, 7))
+                    {
+                        nw.Add(td);
+                        td = td.AddDays(1);
+                    }
+                    ViewBag.AllDates = nextweek;
+                    ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
+                    return View("PendingIndex", pending);
+                }
+                if ((((showing.StartDateTime - todayshowing[idx - 1].EndDateTime).TotalMinutes < 25 && (showing.StartDateTime - todayshowing[idx - 1].EndDateTime).TotalMinutes > 0)))
+                {
+                    ModelState.AddModelError(string.Empty, "You cannot add this showing because it starts within 25 minutes with another showing: " + Environment.NewLine
+                        + todayshowing[idx - 1].StartDateTime + " " + todayshowing[idx - 1].EndDateTime + Environment.NewLine + " and " + Environment.NewLine + showing.StartDateTime + " " + showing.EndDateTime);
                     List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
                     List<DateTime> nw = new List<DateTime>();
                     DateTime td = DateTime.Now.Date;
