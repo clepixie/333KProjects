@@ -108,14 +108,18 @@ namespace Team1_FinalProject.Controllers
                 DateTime ends = (DateTime)svm.SearchShowingDateEnd;
                 query = query.Where(t => t.Showing.EndDateTime.Date == ends);
             }
-
+            
             if (svm.SearchShowingTimeStart != null)
             {
                 TimeSpan starts = (TimeSpan)svm.SearchShowingTimeStart;
-                if (svm.SearchShowingDateEnd != null)
+                if (svm.SearchShowingTimeEnd != null)
                 {
                     TimeSpan ends = (TimeSpan)svm.SearchShowingTimeEnd;
-                    query = query.Where(t => t.Showing.StartDateTime.TimeOfDay >= starts && t.Showing.EndDateTime.TimeOfDay <= ends);
+
+                    //query = query.Where(t => t.Showing.StartDateTime.TimeOfDay >= starts);
+                    //query = query.Where(t => t.Showing.EndDateTime.TimeOfDay <= ends);
+                    
+                    query = query.Where(m => m.Showing.StartDateTime.TimeOfDay >= starts && m.Showing.StartDateTime.TimeOfDay <= ends);
 
                 }
 
@@ -132,7 +136,7 @@ namespace Team1_FinalProject.Controllers
                 query = query.Where(t => t.Showing.StartDateTime.TimeOfDay <= ends);
                 
             }
-
+            
             if (svm.Movie != null && svm.Movie.MovieID != 0)
             {
                 query = query.Where(t => t.Showing.Movie.MovieID == svm.Movie.MovieID);
