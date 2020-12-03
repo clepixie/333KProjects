@@ -355,7 +355,10 @@ namespace Team1_FinalProject.Controllers
 
             else
             {
-                Order current_order = _context.Orders.Include(o => o.Tickets)
+                Order current_order = _context.Orders
+                                        .Include(o => o.Customer)
+                                        .Include(o => o.Discount)
+                                        .Include(o => o.Tickets)
                                         .ThenInclude(t => t.Showing)
                                         .ThenInclude(s => s.Movie)
                                         .Include(o => o.Tickets)
