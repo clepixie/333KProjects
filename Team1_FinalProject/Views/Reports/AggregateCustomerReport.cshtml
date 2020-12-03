@@ -29,7 +29,7 @@
         {
             <tr>
 
-                <td>@Html.DisplayFor(modelitem => item.SelectCustomerName)</td>
+                <a asp-action="DisplayCustomerReport" asp-route-id="@item.SelectCustomerName"><td>@Html.DisplayFor(modelitem => item.SelectCustomerName)</td></a>
             
 
                 <td>@Html.DisplayFor(modelitem => item.SeatsSold)</td>
