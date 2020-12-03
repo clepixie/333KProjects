@@ -125,10 +125,12 @@ namespace Team1_FinalProject.Controllers
                 }
             }
 
+
             if (svm.SearchShowingTimeEnd != null && svm.SearchShowingTimeStart == null)
             {
                 TimeSpan ends = (TimeSpan)svm.SearchShowingTimeEnd;
-                query = query.Where(t => t.Showing.EndDateTime.TimeOfDay <= ends);
+                query = query.Where(t => t.Showing.StartDateTime.TimeOfDay <= ends);
+                
             }
 
             if (svm.Movie != null && svm.Movie.MovieID != 0)
@@ -142,7 +144,11 @@ namespace Team1_FinalProject.Controllers
 
             foreach (Ticket ticket in tickets)
             {
-                svm.TotalRevenue += ticket.Order.PostDiscount;
+                if (ticket.Order.PopcornPointsUsed == false)
+                {
+                    svm.TotalRevenue += ticket.Order.PostDiscount;
+                }
+                
             }
             ViewBag.SummarizedTickets = tickets;
 
