@@ -16,11 +16,12 @@ namespace Team1_FinalProject.Models
 		Showing
     }
 
-	public class CustomDateRangeAttribute : RangeAttribute
-	{
-		public CustomDateRangeAttribute() : base(typeof(DateTime), DateTime.Now.Date.ToString(), DateTime.Now.AddYears(20).Date.ToString())
-		{ }
-	}
+    public class CustomDateRangeAttribute : RangeAttribute
+    {
+        public CustomDateRangeAttribute() : base(typeof(DateTime), DateTime.Now.Date.ToString(), DateTime.Now.AddYears(20).Date.ToString())
+        { }
+    }
+
 
 	public class SearchViewModel
 	{

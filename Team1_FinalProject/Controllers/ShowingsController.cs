@@ -233,6 +233,7 @@ namespace Team1_FinalProject.Controllers
                     nw.Add(td);
                     td = td.AddDays(1);
                 }
+                ViewBag.AllDates = nextweek;
                 ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
                 return View("PendingIndex", pending);
             }
@@ -270,6 +271,7 @@ namespace Team1_FinalProject.Controllers
                         nw.Add(td);
                         td = td.AddDays(1);
                     }
+                    ViewBag.AllDates = nextweek;
                     ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
                     return View("PendingIndex", pending);
                 }
@@ -296,6 +298,7 @@ namespace Team1_FinalProject.Controllers
                         nw.Add(td);
                         td = td.AddDays(1);
                     }
+                    ViewBag.AllDates = nextweek;
                     ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
                     return View("PendingIndex", pending);
                     /*return View("Error", new String[] { "You cannot add this showing because it is too close with the existing showing:\n" + s.StartDateTime + " " + s.EndDateTime + "\n" + showing.StartDateTime + " " + showing.EndDateTime });*/
@@ -322,6 +325,7 @@ namespace Team1_FinalProject.Controllers
                         nw.Add(td);
                         td = td.AddDays(1);
                     }
+                    ViewBag.AllDates = nextweek;
                     ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
                     return View("PendingIndex", pending);
                 }
@@ -348,6 +352,7 @@ namespace Team1_FinalProject.Controllers
                         nw.Add(td);
                         td = td.AddDays(1);
                     }
+                    ViewBag.AllDates = nextweek;
                     ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
                     return View("PendingIndex", pending);
                 }
@@ -379,6 +384,7 @@ namespace Team1_FinalProject.Controllers
                     nw.Add(td);
                     td = td.AddDays(1);
                 }
+                ViewBag.AllDates = nw;
                 ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
                 return View("PendingIndex", pending);
             }
@@ -410,6 +416,7 @@ namespace Team1_FinalProject.Controllers
                     nw.Add(td);
                     td = td.AddDays(1);
                 }
+                ViewBag.AllDates = nw;
                 ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
                 return View("PendingIndex", pending);
                 /*return View("Error", new String[] { "You must have one showing on " + startdate + " that ends after 9:30 PM" });*/
@@ -442,6 +449,7 @@ namespace Team1_FinalProject.Controllers
                                 nw.Add(td);
                                 td = td.AddDays(1);
                             }
+                            ViewBag.AllDates = nw;
                             ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
                             return View("PendingIndex", pending);
                             /*return View("Error", new String[] { "There are more than 45 minutes between " + showing.StartDateTime.TimeOfDay + " and " + todayshowing[idx + 1].StartDateTime.TimeOfDay + "on" + showing.StartDateTime.Date + "." });*/
@@ -467,6 +475,7 @@ namespace Team1_FinalProject.Controllers
                                 nw.Add(td);
                                 td = td.AddDays(1);
                             }
+                            ViewBag.AllDates = nw;
                             ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
                             return View("PendingIndex", pending);
                             /*return View("Error", new String[] { "There are more than 45 minutes between " + showing.StartDateTime.TimeOfDay + " and " + todayshowing[idx + 1].StartDateTime.TimeOfDay + "on" + showing.StartDateTime.Date + "." });*/
@@ -492,6 +501,7 @@ namespace Team1_FinalProject.Controllers
                                 nw.Add(td);
                                 td = td.AddDays(1);
                             }
+                            ViewBag.AllDates = nw;
                             ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
                             return View("PendingIndex", pending);
                             /*return View("Error", new String[] { "There are more than 45 minutes between " + showing.StartDateTime.TimeOfDay + " and " + todayshowing[idx + 1].StartDateTime.TimeOfDay + "on" + showing.StartDateTime.Date + "." });*/
@@ -535,6 +545,7 @@ namespace Team1_FinalProject.Controllers
                     nw.Add(td);
                     td = td.AddDays(1);
                 }
+                ViewBag.AllDates = nw;
                 ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
                 return View("PendingIndex", pending);
             }
@@ -569,6 +580,7 @@ namespace Team1_FinalProject.Controllers
                     nw.Add(td);
                     td = td.AddDays(1);
                 }
+                ViewBag.AllDates = nw;
                 ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
                 return View("PendingIndex", pending);
             }
@@ -602,6 +614,7 @@ namespace Team1_FinalProject.Controllers
                         nw.Add(td);
                         td = td.AddDays(1);
                     }
+                    ViewBag.AllDates = nw;
                     ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
                     return View("PendingIndex", pending);
                     /*return View("Error", new String[] { "You must have one showing on " + startdate + " that ends after 9:30 PM" });*/
@@ -634,6 +647,7 @@ namespace Team1_FinalProject.Controllers
                                     nw.Add(td);
                                     td = td.AddDays(1);
                                 }
+                                ViewBag.AllDates = nw;
                                 ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
                                 return View("PendingIndex", pending);
                                 /*return View("Error", new String[] { "There are more than 45 minutes between " + showing.StartDateTime.TimeOfDay + " and " + todayshowing[idx + 1].StartDateTime.TimeOfDay + "on" + showing.StartDateTime.Date + "." });*/
@@ -659,6 +673,7 @@ namespace Team1_FinalProject.Controllers
                                     nw.Add(td);
                                     td = td.AddDays(1);
                                 }
+                                ViewBag.AllDates = nw;
                                 ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
                                 return View("PendingIndex", pending);
                                 /*return View("Error", new String[] { "There are more than 45 minutes between " + showing.StartDateTime.TimeOfDay + " and " + todayshowing[idx + 1].StartDateTime.TimeOfDay + "on" + showing.StartDateTime.Date + "." });*/
@@ -684,6 +699,7 @@ namespace Team1_FinalProject.Controllers
                                     nw.Add(td);
                                     td = td.AddDays(1);
                                 }
+                                ViewBag.AllDates = nw;
                                 ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
                                 return View("PendingIndex", pending);
                                 /*return View("Error", new String[] { "There are more than 45 minutes between " + showing.StartDateTime.TimeOfDay + " and " + todayshowing[idx + 1].StartDateTime.TimeOfDay + "on" + showing.StartDateTime.Date + "." });*/
@@ -797,6 +813,7 @@ namespace Team1_FinalProject.Controllers
                     nw.Add(t);
                     t = t.AddDays(1);
                 }
+                ViewBag.AllDates = nw;
                 ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
                 return View("PendingIndex", pending);
             }
@@ -1162,6 +1179,7 @@ namespace Team1_FinalProject.Controllers
                             nw.Add(td);
                             td = td.AddDays(1);
                         }
+                        ViewBag.AllDates = nextweek;
                         ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
                         return View("PendingIndex", pending);
                     }
@@ -1200,6 +1218,7 @@ namespace Team1_FinalProject.Controllers
                                 nw.Add(td);
                                 td = td.AddDays(1);
                             }
+                            ViewBag.AllDates = nextweek;
                             ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
                             return View("PendingIndex", pending);
                         }
@@ -1228,6 +1247,7 @@ namespace Team1_FinalProject.Controllers
                                 nw.Add(td);
                                 td = td.AddDays(1);
                             }
+                            ViewBag.AllDates = nextweek;
                             ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
                             return View("PendingIndex", pending);
                             /*return View("Error", new String[] { "You cannot add this showing because it is too close with the existing showing:\n" + s.StartDateTime + " " + s.EndDateTime + "\n" + showing.StartDateTime + " " + showing.EndDateTime });*/
@@ -1257,6 +1277,7 @@ namespace Team1_FinalProject.Controllers
                                 nw.Add(td);
                                 td = td.AddDays(1);
                             }
+                            ViewBag.AllDates = nextweek;
                             ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
                             return View("PendingIndex", pending);
                         }
@@ -1286,6 +1307,7 @@ namespace Team1_FinalProject.Controllers
                                 nw.Add(td);
                                 td = td.AddDays(1);
                             }
+                            ViewBag.AllDates = nextweek;
                             ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
                             return View("PendingIndex", pending);
                         }
