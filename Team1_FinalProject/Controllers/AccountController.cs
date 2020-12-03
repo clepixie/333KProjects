@@ -441,24 +441,6 @@ namespace Team1_FinalProject.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Employee, Manager")]
-        public ActionResult ChangeCustomerPassword()
-        {
-            return View();
-        }
-
-        [Authorize(Roles = "Manager")]
-        public ActionResult ChangeEmployeePassword()
-        {
-            return View();
-        }
-
-        [Authorize(Roles = "Manager")]
-        public ActionResult ChangeManagerPassword()
-        {
-            return View();
-        }
-
         // GET: /Account/ChangeAddress
         [Authorize(Roles = "Employee, Manager, Customer")]
         [HttpGet]
@@ -653,6 +635,120 @@ namespace Team1_FinalProject.Controllers
                 //send the user back to the change password page to try again
                 return View(cpvm);
             }
+        }
+
+        // get method to change customer password
+        [Authorize(Roles = "Employee, Manager")]
+        public ActionResult ChangeCustomerPassword(string email)
+        {
+            ChangeCustomerPasswordViewModel newccpvm = new ChangeCustomerPasswordViewModel();
+            {
+                newccpvm.Email = email;
+
+            };
+            return View(newccpvm);
+        }
+
+        // post method to change customer password
+        [Authorize(Roles = "Employee, Manager")]
+        [HttpPost]
+        public async Task<ActionResult> ChangeCustomerPasswordAsync(ChangeCustomerPasswordViewModel ccpvm)
+        {
+            AppUser dbUsers = _context.Users.Where(u => u.Email == ccpvm.Email).FirstOrDefault();
+
+            if (ModelState.IsValid == false)
+            {
+                return View(ccpvm);
+            }
+
+            AppUser userLoggedIn = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            var removepassword =  await _userManager.RemovePasswordAsync(dbUsers);
+            var addpassword = await _userManager.AddPasswordAsync(dbUsers, ccpvm.NewCustomerPassword);
+
+            if (addpassword.Succeeded)
+            {
+                return RedirectToAction(nameof(IndexCustomer));
+            }
+
+            else
+                return View("Error", new String[] { "There was a problem updating the customer's password!" });
+        }
+
+        // get method to change employee password
+        [Authorize(Roles = "Manager")]
+        public ActionResult ChangeEmployeePassword(string email)
+        {
+            ChangeEmployeePasswordViewModel newcepvm = new ChangeEmployeePasswordViewModel();
+            {
+                newcepvm.Email = email;
+
+            };
+            return View(newcepvm);
+        }
+
+        // post method to change employee password
+        [Authorize(Roles = "Manager")]
+        [HttpPost]
+        public async Task<ActionResult> ChangeEmployeePasswordAsync(ChangeEmployeePasswordViewModel cepvm)
+        {
+            AppUser dbUsers = _context.Users.Where(u => u.Email == cepvm.Email).FirstOrDefault();
+
+            if (ModelState.IsValid == false)
+            {
+                return View(cepvm);
+            }
+
+            AppUser userLoggedIn = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            var removepassword = await _userManager.RemovePasswordAsync(dbUsers);
+            var addpassword = await _userManager.AddPasswordAsync(dbUsers, cepvm.NewEmployeePassword);
+
+            if (addpassword.Succeeded)
+            {
+                return RedirectToAction(nameof(IndexEmployee));
+            }
+
+            else
+                return View("Error", new String[] { "There was a problem updating the employee's password!" });
+        }
+
+        // get method to change manager password
+        [Authorize(Roles = "Manager")]
+        public ActionResult ChangeManagerPassword(string email)
+        {
+            ChangeManagerPasswordViewModel newcmpvm = new ChangeManagerPasswordViewModel();
+            {
+                newcmpvm.Email = email;
+
+            };
+            return View(newcmpvm);
+        }
+
+        // get method to change manager password
+        [Authorize(Roles = "Manager")]
+        [HttpPost]
+        public async Task<ActionResult> ChangeManagerPasswordAsync(ChangeManagerPasswordViewModel cmpvm)
+        {
+            AppUser dbUsers = _context.Users.Where(u => u.Email == cmpvm.Email).FirstOrDefault();
+
+            if (ModelState.IsValid == false)
+            {
+                return View(cmpvm);
+            }
+
+            AppUser userLoggedIn = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            var removepassword = await _userManager.RemovePasswordAsync(dbUsers);
+            var addpassword = await _userManager.AddPasswordAsync(dbUsers, cmpvm.NewManagerPassword);
+
+            if (addpassword.Succeeded)
+            {
+                return RedirectToAction(nameof(IndexManager));
+            }
+
+            else
+                return View("Error", new String[] { "There was a problem updating the manager's password!" });
         }
 
         //GET:/Account/AccessDenied
