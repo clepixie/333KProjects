@@ -812,7 +812,7 @@ namespace Team1_FinalProject.Controllers
 
             foreach (int id in dayID)
             {
-                int showing = new List<Showing>(_context.Showings.Where(s => s.StartDateTime.Date == td.Date).ToList()).Count();
+                int showing = new List<Showing>(_context.Showings.Where(s => s.StartDateTime.Date == td.Date).Where(s => s.Status == SStatus.Pending).ToList()).Count();
                 ScheduleViewModel temp = new ScheduleViewModel();
                 temp.DayDate = (td.ToString("MM/dd/yyyy") + ": " + td.DayOfWeek + "; " + "Showings #: " + showing);
                 temp.DayID = id;
@@ -861,8 +861,8 @@ namespace Team1_FinalProject.Controllers
                 }
                 td = td.AddDays(1);
             }
-            List<Showing> fromshow = _context.Showings.Where(s => s.StartDateTime.Date == selecteddatefrom.Date).ToList();
-            List<Showing> toshow = _context.Showings.Where(s => s.StartDateTime.Date == selecteddateto.Date).ToList();
+            List<Showing> fromshow = _context.Showings.Where(s => s.StartDateTime.Date == selecteddatefrom.Date).Where(s => s.Status == SStatus.Pending).ToList();
+            List<Showing> toshow = _context.Showings.Where(s => s.StartDateTime.Date == selecteddateto.Date).Where(s => s.Status == SStatus.Pending).ToList();
 
             if (fromshow.Count() == 0)
             {
