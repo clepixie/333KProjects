@@ -88,7 +88,7 @@ namespace Team1_FinalProject.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PriceID,PriceTitle,PriceType,PriceValue")] Price price)
+        public async Task<IActionResult> Edit(int id, [Bind("PriceID,PriceType,PriceValue")] Price price)
         {
             if (id != price.PriceID)
             {
@@ -99,7 +99,10 @@ namespace Team1_FinalProject.Controllers
             {
                 try
                 {
-                    _context.Update(price);
+                    Price dbPrice = _context.Prices.Where(p => p.PriceType == price.PriceType).FirstOrDefault();
+                    dbPrice.PriceType = price.PriceType;
+                    dbPrice.PriceValue = price.PriceValue;
+                    _context.Update(dbPrice);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
