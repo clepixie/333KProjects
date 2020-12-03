@@ -441,6 +441,23 @@ namespace Team1_FinalProject.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Employee, Manager")]
+        public ActionResult ChangeCustomerPassword()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Manager")]
+        public ActionResult ChangeEmployeePassword()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Manager")]
+        public ActionResult ChangeManagerPassword()
+        {
+            return View();
+        }
 
         // GET: /Account/ChangeAddress
         [Authorize(Roles = "Employee, Manager, Customer")]

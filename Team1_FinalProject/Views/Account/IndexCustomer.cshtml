@@ -51,7 +51,8 @@
                     @Html.DisplayFor(modelItem => item.PhoneNumber)
                 </td>
                 <td>
-                    <a asp-action="EditCustomer" asp-route-email="@item.Email" >Edit</a>
+                    <a asp-action="EditCustomer" asp-route-email="@item.Email">Edit</a>
+                    <a asp-action="ChangeCustomerPassword" asp-route-email="@item.Email">Change Password</a>
                 </td>
             </tr>
         }
