@@ -309,6 +309,19 @@ namespace Team1_FinalProject.Controllers
                     _context.SaveChanges();
                 }
 
+                                            //sorting the tickets from earliest to latest and then comparing each start time to each end time of the next film
+                    var sorted_tickets = current_order.Tickets.OrderBy(x => x.Showing.StartDateTime.TimeOfDay).ToList();
+
+                    foreach (Ticket existingticket in sorted_tickets)
+                    {
+
+                        if ((existingticket.Showing.ShowingID != showing.ShowingID) && (existingticket.Showing.StartDateTime.Date == showing.StartDateTime.Date) && ((existingticket.Showing.StartDateTime <= showing.EndDateTime && existingticket.Showing.EndDateTime >= showing.EndDateTime)
+                        || (existingticket.Showing.EndDateTime >= showing.StartDateTime && showing.EndDateTime >= existingticket.Showing.EndDateTime)))
+                        {
+                            return View("Error", new String[] { "This movie time overlaps with another movie in your cart!" });
+
+                        }
+                    }
                     foreach (int seatnumber in tvm.SelectedSeats)
                     {
                         List<string> allSeats = new List<string> { "A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5", "C1", "C2", "C3", "C4", "C5", "D1", "D2", "D3", "D4", "D5" };
@@ -334,19 +347,6 @@ namespace Team1_FinalProject.Controllers
                                 return View("Error", new String[] { "This movie is already in your cart for another showing time!" });
                             }
                         }
-                        //sorting the tickets from earliest to latest and then comparing each start time to each end time of the next film
-                        var sorted_tickets = current_order.Tickets.OrderBy(x => x.Showing.StartDateTime.TimeOfDay).ToList();
-
-                        foreach (Ticket existingticket in sorted_tickets)
-                        {
-
-                            if ((existingticket.Showing.StartDateTime.Date == showing.StartDateTime.Date) && ((existingticket.Showing.StartDateTime <= showing.EndDateTime && existingticket.Showing.EndDateTime >= showing.EndDateTime)
-                                || (existingticket.Showing.EndDateTime >= showing.StartDateTime && showing.EndDateTime >= existingticket.Showing.EndDateTime)))
-                            {
-                                return View("Error", new String[] { "This movie time overlaps with another movie in your cart!" });
-
-                            }
-                        }
                         _context.Tickets.Add(ticket);
                         _context.SaveChanges();
                     }
@@ -362,44 +362,17 @@ namespace Team1_FinalProject.Controllers
                                         .ThenInclude(t => t.Showing)
                                         .ThenInclude(s => s.Price).FirstOrDefault(o => o.OrderID == tvm.SelectOrderID);
 
-                if (current_order.Tickets != null)
+                //sorting the tickets from earliest to latest and then comparing each start time to each end time of the next film
+                var sorted_tickets = current_order.Tickets.OrderBy(x => x.Showing.StartDateTime.TimeOfDay).ToList();
+
+                foreach (Ticket existingticket in sorted_tickets)
                 {
-                    foreach (Ticket ticket in current_order.Tickets)
+
+                    if ((existingticket.Showing.ShowingID != showing.ShowingID) && (existingticket.Showing.StartDateTime.Date == showing.StartDateTime.Date) && ((existingticket.Showing.StartDateTime <= showing.EndDateTime && existingticket.Showing.EndDateTime >= showing.EndDateTime)
+                        || (existingticket.Showing.EndDateTime >= showing.StartDateTime && showing.EndDateTime >= existingticket.Showing.EndDateTime)))
                     {
-                        if (ticket.Showing.Movie.MPAA == MPAA.R || ticket.Showing.Movie.MPAA == MPAA.NC17)
-                        {
-                            TimeSpan newdate = DateTime.Now.Subtract(current_order.Customer.Birthdate);
+                        return View("Error", new String[] { "This movie time overlaps with another movie in your cart!" });
 
-                            if (newdate.TotalDays < 6570)
-                            {
-                                return View("Error", new String[] { "You must be 18 or older to watch this film!" });
-                            }
-                        }
-                    }
-
-                    //sorting the tickets from earliest to latest and then comparing each start time to each end time of the next film
-                    var sorted_tickets = current_order.Tickets.OrderBy(x => x.Showing.StartDateTime.TimeOfDay).ToList();
-
-                    foreach (Ticket existingticket in sorted_tickets)
-                    {
-
-                        if ((existingticket.Showing.StartDateTime.Date == showing.StartDateTime.Date) && ((existingticket.Showing.StartDateTime <= showing.EndDateTime && showing.Movie.Runtime > (existingticket.Showing.StartDateTime - showing.EndDateTime).TotalMinutes)
-                            || (existingticket.Showing.EndDateTime >= showing.StartDateTime && existingticket.Showing.Movie.Runtime > (showing.StartDateTime - existingticket.Showing.EndDateTime).TotalMinutes)))
-                        {
-                            return View("Error", new String[] { "This movie time overlaps with another movie in your cart!" });
-
-                        }
-                    }
-
-                    foreach (Ticket ticket in current_order.Tickets)
-                    {
-                        if (ticket.Showing.Movie.MovieID == showing.Movie.MovieID)
-                        {
-                            if (ticket.Showing.ShowingID != showing.ShowingID)
-                            {
-                                return View("Error", new String[] { "This movie is already in your cart for another showing time!" });
-                            }
-                        }
                     }
                 }
 
@@ -412,6 +385,22 @@ namespace Team1_FinalProject.Controllers
                     ticket.Order = current_order;
                     ticket.SeatNumber = allSeats[seatnumber];
                     ticket.FixPrice = showing.Price.PriceValue;
+                    if (ticket.Showing.Movie.MPAA == MPAA.R || ticket.Showing.Movie.MPAA == MPAA.NC17)
+                    {
+                        TimeSpan newdate = DateTime.Now.Subtract(current_order.Customer.Birthdate);
+
+                        if (newdate.TotalDays < 6570)
+                        {
+                            return View("Error", new String[] { "You must be 18 or older to watch this film!" });
+                        }
+                    }
+                    if (ticket.Showing.Movie.MovieID == showing.Movie.MovieID)
+                    {
+                        if (ticket.Showing.ShowingID != showing.ShowingID)
+                        {
+                            return View("Error", new String[] { "This movie is already in your cart for another showing time!" });
+                        }
+                    }
                     _context.Tickets.Add(ticket);
                     _context.SaveChanges();
                 }

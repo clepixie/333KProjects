@@ -45,7 +45,10 @@
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PostDiscount)
+                @if (item.PopcornPointsUsed == false)
+                {
+                    @Html.DisplayFor(modelItem => item.PostDiscount)
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PopcornPointsUsed)

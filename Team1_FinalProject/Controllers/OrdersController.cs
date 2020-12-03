@@ -480,6 +480,7 @@ namespace Team1_FinalProject.Controllers
 
             EmailMessaging.SendEmail(o.Customer.Email, "Order Cancellation Confirmation", "We have confirmed that you have cancelled: " + o.OrderNumber + " You should recieve your refund promptly. We hope to see you again soon!");
             _context.Orders.Update(o);
+            _context.Users.Update(o.Customer);
             _context.SaveChanges();
             return RedirectToAction("CancelSuccess", new { id = o.OrderID, pcp = add });
         }
