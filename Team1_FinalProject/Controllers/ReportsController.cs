@@ -114,11 +114,7 @@ namespace Team1_FinalProject.Controllers
                 TimeSpan starts = (TimeSpan)svm.SearchShowingTimeStart;
                 if (svm.SearchShowingTimeEnd != null)
                 {
-                    TimeSpan ends = (TimeSpan)svm.SearchShowingTimeEnd;
-
-                    //query = query.Where(t => t.Showing.StartDateTime.TimeOfDay >= starts);
-                    //query = query.Where(t => t.Showing.EndDateTime.TimeOfDay <= ends);
-                    
+                    TimeSpan ends = (TimeSpan)svm.SearchShowingTimeEnd;                    
                     query = query.Where(m => m.Showing.StartDateTime.TimeOfDay >= starts && m.Showing.StartDateTime.TimeOfDay <= ends);
 
                 }
