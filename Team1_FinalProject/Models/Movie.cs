@@ -31,7 +31,7 @@ namespace Team1_FinalProject.Models
 		public string Description { get; set; }
 		[Display(Name = "MPAA Rating")]
 		[Required(ErrorMessage = "This field is required")]
-		public MPAA MPAA { get; set; }
+		public MPAA? MPAA { get; set; }
 
 		[Display(Name = "Release Date")]
 		[DisplayFormat(DataFormatString = "{0:MM/dd/yyy}")]
