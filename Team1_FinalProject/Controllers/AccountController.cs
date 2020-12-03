@@ -419,7 +419,7 @@ namespace Team1_FinalProject.Controllers
 
 
         // GET: /Account/ChangeAddress
-        [Authorize(Roles = "Employee, Manager")]
+        [Authorize(Roles = "Employee, Manager, Customer")]
         [HttpGet]
         public ActionResult ChangeAddress(string email)
         {
@@ -433,7 +433,7 @@ namespace Team1_FinalProject.Controllers
         }
 
         // post change address
-        [Authorize(Roles = "Employee, Manager")]
+        [Authorize(Roles = "Employee, Manager, Customer")]
         [HttpPost]
         public async Task<ActionResult> ChangeAddress([Bind("Email, NewAddress")] ChangeAddressViewModel avm)
         {
@@ -472,7 +472,7 @@ namespace Team1_FinalProject.Controllers
 
         //Logic for change birthdate
         // GET: /Account/ChangeBirthdate
-        [Authorize(Roles = "Employee, Manager")]
+        [Authorize(Roles = "Employee, Manager, Customer")]
         [HttpGet]
         public ActionResult ChangeBirthdate(string email)
         {
@@ -486,7 +486,7 @@ namespace Team1_FinalProject.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Employee, Manager")]
+        [Authorize(Roles = "Employee, Manager, Customer")]
         public async Task<ActionResult> ChangeBirthdate([Bind("Email, NewBirthdate")] ChangeBirthdateViewModel cbvm)
         { 
             if (User.Identity.Name != cbvm.Email)
@@ -523,7 +523,7 @@ namespace Team1_FinalProject.Controllers
         }
 
         // get for change phonenumber
-        [Authorize(Roles = "Employee, Manager")]
+        [Authorize(Roles = "Employee, Manager, Customer")]
         [HttpGet]
         public ActionResult ChangePhoneNumber(string email)
         {
@@ -537,7 +537,7 @@ namespace Team1_FinalProject.Controllers
         }
 
         // change phone number
-        [Authorize(Roles = "Employee, Manager")]
+        [Authorize(Roles = "Employee, Manager, Customer")]
         [HttpPost]
         public async Task<ActionResult> ChangePhoneNumberAsync(string id, [Bind("Email, NewPhoneNumber")] ChangePhoneNumberViewModel pnvm)
         {
