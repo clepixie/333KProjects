@@ -1544,7 +1544,8 @@ namespace Team1_FinalProject.Controllers
                     showing.EndDateTime = showing.StartDateTime + TimeSpan.FromMinutes(movie.Runtime);
                     showing.Price = GetPrice(showing);
                     showing.Status = SStatus.Pending;
-
+                    var entry = _context.Showings.First(e => e.ShowingID == showing.ShowingID);
+                    _context.Entry(entry).CurrentValues.SetValues(showing);
 
                     TimeSpan start = new TimeSpan(9, 0, 0);
                     if (showing.StartDateTime.TimeOfDay < start)
