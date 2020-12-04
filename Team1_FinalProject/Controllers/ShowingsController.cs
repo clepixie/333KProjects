@@ -830,7 +830,7 @@ namespace Team1_FinalProject.Controllers
             ScheduleViewModel zero = new ScheduleViewModel();
             ScheduleViewModel one = new ScheduleViewModel();
             ScheduleViewModel two = new ScheduleViewModel();
-            zero.ScheduleDate = "All Theaters";
+            zero.ScheduleDate = "Select Theater";
             zero.ScheduleID = 0;
             svm.Add(zero);
             one.ScheduleDate = "Theater 1";
@@ -858,6 +858,15 @@ namespace Team1_FinalProject.Controllers
         [HttpPost]
         public IActionResult CopySchedule(int SelectedDateFrom, int SelectedDateTo, int SelectedTheaterFrom, int SelectedTheaterTo)
         {
+            if (SelectedTheaterTo == 0 || SelectedTheaterFrom == 0)
+            {
+                ModelState.AddModelError(string.Empty, "Please choose one of the theaters to copy schedules from/to.");
+                ViewBag.FromDays = GetDaysShowings();
+                ViewBag.ToDays = GetDaysShowings();
+                ViewBag.FromRoom = GetTheater();
+                ViewBag.ToRoom = GetTheater();
+                return View();
+            }
             List<int> dayID = new List<int> { 0, 1, 2, 3, 4, 5, 6 };
             DateTime td = DateTime.Now.Date;
 
@@ -889,15 +898,7 @@ namespace Team1_FinalProject.Controllers
 
             List<Showing> fromshow = _context.Showings.Where(s => s.StartDateTime.Date == selecteddatefrom.Date).Where(s => s.Room == SelectedTheaterFrom).Where(s => s.Status == SStatus.Pending).ToList();
             List<Showing> toshow = _context.Showings.Where(s => s.StartDateTime.Date == selecteddateto.Date).Where(s => s.Room == SelectedTheaterTo).Where(s => s.Status == SStatus.Pending).ToList();
-            if (SelectedTheaterFrom == 0)
-            {
-                fromshow = _context.Showings.Where(s => s.StartDateTime.Date == selecteddatefrom.Date).Where(s => s.Status == SStatus.Pending).ToList();
-            }
-                
-            if (SelectedTheaterTo == 0)
-            {
-                toshow = _context.Showings.Where(s => s.StartDateTime.Date == selecteddateto.Date).Where(s => s.Status == SStatus.Pending).ToList();
-            }
+
             
            
 
@@ -952,26 +953,25 @@ namespace Team1_FinalProject.Controllers
                 news.Movie = showing.Movie;
                 news.Room = SelectedTheaterTo;
                 news.SpecialEvent = showing.SpecialEvent;
+                int id = news.ShowingID;
                 newshowings.Add(news);
 /*              _context.Showings.Add(news);
                 _context.SaveChanges();*/
             }
             // copied starts here
+            List<Showing> todayshowingt = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == selecteddateto.Date).Where(s => s.Room == SelectedTheaterTo).OrderBy(s => s.StartDateTime).ToList();
             foreach (Showing showing in newshowings)
             {
-                List<List<Showing>> allShowings = new List<List<Showing>>();
-                List<Showing> todayshowingt = _context.Showings.Include(s => s.Movie).Where(s => s.ShowingID != showing.ShowingID).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == showing.Room).OrderBy(s => s.StartDateTime).ToList();
                 todayshowingt.Add(showing);
                 List<Showing> todayshowing = todayshowingt.Where(s => s.Room == showing.Room).OrderBy(s => s.StartDateTime).ToList();
 
-                int idx = todayshowing.FindIndex(s => s.ShowingID == showing.ShowingID);
+                int idx = todayshowing.FindIndex(s => s.StartDateTime == showing.StartDateTime);
 
                 // first entry!
                 if (todayshowing.Count() == 1)
                 {
                     _context.Showings.Add(showing);
-                    _context.SaveChanges();
-                    return RedirectToAction("PendingIndex");
+                    continue;
                 }
                 // it is the first showing of the day and it is not the last one
                 if (idx == 0 && (todayshowing.Count() - 1) != idx)
@@ -1126,6 +1126,7 @@ namespace Team1_FinalProject.Controllers
                 {
                     if (showing.StartDateTime == s.StartDateTime && s.Movie.Title == showing.Movie.Title && s.Room != showing.Room)
                     {
+                        ModelState.AddModelError(string.Empty, "You cannot have the same movie in different theaters at the same time.");
                         List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
                         List<DateTime> nw = new List<DateTime>();
                         DateTime t = DateTime.Now.Date;
@@ -1144,12 +1145,11 @@ namespace Team1_FinalProject.Controllers
                         ViewBag.Week = nw[0].ToString("MM/dd/yyyy") + "-" + nw[6].ToString("MM/dd/yyyy");
                         return View("PendingIndex", pending);
                     }
-
-                _context.Showings.Add(showing);
-                _context.SaveChanges();
                 }
+                _context.Showings.Add(showing);
             }
 
+            _context.SaveChanges();
             return RedirectToAction("PendingIndex");
         }
 
