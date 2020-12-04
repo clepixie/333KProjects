@@ -302,7 +302,7 @@ namespace Team1_FinalProject.Controllers
             }
 
             // it is not the first nor last showing
-            else if (idx != (todayshowing.Count() - 1))
+            else if (idx != (todayshowing.Count() - 1) && idx != 0)
             {
                 if ((showing.EndDateTime > todayshowing[idx + 1].StartDateTime) || (todayshowing[idx - 1].EndDateTime > showing.StartDateTime))
                 {
@@ -827,8 +827,12 @@ namespace Team1_FinalProject.Controllers
         public SelectList GetTheater()
         {
             List<ScheduleViewModel> svm = new List<ScheduleViewModel>();
+            ScheduleViewModel zero = new ScheduleViewModel();
             ScheduleViewModel one = new ScheduleViewModel();
             ScheduleViewModel two = new ScheduleViewModel();
+            zero.ScheduleDate = "All Theaters";
+            zero.ScheduleID = 0;
+            svm.Add(zero);
             one.ScheduleDate = "Theater 1";
             one.ScheduleID = 1;
             svm.Add(one);
@@ -854,6 +858,15 @@ namespace Team1_FinalProject.Controllers
         [HttpPost]
         public IActionResult CopySchedule(int SelectedDateFrom, int SelectedDateTo, int SelectedTheaterFrom, int SelectedTheaterTo)
         {
+            if (SelectedTheaterFrom == 0 || SelectedTheaterTo == 0)
+            {
+                ModelState.AddModelError(string.Empty, "Please select a theater to copy showings to/from!");
+                ViewBag.FromDays = GetDaysShowings();
+                ViewBag.ToDays = GetDaysShowings();
+                ViewBag.FromRoom = GetTheater();
+                ViewBag.ToRoom = GetTheater();
+                return View();
+            }
             List<int> dayID = new List<int> { 0, 1, 2, 3, 4, 5, 6 };
             DateTime td = DateTime.Now.Date;
 
@@ -882,8 +895,20 @@ namespace Team1_FinalProject.Controllers
                 td = td.AddDays(1);
             }
 
+
             List<Showing> fromshow = _context.Showings.Where(s => s.StartDateTime.Date == selecteddatefrom.Date).Where(s => s.Room == SelectedTheaterFrom).Where(s => s.Status == SStatus.Pending).ToList();
             List<Showing> toshow = _context.Showings.Where(s => s.StartDateTime.Date == selecteddateto.Date).Where(s => s.Room == SelectedTheaterTo).Where(s => s.Status == SStatus.Pending).ToList();
+            if (SelectedTheaterFrom == 0)
+            {
+                fromshow = _context.Showings.Where(s => s.StartDateTime.Date == selecteddatefrom.Date).Where(s => s.Status == SStatus.Pending).ToList();
+            }
+                
+            if (SelectedTheaterTo == 0)
+            {
+                toshow = _context.Showings.Where(s => s.StartDateTime.Date == selecteddateto.Date).Where(s => s.Status == SStatus.Pending).ToList();
+            }
+            
+           
 
             if (fromshow.Count() == 0)
             {
@@ -1006,7 +1031,7 @@ namespace Team1_FinalProject.Controllers
                 }
 
                 // it is not the first nor last showing
-                else if (idx != (todayshowing.Count() - 1))
+                else if (idx != (todayshowing.Count() - 1) && idx != 0)
                 {
                     if ((showing.EndDateTime > todayshowing[idx + 1].StartDateTime) || (todayshowing[idx - 1].EndDateTime > showing.StartDateTime))
                     {
@@ -1328,7 +1353,7 @@ namespace Team1_FinalProject.Controllers
                     }
 
                     // not the first or last showing
-                    else if (idx != (todayshowing.Count() - 1))
+                    else if (idx != (todayshowing.Count() - 1) && idx != 0)
                     {
                         if ((showing.EndDateTime > todayshowing[idx + 1].StartDateTime) || (todayshowing[idx - 1].EndDateTime > showing.StartDateTime))
                         {
@@ -1559,6 +1584,7 @@ namespace Team1_FinalProject.Controllers
                         _context.SaveChanges();
                         return RedirectToAction("PendingIndex");
                     }
+
                     // it is the first showing of the day and it is not the last one
                     if (idx == 0 && (todayshowing.Count() - 1) != idx)
                     {
@@ -1608,7 +1634,7 @@ namespace Team1_FinalProject.Controllers
                     }
 
                     // it is not the first nor last showing
-                    else if (idx != (todayshowing.Count() - 1))
+                    else if (idx != (todayshowing.Count() - 1) && idx != 0)
                     {
                         if ((showing.EndDateTime > todayshowing[idx + 1].StartDateTime) || (todayshowing[idx - 1].EndDateTime > showing.StartDateTime))
                         {
