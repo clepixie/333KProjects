@@ -14,6 +14,7 @@
     <h2 class="text-center">Today's Showings</h2>
     <table class="table table-bordered">
         <tr>
+            <th>MovieID</th>
             <th>Movie Title</th>
             <th>Showing Time</th>
             <th>Tickets Available</th>
@@ -31,8 +32,9 @@
         @foreach (Showing s in Model)
         {
             <tr>
+                <td>@s.ShowingID</td>
                 <td>@s.Movie.Title</td>
-                <td>@(s.StartDateTime.ToString("hh:mm tt"))<span>-</span>@(s.EndDateTime.ToString("hh:mm tt"))</td>
+                <td>@(s.StartDateTime.ToString("MM/dd hh:mm tt"))<span>-</span>@(s.EndDateTime.ToString("hh:mm tt"))</td>
                 <td>@(20 - s.Tickets.Where(t => t.Order.OrderHistory != OrderHistory.Cancelled).Count())/20</td>
                 @if (User.Identity.IsAuthenticated)
                 {

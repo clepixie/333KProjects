@@ -23,7 +23,7 @@ namespace Team1_FinalProject.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            List<Showing> showingstoday = _context.Showings.Include(s => s.Movie).Include(s => s.Tickets).ThenInclude(t => t.Order).Where(s => s.StartDateTime.Date == DateTime.Now.Date).ToList();
+            List<Showing> showingstoday = _context.Showings.Include(s => s.Movie).Include(s => s.Tickets).ThenInclude(t => t.Order).Where(s => s.Status == SStatus.Published).Where(s => s.StartDateTime.Date == DateTime.Now.Date).ToList();
             return View(showingstoday);
         }
         // GET: Home/SearchSelect
