@@ -39,9 +39,10 @@ namespace Team1_FinalProject.Controllers
         {
             //Create a list of roles that will need to be edited
             List<RoleEditModel> roles = new List<RoleEditModel>();
+            var allRoles = _roleManager.Roles.Where(r => r.Name != "Customer").ToList();
             
             //loop through each of the existing roles
-            foreach (IdentityRole role in _roleManager.Roles)
+            foreach (IdentityRole role in allRoles)
             {
                 //this is a list of all the users who ARE in this role (members)
                 List<AppUser> members = new List<AppUser>();
