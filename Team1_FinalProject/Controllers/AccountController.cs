@@ -163,12 +163,9 @@ namespace Team1_FinalProject.Controllers
             // finds the roleID tied to the user 
             string userroleid = _context.UserRoles.Where(ur => ur.UserId == user.Id).FirstOrDefault().RoleId;
 
-            if (roleID != null)
+            if (userroleid == roleID)
             {
-                if (userroleid == roleID)
-                {
-                    return View("Error", new String[] { "You are fired!" });
-                }
+                return View("Error", new String[] { "You are fired!" });
             }
 
             //attempt to sign the user in using the SignInManager
