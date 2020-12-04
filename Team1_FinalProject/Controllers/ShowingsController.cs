@@ -1274,7 +1274,7 @@ namespace Team1_FinalProject.Controllers
                         return View(s);
                     }
 
-                    _context.Entry(entry).CurrentValues.SetValues(showing);
+                    
 
                     TimeSpan start = new TimeSpan(9, 0, 0);
                     if (showing.StartDateTime.TimeOfDay < start)
@@ -1297,6 +1297,8 @@ namespace Team1_FinalProject.Controllers
                     List<Showing> todayshowing = todayshowingt.Where(s => s.Room == showing.Room).OrderBy(s => s.StartDateTime).ToList();
 
                     int idx = todayshowing.FindIndex(s => s.ShowingID == showing.ShowingID);
+
+                    _context.Entry(entry).CurrentValues.SetValues(showing);
 
                     // first entry!
                     if (todayshowing.Count() == 1)
