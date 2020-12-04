@@ -48,30 +48,40 @@
                     <tbody>
                         <tr>
                             <td>
-                                @foreach (Showing s in ViewBag.AllShowings1)
+                                @try
                                 {
-                                    if (s.ShowingID == Model.ShowingID)
+                                    @foreach (Showing s in ViewBag.AllShowings1)
                                     {
-                                        <div style="color:blue">@s.StartDateTime.TimeOfDay - @s.EndDateTime.TimeOfDay</div>
-                                    }
-                                    else
-                                    {
-                                        <div>@s.StartDateTime.TimeOfDay - @s.EndDateTime.TimeOfDay</div>
+                                        if (s.ShowingID == Model.ShowingID)
+                                        {
+                                            <div style="color:blue">@s.StartDateTime.TimeOfDay - @s.EndDateTime.TimeOfDay</div>
+                                        }
+                                        else
+                                        {
+                                            <div>@s.StartDateTime.TimeOfDay - @s.EndDateTime.TimeOfDay</div>
+                                        }
                                     }
                                 }
+                                catch
+                                { }
                             </td>
                             <td>
-                                @foreach (Showing s in ViewBag.AllShowings2)
+                                @try
                                 {
-                                    if (s.ShowingID == Model.ShowingID)
+                                    @foreach (Showing s in ViewBag.AllShowings2)
                                     {
-                                        <div style="color:blue">@s.StartDateTime.TimeOfDay - @s.EndDateTime.TimeOfDay</div>
-                                    }
-                                    else
-                                    {
-                                        <div>@s.StartDateTime.TimeOfDay - @s.EndDateTime.TimeOfDay</div>
+                                        if (s.ShowingID == Model.ShowingID)
+                                        {
+                                            <div style="color:blue">@s.StartDateTime.TimeOfDay - @s.EndDateTime.TimeOfDay</div>
+                                        }
+                                        else
+                                        {
+                                            <div>@s.StartDateTime.TimeOfDay - @s.EndDateTime.TimeOfDay</div>
+                                        }
                                     }
                                 }
+                                catch
+                                { }
                             </td>
                         </tr>
                     </tbody>

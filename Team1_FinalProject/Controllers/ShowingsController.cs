@@ -823,11 +823,31 @@ namespace Team1_FinalProject.Controllers
             SelectList sldays = new SelectList(svm, "DayID", "DayDate");
             return sldays;
         }
+
+        public SelectList GetTheater()
+        {
+            List<ScheduleViewModel> svm = new List<ScheduleViewModel>();
+            ScheduleViewModel one = new ScheduleViewModel();
+            ScheduleViewModel two = new ScheduleViewModel();
+            one.ScheduleDate = "Theater 1";
+            one.ScheduleID = 1;
+            svm.Add(one);
+            two.ScheduleDate = "Theater 2";
+            two.ScheduleID = 2;
+            svm.Add(two);
+
+            SelectList tsl = new SelectList(svm, "ScheduleID", "ScheduleDate");
+
+            return tsl;
+        }
+
         [HttpGet]
         public IActionResult CopySchedule()
         {
             ViewBag.FromDays = GetDaysShowings();
             ViewBag.ToDays = GetDaysShowings();
+            ViewBag.FromRoom = GetTheater();
+            ViewBag.ToRoom = GetTheater();
             return View();
         }
 
@@ -861,8 +881,9 @@ namespace Team1_FinalProject.Controllers
                 }
                 td = td.AddDays(1);
             }
-            List<Showing> fromshow = _context.Showings.Where(s => s.StartDateTime.Date == selecteddatefrom.Date).Where(s => s.Status == SStatus.Pending).ToList();
-            List<Showing> toshow = _context.Showings.Where(s => s.StartDateTime.Date == selecteddateto.Date).Where(s => s.Status == SStatus.Pending).ToList();
+
+            List<Showing> fromshow = _context.Showings.Where(s => s.StartDateTime.Date == selecteddatefrom.Date).Where(s => s.Room == SelectedTheaterFrom).Where(s => s.Status == SStatus.Pending).ToList();
+            List<Showing> toshow = _context.Showings.Where(s => s.StartDateTime.Date == selecteddateto.Date).Where(s => s.Room == SelectedTheaterTo).Where(s => s.Status == SStatus.Pending).ToList();
 
             if (fromshow.Count() == 0)
             {
@@ -899,7 +920,7 @@ namespace Team1_FinalProject.Controllers
             }
 
             // get the showings on the date you want to copy from
-            List<Showing> copiedshowings = _context.Showings.Include(s => s.Movie).ThenInclude(s => s.Genre).Include(s => s.Price).Where(s => s.StartDateTime.Date == selecteddatefrom.Date).Where(s => s.Status == SStatus.Pending).ToList();
+            List<Showing> copiedshowings = _context.Showings.Include(s => s.Movie).ThenInclude(s => s.Genre).Include(s => s.Price).Where(s => s.StartDateTime.Date == selecteddatefrom.Date).Where(s => s.Room == SelectedTheaterFrom).Where(s => s.Status == SStatus.Pending).ToList();
             List<Showing> newshowings = new List<Showing>();
 
             foreach (Showing showing in copiedshowings)
@@ -913,7 +934,7 @@ namespace Team1_FinalProject.Controllers
                 news.Price = GetPrice(news);
                 news.Status = SStatus.Pending;
                 news.Movie = showing.Movie;
-                news.Room = showing.Room;
+                news.Room = SelectedTheaterTo;
                 news.SpecialEvent = showing.SpecialEvent;
                 newshowings.Add(news);
 /*              _context.Showings.Add(news);
@@ -1204,6 +1225,7 @@ namespace Team1_FinalProject.Controllers
                         return RedirectToAction("EditPending", new { id = showing.ShowingID });
                     }
 
+                    showing.Movie = movie;
                     showing.EndDateTime = showing.StartDateTime + TimeSpan.FromMinutes(movie.Runtime);
                     showing.Price = GetPrice(showing);
                     showing.Status = SStatus.Published;
@@ -1216,14 +1238,15 @@ namespace Team1_FinalProject.Controllers
                     if (showings9pm == 1 && oldshowingend.TimeOfDay >= new TimeSpan(21, 30, 0))
                     {
                         ModelState.AddModelError(string.Empty, "You cannot change this showing because it is the only showing that ends after 9:30 PM on" + oldshowingend.Date.ToString("MM/dd/yyyy"));
-                        ViewBag.AllMovies = GetAllMovies();
-                        Showing show = _context.Showings
-                                          .Include(o => o.Price)
-                                          .Include(o => o.Movie)
-                                          .ThenInclude(o => o.Genre)
-                                          .Include(m => m.Tickets)
-                                          .FirstOrDefault(m => m.ShowingID == id);
-                        return View(show);
+                        Showing s = _context.Showings
+                                                          .Include(o => o.Price)
+                                                          .Include(o => o.Movie)
+                                                          .ThenInclude(o => o.Genre)
+                                                          .Include(m => m.Tickets)
+                                                          .FirstOrDefault(m => m.ShowingID == id);
+                        ViewBag.AllShowings1 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 1).OrderBy(s => s.StartDateTime).ToList();
+                        ViewBag.AllShowings2 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 2).OrderBy(s => s.StartDateTime).ToList();
+                        return View(s);
                     }
                     _context.Entry(entry).CurrentValues.SetValues(showing);
 
@@ -1231,14 +1254,15 @@ namespace Team1_FinalProject.Controllers
                     if (showing.StartDateTime.TimeOfDay < start)
                     {
                         ModelState.AddModelError(string.Empty, "You cannot change this showing because a showing cannot start earlier than 9:00 AM!");
-                        ViewBag.AllMovies = GetAllMovies();
-                        Showing show = _context.Showings
-                                          .Include(o => o.Price)
-                                          .Include(o => o.Movie)
-                                          .ThenInclude(o => o.Genre)
-                                          .Include(m => m.Tickets)
-                                          .FirstOrDefault(m => m.ShowingID == id);
-                        return View(show);
+                        Showing s = _context.Showings
+                                                          .Include(o => o.Price)
+                                                          .Include(o => o.Movie)
+                                                          .ThenInclude(o => o.Genre)
+                                                          .Include(m => m.Tickets)
+                                                          .FirstOrDefault(m => m.ShowingID == id);
+                        ViewBag.AllShowings1 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 1).OrderBy(s => s.StartDateTime).ToList();
+                        ViewBag.AllShowings2 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 2).OrderBy(s => s.StartDateTime).ToList();
+                        return View(s);
                     }
 
                     List<List<Showing>> allShowings = new List<List<Showing>>();
@@ -1260,40 +1284,44 @@ namespace Team1_FinalProject.Controllers
                         if (showing.EndDateTime > todayshowing[idx + 1].StartDateTime)
                         {
                             ModelState.AddModelError(string.Empty, "You cannot change this showing because it overlaps in time with another showing.");
-                            Showing show = _context.Showings
-                                              .Include(o => o.Price)
-                                              .Include(o => o.Movie)
-                                              .ThenInclude(o => o.Genre)
-                                              .Include(m => m.Tickets)
-                                              .FirstOrDefault(m => m.ShowingID == id);
-                            return View(show);
+                            Showing s = _context.Showings
+                                                          .Include(o => o.Price)
+                                                          .Include(o => o.Movie)
+                                                          .ThenInclude(o => o.Genre)
+                                                          .Include(m => m.Tickets)
+                                                          .FirstOrDefault(m => m.ShowingID == id);
+                            ViewBag.AllShowings1 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 1).OrderBy(s => s.StartDateTime).ToList();
+                            ViewBag.AllShowings2 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 2).OrderBy(s => s.StartDateTime).ToList();
+                            return View(s);
                         }
                         if ((((todayshowing[idx + 1].StartDateTime - showing.EndDateTime).TotalMinutes < 25 && (todayshowing[idx + 1].StartDateTime - todayshowing[idx + 1].EndDateTime).TotalMinutes > 0)))
                         {
                             ModelState.AddModelError(string.Empty, "You cannot change this showing because it ends within 25 minutes with another showing: " + Environment.NewLine
                                 + todayshowing[idx + 1].StartDateTime + " " + todayshowing[idx + 1].EndDateTime + Environment.NewLine + "and" + Environment.NewLine + showing.StartDateTime + " " + showing.EndDateTime);
-                            
-                            ViewBag.AllMovies = GetAllMovies();
-                            Showing show = _context.Showings
-                                              .Include(o => o.Price)
-                                              .Include(o => o.Movie)
-                                              .ThenInclude(o => o.Genre)
-                                              .Include(m => m.Tickets)
-                                              .FirstOrDefault(m => m.ShowingID == id);
-                            return View(show);
+
+                            Showing s = _context.Showings
+                                                          .Include(o => o.Price)
+                                                          .Include(o => o.Movie)
+                                                          .ThenInclude(o => o.Genre)
+                                                          .Include(m => m.Tickets)
+                                                          .FirstOrDefault(m => m.ShowingID == id);
+                            ViewBag.AllShowings1 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 1).OrderBy(s => s.StartDateTime).ToList();
+                            ViewBag.AllShowings2 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 2).OrderBy(s => s.StartDateTime).ToList();
+                            return View(s);
                         }
 
                         if (showing.Room == todayshowing[idx + 1].Room && (((todayshowing[idx + 1].StartDateTime - showing.EndDateTime).TotalMinutes > 45)))
                         {
                             ModelState.AddModelError(string.Empty, "You cannot change this showing because it ends over 45 minutes from another showing: " + todayshowing[idx + 1].StartDateTime + " " + todayshowing[idx + 1].EndDateTime + " and " + showing.StartDateTime + " " + showing.EndDateTime);
-                            ViewBag.AllMovies = GetAllMovies();
-                            Showing show = _context.Showings
-                                              .Include(o => o.Price)
-                                              .Include(o => o.Movie)
-                                              .ThenInclude(o => o.Genre)
-                                              .Include(m => m.Tickets)
-                                              .FirstOrDefault(m => m.ShowingID == id);
-                            return View(show);
+                            Showing s = _context.Showings
+                                                          .Include(o => o.Price)
+                                                          .Include(o => o.Movie)
+                                                          .ThenInclude(o => o.Genre)
+                                                          .Include(m => m.Tickets)
+                                                          .FirstOrDefault(m => m.ShowingID == id);
+                            ViewBag.AllShowings1 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 1).OrderBy(s => s.StartDateTime).ToList();
+                            ViewBag.AllShowings2 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 2).OrderBy(s => s.StartDateTime).ToList();
+                            return View(s);
                         }
                     }
 
@@ -1303,14 +1331,15 @@ namespace Team1_FinalProject.Controllers
                         if ((showing.EndDateTime > todayshowing[idx + 1].StartDateTime) || (todayshowing[idx - 1].EndDateTime > showing.StartDateTime))
                         {
                             ModelState.AddModelError(string.Empty, "You cannot change this showing because it overlaps in time with another showing.");
-                            ViewBag.AllMovies = GetAllMovies();
-                            Showing show = _context.Showings
-                                              .Include(o => o.Price)
-                                              .Include(o => o.Movie)
-                                              .ThenInclude(o => o.Genre)
-                                              .Include(m => m.Tickets)
-                                              .FirstOrDefault(m => m.ShowingID == id);
-                            return View(show);
+                            Showing s = _context.Showings
+                                                          .Include(o => o.Price)
+                                                          .Include(o => o.Movie)
+                                                          .ThenInclude(o => o.Genre)
+                                                          .Include(m => m.Tickets)
+                                                          .FirstOrDefault(m => m.ShowingID == id);
+                            ViewBag.AllShowings1 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 1).OrderBy(s => s.StartDateTime).ToList();
+                            ViewBag.AllShowings2 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 2).OrderBy(s => s.StartDateTime).ToList();
+                            return View(s);
                         }
 
                         if ((((todayshowing[idx + 1].StartDateTime - showing.EndDateTime).TotalMinutes < 25 && (todayshowing[idx + 1].EndDateTime - showing.StartDateTime).TotalMinutes > 0)) || (showing.Room == todayshowing[idx - 1].Room && ((showing.StartDateTime - todayshowing[idx - 1].EndDateTime).TotalMinutes < 25 && (showing.StartDateTime - todayshowing[idx - 1].EndDateTime).TotalMinutes > 0)))
@@ -1318,28 +1347,30 @@ namespace Team1_FinalProject.Controllers
                             ModelState.AddModelError(string.Empty, "You cannot change this showing because it starts or ends within 25 minutes with another showing: " + Environment.NewLine
                                 + todayshowing[idx - 1].StartDateTime + " " + todayshowing[idx - 1].EndDateTime + Environment.NewLine + " and " + Environment.NewLine + showing.StartDateTime + " " + showing.EndDateTime
                                 + " and " + Environment.NewLine + todayshowing[idx + 1].StartDateTime + " " + todayshowing[idx + 1].EndDateTime);
-                            ViewBag.AllMovies = GetAllMovies();
-                            Showing show = _context.Showings
-                                              .Include(o => o.Price)
-                                              .Include(o => o.Movie)
-                                              .ThenInclude(o => o.Genre)
-                                              .Include(m => m.Tickets)
-                                              .FirstOrDefault(m => m.ShowingID == id);
-                            return View(show);
+                            Showing s = _context.Showings
+                                                          .Include(o => o.Price)
+                                                          .Include(o => o.Movie)
+                                                          .ThenInclude(o => o.Genre)
+                                                          .Include(m => m.Tickets)
+                                                          .FirstOrDefault(m => m.ShowingID == id);
+                            ViewBag.AllShowings1 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 1).OrderBy(s => s.StartDateTime).ToList();
+                            ViewBag.AllShowings2 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 2).OrderBy(s => s.StartDateTime).ToList();
+                            return View(s);
                             /*return View("Error", new String[] { "You cannot add this showing because it is too close with the existing showing:\n" + s.StartDateTime + " " + s.EndDateTime + "\n" + showing.StartDateTime + " " + showing.EndDateTime });*/
                         }
 
                         if ((showing.Room == todayshowing[idx + 1].Room && ((todayshowing[idx + 1].StartDateTime - showing.EndDateTime).TotalMinutes > 45)) || (showing.Room == todayshowing[idx - 1].Room && ((showing.StartDateTime - todayshowing[idx - 1].EndDateTime).TotalMinutes > 45)))
                         {
                             ModelState.AddModelError(string.Empty, "You cannot change this showing because it starts or ends over 45 minutes from another showing: " + todayshowing[idx + 1].StartDateTime + " " + todayshowing[idx + 1].EndDateTime + " and " + showing.StartDateTime + " " + showing.EndDateTime);
-                            ViewBag.AllMovies = GetAllMovies();
-                            Showing show = _context.Showings
-                                              .Include(o => o.Price)
-                                              .Include(o => o.Movie)
-                                              .ThenInclude(o => o.Genre)
-                                              .Include(m => m.Tickets)
-                                              .FirstOrDefault(m => m.ShowingID == id);
-                            return View(show);
+                            Showing s = _context.Showings
+                                                          .Include(o => o.Price)
+                                                          .Include(o => o.Movie)
+                                                          .ThenInclude(o => o.Genre)
+                                                          .Include(m => m.Tickets)
+                                                          .FirstOrDefault(m => m.ShowingID == id);
+                            ViewBag.AllShowings1 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 1).OrderBy(s => s.StartDateTime).ToList();
+                            ViewBag.AllShowings2 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 2).OrderBy(s => s.StartDateTime).ToList();
+                            return View(s);
                             /*return View("Error", new String[] { "You cannot add this showing because it is too close with the existing showing:\n" + s.StartDateTime + " " + s.EndDateTime + "\n" + showing.StartDateTime + " " + showing.EndDateTime });*/
                         }
                     }
@@ -1350,40 +1381,43 @@ namespace Team1_FinalProject.Controllers
                         if ((todayshowing[idx - 1].EndDateTime > showing.StartDateTime))
                         {
                             ModelState.AddModelError(string.Empty, "You cannot change this showing because it overlaps in time with another showing.");
-                            ViewBag.AllMovies = GetAllMovies();
-                            Showing show = _context.Showings
-                                              .Include(o => o.Price)
-                                              .Include(o => o.Movie)
-                                              .ThenInclude(o => o.Genre)
-                                              .Include(m => m.Tickets)
-                                              .FirstOrDefault(m => m.ShowingID == id);
-                            return View(show);
+                            Showing s = _context.Showings
+                                                          .Include(o => o.Price)
+                                                          .Include(o => o.Movie)
+                                                          .ThenInclude(o => o.Genre)
+                                                          .Include(m => m.Tickets)
+                                                          .FirstOrDefault(m => m.ShowingID == id);
+                            ViewBag.AllShowings1 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 1).OrderBy(s => s.StartDateTime).ToList();
+                            ViewBag.AllShowings2 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 2).OrderBy(s => s.StartDateTime).ToList();
+                            return View(s);
                         }
                         if ((((showing.StartDateTime - todayshowing[idx - 1].EndDateTime).TotalMinutes < 25 && (showing.StartDateTime - todayshowing[idx - 1].EndDateTime).TotalMinutes > 0)))
                         {
                             ModelState.AddModelError(string.Empty, "You cannot change this showing because it starts within 25 minutes with another showing: " + Environment.NewLine
                                 + todayshowing[idx - 1].StartDateTime + " " + todayshowing[idx - 1].EndDateTime + Environment.NewLine + " and " + Environment.NewLine + showing.StartDateTime + " " + showing.EndDateTime);
-                            ViewBag.AllMovies = GetAllMovies();
-                            Showing show = _context.Showings
-                                              .Include(o => o.Price)
-                                              .Include(o => o.Movie)
-                                              .ThenInclude(o => o.Genre)
-                                              .Include(m => m.Tickets)
-                                              .FirstOrDefault(m => m.ShowingID == id);
-                            return View(show);
+                            Showing s = _context.Showings
+                                                          .Include(o => o.Price)
+                                                          .Include(o => o.Movie)
+                                                          .ThenInclude(o => o.Genre)
+                                                          .Include(m => m.Tickets)
+                                                          .FirstOrDefault(m => m.ShowingID == id);
+                            ViewBag.AllShowings1 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 1).OrderBy(s => s.StartDateTime).ToList();
+                            ViewBag.AllShowings2 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 2).OrderBy(s => s.StartDateTime).ToList();
+                            return View(s);
                         }
 
                         if (showing.Room == todayshowing[idx - 1].Room && (((showing.StartDateTime - todayshowing[idx - 1].EndDateTime).TotalMinutes > 45)))
                         {
                             ModelState.AddModelError(string.Empty, "You cannot change this showing because it starts over 45 minutes from another showing: " + todayshowing[idx + 1].StartDateTime + " " + todayshowing[idx + 1].EndDateTime + " and " + showing.StartDateTime + " " + showing.EndDateTime);
-                            ViewBag.AllMovies = GetAllMovies();
-                            Showing show = _context.Showings
-                                              .Include(o => o.Price)
-                                              .Include(o => o.Movie)
-                                              .ThenInclude(o => o.Genre)
-                                              .Include(m => m.Tickets)
-                                              .FirstOrDefault(m => m.ShowingID == id);
-                            return View(show);
+                            Showing s = _context.Showings
+                                                           .Include(o => o.Price)
+                                                           .Include(o => o.Movie)
+                                                           .ThenInclude(o => o.Genre)
+                                                           .Include(m => m.Tickets)
+                                                           .FirstOrDefault(m => m.ShowingID == id);
+                            ViewBag.AllShowings1 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 1).OrderBy(s => s.StartDateTime).ToList();
+                            ViewBag.AllShowings2 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 2).OrderBy(s => s.StartDateTime).ToList();
+                            return View(s);
                         }
                     }
 
@@ -1394,14 +1428,15 @@ namespace Team1_FinalProject.Controllers
                         if (showing.StartDateTime == s.StartDateTime && s.Movie.Title == movie.Title && s.Room != showing.Room)
                         {
                             ModelState.AddModelError(string.Empty, "You cannot schedule " + movie.Title + " at the same time in both Theaters on " + showing.StartDateTime + ".");
-                            ViewBag.AllMovies = GetAllMovies();
-                            Showing show = _context.Showings
-                                              .Include(o => o.Price)
-                                              .Include(o => o.Movie)
-                                              .ThenInclude(o => o.Genre)
-                                              .Include(m => m.Tickets)
-                                              .FirstOrDefault(m => m.ShowingID == id);
-                            return View(show);
+                            Showing s = _context.Showings
+                                                          .Include(o => o.Price)
+                                                          .Include(o => o.Movie)
+                                                          .ThenInclude(o => o.Genre)
+                                                          .Include(m => m.Tickets)
+                                                          .FirstOrDefault(m => m.ShowingID == id);
+                            ViewBag.AllShowings1 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 1).OrderBy(s => s.StartDateTime).ToList();
+                            ViewBag.AllShowings2 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 2).OrderBy(s => s.StartDateTime).ToList();
+                            return View(s);
                         }
                     } 
 
