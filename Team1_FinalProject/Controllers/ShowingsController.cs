@@ -832,7 +832,7 @@ namespace Team1_FinalProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult CopySchedule(int SelectedDateFrom, int SelectedDateTo)
+        public IActionResult CopySchedule(int SelectedDateFrom, int SelectedDateTo, int SelectedTheaterFrom, int SelectedTheaterTo)
         {
             List<int> dayID = new List<int> { 0, 1, 2, 3, 4, 5, 6 };
             DateTime td = DateTime.Now.Date;
@@ -1724,9 +1724,14 @@ namespace Team1_FinalProject.Controllers
             {
                 return NotFound();
             }
-
+           
             var showing = await _context.Showings
                 .FirstOrDefaultAsync(m => m.ShowingID == id);
+
+            if (showing.StartDateTime < DateTime.Now)
+            {
+                return View("Error", new String[] { "You cannot delete a showing that already happened." });
+            }
 
             if (showing == null)
             {
