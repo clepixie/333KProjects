@@ -27,7 +27,7 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
-                    <th>Add to Role</th>
+                    <th>Hire to @Model.Role.Name</th>
                 </tr>
                 foreach (AppUser user in Model.NonMembers)
                 {
@@ -63,7 +63,7 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
-                    <th>Remove From Role</th>
+                    <th>Fire from @Model.Role.Name</th>
                 </tr>
                 foreach (AppUser user in Model.Members)
                 {

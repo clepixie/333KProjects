@@ -26,23 +26,24 @@
         {
             foreach (RoleEditModel role in Model)
             {
-                <tr>
-                    <td>@role.Role.Id</td>
-                    <td>@role.Role.Name</td>
-                    <td>
-                        @if (role.Members == null || role.Members.Count() == 0)
-                        {
-                            @: No Users in role
-                        }
-                        else
-                        {
-                            <p>@string.Join(", ", role.Members.Select(x => x.Email))</p>
-                        }
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = role.Role.Id }, new { @class = "btn btn-primary" })
-                    </td>
-                </tr>
+            <tr>
+                <td>@role.Role.Id</td>
+                <td>@role.Role.Name</td>
+                <td>
+                    @if (role.Members == null || role.Members.Count() == 0)
+                    {
+                        @: No Users in role
+                    }
+                    else
+                    {
+                        <p>@string.Join(", ", role.Members.Select(x => x.Email))</p>
+                    }
+                </td>
+                <td>
+
+                    @Html.ActionLink("Manage", "Edit", new { id = role.Role.Id }, new { @class = "btn btn-primary" })
+                </td>
+            </tr>
             }
         }
     </table>
