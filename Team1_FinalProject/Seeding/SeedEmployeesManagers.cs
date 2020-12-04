@@ -41,9 +41,9 @@ namespace Team1_FinalProject.Seeding
 			newUser.UserName = "t.jacobs@mainstreetmovies.com";
 			newUser.Email = "t.jacobs@mainstreetmovies.com";
 			newUser.PhoneNumber = "9074653365";
-			newUser.FirstName = "Jacobs";
+			newUser.FirstName = "Todd";
 			newUser.MiddleInitial = "L";
-			newUser.LastName = "Todd";
+			newUser.LastName = "Jacobs";
 			newUser.Birthdate = new DateTime(1958, 4, 25);
 			newUser.Address = "4564 Elm St. Georgetown, TX78628";
 
