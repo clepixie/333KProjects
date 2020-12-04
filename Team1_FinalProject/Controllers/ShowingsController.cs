@@ -858,15 +858,6 @@ namespace Team1_FinalProject.Controllers
         [HttpPost]
         public IActionResult CopySchedule(int SelectedDateFrom, int SelectedDateTo, int SelectedTheaterFrom, int SelectedTheaterTo)
         {
-            if (SelectedTheaterFrom == 0 || SelectedTheaterTo == 0)
-            {
-                ModelState.AddModelError(string.Empty, "Please select a theater to copy showings to/from!");
-                ViewBag.FromDays = GetDaysShowings();
-                ViewBag.ToDays = GetDaysShowings();
-                ViewBag.FromRoom = GetTheater();
-                ViewBag.ToRoom = GetTheater();
-                return View();
-            }
             List<int> dayID = new List<int> { 0, 1, 2, 3, 4, 5, 6 };
             DateTime td = DateTime.Now.Date;
 
