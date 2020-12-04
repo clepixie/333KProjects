@@ -157,15 +157,18 @@ namespace Team1_FinalProject.Controllers
             }
 
             // finds the roleID
-            string roleID = _context.Roles.FirstOrDefault(r => r.Name == "FiredEmployee").Id;
+            string? roleID = _context.Roles.Where(r => r.Name == "FiredEmployee").FirstOrDefault().Id;
             // finds the user
             AppUser user = _context.Users.Where(u => u.Email == lvm.Email).FirstOrDefault();
             // finds the roleID tied to the user 
             string userroleid = _context.UserRoles.Where(ur => ur.UserId == user.Id).FirstOrDefault().RoleId;
 
-            if (userroleid == roleID)
+            if (roleID != null)
             {
-                return View("Error", new String[] { "You are fired!" });
+                if (userroleid == roleID)
+                {
+                    return View("Error", new String[] { "You are fired!" });
+                }
             }
 
             //attempt to sign the user in using the SignInManager

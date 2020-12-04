@@ -21,7 +21,8 @@ namespace Team1_FinalProject
             services.AddControllersWithViews();
 
             //TODO: (For HW4 and beyond) Add a connection string here once you have created it on Azure
-            var connectionString = "Server=tcp:fa20finalprojectnoshowings.database.windows.net,1433;Initial Catalog=fa20finalprojectnoshowings;Persist Security Info=False;User ID=admin@example.com@fa20finalprojectnoshowings;Password=Abc123!!;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            var connectionString = "Server=tcp:fa20team1project.database.windows.net,1433;Initial Catalog=fal20team1finalproject;Persist Security Info=False;User ID=admin@example.com@fa20team1project;Password=Abc123!!;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            /*var connectionString = "Server=tcp:fa20finalprojectnoshowings.database.windows.net,1433;Initial Catalog=fa20finalprojectnoshowings;Persist Security Info=False;User ID=admin@example.com@fa20finalprojectnoshowings;Password=Abc123!!;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";*/
             /*var connectionString = "Server=tcp:fa20team1finalprojtestwoo.database.windows.net,1433;Initial Catalog=fa20team1finalprojtest;Persist Security Info=False;User ID=admin@example.com@fa20team1finalprojtestwoo;Password=Abc123!!;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";*/
             /*^ main testing database*/
             /*
@@ -85,7 +86,7 @@ namespace Team1_FinalProject
 
             //TODO: Uncomment this after admin is seeded
             //This seeds the admin user
-           /* Seeding.SeedCustomers.AddCustomer(service).Wait();
+            /*Seeding.SeedCustomers.AddCustomer(service).Wait();
             Seeding.SeedEmployeesManagers.AddEmployee(service).Wait();*/
         }
     }   

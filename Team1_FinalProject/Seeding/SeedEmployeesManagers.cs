@@ -14,7 +14,7 @@ using Team1_FinalProject.Models;
 namespace Team1_FinalProject.Seeding
 {
 	//add identity data
-	public static class SeedIdentity
+	public static class SeedEmployeesManagers
 	{
 		public static async Task AddEmployee(IServiceProvider serviceProvider)
 		{
