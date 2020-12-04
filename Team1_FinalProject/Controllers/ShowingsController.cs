@@ -658,15 +658,15 @@ namespace Team1_FinalProject.Controllers
             while (startdate != enddate)
             {
                 List<List<Showing>> todayshowings = new List<List<Showing>>();
-                List<Showing> todayshowing1 = _context.Showings.Where(s => s.StartDateTime.Date == day.Date).Where(s => s.Room == 1).OrderBy(s => s.StartDateTime).ToList();
+                List<Showing> todayshowing1 = _context.Showings.Where(s => s.StartDateTime.Date == startdate).Where(s => s.Room == 1).OrderBy(s => s.StartDateTime).ToList();
                 todayshowings.Add(todayshowing1);
-                List<Showing> todayshowing2 = _context.Showings.Where(s => s.StartDateTime.Date == day.Date).Where(s => s.Room == 2).OrderBy(s => s.StartDateTime).ToList();
+                List<Showing> todayshowing2 = _context.Showings.Where(s => s.StartDateTime.Date == startdate).Where(s => s.Room == 2).OrderBy(s => s.StartDateTime).ToList();
                 todayshowings.Add(todayshowing2);
                 var count1 = todayshowing2.Where(s => s.EndDateTime.TimeOfDay > new TimeSpan(21, 30, 0)).ToList().Count();
                 var count2 = todayshowing2.Where(s => s.EndDateTime.TimeOfDay > new TimeSpan(21, 30, 0)).ToList().Count();
                 if ((count1 == 0) && (count2 == 0))
                 {
-                    ModelState.AddModelError(string.Empty, "You must have one showing on " + day.Date.ToString("MM/dd/yyyy") + " that ends after 9:30 PM");
+                    ModelState.AddModelError(string.Empty, "You must have one showing on " + startdate.ToString("MM/dd/yyyy") + " that ends after 9:30 PM");
                     List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
                     List<DateTime> nw = new List<DateTime>();
                     DateTime td = DateTime.Now.Date;
