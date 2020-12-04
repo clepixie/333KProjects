@@ -1761,7 +1761,6 @@ namespace Team1_FinalProject.Controllers
                             return View("PendingIndex", pending);
                         }
                     }
-                    _context.Showings.Update(showing);
                     _context.SaveChanges();
                 }
 
