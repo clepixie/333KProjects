@@ -1132,10 +1132,10 @@ namespace Team1_FinalProject.Controllers
                                               .FirstOrDefault(m => m.ShowingID == id);
             ViewBag.AllShowings1 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 1).OrderBy(s => s.StartDateTime).ToList();
             ViewBag.AllShowings2 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 2).OrderBy(s => s.StartDateTime).ToList();
-            /*if ((showing.StartDateTime - DateTime.Now) <= new TimeSpan(1, 0, 0))
+            if ((showing.StartDateTime < DateTime.Now))
             {
-                return View("Error", new String[] { "You cannot edit this showing because it will start less than an hour from now." });
-            }*/
+                return View("Error", new String[] { "You cannot edit this showing because it has already started." });
+            }
             if (showing == null)
             {
                 return NotFound();
