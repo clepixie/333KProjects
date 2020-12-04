@@ -157,11 +157,16 @@ namespace Team1_FinalProject.Controllers
             }
 
             // finds the roleID
-            string roleID = _roleManager.Roles.FirstOrDefault(r => r.Name == "FiredEmployee").Id;
+            string roleID = _context.Roles.FirstOrDefault(r => r.Name == "FiredEmployee").Id;
             // finds the user
-            AppUser user = _userManager.Users.Where(u => u.Email == lvm.Email).FirstOrDefault();
+            AppUser user = _context.Users.Where(u => u.Email == lvm.Email).FirstOrDefault();
             // finds the roleID tied to the user 
             string userroleid = _context.UserRoles.Where(ur => ur.UserId == user.Id).FirstOrDefault().RoleId;
+
+            if (userroleid == roleID)
+            {
+                return View("Error", new String[] { "You are fired!" });
+            }
 
             //attempt to sign the user in using the SignInManager
             Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(lvm.Email, lvm.Password, lvm.RememberMe, lockoutOnFailure: false);
@@ -170,7 +175,6 @@ namespace Team1_FinalProject.Controllers
             //they requested OR the homepage if there isn't a specific url
             if (result.Succeeded)
             {
-             
                 //return ?? "/" means if returnUrl is null, substitute "/" (home)
                 return RedirectToAction("CheckFired");
             }
