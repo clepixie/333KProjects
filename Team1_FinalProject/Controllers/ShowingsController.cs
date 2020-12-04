@@ -241,7 +241,7 @@ namespace Team1_FinalProject.Controllers
 
             // get a sorted list of all the showings on the day you are trying to add this new showing in the same theater
             List<List<Showing>> allShowings = new List<List<Showing>>();
-            List<Showing> todayshowingt = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == showing.Room).OrderBy(s => s.StartDateTime).ToList();
+            List<Showing> todayshowingt = _context.Showings.Include(s => s.Movie).Where(s => s.ShowingID != showing.ShowingID).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == showing.Room).OrderBy(s => s.StartDateTime).ToList();
             todayshowingt.Add(showing);
             List<Showing> todayshowing = todayshowingt.Where(s => s.Room == showing.Room).OrderBy(s => s.StartDateTime).ToList();
 
@@ -969,7 +969,7 @@ namespace Team1_FinalProject.Controllers
             foreach (Showing showing in newshowings)
             {
                 List<List<Showing>> allShowings = new List<List<Showing>>();
-                List<Showing> todayshowingt = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == showing.Room).OrderBy(s => s.StartDateTime).ToList();
+                List<Showing> todayshowingt = _context.Showings.Include(s => s.Movie).Where(s => s.ShowingID != showing.ShowingID).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == showing.Room).OrderBy(s => s.StartDateTime).ToList();
                 todayshowingt.Add(showing);
                 List<Showing> todayshowing = todayshowingt.Where(s => s.Room == showing.Room).OrderBy(s => s.StartDateTime).ToList();
 
@@ -1292,7 +1292,7 @@ namespace Team1_FinalProject.Controllers
                     }
 
                     List<List<Showing>> allShowings = new List<List<Showing>>();
-                    List<Showing> todayshowingt = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == showing.Room).OrderBy(s => s.StartDateTime).ToList();
+                    List<Showing> todayshowingt = _context.Showings.Include(s => s.Movie).Where(s => s.ShowingID != showing.ShowingID).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == showing.Room).OrderBy(s => s.StartDateTime).ToList();
                     todayshowingt.Add(showing);
                     List<Showing> todayshowing = todayshowingt.Where(s => s.Room == showing.Room).OrderBy(s => s.StartDateTime).ToList();
 
@@ -1571,7 +1571,7 @@ namespace Team1_FinalProject.Controllers
 
                     // get a sorted list of all the showings on the day you are trying to add this new showing in the same theater
                     List<List<Showing>> allShowings = new List<List<Showing>>();
-                    List<Showing> todayshowingt = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == showing.Room).OrderBy(s => s.StartDateTime).ToList();
+                    List<Showing> todayshowingt = _context.Showings.Include(s => s.Movie).Where(s => s.ShowingID != showing.ShowingID).Where(s => s.ShowingID != showing.ShowingID).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == showing.Room).Where(s => s.ShowingID != showing.ShowingID).OrderBy(s => s.StartDateTime).ToList();
                     todayshowingt.Add(showing);
                     List<Showing> todayshowing = todayshowingt.Where(s => s.Room == showing.Room).OrderBy(s => s.StartDateTime).ToList();
 
