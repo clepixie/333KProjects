@@ -133,10 +133,19 @@ namespace Team1_FinalProject.Controllers
                     //add the user to the list of members
                     members.Add(user);
                 }
-                else //user is NOT in the role
+                else if ((await _userManager.IsInRoleAsync(user, "Manager") == true || await _userManager.IsInRoleAsync(user, "FiredEmployee") == true) && (role.Name == "Employee")) //user is NOT in the role
                 {
                     nonMembers.Add(user);
                 }
+                else if (await _userManager.IsInRoleAsync(user, "Employee") == true && (role.Name == "Manager")) //user is NOT in the role
+                {
+                    nonMembers.Add(user);
+                }
+                else if (await _userManager.IsInRoleAsync(user, "Employee") == true && (role.Name == "FiredEmployee"))
+                {
+                    nonMembers.Add(user);
+                }
+
             }
 
             //create a new instance of the role edit model

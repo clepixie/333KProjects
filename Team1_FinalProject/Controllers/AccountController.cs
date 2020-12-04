@@ -22,12 +22,14 @@ namespace Team1_FinalProject.Controllers
         private SignInManager<AppUser> _signInManager;
         private UserManager<AppUser> _userManager;
         private PasswordValidator<AppUser> _passwordValidator;
-        private AppDbContext _context;
+        private readonly AppDbContext _context;
+        private RoleManager<IdentityRole> _roleManager;
 
-        public AccountController(AppDbContext appDbContext, UserManager<AppUser> userManager, SignInManager<AppUser> signIn)
+        public AccountController(AppDbContext appDbContext, UserManager<AppUser> userManager, SignInManager<AppUser> signIn, RoleManager<IdentityRole> roleManager)
         {
             _context = appDbContext;
             _userManager = userManager;
+            _roleManager = roleManager;
             _signInManager = signIn;
             //user manager only has one password validator
             _passwordValidator = (PasswordValidator<AppUser>)userManager.PasswordValidators.FirstOrDefault();
@@ -129,6 +131,18 @@ namespace Team1_FinalProject.Controllers
             return View();
         }
 
+        public IActionResult CheckFired()
+        {
+            if (User.IsInRole("FiredEmployee"))
+            {
+                return View("Error", new String[] { "You are fired!" });
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
@@ -142,6 +156,13 @@ namespace Team1_FinalProject.Controllers
                 return View(lvm);
             }
 
+            // finds the roleID
+            string roleID = _roleManager.Roles.FirstOrDefault(r => r.Name == "FiredEmployee").Id;
+            // finds the user
+            AppUser user = _userManager.Users.Where(u => u.Email == lvm.Email).FirstOrDefault();
+            // finds the roleID tied to the user 
+            string userroleid = _context.UserRoles.Where(ur => ur.UserId == user.Id).FirstOrDefault().RoleId;
+
             //attempt to sign the user in using the SignInManager
             Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(lvm.Email, lvm.Password, lvm.RememberMe, lockoutOnFailure: false);
 
@@ -149,8 +170,9 @@ namespace Team1_FinalProject.Controllers
             //they requested OR the homepage if there isn't a specific url
             if (result.Succeeded)
             {
+             
                 //return ?? "/" means if returnUrl is null, substitute "/" (home)
-                return Redirect(returnUrl ?? "/");
+                return RedirectToAction("CheckFired");
             }
             else //log in was not successful
             {
