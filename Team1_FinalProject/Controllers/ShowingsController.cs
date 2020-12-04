@@ -1428,7 +1428,7 @@ namespace Team1_FinalProject.Controllers
                         if (showing.StartDateTime == s.StartDateTime && s.Movie.Title == movie.Title && s.Room != showing.Room)
                         {
                             ModelState.AddModelError(string.Empty, "You cannot schedule " + movie.Title + " at the same time in both Theaters on " + showing.StartDateTime + ".");
-                            Showing s = _context.Showings
+                            Showing sh = _context.Showings
                                                           .Include(o => o.Price)
                                                           .Include(o => o.Movie)
                                                           .ThenInclude(o => o.Genre)
@@ -1436,7 +1436,7 @@ namespace Team1_FinalProject.Controllers
                                                           .FirstOrDefault(m => m.ShowingID == id);
                             ViewBag.AllShowings1 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 1).OrderBy(s => s.StartDateTime).ToList();
                             ViewBag.AllShowings2 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 2).OrderBy(s => s.StartDateTime).ToList();
-                            return View(s);
+                            return View(sh);
                         }
                     } 
 
