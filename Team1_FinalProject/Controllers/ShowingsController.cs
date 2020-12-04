@@ -658,15 +658,15 @@ namespace Team1_FinalProject.Controllers
             while (startdate != enddate)
             {
                 List<List<Showing>> todayshowings = new List<List<Showing>>();
-                List<Showing> todayshowing1 = _context.Showings.Where(s => s.StartDateTime.Date == startdate).Where(s => s.Room == 1).OrderBy(s => s.StartDateTime).ToList();
+                List<Showing> todayshowing1 = _context.Showings.Where(s => s.StartDateTime.Date == day.Date).Where(s => s.Room == 1).OrderBy(s => s.StartDateTime).ToList();
                 todayshowings.Add(todayshowing1);
-                List<Showing> todayshowing2 = _context.Showings.Where(s => s.StartDateTime.Date == startdate).Where(s => s.Room == 2).OrderBy(s => s.StartDateTime).ToList();
+                List<Showing> todayshowing2 = _context.Showings.Where(s => s.StartDateTime.Date == day.Date).Where(s => s.Room == 2).OrderBy(s => s.StartDateTime).ToList();
                 todayshowings.Add(todayshowing2);
                 var count1 = todayshowing2.Where(s => s.EndDateTime.TimeOfDay > new TimeSpan(21, 30, 0)).ToList().Count();
                 var count2 = todayshowing2.Where(s => s.EndDateTime.TimeOfDay > new TimeSpan(21, 30, 0)).ToList().Count();
                 if ((count1 == 0) && (count2 == 0))
                 {
-                    ModelState.AddModelError(string.Empty, "You must have one showing on " + startdate.ToString("MM/dd/yyyy") + " that ends after 9:30 PM");
+                    ModelState.AddModelError(string.Empty, "You must have one showing on " + day.Date.ToString("MM/dd/yyyy") + " that ends after 9:30 PM");
                     List<Showing> pending = _context.Showings.Include(s => s.Movie).Where(s => s.Status == SStatus.Pending).ToList();
                     List<DateTime> nw = new List<DateTime>();
                     DateTime td = DateTime.Now.Date;
@@ -1248,6 +1248,7 @@ namespace Team1_FinalProject.Controllers
                         ViewBag.AllShowings2 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 2).OrderBy(s => s.StartDateTime).ToList();
                         return View(s);
                     }
+
                     _context.Entry(entry).CurrentValues.SetValues(showing);
 
                     TimeSpan start = new TimeSpan(9, 0, 0);
@@ -1278,6 +1279,7 @@ namespace Team1_FinalProject.Controllers
                         await _context.SaveChangesAsync();
                         return RedirectToAction("Index");
                     }
+
                     // this is the first showing but not the last one
                     if (idx == 0 && (todayshowing.Count() - 1) != idx)
                     {
@@ -1294,7 +1296,7 @@ namespace Team1_FinalProject.Controllers
                             ViewBag.AllShowings2 = _context.Showings.Include(s => s.Movie).Where(s => s.StartDateTime.Date == showing.StartDateTime.Date).Where(s => s.Room == 2).OrderBy(s => s.StartDateTime).ToList();
                             return View(s);
                         }
-                        if ((((todayshowing[idx + 1].StartDateTime - showing.EndDateTime).TotalMinutes < 25 && (todayshowing[idx + 1].StartDateTime - todayshowing[idx + 1].EndDateTime).TotalMinutes > 0)))
+                        if ((todayshowing[idx + 1].StartDateTime - showing.EndDateTime).TotalMinutes < 25 && (todayshowing[idx + 1].StartDateTime - todayshowing[idx + 1].EndDateTime).TotalMinutes > 0)
                         {
                             ModelState.AddModelError(string.Empty, "You cannot change this showing because it ends within 25 minutes with another showing: " + Environment.NewLine
                                 + todayshowing[idx + 1].StartDateTime + " " + todayshowing[idx + 1].EndDateTime + Environment.NewLine + "and" + Environment.NewLine + showing.StartDateTime + " " + showing.EndDateTime);
@@ -1310,7 +1312,7 @@ namespace Team1_FinalProject.Controllers
                             return View(s);
                         }
 
-                        if (showing.Room == todayshowing[idx + 1].Room && (((todayshowing[idx + 1].StartDateTime - showing.EndDateTime).TotalMinutes > 45)))
+                        if ((((todayshowing[idx + 1].StartDateTime - showing.EndDateTime).TotalMinutes > 45)))
                         {
                             ModelState.AddModelError(string.Empty, "You cannot change this showing because it ends over 45 minutes from another showing: " + todayshowing[idx + 1].StartDateTime + " " + todayshowing[idx + 1].EndDateTime + " and " + showing.StartDateTime + " " + showing.EndDateTime);
                             Showing s = _context.Showings
@@ -1359,7 +1361,7 @@ namespace Team1_FinalProject.Controllers
                             /*return View("Error", new String[] { "You cannot add this showing because it is too close with the existing showing:\n" + s.StartDateTime + " " + s.EndDateTime + "\n" + showing.StartDateTime + " " + showing.EndDateTime });*/
                         }
 
-                        if ((showing.Room == todayshowing[idx + 1].Room && ((todayshowing[idx + 1].StartDateTime - showing.EndDateTime).TotalMinutes > 45)) || (showing.Room == todayshowing[idx - 1].Room && ((showing.StartDateTime - todayshowing[idx - 1].EndDateTime).TotalMinutes > 45)))
+                        if ((((todayshowing[idx + 1].StartDateTime - showing.EndDateTime).TotalMinutes > 45)) || (showing.Room == todayshowing[idx - 1].Room && ((showing.StartDateTime - todayshowing[idx - 1].EndDateTime).TotalMinutes > 45)))
                         {
                             ModelState.AddModelError(string.Empty, "You cannot change this showing because it starts or ends over 45 minutes from another showing: " + todayshowing[idx + 1].StartDateTime + " " + todayshowing[idx + 1].EndDateTime + " and " + showing.StartDateTime + " " + showing.EndDateTime);
                             Showing s = _context.Showings
@@ -1406,9 +1408,9 @@ namespace Team1_FinalProject.Controllers
                             return View(s);
                         }
 
-                        if (showing.Room == todayshowing[idx - 1].Room && (((showing.StartDateTime - todayshowing[idx - 1].EndDateTime).TotalMinutes > 45)))
+                        if ((((showing.StartDateTime - todayshowing[idx - 1].EndDateTime).TotalMinutes > 45)))
                         {
-                            ModelState.AddModelError(string.Empty, "You cannot change this showing because it starts over 45 minutes from another showing: " + todayshowing[idx + 1].StartDateTime + " " + todayshowing[idx + 1].EndDateTime + " and " + showing.StartDateTime + " " + showing.EndDateTime);
+                            ModelState.AddModelError(string.Empty, "You cannot change this showing because it starts over 45 minutes from another showing: " + todayshowing[idx - 1].StartDateTime + " " + todayshowing[idx - 1].EndDateTime + " and " + showing.StartDateTime + " " + showing.EndDateTime);
                             Showing s = _context.Showings
                                                            .Include(o => o.Price)
                                                            .Include(o => o.Movie)
